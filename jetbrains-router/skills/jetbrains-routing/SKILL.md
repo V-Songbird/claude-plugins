@@ -48,6 +48,13 @@ Pass `projectPath` explicitly when the session cwd is not the project root, usin
 - **`Bash git status` / `git log` / `git diff` / `git blame`** and other git commands. `get_repositories` only surfaces basic state and doesn't replace `git status`'s detail.
 - **Binary files.** `read_file` errors on binaries; use native `Read` or a `Bash` probe for binary inspection.
 - **Paths outside the project root.** The IDE MCP can only see files inside the open project. Redirect does not apply.
+- **Non-code paths.** The hook passes these through automatically — no action required:
+  - Dotfiles and dotfolders: `.claude/`, `.idea/`, `.gradle/`, `.kotlin/`, `.git/`, `.gitignore`, etc.
+  - Markdown files: `CLAUDE.md`, `README.md`, `docs/guide.md`, etc.
+  - JSON / JSONL files: `package.json`, `tsconfig.json`, etc.
+  - `docs/` directory.
+  - Config/settings extensions: `.yml`, `.yaml`, `.toml`, `.ini`, `.cfg`, `.conf`, `.properties`, `.lock`, `.env`.
+  - For `Grep` / `Glob`: if the `path` parameter points to one of these areas, native tools are used; whole-project searches still redirect.
 - **Interactive or long-running commands** — dev servers, watchers, REPLs.
 - **Linked git worktrees.** When cwd is under a linked worktree (not the main checkout), the hook fails open automatically — the IDE's open project is almost never the worktree itself, and routed paths would miss. No action required from the skill; just expect native tools to run through.
 - **Kotlin / Java in WebStorm or Rider.** If `get_project_modules` returns all modules as `WEB_MODULE` (WebStorm) or `PROJECT` for non-C# files (Rider) and the project contains `.kt` or `.java` files, the Kotlin/Java symbol index is not populated — `search_symbol` and `get_file_problems` will return empty. Use native tools. Kotlin/Java require IntelliJ IDEA (`JAVA_MODULE` type) for semantic indexing.

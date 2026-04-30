@@ -30,10 +30,12 @@ mkdir -p "$MAIN"
   || { echo "SKIP: git worktree add failed"; exit 0; }
 
 # --- Main checkout cwd → redirect still fires ----------------------------
+# Use a source file (.ts) so the worktree guard is what's under test,
+# not the file-type passthrough (README.md / *.md bypass the hook by design).
 INPUT_MAIN="{
   \"tool_name\": \"Read\",
   \"cwd\": \"$MAIN\",
-  \"tool_input\": { \"file_path\": \"$MAIN/README.md\" }
+  \"tool_input\": { \"file_path\": \"$MAIN/src/app.ts\" }
 }"
 run_hook "$INPUT_MAIN"
 assert_eq 2 "$WSR_RC" "main checkout cwd must still redirect"
@@ -43,7 +45,7 @@ assert_contains "$WSR_STDERR" "mcp__webstorm__read_file" "main-checkout redirect
 INPUT_WT="{
   \"tool_name\": \"Read\",
   \"cwd\": \"$WT\",
-  \"tool_input\": { \"file_path\": \"$WT/README.md\" }
+  \"tool_input\": { \"file_path\": \"$WT/src/app.ts\" }
 }"
 run_hook "$INPUT_WT"
 assert_eq 0 "$WSR_RC" "linked worktree cwd must fail open (IDE likely has main open)"
@@ -53,7 +55,7 @@ assert_not_contains "$WSR_STDERR" "mcp__webstorm__" "no redirect message in work
 INPUT_WT_BASH="{
   \"tool_name\": \"Bash\",
   \"cwd\": \"$WT\",
-  \"tool_input\": { \"command\": \"cat README.md\" }
+  \"tool_input\": { \"command\": \"cat src/app.ts\" }
 }"
 run_hook "$INPUT_WT_BASH"
 assert_eq 0 "$WSR_RC" "worktree must fail open for Bash too — guard runs before the dispatch"

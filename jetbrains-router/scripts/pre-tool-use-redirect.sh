@@ -85,6 +85,42 @@ _is_binary() {
   return 1
 }
 
+# --- Non-code paths to leave on native tools --------------------------------
+# Dotfolders (.claude, .idea, .gradle, .git, etc.), dotfiles (.gitignore),
+# markdown, JSON/JSONL, docs/, and common config/settings extensions are all
+# meta-files that agents read for Claude Code or project configuration.
+# The IDE's project index is optimised for source code; routing these through
+# JetBrains adds no value and breaks reads of Claude Code's own config.
+# Arg: project-relative path (forward-slash separated, no leading slash).
+_is_passthrough_path() {
+  local rel="$1"
+  # Dotfile or any path starting with a dotfolder (.claude/…, .idea/…, etc.)
+  case "$rel" in
+    .*) return 0 ;;
+  esac
+  # Path through an interior dotfolder segment (e.g. src/.hidden)
+  case "$rel" in
+    */.*)  return 0 ;;
+  esac
+  # Markdown files (CLAUDE.md, README.md, docs/guide.md, etc.)
+  case "$rel" in
+    *.md|*.mdx) return 0 ;;
+  esac
+  # JSON / JSONL (package.json, tsconfig.json, settings files, etc.)
+  case "$rel" in
+    *.json|*.jsonl) return 0 ;;
+  esac
+  # docs directory
+  case "$rel" in
+    docs|docs/*) return 0 ;;
+  esac
+  # Config and settings file extensions
+  case "$rel" in
+    *.yml|*.yaml|*.toml|*.ini|*.cfg|*.conf|*.properties|*.lock|*.env) return 0 ;;
+  esac
+  return 1
+}
+
 # --- Normalize a Windows drive-letter prefix to lowercase (for compare) ----
 _drive_norm() {
   case "$1" in
@@ -155,11 +191,19 @@ case "$TOOL_NAME" in
     _is_binary "$FP" && exit 0
     REL="$(path_to_project_relative "$FP" "$CWD")"
     [ -n "$REL" ] || exit 0
+    _is_passthrough_path "$REL" && exit 0
     block "retry as mcp__${JB_PREFIX}__read_file with pathInProject=\"$REL\" — this redirect is expected."
     ;;
 
   Grep)
     PATTERN="$(printf '%s' "$INPUT" | jq -r '.tool_input.pattern // empty' 2>/dev/null)"
+    # If the search is scoped to a passthrough path (dotfolder, docs, config),
+    # let native Grep handle it — IDE search adds no value there.
+    GREP_PATH="$(printf '%s' "$INPUT" | jq -r '.tool_input.path // empty' 2>/dev/null)"
+    if [ -n "$GREP_PATH" ]; then
+      GREP_REL="$(path_to_project_relative "$GREP_PATH" "$CWD")"
+      { [ -n "$GREP_REL" ] && _is_passthrough_path "$GREP_REL"; } && exit 0
+    fi
     # Claude Code's Grep is always ripgrep-backed (regex). Route to
     # search_regex unconditionally — it handles literals too. The skill
     # documents when search_text is slightly more ergonomic.
@@ -168,6 +212,12 @@ case "$TOOL_NAME" in
 
   Glob)
     PATTERN="$(printf '%s' "$INPUT" | jq -r '.tool_input.pattern // empty' 2>/dev/null)"
+    # If the search path is scoped to a passthrough directory, let native Glob run.
+    GLOB_PATH="$(printf '%s' "$INPUT" | jq -r '.tool_input.path // empty' 2>/dev/null)"
+    if [ -n "$GLOB_PATH" ]; then
+      GLOB_REL="$(path_to_project_relative "$GLOB_PATH" "$CWD")"
+      { [ -n "$GLOB_REL" ] && _is_passthrough_path "$GLOB_REL"; } && exit 0
+    fi
     block "retry as mcp__${JB_PREFIX}__search_file with q=\"$PATTERN\" — this redirect is expected."
     ;;
 
@@ -176,6 +226,7 @@ case "$TOOL_NAME" in
     _is_binary "$FP" && exit 0
     REL="$(path_to_project_relative "$FP" "$CWD")"
     [ -n "$REL" ] || exit 0
+    _is_passthrough_path "$REL" && exit 0
     # replace_text_in_file requires the file to exist on disk. If it doesn't,
     # let native Edit emit its own "file not found" error rather than route
     # to a tool that will fail with a less clear message.
@@ -189,6 +240,7 @@ case "$TOOL_NAME" in
     _is_binary "$FP" && exit 0
     REL="$(path_to_project_relative "$FP" "$CWD")"
     [ -n "$REL" ] || exit 0
+    _is_passthrough_path "$REL" && exit 0
     # create_new_file refuses to overwrite. If the target already exists,
     # Write wants overwrite semantics — let native Write handle it.
     ABS="$(_abs_path "$FP" "$CWD")"
@@ -299,6 +351,7 @@ case "$TOOL_NAME" in
         _is_binary "$FILE_ARG" && exit 0
         REL="$(path_to_project_relative "$FILE_ARG" "$CWD")"
         [ -n "$REL" ] || exit 0
+        _is_passthrough_path "$REL" && exit 0
         block "retry as mcp__${JB_PREFIX}__read_file with pathInProject=\"$REL\" — this redirect is expected."
         ;;
 

@@ -10,7 +10,23 @@ When a supported JetBrains IDE is connected (WebStorm, Rider, IntelliJ IDEA), Cl
 
 **Fails open**: when no IDE is connected or the MCP server is unreachable, all tool calls pass through to native Claude Code behavior without error or interruption.
 
-> **Version:** 1.0.0-alpha — interfaces may change between minor releases.
+## Routing scope
+
+Routing applies to **source code files**. The following always use native tools, even when an IDE is connected:
+
+| Category | Examples |
+|----------|---------|
+| Dotfiles and dotfolders | `.claude/`, `.idea/`, `.gradle/`, `.kotlin/`, `.gitignore`, `.env` |
+| Markdown | `CLAUDE.md`, `README.md`, `docs/guide.md` |
+| JSON / JSONL | `package.json`, `tsconfig.json`, `*.jsonl` |
+| `docs/` directory | any file under `docs/` |
+| Config extensions | `.yml`, `.yaml`, `.toml`, `.ini`, `.cfg`, `.conf`, `.properties`, `.lock` |
+| Binary files | images, archives, compiled artifacts |
+| Paths outside the project root | the IDE can only see files inside its open project |
+
+For `Grep` and `Glob`, native tools are used when the `path` parameter targets one of the above areas. Whole-project searches (no `path` argument) still redirect to the IDE's index-backed search.
+
+> **Version:** 1.0.1-alpha — interfaces may change between minor releases.
 
 ## Requirements
 

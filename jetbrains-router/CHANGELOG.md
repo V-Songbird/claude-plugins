@@ -6,6 +6,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 
 ## [Unreleased]
 
+## [1.0.1-alpha] — 2026-04-30
+
+### Fixed
+
+- Non-code paths now pass through to native tools instead of being routed to the IDE. Routing is scoped to source code; the following always use native tools regardless of IDE state: dotfiles and dotfolders (`.claude/`, `.idea/`, `.gradle/`, `.kotlin/`, `.gitignore`, etc.), markdown files (`CLAUDE.md`, `README.md`, `docs/*.md`), JSON and JSONL files (`package.json`, `tsconfig.json`), the `docs/` directory, and common config extensions (`.yml`, `.yaml`, `.toml`, `.ini`, `.cfg`, `.conf`, `.properties`, `.lock`, `.env`). Applies to `Read`, `Edit`, `Write`, and `Bash cat/head/tail`. For `Grep` and `Glob`, routing is bypassed when their `path` parameter targets a passthrough directory; whole-project searches still redirect.
+
 ## [1.0.0-alpha] — 2026-04-29
 
 ### Added
