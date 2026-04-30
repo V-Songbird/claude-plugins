@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-# JETBRAINS_MCP_PREFIX: overrides the default 'webstorm' prefix so the hook
+﻿#!/usr/bin/env bash
+# JETBRAINS_MCP_PREFIX: overrides the auto-detected IDE prefix so the hook
 # emits the correct mcp__<prefix>__* tool name for rider, idea, or any custom
 # server key the user registered in their mcpServers config.
 
@@ -12,11 +12,13 @@ INPUT='{
   "tool_input": { "file_path": "/home/proj/my-app/src/app.ts" }
 }'
 
-# --- Default: no env var → canonical webstorm prefix -------------------------
+# --- Default: no env var, FORCE_INTERNAL=1 → webstorm (probe skipped) --------
+# In test mode (FORCE_INTERNAL=1 set by helpers.sh), auto-detection is skipped
+# so results are deterministic regardless of which IDE is open on the machine.
 unset JETBRAINS_MCP_PREFIX
 run_hook "$INPUT"
 assert_eq 2 "$WSR_RC" "default prefix: Read must redirect"
-assert_contains "$WSR_STDERR" "mcp__webstorm__read_file" "default prefix must be webstorm"
+assert_contains "$WSR_STDERR" "mcp__webstorm__read_file" "default prefix falls back to webstorm in FORCE_INTERNAL mode"
 
 # --- rider prefix -------------------------------------------------------------
 export JETBRAINS_MCP_PREFIX=rider

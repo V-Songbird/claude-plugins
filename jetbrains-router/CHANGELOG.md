@@ -1,10 +1,16 @@
-# Changelog
+﻿# Changelog
 
 All notable changes to jetbrains-router are documented here.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html); alpha releases may introduce breaking changes in minor versions.
 
 ## [Unreleased]
+
+## [1.0.2-alpha] — 2026-04-30
+
+### Fixed
+
+- Routing always redirected to `mcp__webstorm__*` regardless of which IDE was actually running. The hook now auto-detects the active JetBrains IDE process (Rider, IntelliJ IDEA, or WebStorm) via the same platform dispatch used by `jetbrains-detect.sh` (tasklist on Windows, pgrep/ps on macOS/Linux) and routes to the matching prefix. `JETBRAINS_MCP_PREFIX` continues to override auto-detection for renamed mcpServers entries or java-wrapper-launched IDEs where the probe cannot see the process.
 
 ## [1.0.1-alpha] — 2026-04-30
 

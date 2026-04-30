@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 # pre-tool-use-redirect — the enforcement side of jetbrains-router.
 # Intercepts native Read / Grep / Glob / Edit / Write / Bash PreToolUse
 # events; when a JetBrains IDE is running and the native call has a direct
@@ -20,8 +20,50 @@ set -u
 # --- Active JetBrains IDE MCP prefix ----------------------------------------
 # JetBrains auto-configure produces 'webstorm', 'rider', or 'idea' as the
 # mcpServers key — that becomes the mcp__<key>__* tool prefix.
-# Override with JETBRAINS_MCP_PREFIX if you renamed your mcp server entry.
-JB_PREFIX="${JETBRAINS_MCP_PREFIX:-webstorm}"
+# Auto-detected from the running IDE process; override with JETBRAINS_MCP_PREFIX
+# if the probe misses (e.g. IDE launched via java -cp ...) or you renamed your
+# mcpServers entry.
+_detect_jb_prefix() {
+  # Explicit user override always wins.
+  if [ -n "${JETBRAINS_MCP_PREFIX:-}" ]; then
+    printf '%s' "$JETBRAINS_MCP_PREFIX"
+    return
+  fi
+  # In FORCE_INTERNAL mode (test suite or java-wrapper launchers), no real
+  # process is guaranteed to be running. Skip the probe and use the legacy
+  # default; callers that need a non-webstorm prefix in this mode must set
+  # JETBRAINS_MCP_PREFIX explicitly.
+  if [ "${JETBRAINS_ROUTER_FORCE_INTERNAL:-}" = "1" ]; then
+    printf 'webstorm'
+    return
+  fi
+  # Process probe: map known JetBrains IDE executable names to their MCP
+  # server key. Mirrors the platform dispatch used by jetbrains-detect.sh.
+  local _rider='rider|rider64'
+  local _idea='idea|idea64'
+  local _ws='webstorm|webstorm64'
+  if command -v tasklist >/dev/null 2>&1; then
+    local _tl
+    _tl="$(tasklist //NH //FO CSV 2>/dev/null)"
+    printf '%s' "$_tl" | grep -Eqi "^\"($_rider)(\.exe)?\"," && { printf 'rider'; return; }
+    printf '%s' "$_tl" | grep -Eqi "^\"($_idea)(\.exe)?\"," && { printf 'idea'; return; }
+    printf '%s' "$_tl" | grep -Eqi "^\"($_ws)(\.exe)?\"," && { printf 'webstorm'; return; }
+  fi
+  if command -v pgrep >/dev/null 2>&1; then
+    pgrep -xi "$_rider" >/dev/null 2>&1 && { printf 'rider'; return; }
+    pgrep -xi "$_idea" >/dev/null 2>&1 && { printf 'idea'; return; }
+    pgrep -xi "$_ws" >/dev/null 2>&1 && { printf 'webstorm'; return; }
+  fi
+  if command -v ps >/dev/null 2>&1; then
+    local _ps
+    _ps="$(ps -A 2>/dev/null | awk '{print $NF}')"
+    printf '%s' "$_ps" | grep -Eqi "^($_rider)(\.exe)?$" && { printf 'rider'; return; }
+    printf '%s' "$_ps" | grep -Eqi "^($_idea)(\.exe)?$" && { printf 'idea'; return; }
+    printf '%s' "$_ps" | grep -Eqi "^($_ws)(\.exe)?$" && { printf 'webstorm'; return; }
+  fi
+  printf 'webstorm'
+}
+JB_PREFIX="$(_detect_jb_prefix)"
 
 # --- Resolve plugin root (works without CLAUDE_PLUGIN_ROOT, e.g. in tests) --
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
