@@ -71,8 +71,7 @@ extract_keyword() {
 
 # Trim leading and trailing whitespace (portable, no bashisms).
 trim() {
-  # shellcheck disable=SC2001
-  printf '%s' "$1" | sed 's/^[[:space:]]\+//; s/[[:space:]]\+$//'
+  printf '%s' "$1" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//'
 }
 
 # Scan one file with one marker. Writes JSON objects to $TMPFILE (one per line).
