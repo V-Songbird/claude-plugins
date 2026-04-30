@@ -1,0 +1,13 @@
+{
+  "name": "kairoi",
+  "description": "Peace of mind when Claude codes in a stack you don't know. Warns before risky edits, captures what changed so Claude stays in sync with your project, and reflects on long sessions so memory doesn't drift. Cross-module aware.",
+  "version": "1.0.0-alpha",
+  "license": "MIT",
+  "author": {
+    "name": "Songbird",
+    "email": "songbird@tuta.com"
+  },
+  "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/kairoi",
+  "repository": "https://github.com/V-Songbird/claude-plugins",
+  "keywords": ["safety", "guards", "memory", "reflection", "session", "risk", "sync"]
+}

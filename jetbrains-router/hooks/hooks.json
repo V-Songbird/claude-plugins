@@ -1,0 +1,67 @@
+{
+  "description": "jetbrains-router hooks — PreToolUse redirects for Read/Grep/Glob/Edit/Write/Bash to their mcp__<ide>__* equivalents. Write and Edit are registered as separate matcher entries (not 'Write|Edit') as a workaround for the Claude Code combined-matcher dispatch bug on Windows (anthropics/claude-code#6305, #18527, #22449). Matchers are anchored as ^Name$ so tools like BashOutput / NotebookEdit don't accidentally trigger the redirect script.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^Read$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use-redirect.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Grep$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use-redirect.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Glob$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use-redirect.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Edit$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use-redirect.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Write$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use-redirect.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Bash$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use-redirect.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

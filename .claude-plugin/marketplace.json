@@ -1,0 +1,45 @@
+{
+  "name": "songbird",
+  "description": "Songbird's plugin marketplace",
+  "owner": {
+    "name": "Songbird"
+  },
+  "plugins": [
+    {
+      "name": "kairoi",
+      "description": "Peace of mind when Claude codes in a stack you don't know. Edit-time guards, automatic commit capture, self-maintaining reflection. Cross-module aware.",
+      "version": "1.0.0-alpha",
+      "source": "./kairoi"
+    },
+    {
+      "name": "rulesense",
+      "description": "Reviews and drafts the rule files that guide Claude Code (CLAUDE.md and .claude/rules/). Grades existing rules for clarity, flags weak ones, and helps you write new ones.",
+      "version": "1.0.0-alpha",
+      "source": "./rulesense"
+    },
+    {
+      "name": "iceberg",
+      "description": "Encode senior-authored architectural rules as compiler/lint errors — not PR comments. Language-agnostic (TypeScript, Python, Rust, JVM, .NET, Go). Three modes: apply the convention while authoring code, audit an existing codebase for structural debt, or bootstrap enforcement scaffolding in a fresh project.",
+      "version": "1.0.0-alpha",
+      "source": "./iceberg"
+    },
+    {
+      "name": "scriptorium",
+      "description": "Makes Claude more effective at authoring Claude Code instruction artifacts (SKILL.md, CLAUDE.md, plans, subagents, slash commands, hook scripts). The scribe skill covers every tool, parameter, and phrasing pattern Claude Code parses and executes reliably; the proofreader agent audits drafts against a 13-item checklist (tool-shape, body health, references, user-facing prose, frontmatter validity, decomposition opportunity, dynamic-injection safety) so nothing downstream falls back to prose placeholders or bare tool calls.",
+      "version": "1.0.0-alpha",
+      "source": "./scriptorium"
+    },
+    {
+      "name": "jetbrains-router",
+      "description": "Routes Claude Code's Read/Grep/Glob/Edit/Write/Bash through a JetBrains IDE MCP server (WebStorm, Rider, IntelliJ IDEA). Primary wins: get_file_problems replaces local tsc/gradle/mypy runs for diagnostics, the project index narrows searches past ignored paths, and reads reflect the editor's in-memory buffer (unsaved changes visible). PreToolUse hook fails open when no IDE is connected. Requires a JetBrains IDE 2025.2+ with MCP Server enabled.",
+      "version": "1.0.0-alpha",
+      "source": "./jetbrains-router"
+    },
+    {
+      "name": "forge",
+      "description": "Pre-code feature review workflow. Stress-tests a proposed feature design against the codebase via reality-check spike → parallel domain experts → master plan → adversarial critic → revise → user approval, before any code is written. The value lives in the gates: parallel experts surface cross-domain conflicts; the adversarial critic ground-truths the plan against actual code; the user-approval step is the redirect point. Pipeline ends at approval; the orchestrator implements directly in the main session by default. Two optional helpers (`/dispatch-implementation`, `/build-and-report`) handle parallel worktree dispatch and stack-specific build/verify for plans that warrant them. Stack-agnostic — build commands defer to the consuming project's own CLAUDE.md.",
+      "version": "1.0.0-alpha",
+      "source": "./forge"
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "schema_version": "0.1",
+  "description": "Signal patterns and weights for the placement analyzer (hook/skill/subagent/compound detection). Each primitive has a list of signals; a rule's detection confidence for that primitive is the weighted sum of matching signals, capped at 1.0. A primitive is a candidate when confidence >= candidate_threshold. A rule is compound when >= 2 primitives fire at >= compound_threshold AND the rule text contains a conjunction connecting verb-chains of different enforceability classes. Initial weights are author-judgment estimates and are subject to calibration against dogfood projects before release.",
+
+  "candidate_threshold": 0.60,
+  "compound_threshold": 0.35,
+
+  "hook": {
+    "signals": [
+      {
+        "name": "f8-low",
+        "weight": 0.40,
+        "criterion": "factor_threshold",
+        "factor": "F8",
+        "operator": "<",
+        "threshold": 0.40,
+        "rationale": "F8 already measures enforceability; a low F8 is the strongest signal that a hook fits better than text."
+      },
+      {
+        "name": "tool-invocation-match",
+        "weight": 0.30,
+        "criterion": "regex",
+        "pattern": "\\b(git\\s+(commit|push|tag|reset|rebase|checkout|merge|force-push)|npm\\s+(publish|version|install)|yarn\\s+(publish|version)|pnpm\\s+(publish|version)|pip\\s+install|docker\\s+push)\\b",
+        "flags": "i",
+        "rationale": "Rules naming a specific tool-invocation pattern map cleanly to PreToolUse hooks with a Bash matcher."
+      },
+      {
+        "name": "mechanical-verb",
+        "weight": 0.20,
+        "criterion": "regex",
+        "pattern": "^\\s*(never|always|do not|don't)\\s+\\w+",
+        "flags": "i",
+        "rationale": "Absolute modal verbs at the start of a rule signal a bright-line check that a hook enforces more reliably than a text reminder."
+      },
+      {
+        "name": "lifecycle-trigger-keyword",
+        "weight": 0.25,
+        "criterion": "regex",
+        "pattern": "\\b(before\\s+(committing|pushing|merging|releasing|publishing)|after\\s+(tests?\\s+pass|the?\\s*build|each\\s+(edit|write|save))|on\\s+save|pre[-\\s]commit|post[-\\s]commit|session\\s+start)\\b",
+        "flags": "i",
+        "rationale": "Explicit lifecycle-event language tells us which hook event to suggest. Weight lifted from 0.15 to 0.25 after initial smoke tests showed 'Before pushing, run X' rules fell just below the candidate threshold with F8-low alone."
+      }
+    ]
+  },
+
+  "skill": {
+    "signals": [
+      {
+        "name": "reference-pointer-phrase",
+        "weight": 0.40,
+        "criterion": "regex",
+        "pattern": "\\b(follow\\s+the\\s+(style\\s+guide|conventions?|patterns?|spec)|conventions?\\s+(are|live)\\s+in|see\\s+[`\"\\[].*?\\bfor\\b|refer\\s+to\\s+(the\\s+)?[`\"\\[]|check\\s+(against|in)\\s+(the\\s+)?[`\"\\[]|consult\\s+[`\"\\[]|documented\\s+in\\s+[`\"\\[])",
+        "flags": "i",
+        "rationale": "Rules that point to an external reference document are reference-skill candidates — the real content is the reference, not the rule text. Primary signal for the reference-skill sub-type, so it carries more weight than supporting signals."
+      },
+      {
+        "name": "external-reference-to-md",
+        "weight": 0.25,
+        "criterion": "regex",
+        "pattern": "\\b[`\"\\[][\\w./-]+\\.md[`\"\\]](?!\\s*$)",
+        "rationale": "A rule whose body references a .md file (style guide, addendum, vocabulary doc) is likely a pointer. Negative lookahead excludes pointer-navigation bullets already filtered earlier in extract.py."
+      },
+      {
+        "name": "workflow-step-chain",
+        "weight": 0.35,
+        "criterion": "step_chain",
+        "min_steps": 3,
+        "patterns": [
+          "\\bfirst\\b.*?\\bthen\\b.*?\\b(then|finally|and\\s+then)\\b",
+          "\\bstep\\s*1\\b.*?\\bstep\\s*2\\b",
+          ",\\s*then\\b.*?,\\s*then\\b",
+          "\\bafter\\s+[^,]+,\\s*(do|run|execute)\\b.*?,\\s*(then|finally)\\b"
+        ],
+        "flags": "i",
+        "rationale": "Ordered multi-step procedures are action-skill candidates. Requires >= 3 sequenced steps per §12.3's decision to avoid over-flagging two-step conjunctions that are still rule-shaped."
+      },
+      {
+        "name": "named-procedure-trigger",
+        "weight": 0.30,
+        "criterion": "regex",
+        "pattern": "^\\s*when\\s+(deploying|releasing|publishing|shipping|cutting\\s+a\\s+release|preparing\\s+a\\s+release|creating\\s+a\\s+(new\\s+)?(component|page|module|service)|scaffolding|bootstrapping)\\b",
+        "flags": "i",
+        "rationale": "Opening with a user-intent phrase that maps to a named workflow trigger (e.g. /deploy, /release) is an action-skill signal."
+      },
+      {
+        "name": "pointer-shape",
+        "weight": 0.25,
+        "criterion": "pointer_shape",
+        "max_action_verbs": 1,
+        "rationale": "A rule that is primarily nouns + external reference with at most one action verb has 'pointer shape' — the real directive lives in the referenced doc."
+      }
+    ],
+    "sub_type_rules": [
+      {"name": "reference", "requires_any": ["reference-pointer-phrase", "external-reference-to-md", "pointer-shape"]},
+      {"name": "action", "requires_any": ["workflow-step-chain", "named-procedure-trigger"]}
+    ]
+  },
+
+  "subagent": {
+    "signals": [
+      {
+        "name": "read-large-tree",
+        "weight": 0.40,
+        "criterion": "regex",
+        "pattern": "\\b(read\\s+the\\s+(full|entire|whole)\\s+[\\w\\s]+|read\\s+the\\s+source\\s+(at|in)|check\\s+every\\s+[\\w\\s]+|scan\\s+(all|every)\\s+[\\w\\s]+|inspect\\s+(all|every)\\s+[\\w\\s]+|traverse\\s+(all|every|the\\s+entire))\\b",
+        "flags": "i",
+        "rationale": "Rules instructing Claude to read large external trees burn main-context attention; isolating in a subagent keeps the main conversation lean."
+      },
+      {
+        "name": "audit-verb",
+        "weight": 0.40,
+        "criterion": "regex",
+        "pattern": "\\b(audit|review|verify|check)\\s+(the\\s+)?(diff|code|changes?|coverage|implementation|module|component|feature|test\\s+suite|pr|branch|commit)\\b",
+        "flags": "i",
+        "rationale": "Audit/review language is the classic subagent use case — delimited task, summary output, benefits from bias independence. Primary subagent signal; carries more weight than supporting ones. Pattern fires anywhere in the rule (not just at the start) so 'then audit the diff' and similar post-clauses count."
+      },
+      {
+        "name": "judgment-verification-phrase",
+        "weight": 0.40,
+        "criterion": "regex",
+        "pattern": "\\b(make\\s+sure\\s+(the\\s+)?[\\w\\s]+?\\s+(covers?|is\\s+(tested|verified|asserted)|meets?)|ensure\\s+(the\\s+)?[\\w\\s]+?\\s+(complies|satisfies|matches)|verify\\s+(the\\s+)?[\\w\\s]+?\\s+(covers?|is\\s+exercised))\\b",
+        "flags": "i",
+        "rationale": "Phrases like 'make sure X covers Y' or 'ensure X satisfies Y' describe judgment calls that need reasoning (not mechanical checks). Characteristic of subagent territory — a fresh context reasons about whether a property holds. Added after initial smoke test showed the compound 'Never commit without tests, and make sure the suite covers the change' had no subagent signals firing on its second half."
+      },
+      {
+        "name": "bias-independence-language",
+        "weight": 0.20,
+        "criterion": "regex",
+        "pattern": "\\b(fresh\\s+context|second\\s+opinion|independent\\s+review|without\\s+(knowing|seeing)\\s+what\\s+was\\s+written|unbiased\\s+review|from\\s+scratch\\b|blind\\s+review)\\b",
+        "flags": "i",
+        "rationale": "Explicit bias-independence language directly calls for a subagent's isolated context."
+      },
+      {
+        "name": "delimited-summary-output",
+        "weight": 0.20,
+        "criterion": "regex",
+        "pattern": "\\b(return\\s+(a\\s+)?(summary|verdict|list|inventory|report|contract|approved|ok)|report\\s+back\\s+with|produce\\s+(a\\s+)?(contract|inventory|summary|report|list\\s+of))\\b",
+        "flags": "i",
+        "rationale": "Rules that specify a delimited summary output shape fit the subagent contract (isolated work, summary back)."
+      },
+      {
+        "name": "context-heavy-reference",
+        "weight": 0.25,
+        "criterion": "regex",
+        "pattern": "\\b(the\\s+(full|entire|whole)\\s+(repository|repo|codebase|source\\s+tree)|sibling\\s+(repo|codebase|project)|external\\s+(repository|project|codebase))\\b|[A-Za-z]:[\\\\/][\\w\\\\/.\\- ]+|(?<![\\w/])/[\\w./\\-]+/[\\w./\\-]+",
+        "flags": "i",
+        "rationale": "References to external repositories, absolute sibling paths (Windows D:\\... or D:/... or POSIX /absolute/path), or whole-codebase scopes indicate the rule would load far more than the main context should carry."
+      },
+      {
+        "name": "agent-invocation-phrase",
+        "weight": 0.65,
+        "criterion": "regex",
+        "pattern": "\\b(run|invoke|delegate\\s+to|call|use|spawn|launch)\\s+(the\\s+)?`?[\\w][\\w.-]*`?\\s+(agent|subagent)\\b",
+        "flags": "i",
+        "rationale": "Rules that instruct Claude to invoke a named agent or subagent — e.g. 'Run the v2-migration-auditor agent after X', 'delegate to the `coverage-auditor` subagent' — ARE the subagent primitive by definition. The weight (0.65) is tuned high enough that a single match crosses the candidate threshold: a rule that literally names the agent primitive shouldn't need a companion signal to classify as subagent. Pattern allows optional backticks around the agent name (users routinely wrap identifiers in markdown code spans — second Dallas-Digital dogfood surfaced `Run the `v2-migration-auditor` agent after migrating` as a missed case because the initial version of the regex required the first character of the name to be a word character and backticks are not word characters). Pattern still requires whitespace between the name and 'agent'/'subagent' so greedy matching doesn't eat the alternation."
+      }
+    ],
+    "sub_type_rules": [
+      {"name": "named-agent", "requires_any": ["agent-invocation-phrase"]},
+      {"name": "read-heavy", "requires_any": ["read-large-tree", "context-heavy-reference"], "exclude": ["audit-verb", "bias-independence-language", "agent-invocation-phrase"]},
+      {"name": "review", "requires_any": ["audit-verb", "bias-independence-language"], "exclude": ["read-large-tree", "context-heavy-reference", "agent-invocation-phrase"]},
+      {"name": "investigation", "requires_all_groups": [["read-large-tree", "context-heavy-reference"], ["audit-verb", "bias-independence-language"]]}
+    ]
+  },
+
+  "compound": {
+    "conjunction_pattern": "(,\\s+and\\s+|\\s+\\u2014\\s+|\\s+--\\s+|;\\s+|\\s+while\\s+also\\s+|\\s+plus\\s+)",
+    "coordination_phrases_for_glue": [
+      "\\band\\s+make\\s+sure\\b",
+      "\\band\\s+(also\\s+)?(verify|ensure|check)\\b",
+      "before\\s+.*?\\band\\b.*?(make\\s+sure|verify|ensure)",
+      "after\\s+.*?\\band\\b.*?(verify|ensure|check)",
+      "\\bwhile\\s+(editing|writing|reviewing|committing|pushing)\\b",
+      "\\bat\\s+the\\s+moment\\s+of\\b"
+    ],
+    "coordination_rationale": "Per §12.4: emit a 'glue skill' suggestion only when the compound rule's parts must be coordinated in time (e.g. hook runs after subagent verdict). The 'and make sure', 'and verify', 'and ensure' patterns catch the classic case where a mechanical half and a judgment half are conjoined under an implicit temporal link (both fire at the same moment). Otherwise the parts can be promoted independently."
+  }
+}

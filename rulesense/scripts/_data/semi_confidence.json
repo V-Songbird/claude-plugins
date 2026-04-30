@@ -1,0 +1,9 @@
+{
+  "version": "1.1.0",
+  "description": "Confidence-flag thresholds for F7 (concreteness) semi-mechanical scoring. Tunable by eval harness. F6 is absorbed into F7 — not a separate factor.",
+  "F7": {
+    "flag_when_ratio_between": [0.4, 0.7],
+    "flag_when_abstract_present_with_concrete": true,
+    "description": "Flag rules where concrete:abstract ratio is mixed or counterexample test may be warranted"
+  }
+}

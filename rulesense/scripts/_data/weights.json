@@ -1,0 +1,41 @@
+{
+  "version": "quality-heuristic-0.1",
+  "description": "Factor weights for the structural-clarity heuristic — how clearly Claude can parse and apply each rule. F8 (enforceability) is scored and reported as a parallel 'Hook opportunities' signal but not included in the composite: it measures tool-selection optimality (could a hook do this better?), not Claude comprehension. Five composite factors contribute: F1, F2, F3, F4, F7. These are not calibrated compliance-prediction weights.",
+  "weights": {
+    "F1": 1.5,
+    "F2": 1.0,
+    "F3": 1.3,
+    "F4": 1.0,
+    "F7": 2.0
+  },
+  "total": 6.8,
+  "parallel_factors": {
+    "F8": {"threshold": 0.40, "role": "hook_opportunity_signal"}
+  },
+  "soft_floor_threshold": 0.2,
+  "soft_floor_factors": ["F4", "F7"],
+  "staleness_multiplier": 0.05,
+  "category_floors": {
+    "mandate": 0.50,
+    "override": 0.25,
+    "preference": 0.25
+  },
+  "position_weights": {
+    "edge": 1.0,
+    "middle": 0.80,
+    "_doc": "Smooth triangular position weight (see compose.py::compute_per_file_score). 'edge' is the weight applied at the top and bottom of a file; 'middle' is the weight at the file midpoint. Weights interpolate linearly between them via a triangular function — no step/discontinuity. Keys were renamed from 'top_bottom_20pct' / 'middle_60pct' in iteration 4; the old names referred to a step-function era that was replaced by smooth interpolation."
+  },
+  "length_penalty": {
+    "threshold_lines": 120,
+    "penalty_per_line": 0.005,
+    "minimum_penalty": 0.6
+  },
+  "F4_no_overlap_score": 0.85,
+  "F4_ambiguous_score": 0.65,
+  "_F4_score_notes": "F4_no_overlap_score (0.85): score for a glob-scoped rule with no explicit trigger text and no keyword overlap between rule and glob. The paths: frontmatter IS the alignment mechanism; the rule correctly trusts the scope and should not be penalized for being concise. F4_ambiguous_score (0.65): true fallback for the ambiguous case (always_loaded=False AND no globs) — alignment is actually unknowable.",
+  "gap_threshold": 0.63,
+  "load_prob_defaults": {
+    "always_loaded": 1.0,
+    "glob_scoped": 0.5
+  }
+}

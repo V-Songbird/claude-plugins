@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "description": "F1 verb strength lookup table. Scores from factor-rubrics.md.",
+  "patterns": [
+    {"score": 1.00, "verbs": ["must", "required"], "label": "unconditional_mandate"},
+    {"score": 0.95, "verbs": ["never", "do not", "don't", "forbidden", "cannot", "must not"], "label": "strong_prohibition"},
+    {"score": 0.85, "verbs": ["use", "run", "ensure", "place", "return", "validate", "add", "create", "implement", "include", "set", "write", "check", "apply", "import", "export", "call", "pass", "configure", "define", "make", "keep", "follow", "put", "handle", "wrap", "throw", "catch", "extend", "override", "test", "verify", "assert", "name", "format", "structure", "organize", "separate", "split", "merge", "combine", "convert", "transform", "parse", "serialize", "render", "display", "log", "track", "store", "save", "load", "read", "delete", "remove", "update", "replace", "insert", "append", "prepend", "edit", "modify", "regenerate", "rebuild", "restart", "install", "deploy", "commit", "push", "pull", "fetch", "rebase", "tag", "release", "document", "annotate", "refactor", "migrate", "initialize", "register", "enable", "disable", "allow", "block", "reject", "accept", "emit", "publish", "subscribe", "listen", "watch", "mount", "unmount", "report", "record", "reset", "revert", "avoid", "enforce", "restrict", "limit", "generate", "execute", "maintain", "expose", "guard", "preserve", "notify", "specify", "invoke", "compose", "bind", "defer", "inline", "encrypt", "decrypt", "sanitize", "normalize", "optimize", "lint", "retry", "abort", "cache", "pin", "scope", "flush", "throttle", "debounce", "suppress", "freeze", "truncate", "rotate", "scaffold", "bootstrap", "populate", "drain", "terminate", "preload", "paginate", "escalate", "centralize", "standardize", "prioritize", "coordinate", "minimize", "authenticate", "authorize", "archive", "batch", "aggregate", "benchmark", "profile", "isolate", "provision", "orchestrate", "coerce"], "label": "bare_imperative", "note": "Some verbs (test, check, format, log, name, document, watch, set, report, record, cache, scope, limit, batch, profile, audit, benchmark, aggregate, archive, guard, pin, drain) are also common nouns; _looks_like_statement mitigates this via plural-noun follower detection."},
+    {"score": 0.70, "verbs": ["should", "always"], "label": "advisory", "note": "'always' lives only in the advisory tier; score_f1 upgrades 'always + bare_imperative' to 1.00 via special case"},
+    {"score": 0.50, "verbs": ["prefer", "default to", "favor"], "label": "preference"},
+    {"score": 0.30, "verbs": ["consider", "aim to", "where practical"], "label": "suggestion"},
+    {"score": 0.20, "verbs": ["try to", "try to prefer", "where possible", "when you can"], "label": "hedged"},
+    {"score": 0.10, "verbs": ["you might want to", "it's worth", "keep in mind"], "label": "weak_suggestion"}
+  ],
+  "implicit_verb_default": 0.70,
+  "compound_hedging_rule": "When a verb phrase contains multiple hedges, score the lowest applicable pattern"
+}

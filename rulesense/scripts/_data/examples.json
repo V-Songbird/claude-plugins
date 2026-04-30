@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "description": "F6 example density detector patterns. From factor-rubrics.md.",
+  "detectors": [
+    {
+      "name": "fenced_code_block",
+      "weight": 1.0,
+      "pattern": "```[\\s\\S]*?```",
+      "description": "Fenced code blocks containing sample code"
+    },
+    {
+      "name": "inline_code_usage",
+      "weight": 0.5,
+      "pattern": "`[^`]+`",
+      "description": "Inline code references showing correct usage",
+      "note": "Only count when showing concrete usage, not just naming a thing"
+    },
+    {
+      "name": "explicit_example",
+      "weight": 1.0,
+      "patterns": ["Example:", "example:", "e.g.,", "e.g.", "for example", "For example"],
+      "description": "Explicit 'Example:' or 'e.g.,' followed by a concrete case"
+    },
+    {
+      "name": "file_path_reference",
+      "weight": 0.5,
+      "pattern": "(?:(?:[a-zA-Z]:/|/|\\./|\\.\\./)(?:[\\w.-]+/)*[\\w.-]+\\.\\w+|\\b(?:src|lib|test|tests|components|pages|api|utils)/[\\w/.-]+)",
+      "description": "File path references showing concrete locations"
+    },
+    {
+      "name": "before_after_comparison",
+      "weight": 1.0,
+      "patterns": [" not ", " instead of ", " rather than "],
+      "description": "Before/after comparisons with concrete values on both sides",
+      "note": "Only counts when both sides have concrete values (e.g., 'Use X not Y')"
+    }
+  ],
+  "scoring_table": [
+    {"count": 0.0, "score": 0.15, "label": "no_examples"},
+    {"count": 0.5, "score": 0.35, "label": "minimal"},
+    {"count": 1.0, "score": 0.60, "label": "adequate"},
+    {"count": 1.5, "score": 0.75, "label": "good"},
+    {"count": 2.0, "score": 0.75, "label": "good"},
+    {"count": 2.5, "score": 0.90, "label": "rich"}
+  ],
+  "scoring_note": "Interpolate between table entries. Counts >= 2.5 score 0.90."
+}

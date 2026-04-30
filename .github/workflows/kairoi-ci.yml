@@ -1,0 +1,67 @@
+name: kairoi CI
+
+# Run on any change to kairoi/ or this workflow. The monorepo may host other
+# plugins; we only exercise kairoi here to keep the matrix fast and signal
+# narrow.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'kairoi/**'
+      - '.github/workflows/kairoi-ci.yml'
+  pull_request:
+    paths:
+      - 'kairoi/**'
+      - '.github/workflows/kairoi-ci.yml'
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # fail-fast off: a single OS regression shouldn't hide regressions on
+      # the others — we want the full picture.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    # On Windows runners, use git-bash. macOS and Linux use their native bash.
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify runtime dependencies
+        run: |
+          jq --version
+          bash --version
+          git --version
+
+      - name: Run kairoi test suite
+        run: bash kairoi/tests/run.sh
+
+      - name: Smoke-test doctor.sh against a minimal fixture
+        # doctor.sh checks structural integrity; the test suite covers
+        # behavior. Together they catch both classes of regression.
+        run: |
+          set -euo pipefail
+          export KAIROI_TEST_PLUGIN_ROOT="$GITHUB_WORKSPACE/kairoi"
+          TMP="$(mktemp -d 2>/dev/null || mktemp -d -t kairoi_ci.XXXXXX)"
+          cd "$TMP"
+          # shellcheck disable=SC1091
+          . "$GITHUB_WORKSPACE/kairoi/tests/helpers.sh"
+          setup_kairoi_state "auth" "Auth module" 0
+          cat > .gitignore <<'EOF'
+          .kairoi/.guards-log
+          .kairoi/.guard-disputes
+          .kairoi/.sync-manifest.json
+          .kairoi/.kairoi-committing
+          .kairoi/.reflect-result-*.json
+          .kairoi/.seen-*
+          .kairoi/.session-summary.txt
+          .kairoi/.next-blocked-diag
+          EOF
+          bash "$GITHUB_WORKSPACE/kairoi/scripts/doctor.sh"

@@ -1,0 +1,211 @@
+{
+  "description": "kairoi hooks — first-touch module orientation on Read/Grep/Glob/Edit/Write (and the WebStorm MCP equivalents so guards still fire when webstorm-router redirects), edit-time guard injection on the same write-class tools, post-commit buffer capture (gated to `git commit` inside auto-buffer.sh), and hand-edit denial on .kairoi/** (state-write-guard.sh). Each tool name is a separately registered matcher anchored as ^Name$ — both because Claude Code has a Windows dispatch bug on combined matchers (anthropics/claude-code#6305, #18527, #22449) and so tools like BashOutput / NotebookEdit don't accidentally trigger guard-check. guard-check.sh fans the read-only matchers to Phase 1 (orientation only) and the write-class matchers to all phases. state-write-guard.sh is a separate matcher per write-class tool; it short-circuits Edit/Write/MultiEdit when the target is under .kairoi/ (allowlisting .kairoi/overrides.json), bypasses subagent calls (anthropics/claude-code#34692), and falls open before init has bootstrapped or while .kairoi/.write-guard-disabled exists.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/session-boot.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^Read$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Grep$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Glob$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Write$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Edit$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__read_file$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__search_regex$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__search_text$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__search_file$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__find_files_by_glob$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__find_files_by_name_keyword$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__list_directory_tree$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__replace_text_in_file$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__create_new_file$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__webstorm__rename_refactoring$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/guard-check.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Edit$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/state-write-guard.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^Write$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/state-write-guard.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "^MultiEdit$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/state-write-guard.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/auto-buffer.sh",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

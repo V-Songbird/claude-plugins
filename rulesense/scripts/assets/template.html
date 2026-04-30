@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>rulesense — Rules Overview</title>
+  <style>
+    :root {
+      --grade-a: #22c55e;
+      --grade-b: #84cc16;
+      --grade-c: #eab308;
+      --grade-d: #f97316;
+      --grade-f: #ef4444;
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --surface: #f9fafb;
+      --badge-text: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111827;
+        --text: #f3f4f6;
+        --muted: #9ca3af;
+        --border: #374151;
+        --surface: #1f2937;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 2rem 1rem;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 { font-size: 1.75rem; margin: 0 0 0.25rem; }
+    h2 { font-size: 1.25rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    .subtitle { color: var(--muted); margin: 0 0 2rem; font-size: 0.9rem; }
+
+    /* Grade hero */
+    .grade-hero {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .grade-badge {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--badge-text);
+      flex-shrink: 0;
+    }
+    .grade-a { background: var(--grade-a); }
+    .grade-b { background: var(--grade-b); }
+    .grade-c { background: var(--grade-c); }
+    .grade-d { background: var(--grade-d); }
+    .grade-f { background: var(--grade-f); }
+
+    .grade-details .score { font-size: 1.5rem; font-weight: 600; margin: 0; }
+    .grade-details .summary { color: var(--muted); margin: 0.25rem 0 0; }
+
+    /* Grade distribution bar */
+    .grade-bar {
+      display: flex;
+      height: 32px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .grade-bar-segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--badge-text);
+      font-size: 0.75rem;
+      font-weight: 600;
+      min-width: 0;
+    }
+    .grade-bar-segment.too-small { font-size: 0; }
+
+    /* Grade inline badge (small) */
+    .grade-sm {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--badge-text);
+    }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th { font-weight: 600; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: var(--surface); }
+
+    /* Stat cards (org section) */
+    .card-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      flex: 1 1 200px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+    .stat-card h3 { margin: 0 0 0.75rem; font-size: 1rem; }
+    .stat-row { display: flex; justify-content: space-between; padding: 0.25rem 0; font-size: 0.9rem; }
+    .stat-label { color: var(--muted); }
+    .stat-value { font-weight: 600; }
+
+    /* Rule cards (best/worst) */
+    .rule-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .rule-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .rule-card-score { font-size: 0.85rem; font-weight: 600; }
+    .rule-text { font-size: 0.9rem; line-height: 1.5; }
+    .rule-note { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+
+    /* Gaps list */
+    .gaps-list { padding-left: 1.25rem; }
+    .gaps-list li { margin-bottom: 0.25rem; }
+    .empty-state { color: var(--muted); font-style: italic; }
+
+    /* Footer */
+    footer {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    /* Print */
+    @media print {
+      body { padding: 0; max-width: none; color: #000; background: #fff; }
+      .grade-hero, .stat-card, .rule-card { border-color: #ccc; background: #f9f9f9; }
+      h2 { border-bottom-color: #ccc; }
+      :root {
+        --bg: #ffffff; --text: #000000; --muted: #555555;
+        --border: #cccccc; --surface: #f9f9f9;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>rulesense</h1>
+    <p class="subtitle">Rules Quality Overview — generated __TIMESTAMP__</p>
+  </header>
+
+  <section class="grade-hero">
+    <div class="grade-badge grade-__GRADE_LOWER__">__GRADE__</div>
+    <div class="grade-details">
+      <p class="score">__SCORE__</p>
+      <p class="summary">__GOOD_COUNT__ of __RULE_COUNT__ rules are clear enough for Claude to follow well</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Grade Distribution</h2>
+    __GRADE_DIST__
+  </section>
+
+  <section>
+    <h2>What Your Rules Cover</h2>
+    __INTENTIONS__
+  </section>
+
+  <section>
+    <h2>Coverage Gaps</h2>
+    __GAPS__
+  </section>
+
+  <section>
+    <h2>How Rules Are Organized</h2>
+    __ORGANIZATION__
+  </section>
+
+  <section>
+    <h2>Per-File Breakdown</h2>
+    __FILES__
+  </section>
+
+  <section>
+    <h2>Strongest Rules</h2>
+    __BEST_RULES__
+  </section>
+
+  <section>
+    <h2>Rules That Need Work</h2>
+    __WORST_RULES__
+  </section>
+
+  <footer>
+    <p>Generated by <strong>rulesense</strong> — scores measure how clearly Claude can parse each rule, not whether Claude will follow them</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "iceberg",
+  "description": "Encode senior-authored architectural rules as compiler/lint errors — not PR comments. Language-agnostic (TypeScript, Python, Rust, JVM, .NET, Go). Three modes: apply the convention while authoring code, audit an existing codebase for structural debt, or bootstrap enforcement scaffolding in a fresh project.",
+  "version": "1.0.0-alpha",
+  "license": "MIT",
+  "author": {
+    "name": "Songbird",
+    "email": "songbird@tuta.com"
+  },
+  "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/iceberg",
+  "repository": "https://github.com/V-Songbird/claude-plugins",
+  "keywords": ["architecture", "conventions", "enforcement", "linting", "complexity", "structural-debt"]
+}

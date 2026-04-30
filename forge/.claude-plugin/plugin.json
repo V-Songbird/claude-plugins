@@ -1,0 +1,13 @@
+{
+  "name": "forge",
+  "description": "Pre-code feature review workflow. Stress-tests a proposed feature design against the codebase via reality-check spike → parallel domain experts → master plan → adversarial critic → revise → user approval, before any code is written. The value lives in the gates: parallel experts surface cross-domain conflicts; the adversarial critic ground-truths the plan against actual code; the user-approval step is the redirect point. Pipeline ends at approval; the orchestrator implements directly in the main session by default. Two optional helpers (`/dispatch-implementation`, `/build-and-report`) handle parallel worktree dispatch and stack-specific build/verify for plans that warrant them. Stack-agnostic — build commands defer to the consuming project's own CLAUDE.md.",
+  "version": "1.0.0-alpha",
+  "license": "MIT",
+  "author": {
+    "name": "Songbird",
+    "email": "songbird@tuta.com"
+  },
+  "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/forge",
+  "repository": "https://github.com/V-Songbird/claude-plugins",
+  "keywords": ["planning", "review", "pre-code", "feature-design", "adversarial", "expert-analysis"]
+}

@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "description": "F7 specificity markers. From factor-rubrics.md.",
+  "concrete_patterns": [
+    "Named APIs/functions/classes/methods (backtick-wrapped identifiers)",
+    "File paths or glob patterns",
+    "Named patterns or frameworks",
+    "Specific values or formats",
+    "Named file types or extensions"
+  ],
+  "concrete_regex": [
+    "`[^`]+`",
+    "\\b[A-Z][a-zA-Z]+(?:Manager|Service|Controller|Factory|Builder|Handler|Provider|Repository|Validator|Schema|Config|Context|Store|Router|Middleware|Plugin|Hook|Component|Module|Interface|Type|Enum|Error|Exception)\\b",
+    "\\b\\w+\\.(?:ts|tsx|js|jsx|py|rs|go|java|rb|md|json|yaml|yml|toml|css|scss|html|sql|sh|bash|bnf|flex)\\b",
+    "(?:src|lib|test|tests|spec|specs|components|pages|api|utils|hooks|services|models|types|config|scripts)/[\\w/.-]+",
+    "\\b(?:React|Vue|Angular|Express|Django|Flask|FastAPI|Spring|Rails|Next|Nuxt|Svelte|Tailwind|TypeScript|Zod|Prisma|Jest|Vitest|pytest|JUnit|ESLint|Prettier|Webpack|Vite|Docker|Kubernetes|GraphQL|REST|gRPC|Redis|PostgreSQL|MongoDB|MySQL|SQLite)\\b"
+  ],
+  "numeric_threshold_regex_comment": "Bright-line numeric thresholds count as concrete markers — they turn an adjective ('short', 'soon') into something Claude can mechanically check. Matched with re.IGNORECASE. See claude.ai system-prompt patterns analysis, pattern 5.",
+  "numeric_threshold_regex": [
+    "\\b(?:fewer|less|more|greater|under|over|above|below|at\\s+most|at\\s+least|no\\s+more\\s+than|no\\s+less\\s+than|no\\s+fewer\\s+than|up\\s+to)\\s+(?:than\\s+)?\\d+(?:\\.\\d+)?\\s*(?:%|(?:ms|milliseconds?|sec(?:ond)?s?|min(?:ute)?s?|hours?|days?|weeks?|months?|years?|kb|mb|gb|bytes?|chars?|characters?|words?|lines?|items?|entries|rows?|examples?|pages?|files?)\\b)?",
+    "\\b\\d+(?:\\.\\d+)?\\s*(?:%|(?:ms|milliseconds?|sec(?:ond)?s?|min(?:ute)?s?|hours?|days?|weeks?|months?|years?|kb|mb|gb|bytes?|chars?|characters?|words?|lines?|items?|entries|rows?)\\b)",
+    "\\bbetween\\s+\\d+(?:\\.\\d+)?\\s+and\\s+\\d+(?:\\.\\d+)?\\b"
+  ],
+  "abstract_markers": [
+    "good", "appropriate", "reasonable", "clean", "thoughtful",
+    "proper", "correct", "careful", "best practice",
+    "when possible", "where practical", "as needed",
+    "properly", "correctly", "carefully",
+    "error handling", "naming", "code quality", "best practices",
+    "maintainable", "readable", "scalable", "efficient", "expensive",
+    "simple", "clear", "obvious", "intuitive"
+  ],
+  "concrete_terms": [
+    "functional components", "class components", "named exports", "default exports",
+    "barrel exports", "type aliases", "interfaces", "enums", "generics",
+    "strict mode", "strict null checks", "type guards", "type assertions",
+    "arrow functions", "async functions", "generator functions",
+    "unit tests", "integration tests", "end-to-end tests", "snapshot tests",
+    "pre-commit hook", "pre-push hook", "commit message", "pull request",
+    "middleware", "error boundary", "higher-order component", "custom hook",
+    "dependency injection", "inversion of control",
+    "API endpoint", "REST API", "GraphQL query", "GraphQL mutation",
+    "database migration", "schema migration", "seed data",
+    "environment variable", "config file", "secrets manager",
+    "CI pipeline", "CD pipeline", "build step", "deploy step",
+    "code review", "merge request", "branch protection",
+    "linter rule", "formatter config", "tsconfig", "eslint config",
+    "request body", "response body", "query parameter", "path parameter",
+    "handler boundary", "controller layer", "service layer", "repository layer",
+    "read replicas", "write replicas", "connection pool",
+    "PSI trees", "visitor methods", "grammar rules",
+    "parsed output shape", "input validation",
+    "type guard", "type assertion", "type narrowing"
+  ],
+  "scoring_table": [
+    {"label": "fully_specific", "score_min": 0.90, "score_max": 1.00, "description": "All concrete, no abstract"},
+    {"label": "specific_with_hedges", "score_min": 0.70, "score_max": 0.85, "description": "Mostly concrete, minor abstract qualifiers"},
+    {"label": "partially_specific", "score_min": 0.45, "score_max": 0.65, "description": "Mixed concrete and abstract"},
+    {"label": "weak_specificity", "score_min": 0.25, "score_max": 0.40, "description": "Mostly abstract with one concrete noun"},
+    {"label": "non_specific", "score_min": 0.05, "score_max": 0.20, "description": "All abstract, no concrete markers"}
+  ]
+}

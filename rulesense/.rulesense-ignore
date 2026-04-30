@@ -1,0 +1,17 @@
+# rulesense-ignore
+# Rules listed here are excluded from the audit report.
+#
+# Format: one entry per line. Each entry is a file path optionally followed
+# by a colon and a rule text substring to match within that file.
+#
+# Examples:
+#   .claude/rules/legacy.md                    # ignore all rules in this file
+#   CLAUDE.md: "Use good judgment"             # ignore this specific rule in CLAUDE.md
+#   .claude/rules/overrides.md: "do not refactor"  # ignore one override rule
+#
+# Rules can also be ignored inline with <!-- rulesense-ignore --> comments
+# placed immediately before the rule in the source file.
+
+# Temp directory used by the audit pipeline (cleaned up in Phase 4, but
+# excluded here in case a run is interrupted and someone audits before cleanup)
+.rulesense-tmp

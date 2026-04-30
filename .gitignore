@@ -1,0 +1,23 @@
+# Python cache directories
+__pycache__/
+.pytest_cache/
+
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+docs/
+
+.claude/
+telos/
+
+# kairoi transient files
+.kairoi/.sync-manifest.json
+.kairoi/.reflect-result-*.json
+.kairoi/.task-scope
+.kairoi/.preflight-nudged
+
+# iceberg skill-creator eval workspace (benchmarks, run outputs, grading)
+iceberg/skills/convention-workspace/

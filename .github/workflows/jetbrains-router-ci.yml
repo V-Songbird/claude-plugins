@@ -1,0 +1,75 @@
+name: jetbrains-router CI
+
+# Run on any change to jetbrains-router/ or this workflow. The monorepo may
+# host other plugins; we only exercise jetbrains-router here to keep the
+# matrix fast and the signal narrow.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'jetbrains-router/**'
+      - '.github/workflows/jetbrains-router-ci.yml'
+  pull_request:
+    paths:
+      - 'jetbrains-router/**'
+      - '.github/workflows/jetbrains-router-ci.yml'
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # fail-fast off: a single OS regression shouldn't hide regressions on
+      # the others — we want the full picture.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    # On Windows runners, use git-bash. macOS and Linux use their native bash.
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify runtime dependencies
+        run: |
+          jq --version
+          bash --version
+
+      - name: Run jetbrains-router test suite
+        run: bash jetbrains-router/tests/run.sh
+
+      - name: Smoke-test detect script (fail-open path)
+        # The suite forces JETBRAINS_ROUTER_FORCE=1; confirm the real probe
+        # correctly fails open when no JetBrains IDE is running (which is
+        # always true on CI runners).
+        run: |
+          set -euo pipefail
+          unset JETBRAINS_ROUTER_FORCE
+          unset JETBRAINS_ROUTER_DISABLE
+          if bash jetbrains-router/scripts/jetbrains-detect.sh; then
+            echo "detect.sh should have exited non-zero (no JetBrains IDE on CI runners)" >&2
+            exit 1
+          fi
+
+      - name: Smoke-test kill switch
+        run: |
+          set -euo pipefail
+          export JETBRAINS_ROUTER_DISABLE=1
+          if bash jetbrains-router/scripts/jetbrains-detect.sh 2>/dev/null; then
+            echo "detect.sh must exit non-zero when JETBRAINS_ROUTER_DISABLE=1" >&2
+            exit 1
+          fi
+
+      - name: Smoke-test hook fails open without JetBrains IDE
+        # End-to-end: with the probe returning "no IDE", the redirect hook
+        # must exit 0 (allow native tool) on any input.
+        run: |
+          set -euo pipefail
+          unset JETBRAINS_ROUTER_FORCE
+          unset JETBRAINS_ROUTER_DISABLE
+          echo '{"tool_name":"Read","cwd":"/tmp","tool_input":{"file_path":"/tmp/foo.ts"}}' \
+            | bash jetbrains-router/scripts/pre-tool-use-redirect.sh

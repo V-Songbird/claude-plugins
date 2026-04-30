@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "description": "F2 framing polarity classification patterns. From factor-rubrics.md.",
+  "categories": [
+    {
+      "score": 0.95,
+      "name": "positive_with_alternative",
+      "patterns": ["instead of", " rather than "],
+      "description": "Positive imperative with concrete alternative: 'Use X instead of Y'"
+    },
+    {
+      "score": 0.85,
+      "name": "positive_imperative",
+      "description": "Positive imperative: 'Use X', 'Always do X', 'Ensure X'",
+      "note": "Default for rules with bare imperative verbs and no prohibition markers"
+    },
+    {
+      "score": 0.70,
+      "name": "positive_with_negative_clarification",
+      "description": "Positive with negative clarification in separate clause: 'Do X. Do not do Y.'",
+      "note": "Prohibition followed by positive alternative also scores here"
+    },
+    {
+      "score": 0.50,
+      "name": "prohibition",
+      "patterns": ["never ", "do not ", "don't ", "avoid ", "must not "],
+      "description": "Prohibition without positive follow-up: 'Never X', 'Do not X', 'Avoid X'"
+    },
+    {
+      "score": 0.35,
+      "name": "hedged_preference",
+      "patterns": ["prefer ", "default to ", "when possible"],
+      "description": "Hedged preference: 'Prefer X', 'Default to X'"
+    }
+  ],
+  "prohibition_with_alternative_upgrade": {
+    "description": "If a prohibition is immediately followed by a positive alternative, score 0.70 not 0.50",
+    "example": "Never use git commit directly — use commit-validator"
+  }
+}

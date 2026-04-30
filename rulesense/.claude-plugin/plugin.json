@@ -1,0 +1,13 @@
+{
+  "name": "rulesense",
+  "description": "Makes Claude more effective at following your rules. Assay audits existing rules for structural clarity (triggers, specificity, framing) and suggests rewrites that remove ambiguity for Claude. Forge creates new rules optimized for Claude's parsing with real-time scoring and interactive review. File reformats rules for readability — one concept per bullet, blank-line separation, 80-char wrap. Scores measure what authors control — rule structure. Claude's actual compliance depends on baseline behavior beyond rule text.",
+  "version": "1.0.0-alpha",
+  "license": "MIT",
+  "author": {
+    "name": "Songbird",
+    "email": "songbird@tuta.com"
+  },
+  "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/rulesense",
+  "repository": "https://github.com/V-Songbird/claude-plugins",
+  "keywords": ["rules", "CLAUDE.md", "audit", "linting", "quality", "instructions", "scoring"]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "jetbrains-router",
+  "description": "Routes Claude Code's Read/Grep/Glob/Edit/Write/Bash through a JetBrains IDE MCP server (WebStorm, Rider, IntelliJ IDEA). Primary wins: get_file_problems replaces local tsc/gradle/mypy runs for diagnostics, the project index narrows searches past ignored paths, and reads reflect the editor's in-memory buffer (including unsaved changes). Fails open when no IDE is connected.",
+  "license": "MIT",
+  "version": "1.0.0-alpha",
+  "author": {
+    "name": "Songbird",
+    "email": "songbird@tuta.com"
+  },
+  "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/jetbrains-router",
+  "repository": "https://github.com/V-Songbird/claude-plugins",
+  "keywords": ["JetBrains", "WebStorm", "Rider", "IntelliJ", "IDEA", "IDE", "MCP", "routing", "diagnostics"]
+}
