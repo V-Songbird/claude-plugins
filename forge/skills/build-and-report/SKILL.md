@@ -2,7 +2,6 @@
 name: build-and-report
 description: Steps 9 + 10 of the forge workflow. Aggregates implementer reports (or in-session edits if `/forge:dispatch-implementation` did not run), merges work-unit worktrees if any exist, bumps the version per the consuming project's convention, runs the project's build / verification commands, and produces a user-facing final report including the two mandatory sections "How to test this feature" and "How is this feature useful?". Stack-agnostic — actual build commands and version-bump file (`plugin.xml`, `package.json`, `Cargo.toml`, etc.) live in the consuming project's own CLAUDE.md.
 user-invocable: false
-allowed-tools: Read Grep Glob Bash(git *) Write Edit
 model: sonnet
 effort: medium
 color: purple

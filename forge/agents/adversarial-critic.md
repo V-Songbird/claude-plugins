@@ -4,7 +4,6 @@ description: Adversarially audits a proposed master implementation plan against 
 model: opus
 effort: medium
 maxTurns: 18
-tools: Read, Grep, Glob
 color: red
 ---
 

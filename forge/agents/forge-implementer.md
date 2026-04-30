@@ -3,7 +3,6 @@ name: forge-implementer
 description: Implements exactly one `Parallel-friendly: yes` step of an approved forge master plan (the implementer's "work unit"), in an isolated git worktree. Reads the assigned step block + the integration-contract appendix (always present when this subagent is invoked, since the appendix is the precondition for parallel dispatch); modifies only the files listed under the step's "Files touched" set; cites `file:line` for every change; commits once at the end. Escalates blockers (plan/reality drift, contract violations, infeasible done-when) rather than working around them. Invoked ONLY by `/forge:dispatch-implementation` after user approval at Step 7. Do NOT invoke for general implementation tasks, ad-hoc edits, or work outside the forge workflow.
 model: sonnet
 maxTurns: 30
-tools: Read, Edit, Write, Grep, Glob, Bash
 color: green
 ---
 

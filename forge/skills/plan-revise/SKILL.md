@@ -2,7 +2,6 @@
 name: plan-revise
 description: Verifies each critique finding from `/forge:critic-review`, then folds the verified ones back into the master plan in conversation context. Walks the critic's blocking issues, high-priority gaps, and open questions; reads the cited code to confirm or refute each one; rewrites the affected plan sections; produces the final plan ready for user approval. Use as Step 6 of the forge workflow, after `/forge:critic-review` returns its critique.
 user-invocable: false
-allowed-tools: Read Grep Glob
 model: opus
 effort: high
 color: yellow

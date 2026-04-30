@@ -2,7 +2,6 @@
 name: critic-review
 description: Dispatches the `adversarial-critic` subagent (Opus, read-only) against the master plan currently in conversation context. The critic ground-truths the plan against the actual codebase, surfaces blocking issues / high-priority gaps / open questions, and returns a structured critique. Use as Step 5 of the forge workflow, immediately after `/forge:master-plan` produces the plan. The critique drives `/forge:plan-revise` in the next step.
 user-invocable: false
-allowed-tools: Read Grep Glob Task
 color: red
 ---
 

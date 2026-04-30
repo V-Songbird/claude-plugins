@@ -3,7 +3,6 @@ name: forge-expert
 description: Domain-specific code investigator dispatched in parallel by `/forge:expert-analysis` (Step 3 of the forge workflow). Reads the codebase from the anchor files outward and returns a focused single-domain analysis citing `file:line` for every claim. The dispatching session passes the domain (architecture / performance / data-state / ui-ux / security / testing / build-tooling), an optional stack-experience addendum, the verbatim feature requirements, and 3–5 anchor files. Read-only; no `AskUserQuestion`. Invoke ONLY from `/forge:expert-analysis`. Do NOT invoke for general code review, PR review, or post-implementation analysis.
 model: sonnet
 maxTurns: 20  # (4 investigation sub-tasks × 2) + 4 safety = 12 → 15 rounded; bumped to 20 for multi-file traversal chains per domain
-tools: Read, Grep, Glob
 color: yellow
 ---
 

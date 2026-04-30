@@ -6,6 +6,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 
 ## [Unreleased]
 
+## [1.0.1-alpha] — 2026-04-30
+
+- Removed tool usage from skills and agents to avoid blocking mcp tool dependencies.
+
 ## [1.0.0-alpha] — 2026-04-29
 
 ### Added
