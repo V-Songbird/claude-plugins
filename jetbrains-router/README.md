@@ -46,8 +46,8 @@ Worktree sessions are automatically detected and bypass routing to prevent cross
 
 | Name | Description |
 |------|-------------|
-| `/jetbrains-router:jetbrains-routing` | Reference guide for the native-to-IDE tool mapping and bypass conditions |
-| `/jetbrains-status` | Checks whether JetBrains routing is active and reports the current bypass state |
+| `/jetbrains-router:router` | Reference guide for the native-to-IDE tool mapping and bypass conditions |
+| `/jetbrains-router:status` | Checks whether JetBrains routing is active and reports the current bypass state |
 
 ## Installation
 

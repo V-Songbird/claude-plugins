@@ -1,8 +1,8 @@
 ﻿{
   "name": "jetbrains-router",
-  "description": "Routes Claude Code's Read/Grep/Glob/Edit/Write/Bash through a JetBrains IDE MCP server (WebStorm, Rider, IntelliJ IDEA). Routing is scoped to source code; dotfolders, markdown, JSON/JSONL, docs/, and config files pass through natively. Primary wins: get_file_problems replaces local tsc/gradle/mypy runs for diagnostics, the project index narrows searches past ignored paths, and reads reflect the editor's in-memory buffer (unsaved changes visible). PreToolUse hook fails open when no IDE is connected. Requires JetBrains IDE 2025.2+ with MCP Server enabled.",
-  "license": "MIT",
+  "description": "Makes Claude read and edit files through your JetBrains IDE rather than directly from disk. This gives Claude your IDE's error detection, smarter file searches, and visibility into changes you haven't saved yet. Still works if the IDE isn't running. Requires JetBrains 2025.2+ with MCP Server enabled.",
   "version": "1.0.2-alpha",
+  "license": "MIT",
   "author": {
     "name": "Songbird",
     "email": "songbird@tuta.com"

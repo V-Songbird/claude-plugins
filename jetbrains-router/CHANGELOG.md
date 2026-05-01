@@ -28,9 +28,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 - `JETBRAINS_ROUTER_DISABLE=1` environment variable: disables routing unconditionally for worktree sessions or contexts where native tools are required
 - `JETBRAINS_ROUTER_BYPASS` environment variable: selectively disables routing for specific tools (comma-separated, e.g. `Read,Edit,Write`)
 - Worktree fall-through: detects git worktree paths and bypasses routing to prevent cross-project IDE state contamination
-- `/jetbrains-router:jetbrains-routing` skill: reference guide for the native-to-IDE tool mapping and bypass conditions
+- `/jetbrains-router:router` skill: reference guide for the native-to-IDE tool mapping and bypass conditions
 - `references/tool-map.md`: detailed mapping of each Claude Code native tool to its JetBrains IDE MCP equivalent with parameter translations
-- `commands/jetbrains-status.md` slash command: checks whether JetBrains routing is active and reports the current bypass state
+- `/jetbrains-router:status` skill: checks whether JetBrains routing is active and reports the current bypass state
 - `pre-tool-use-redirect.sh`: hook implementation with platform-aware path handling (Windows/Unix)
 - `jetbrains-detect.sh`: IDE presence probe used by the redirect hook
 - Requires a JetBrains IDE 2025.2+ with MCP Server plugin enabled

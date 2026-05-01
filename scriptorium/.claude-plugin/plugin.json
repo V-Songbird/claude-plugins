@@ -1,6 +1,6 @@
 {
   "name": "scriptorium",
-  "description": "Makes Claude more effective at authoring Claude Code instruction artifacts (SKILL.md, CLAUDE.md, plans, subagents, slash commands, hook scripts). The scribe skill covers every tool, parameter, and phrasing pattern Claude Code parses and executes reliably; the proofreader agent audits drafts against a 13-item checklist (tool-shape, body health, references, user-facing prose, frontmatter validity, decomposition opportunity, dynamic-injection safety) so nothing downstream falls back to prose placeholders or bare tool calls.",
+  "description": "Helps Claude write the instruction files Claude Code uses — skills, CLAUDE.md, agents, and slash commands. The scribe skill covers every format Claude Code accepts. The proofreader agent checks drafts before anything goes live.",
   "version": "1.0.0-alpha",
   "license": "MIT",
   "author": {

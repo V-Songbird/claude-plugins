@@ -1,5 +1,5 @@
 ---
-name: jetbrains-routing
+name: router
 description: Route Claude Code file-ops tools through a JetBrains IDE MCP server (WebStorm, Rider, IntelliJ IDEA). Use this when about to call Read, Grep, Glob, Edit, Write, or a project-file Bash command in a session where mcp__webstorm__*, mcp__rider__*, or mcp__idea__* tools are registered. IDE reads reflect the editor's in-memory buffer so unsaved edits are visible; searches are scoped by the project index (skip node_modules, build outputs, .gitignore'd paths); and get_file_problems returns IDE inspection results for a file without launching tsc, gradle, or a language-server cold-start. A PreToolUse hook enforces routing and exits 2 on a native call — following this skill up front avoids the redirect round-trip.
 user-invocable: false
 ---

@@ -1,5 +1,7 @@
 ---
+name: status
 description: Probe whether a JetBrains IDE MCP server is connected to this session and report the project modules it sees.
+user-invocable: true
 ---
 
 # jetbrains-status

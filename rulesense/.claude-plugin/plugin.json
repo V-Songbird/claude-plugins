@@ -1,6 +1,6 @@
 {
   "name": "rulesense",
-  "description": "Makes Claude more effective at following your rules. Assay audits existing rules for structural clarity (triggers, specificity, framing) and suggests rewrites that remove ambiguity for Claude. Forge creates new rules optimized for Claude's parsing with real-time scoring and interactive review. File reformats rules for readability — one concept per bullet, blank-line separation, 80-char wrap. Scores measure what authors control — rule structure. Claude's actual compliance depends on baseline behavior beyond rule text.",
+  "description": "Helps you write Claude instructions that actually work. Audit checks your existing rules for anything vague or ambiguous and suggests clearer rewrites. Forge writes new rules from scratch with live scoring. File cleans up formatting.",
   "version": "1.0.0-alpha",
   "license": "MIT",
   "author": {
