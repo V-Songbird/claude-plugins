@@ -1,7 +1,6 @@
 {
   "name": "scriptorium",
   "description": "Helps Claude write the instruction files Claude Code uses — skills, CLAUDE.md, agents, and slash commands. The scribe skill covers every format Claude Code accepts. The proofreader agent checks drafts before anything goes live.",
-  "version": "1.0.0-alpha",
   "license": "MIT",
   "author": {
     "name": "Songbird",

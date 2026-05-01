@@ -1,7 +1,6 @@
 {
   "name": "kairoi",
   "description": "Keeps Claude from making risky changes when working in code you don't know well. Warns before touching anything sensitive, tracks what changed during a session, and recaps long sessions so Claude doesn't lose the thread.",
-  "version": "1.0.0-alpha",
   "license": "MIT",
   "author": {
     "name": "Songbird",

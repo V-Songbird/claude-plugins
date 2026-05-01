@@ -1,45 +1,112 @@
 {
-  "name": "songbird",
-  "description": "Songbird's plugin marketplace",
+  "name": "songbird-collection",
+  "description": "A custom marketplace of Claude Code plugins for both experienced developers and vibe coders, extending Claude Code with workflows, commands, and integrations that fit how you actually build.",
   "owner": {
-    "name": "Songbird"
+    "name": "Songbird",
+    "email": "songbird@tuta.com"
   },
   "plugins": [
     {
       "name": "kairoi",
-      "description": "Peace of mind when Claude codes in a stack you don't know. Edit-time guards, automatic commit capture, self-maintaining reflection. Cross-module aware.",
+      "source": "./kairoi",
+      "description": "Keeps Claude from making risky changes when working in code you don't know well. Warns before touching anything sensitive, tracks what changed during a session, and recaps long sessions so Claude doesn't lose the thread.",
       "version": "1.0.0-alpha",
-      "source": "./kairoi"
+      "license": "MIT",
+      "author": {
+        "name": "Songbird",
+        "email": "songbird@tuta.com"
+      },
+      "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/kairoi",
+      "repository": "https://github.com/V-Songbird/claude-plugins",
+      "category": "safety",
+      "keywords": ["safety", "guards", "memory", "reflection", "session", "risk", "sync"],
+      "tags": ["safety", "guards", "memory", "reflection", "session", "risk", "sync"],
+      "strict": true
     },
     {
       "name": "rulesense",
-      "description": "Reviews and drafts the rule files that guide Claude Code (CLAUDE.md and .claude/rules/). Grades existing rules for clarity, flags weak ones, and helps you write new ones.",
+      "source": "./rulesense",
+      "description": "Helps you write Claude instructions that actually work. Audit checks your existing rules for anything vague or ambiguous and suggests clearer rewrites. Forge writes new rules from scratch with live scoring. File cleans up formatting.",
       "version": "1.0.0-alpha",
-      "source": "./rulesense"
+      "license": "MIT",
+      "author": {
+        "name": "Songbird",
+        "email": "songbird@tuta.com"
+      },
+      "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/rulesense",
+      "repository": "https://github.com/V-Songbird/claude-plugins",
+      "category": "instructions",
+      "keywords": ["rules", "CLAUDE.md", "audit", "linting", "quality", "instructions", "scoring"],
+      "tags": ["rules", "CLAUDE.md", "audit", "linting", "quality", "instructions", "scoring"],
+      "strict": true
     },
     {
       "name": "iceberg",
-      "description": "Encode senior-authored architectural rules as compiler/lint errors — not PR comments. Language-agnostic (TypeScript, Python, Rust, JVM, .NET, Go). Three modes: apply the convention while authoring code, audit an existing codebase for structural debt, or bootstrap enforcement scaffolding in a fresh project.",
+      "source": "./iceberg",
+      "description": "Turns your team's coding rules into automatic errors that get caught while writing code, not after. Works with TypeScript, Python, Rust, JVM, .NET, and Go. Use it to enforce rules while coding, check an existing project for violations, or set up rules in a new one.",
       "version": "1.0.0-alpha",
-      "source": "./iceberg"
+      "license": "MIT",
+      "author": {
+        "name": "Songbird",
+        "email": "songbird@tuta.com"
+      },
+      "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/iceberg",
+      "repository": "https://github.com/V-Songbird/claude-plugins",
+      "category": "enforcement",
+      "keywords": ["architecture", "conventions", "enforcement", "linting", "complexity", "structural-debt"],
+      "tags": ["architecture", "conventions", "enforcement", "linting", "complexity", "structural-debt"],
+      "strict": true
     },
     {
       "name": "scriptorium",
-      "description": "Makes Claude more effective at authoring Claude Code instruction artifacts (SKILL.md, CLAUDE.md, plans, subagents, slash commands, hook scripts). The scribe skill covers every tool, parameter, and phrasing pattern Claude Code parses and executes reliably; the proofreader agent audits drafts against a 13-item checklist (tool-shape, body health, references, user-facing prose, frontmatter validity, decomposition opportunity, dynamic-injection safety) so nothing downstream falls back to prose placeholders or bare tool calls.",
+      "source": "./scriptorium",
+      "description": "Helps Claude write the instruction files Claude Code uses — skills, CLAUDE.md, agents, and slash commands. The scribe skill covers every format Claude Code accepts. The proofreader agent checks drafts before anything goes live.",
       "version": "1.0.0-alpha",
-      "source": "./scriptorium"
+      "license": "MIT",
+      "author": {
+        "name": "Songbird",
+        "email": "songbird@tuta.com"
+      },
+      "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/scriptorium",
+      "repository": "https://github.com/V-Songbird/claude-plugins",
+      "category": "authoring",
+      "keywords": ["skills", "SKILL.md", "CLAUDE.md", "authoring", "instructions", "proofreader", "artifacts"],
+      "tags": ["skills", "SKILL.md", "CLAUDE.md", "authoring", "instructions", "proofreader", "artifacts"],
+      "strict": true
     },
     {
       "name": "jetbrains-router",
-      "description": "Routes Claude Code's Read/Grep/Glob/Edit/Write/Bash through a JetBrains IDE MCP server (WebStorm, Rider, IntelliJ IDEA). Routing is scoped to source code; dotfolders, markdown, JSON/JSONL, docs/, and config files pass through natively. Primary wins: get_file_problems replaces local tsc/gradle/mypy runs for diagnostics, the project index narrows searches past ignored paths, and reads reflect the editor's in-memory buffer (unsaved changes visible). PreToolUse hook fails open when no IDE is connected. Requires JetBrains IDE 2025.2+ with MCP Server enabled.",
+      "source": "./jetbrains-router",
+      "description": "Makes Claude read and edit files through your JetBrains IDE rather than directly from disk. This gives Claude your IDE's error detection, smarter file searches, and visibility into changes you haven't saved yet. Still works if the IDE isn't running. Requires JetBrains 2025.2+ with MCP Server enabled.",
       "version": "1.0.2-alpha",
-      "source": "./jetbrains-router"
+      "license": "MIT",
+      "author": {
+        "name": "Songbird",
+        "email": "songbird@tuta.com"
+      },
+      "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/jetbrains-router",
+      "repository": "https://github.com/V-Songbird/claude-plugins",
+      "category": "ide-integration",
+      "keywords": ["JetBrains", "WebStorm", "Rider", "IntelliJ", "IDEA", "IDE", "MCP", "routing", "diagnostics"],
+      "tags": ["JetBrains", "WebStorm", "Rider", "IntelliJ", "IDEA", "IDE", "MCP", "routing", "diagnostics"],
+      "strict": true
     },
     {
       "name": "forge",
-      "description": "Pre-code feature review workflow. Stress-tests a proposed feature design against the codebase via reality-check spike → parallel domain experts → master plan → adversarial critic → revise → user approval, before any code is written. The value lives in the gates: parallel experts surface cross-domain conflicts; the adversarial critic ground-truths the plan against actual code; the user-approval step is the redirect point. Pipeline ends at approval; the orchestrator implements directly in the main session by default. Two optional helpers (`/dispatch-implementation`, `/build-and-report`) handle parallel worktree dispatch and stack-specific build/verify for plans that warrant them. Stack-agnostic — build commands defer to the consuming project's own CLAUDE.md.",
+      "source": "./forge",
+      "description": "Plans a feature thoroughly before writing any code. Multiple reviewers examine your idea from different angles, then a final check tests the plan against your actual project. You approve before anything gets built.",
       "version": "1.0.1-alpha",
-      "source": "./forge"
+      "license": "MIT",
+      "author": {
+        "name": "Songbird",
+        "email": "songbird@tuta.com"
+      },
+      "homepage": "https://github.com/V-Songbird/claude-plugins/tree/main/forge",
+      "repository": "https://github.com/V-Songbird/claude-plugins",
+      "category": "planning",
+      "keywords": ["planning", "review", "pre-code", "feature-design", "adversarial", "expert-analysis"],
+      "tags": ["planning", "review", "pre-code", "feature-design", "adversarial", "expert-analysis"],
+      "strict": true
     }
   ]
 }

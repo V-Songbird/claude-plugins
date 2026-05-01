@@ -1,7 +1,6 @@
 {
   "name": "rulesense",
   "description": "Helps you write Claude instructions that actually work. Audit checks your existing rules for anything vague or ambiguous and suggests clearer rewrites. Forge writes new rules from scratch with live scoring. File cleans up formatting.",
-  "version": "1.0.0-alpha",
   "license": "MIT",
   "author": {
     "name": "Songbird",

@@ -1,7 +1,6 @@
 {
   "name": "iceberg",
   "description": "Turns your team's coding rules into automatic errors that get caught while writing code, not after. Works with TypeScript, Python, Rust, JVM, .NET, and Go. Use it to enforce rules while coding, check an existing project for violations, or set up rules in a new one.",
-  "version": "1.0.0-alpha",
   "license": "MIT",
   "author": {
     "name": "Songbird",
