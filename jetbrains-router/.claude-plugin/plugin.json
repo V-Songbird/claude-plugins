@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "jetbrains-router",
   "description": "Makes Claude read and edit files through your JetBrains IDE rather than directly from disk. This gives Claude your IDE's error detection, smarter file searches, and visibility into changes you haven't saved yet. Still works if the IDE isn't running. Requires JetBrains 2025.2+ with MCP Server enabled.",
   "license": "MIT",
