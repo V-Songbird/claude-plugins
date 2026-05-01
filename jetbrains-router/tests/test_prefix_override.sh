@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 # JETBRAINS_MCP_PREFIX: overrides the auto-detected IDE prefix so the hook
 # emits the correct mcp__<prefix>__* tool name for rider, idea, or any custom
 # server key the user registered in their mcpServers config.

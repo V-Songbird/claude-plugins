@@ -6,6 +6,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 
 ## [Unreleased]
 
+## [1.0.4-alpha] — 2026-04-30
+
+- Fixed BOM errors.
+
 ## [1.0.3-alpha] — 2026-04-30
 
 - Improved skill descriptions and triggering phase.

@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 # pre-tool-use-redirect — the enforcement side of jetbrains-router.
 # Intercepts native Read / Grep / Glob / Edit / Write / Bash PreToolUse
 # events; when a JetBrains IDE is running and the native call has a direct
