@@ -212,4 +212,35 @@ EMPTY_INPUT='{"tool_name": "Write", "tool_input": {"file_path": ".kairoi/model/a
 OUT="$(echo "$EMPTY_INPUT" | bash "$GUARD")"
 assert_allow "$OUT" "H1: empty cwd falls open" || exit 1
 
+# =========================================================================
+# Case I: subagent bypass — agent_id in the hook payload means the write
+# comes from a kairoi subagent (reflect-module, audit, complete), not a
+# hand-edit. Allow unconditionally, even for paths normally denied.
+# =========================================================================
+mkdir -p caseI && cd caseI || exit 1
+setup_kairoi_state "auth" "Auth module" 0
+
+run_guard_as_subagent() {
+  local tool="$1"
+  local fp="$2"
+  jq -n --arg cwd "$PWD" --arg tn "$tool" --arg f "$fp" \
+    '{cwd: $cwd, tool_name: $tn, tool_input: {file_path: $f}, agent_id: "test-agent-123", agent_type: "kairoi-reflect-module"}' \
+    | bash "$GUARD"
+}
+
+OUT="$(run_guard_as_subagent Write ".kairoi/model/auth.json")"
+assert_allow "$OUT" "I1: Write .kairoi/model/auth.json from subagent (agent_id present)" || exit 1
+
+OUT="$(run_guard_as_subagent Edit ".kairoi/model/_index.json")"
+assert_allow "$OUT" "I2: Edit .kairoi/model/_index.json from subagent (agent_id present)" || exit 1
+
+OUT="$(run_guard_as_subagent Write ".kairoi/.reflect-result-auth.json")"
+assert_allow "$OUT" "I3: Write .kairoi/.reflect-result-auth.json from subagent (agent_id present)" || exit 1
+
+# Main session (no agent_id) targeting the same paths is still denied.
+OUT="$(run_guard Write ".kairoi/model/auth.json")"
+assert_deny "$OUT" "I4: Write .kairoi/model/auth.json from main session (no agent_id) still denied" || exit 1
+
+cd .. || exit 1
+
 exit 0

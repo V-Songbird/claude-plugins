@@ -33,6 +33,15 @@ CWD="$(echo "$INPUT" | jq -r '.cwd // empty')"
 
 STATE_DIR="$CWD/.kairoi"
 
+# Subagents (kairoi-complete, kairoi-audit, kairoi-reflect-module) write model
+# files under .kairoi/ legitimately. The hook payload carries agent_id when a
+# tool call originates inside a subagent; its absence means the main session.
+# Allow subagent writes unconditionally — they are kairoi's own machinery, not
+# hand-edits. (Previously this relied on hooks not firing for subagents per
+# Claude Code issue #34692; agent_id detection is now the reliable gate.)
+AGENT_ID="$(echo "$INPUT" | jq -r '.agent_id // empty' 2>/dev/null)"
+[ -n "$AGENT_ID" ] && exit 0
+
 # Pre-init: no _index.json means kairoi has not been bootstrapped in this
 # project. Allow all writes — the deny would otherwise block /kairoi:init's
 # own Write tool calls in the very first run.

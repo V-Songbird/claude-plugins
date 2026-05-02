@@ -6,6 +6,16 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 
 ## [Unreleased]
 
+## [1.0.1-alpha] — 2026-05-02
+
+### Fixed
+
+- `state-write-guard.sh` now bypasses the hand-edit denial for subagent calls. The guard previously relied on PreToolUse hooks not firing inside subagents (Claude Code issue #34692); that assumption no longer holds — hooks now fire for subagent tool calls with `agent_id` present in the payload. Without this fix, `kairoi-reflect-module` and `kairoi-audit` would be denied when writing model files to `.kairoi/` during automated sync. The fix mirrors the same `agent_id` check used by jetbrains-router: if `agent_id` is present, the write is from kairoi's own machinery and is allowed through unconditionally.
+
+### Added
+
+- `tests/test_state_write_guard.sh` Case I: 4 test cases covering the subagent bypass — Write/Edit to `.kairoi/model/*.json` and `.kairoi/.reflect-result-*.json` from a subagent (agent_id present) pass through, and main-session writes to the same paths remain denied.
+
 ## [1.0.0-alpha] — 2026-04-29
 
 ### Added
