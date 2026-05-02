@@ -6,6 +6,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 
 ## [Unreleased]
 
+## [1.0.3-alpha] — 2026-05-02
+
+### Fixed
+
+- `forge-expert` agents hitting `maxTurns` mid-investigation without producing a structured report: moved the turn-budget section to the top of the agent instructions (before all other content) and tightened the thresholds — investigation cutoff moved from turn 14 → turn 10, report-writing deadline from turn 17 → turn 13, leaving 7 turns of margin for report generation instead of 3
+
 ## [1.0.2-alpha] — 2026-05-01
 
 ### Added
