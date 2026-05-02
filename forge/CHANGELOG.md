@@ -6,6 +6,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 
 ## [Unreleased]
 
+## [1.0.2-alpha] — 2026-05-01
+
+### Added
+
+- Step 2.3 (domain-skill scan): before the reality-check spike, the orchestrator now scans `.claude/skills/` for project skills claiming domain authority over the feature's area, invokes any match, and threads the output into expert dispatch prompts — preventing experts from re-deriving schema facts that a project skill already encodes authoritatively
+- Optional `## Domain authority` section in the `/forge:expert-analysis` dispatch template: when Step 2.3 loads a skill, its output is passed here so the receiving expert treats it as ground truth rather than searching files for the same answers
+
 ## [1.0.1-alpha] — 2026-04-30
 
 - Removed tool usage from skills and agents to avoid blocking mcp tool dependencies.

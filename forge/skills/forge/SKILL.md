@@ -24,21 +24,32 @@ For trivial localized changes (typo, single-method bug fix, copy edit), do NOT u
 
 ## The 10 steps
 
-| #  | Action                                                                       | Model                | Skill                       |
-|----|------------------------------------------------------------------------------|----------------------|-----------------------------|
-| 1  | Understand and identify the feature requirements and intention               | inherit              | —                           |
-| 2  | Quick search for essential structural codebase knowledge                     | inherit              | —                           |
-| 2.5| Reality-check spike against the riskiest assumption (≤ 30 lines)             | inherit              | —                           |
-| 3  | Dispatch domain experts in parallel                                          | sonnet               | `/forge:expert-analysis`    |
-| 4  | Consolidate expert reports into a master implementation plan                 | opus (effort high)   | `/forge:master-plan`        |
-| 5  | Dispatch the adversarial critic against the master plan                      | opus                 | `/forge:critic-review`      |
-| 6  | Verify each critique; fold verified findings back into the plan              | opus (effort high)   | `/forge:plan-revise`        |
-| 7  | Present the revised plan to the user; wait for approval                      | inherit              | —                           |
-| 8  | Implement the plan (parallel-first when ≥ 2 disjoint steps; in-session else) | sonnet (per worker)  | `/forge:dispatch-implementation` |
-| 9  | Bump version (per consuming project's convention) and run the project build  | sonnet               | `/forge:build-and-report`   |
-| 10 | Deliver the final implementation report                                      | sonnet               | `/forge:build-and-report`   |
+| #   | Action                                                                       | Model                | Skill                       |
+|-----|------------------------------------------------------------------------------|----------------------|-----------------------------|
+| 1   | Understand and identify the feature requirements and intention               | inherit              | —                           |
+| 2   | Quick search for essential structural codebase knowledge                     | inherit              | —                           |
+| 2.3 | Domain-skill scan: invoke any project skills authoritative for this feature  | inherit              | —                           |
+| 2.5 | Reality-check spike against the riskiest assumption (≤ 30 lines)            | inherit              | —                           |
+| 3   | Dispatch domain experts in parallel                                          | sonnet               | `/forge:expert-analysis`    |
+| 4   | Consolidate expert reports into a master implementation plan                 | opus (effort high)   | `/forge:master-plan`        |
+| 5   | Dispatch the adversarial critic against the master plan                      | opus                 | `/forge:critic-review`      |
+| 6   | Verify each critique; fold verified findings back into the plan              | opus (effort high)   | `/forge:plan-revise`        |
+| 7   | Present the revised plan to the user; wait for approval                      | inherit              | —                           |
+| 8   | Implement the plan (parallel-first when ≥ 2 disjoint steps; in-session else) | sonnet (per worker)  | `/forge:dispatch-implementation` |
+| 9   | Bump version (per consuming project's convention) and run the project build  | sonnet               | `/forge:build-and-report`   |
+| 10  | Deliver the final implementation report                                      | sonnet               | `/forge:build-and-report`   |
 
-Steps 1, 2, 2.5, 7 run in the main session with no skill — they are orchestrator actions. Steps 9 and 10 are produced by a single skill (`/forge:build-and-report`) in one pass. Step 8 runs `/forge:dispatch-implementation` when the plan has ≥ 2 disjoint steps; otherwise the orchestrator implements directly in-session.
+Steps 1, 2, 2.3, 2.5, 7 run in the main session with no skill — they are orchestrator actions. Steps 9 and 10 are produced by a single skill (`/forge:build-and-report`) in one pass. Step 8 runs `/forge:dispatch-implementation` when the plan has ≥ 2 disjoint steps; otherwise the orchestrator implements directly in-session.
+
+## Step 2.3 — Domain-skill scan
+
+After the structural search, check whether the consuming project has skills in `.claude/skills/` that claim domain authority over any area the feature touches. A skill is a domain-authority candidate when its description uses words like "authoritative", "schema", "reference", or names the domain by type (e.g. "rAthena YAML database schemas", "rathena scripting API").
+
+For each matching skill, invoke it with the `Skill` tool immediately — before Step 2.5 and before expert dispatch. Its output becomes **supplemental domain authority** for this forge run: pass it inline in the relevant expert dispatch prompt (see `/forge:expert-analysis` Dispatch Template — the optional `## Domain authority` section) so the expert starts from pre-baked knowledge rather than file searches.
+
+**Why this step exists:** experts and the reality-check spike read files to answer schema questions. A project skill that already encodes the authoritative answer is faster, more reliable, and prevents experts from disagreeing on field names that the skill has already settled.
+
+Skip Step 2.3 only when the project has no `.claude/skills/` directory or no skill description matches the feature's domain.
 
 ## Step 2.5 — Reality-check spike
 

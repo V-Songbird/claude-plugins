@@ -95,7 +95,7 @@
       "name": "forge",
       "source": "./forge",
       "description": "Plans a feature thoroughly before writing any code. Multiple reviewers examine your idea from different angles, then a final check tests the plan against your actual project. You approve before anything gets built.",
-      "version": "1.0.1-alpha",
+      "version": "1.0.2-alpha",
       "license": "MIT",
       "author": {
         "name": "Songbird",

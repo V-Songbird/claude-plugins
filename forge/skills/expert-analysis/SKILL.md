@@ -50,6 +50,10 @@ Agent(
 - `path/to/anchor1.ext` — <one phrase: why this anchor>
 - `path/to/anchor2.ext:42` — <…>
 - ...
+
+## Domain authority (omit section if no project skill was loaded in Step 2.3)
+<paste the full output of any project skill invoked in Step 2.3 that is relevant to this expert's domain>
+<a schema skill's output here means the expert should not re-derive field names or types from file searches — treat this output as authoritative>
 """
 )
 ```
