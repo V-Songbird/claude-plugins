@@ -6,6 +6,16 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 
 ## [Unreleased]
 
+## [1.0.5-alpha] — 2026-05-02
+
+### Fixed
+
+- Subagents spawned via the Agent tool (parallel coding agents, specialized subagent types) now bypass IDE routing automatically. The hook detects the `agent_id` field in the PreToolUse payload — present only for subagent calls, absent for the main session — and exits 0, letting subagents use native tools. Previously, subagents received redirect instructions pointing to `mcp__webstorm__*` tools that are not available in all subagent contexts, causing parallel coding workflows to fail silently or loop.
+
+### Added
+
+- `tests/test_subagent_bypass.sh`: 4 test cases covering the subagent bypass — Read/Grep/Edit from a subagent (agent_id present) pass through, and main-session calls to the same paths are still blocked.
+
 ## [1.0.4-alpha] — 2026-04-30
 
 - Fixed BOM errors.

@@ -26,7 +26,7 @@ Routing applies to **source code files**. The following always use native tools,
 
 For `Grep` and `Glob`, native tools are used when the `path` parameter targets one of the above areas. Whole-project searches (no `path` argument) still redirect to the IDE's index-backed search.
 
-> **Version:** 1.0.1-alpha — interfaces may change between minor releases.
+> **Version:** 1.0.5-alpha — interfaces may change between minor releases.
 
 ## Requirements
 
@@ -41,6 +41,8 @@ For `Grep` and `Glob`, native tools are used when the `path` parameter targets o
 | `JETBRAINS_ROUTER_BYPASS=Read,Edit` | Disables routing for specific tools (comma-separated) |
 
 Worktree sessions are automatically detected and bypass routing to prevent cross-project IDE state contamination.
+
+Subagents (spawned via the Agent tool) are also automatically detected via the `agent_id` field in the hook payload and bypass routing unconditionally. Subagents doing parallel or background coding work use native tools; only the main interactive session is routed through the IDE.
 
 ## Skills and commands
 

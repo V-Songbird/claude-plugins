@@ -82,6 +82,12 @@ TOOL_NAME="$(printf '%s' "$INPUT" | jq -r '.tool_name // empty' 2>/dev/null)"
 CWD="$(printf '%s' "$INPUT" | jq -r '.cwd // empty' 2>/dev/null)"
 [ -n "$TOOL_NAME" ] || exit 0
 
+# Subagents spawned via the Agent tool may not have the JetBrains MCP tools in
+# their allowed set. Fail open whenever agent_id is present in the payload
+# (the field is absent for main-session calls, present for all subagent calls).
+AGENT_ID="$(printf '%s' "$INPUT" | jq -r '.agent_id // empty' 2>/dev/null)"
+[ -n "$AGENT_ID" ] && exit 0
+
 # --- Per-tool bypass --------------------------------------------------------
 # JETBRAINS_ROUTER_BYPASS is a comma-separated list of native tool names to
 # leave alone this session (e.g. JETBRAINS_ROUTER_BYPASS=Read,Edit). Finer-
