@@ -6,6 +6,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 
 ## [Unreleased]
 
+## [1.0.2-alpha] — 2026-05-02
+
+### Fixed
+
+- Verbose header (`KAIROI_VERBOSE=1`) now reads the plugin version from `marketplace.json` instead of `plugin.json`. `plugin.json` intentionally carries no `version` field (marketplace.json is the version authority); the old lookup always fell back to `"unknown"`, producing `=== kairoi vunknown ===`.
+
 ## [1.0.1-alpha] — 2026-05-02
 
 ### Fixed

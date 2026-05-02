@@ -65,10 +65,10 @@ for needle in "=== kairoi v" "MODULES (1)" "auth" "● high ◐ medium ○ low";
   fi
 done
 
-# Verbose header must carry the real plugin version from plugin.json,
+# Verbose header must carry the real plugin version from marketplace.json,
 # not a hard-coded literal.
 if echo "$OUT_V" | grep -qF "=== kairoi vunknown ==="; then
-  echo "verbose header fell back to 'unknown' — plugin.json read failed"
+  echo "verbose header fell back to 'unknown' — marketplace.json read failed"
   echo "$OUT_V" | sed 's/^/  /'
   exit 1
 fi
