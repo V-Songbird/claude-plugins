@@ -6,6 +6,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versio
 
 ## [Unreleased]
 
+## [1.0.6-alpha] — 2026-05-02
+
+### Fixed
+
+- Redirect messages for `Glob`, `Grep` (Bash), and `find -name` now use function-call syntax with the exact required parameter name called out inline. Previously, messages said `with q="..."` in natural language which agents often ignored, leading to repeated failures with guessed parameter names (`glob`, `namePattern`, `regex`, `name`, `pattern`). New format: `mcp__<ide>__search_file(q="...")` with an explicit `required parameter is 'q' (not glob, pattern, namePattern…)` warning.
+
 ## [1.0.5-alpha] — 2026-05-02
 
 ### Fixed

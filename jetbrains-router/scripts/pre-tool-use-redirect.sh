@@ -255,7 +255,7 @@ case "$TOOL_NAME" in
     # Claude Code's Grep is always ripgrep-backed (regex). Route to
     # search_regex unconditionally — it handles literals too. The skill
     # documents when search_text is slightly more ergonomic.
-    block "retry as mcp__${JB_PREFIX}__search_regex with q=\"$PATTERN\" (or mcp__${JB_PREFIX}__search_text for plain literals) — this redirect is expected."
+    block "retry as mcp__${JB_PREFIX}__search_regex(q=\"$PATTERN\") — required parameter is 'q' (not pattern, regex, query, or search). Or mcp__${JB_PREFIX}__search_text(q=\"$PATTERN\") for plain literals. This redirect is expected."
     ;;
 
   Glob)
@@ -266,7 +266,7 @@ case "$TOOL_NAME" in
       GLOB_REL="$(path_to_project_relative "$GLOB_PATH" "$CWD")"
       { [ -n "$GLOB_REL" ] && _is_passthrough_path "$GLOB_REL"; } && exit 0
     fi
-    block "retry as mcp__${JB_PREFIX}__search_file with q=\"$PATTERN\" — this redirect is expected."
+    block "retry as mcp__${JB_PREFIX}__search_file(q=\"$PATTERN\") — required parameter is 'q' (not glob, pattern, namePattern, query, or search). This redirect is expected."
     ;;
 
   Edit)
@@ -428,7 +428,7 @@ case "$TOOL_NAME" in
         ;;
 
       'grep '*|'rg '*|'egrep '*|'fgrep '*)
-        block "retry as mcp__${JB_PREFIX}__search_text (literal) or mcp__${JB_PREFIX}__search_regex (regex) — this redirect is expected."
+        block "retry as mcp__${JB_PREFIX}__search_text(q=\"<pattern>\") for literals or mcp__${JB_PREFIX}__search_regex(q=\"<pattern>\") for regex — required parameter is 'q'. This redirect is expected."
         ;;
 
       'find '*)
@@ -450,7 +450,7 @@ case "$TOOL_NAME" in
                 exit 0
                 ;;
               *)
-                block "retry as mcp__${JB_PREFIX}__find_files_by_name_keyword or mcp__${JB_PREFIX}__find_files_by_glob — this redirect is expected."
+                block "retry as mcp__${JB_PREFIX}__find_files_by_name_keyword(nameKeyword=\"<name>\") for name search or mcp__${JB_PREFIX}__find_files_by_glob(globPattern=\"<pattern>\") for glob — required parameters are 'nameKeyword' and 'globPattern' respectively (not name, glob, pattern, or q). This redirect is expected."
                 ;;
             esac
             ;;
