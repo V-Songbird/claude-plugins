@@ -171,7 +171,7 @@ fi
 
 if [ "${KAIROI_VERBOSE:-}" = "1" ]; then
   PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(dirname "$(dirname "$0")")}"
-  KV="$(jq -r '.version // "unknown"' "$PLUGIN_ROOT/.claude-plugin/plugin.json" 2>"$_DEVNULL" || echo unknown)"
+  KV="$(jq -r --arg n "kairoi" '.plugins[] | select(.name == $n) | .version // "unknown"' "$PLUGIN_ROOT/../.claude-plugin/marketplace.json" 2>"$_DEVNULL" || echo unknown)"
   echo ""
   echo "=== kairoi v$KV ==="
   echo ""
