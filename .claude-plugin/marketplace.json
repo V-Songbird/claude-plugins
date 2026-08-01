@@ -49,10 +49,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/hush.git",
-        "sha": "fcd9a84aa5cc0286455253b8fca39969a1d2aecf"
+        "sha": "fdb3ec66e5981919134e3a05e430ddb7127ba217"
       },
-      "description": "Token-lean sessions at the harness level, measured on real multi-turn coding sessions — a terse output style, output-shrinking hooks, and log compression cut output tokens and narration.",
-      "version": "0.16.4-alpha",
+      "description": "Trims command output, logs, and Claude's play-by-play before they reach your context, so long, noisy sessions cost less. Install and forget — nothing to configure. Short, no-tool questions cost a little more.",
+      "version": "1.0.0",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
