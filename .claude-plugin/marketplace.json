@@ -12,10 +12,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/foreman.git",
-        "sha": "37a0708d5a366e9ff9e3a424a2bde4f7a2022c75"
+        "sha": "89ecf97ec4def5aa37fdc855c96254482ebf3b66"
       },
-      "description": "Prompt-engineering and project-roadmap plugin that crafts Anthropic-grade prompts and picks, surveys, and tracks your next tasks.",
-      "version": "0.46.0-alpha",
+      "description": "Project continuity and roadmap trust: keeps a correctable roadmap in your repo, recommends the next task and says why it came first, and hands it off with the paths and symbols checked. Say what you want in plain language — one entrance routes it.",
+      "version": "1.0.0",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
@@ -25,20 +25,20 @@
       "repository": "https://github.com/V-Songbird/foreman",
       "category": "productivity",
       "keywords": [
-        "prompting",
-        "prompt-engineering",
         "roadmap",
         "planning",
+        "project-continuity",
         "task-selection",
+        "handoff",
         "background-agent",
         "automation"
       ],
       "tags": [
-        "prompting",
-        "prompt-engineering",
         "roadmap",
         "planning",
+        "project-continuity",
         "task-selection",
+        "handoff",
         "background-agent",
         "automation"
       ],
