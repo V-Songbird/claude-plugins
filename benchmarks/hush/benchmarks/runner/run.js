@@ -55,11 +55,12 @@ const dryRun = argv.includes('--dry-run');
 const seedFlag = flag('seed', null);
 
 // --- arms -------------------------------------------------------------------
-// The hush plugin lives one directory up from this harness; resolve it there
-// (or honour HUSH_PLUGIN_DIR) so nothing here is tied to one machine's paths.
+// The hush plugin checks out as a sibling of benchmarks/ in the marketplace
+// repo; resolve it there (or honour HUSH_PLUGIN_DIR) so nothing here is tied
+// to one machine's paths.
 const HUSH_DIR = process.env.HUSH_PLUGIN_DIR
   ? path.resolve(process.env.HUSH_PLUGIN_DIR)
-  : path.resolve(ROOT, '..');
+  : path.resolve(ROOT, '..', '..', '..', 'hush');
 
 function parseRivalEnv(s) {
   const env = {};

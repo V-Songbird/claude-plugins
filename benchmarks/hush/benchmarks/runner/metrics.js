@@ -2,7 +2,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-const { debugManifestPath } = require('../../hooks/compress-tool-output');
+// The hush plugin checks out as a sibling of benchmarks/ in the marketplace
+// repo; HUSH_PLUGIN_DIR has no reach here because this is a static require.
+const { debugManifestPath } = require('../../../../hush/hooks/compress-tool-output');
 
 // Parse a stream-json transcript (one JSON event per line) into flat metrics.
 function parseTranscript(jsonl) {
