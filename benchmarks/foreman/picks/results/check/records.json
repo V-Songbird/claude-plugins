@@ -1,0 +1,77 @@
+[
+  {
+    "size": 10,
+    "arm": "foreman",
+    "reps": 5,
+    "picks": [
+      "Migrate the session store config to the shared loader",
+      "Migrate the session store config to the shared loader",
+      "Migrate the session store config to the shared loader",
+      "Migrate the session store config to the shared loader",
+      "Migrate the session store config to the shared loader"
+    ],
+    "normalizedPicks": [
+      "migrate the session store config to the shared loader",
+      "migrate the session store config to the shared loader",
+      "migrate the session store config to the shared loader",
+      "migrate the session store config to the shared loader",
+      "migrate the session store config to the shared loader"
+    ],
+    "distinct": 1,
+    "distinctRaw": 1,
+    "deterministic": true,
+    "totalUnblocked": 5,
+    "meanOutputTokens": 0,
+    "meanCostUsd": 0
+  },
+  {
+    "size": 50,
+    "arm": "foreman",
+    "reps": 5,
+    "picks": [
+      "Fix pagination drift in uploads",
+      "Fix pagination drift in uploads",
+      "Fix pagination drift in uploads",
+      "Fix pagination drift in uploads",
+      "Fix pagination drift in uploads"
+    ],
+    "normalizedPicks": [
+      "fix pagination drift in uploads",
+      "fix pagination drift in uploads",
+      "fix pagination drift in uploads",
+      "fix pagination drift in uploads",
+      "fix pagination drift in uploads"
+    ],
+    "distinct": 1,
+    "distinctRaw": 1,
+    "deterministic": true,
+    "totalUnblocked": 35,
+    "meanOutputTokens": 0,
+    "meanCostUsd": 0
+  },
+  {
+    "size": 150,
+    "arm": "foreman",
+    "reps": 5,
+    "picks": [
+      "Fix pagination drift in i18n",
+      "Fix pagination drift in i18n",
+      "Fix pagination drift in i18n",
+      "Fix pagination drift in i18n",
+      "Fix pagination drift in i18n"
+    ],
+    "normalizedPicks": [
+      "fix pagination drift in i18n",
+      "fix pagination drift in i18n",
+      "fix pagination drift in i18n",
+      "fix pagination drift in i18n",
+      "fix pagination drift in i18n"
+    ],
+    "distinct": 1,
+    "distinctRaw": 1,
+    "deterministic": true,
+    "totalUnblocked": 103,
+    "meanOutputTokens": 0,
+    "meanCostUsd": 0
+  }
+]
