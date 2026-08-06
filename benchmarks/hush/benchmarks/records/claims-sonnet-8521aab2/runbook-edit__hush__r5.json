@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__hush__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 158,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 44700,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2566438,
+  "numTurns": 10,
+  "durationMs": 39259,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2223
+  },
+  "contextTraffic": 354607,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 6443,
+  "narrationWords": 0,
+  "finalWords": 27,
+  "finalText": "All three production mentions of 8081 are now 9090 — the health check curl, the known-issues note, and the appendix table. Staging's admin port stays 8091, untouched.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e15ffa656ca12eeabe145a1a37f3d7615fd2593b011ec393310a2b2a89c5db8e"
+}

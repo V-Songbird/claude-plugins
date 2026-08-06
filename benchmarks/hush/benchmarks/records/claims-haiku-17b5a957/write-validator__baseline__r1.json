@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 42,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9556,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.017363800000000002,
+  "numTurns": 1,
+  "durationMs": 7478,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 657
+  },
+  "contextTraffic": 21199,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 152,
+  "finalText": "Here's a practical Python function for email validation:\n\n```python\nimport re\n\ndef is_valid_email(email: str) -> bool:\n    \"\"\"\n    Validates an email address using a basic regex pattern.\n    \n    Args:\n        email: The email address to validate\n        \n    Returns:\n        True if the email is valid, False otherwise\n    \"\"\"\n    # Basic regex pattern for email validation\n    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'\n    \n    if not email or not isinstance(email, str):\n        return False\n    \n    return re.match(pattern, email) is not None\n```\n\n**Example usage:**\n```python\nprint(is_valid_email(\"<email>\"))           # True\nprint(is_valid_email(\"invalid.email@\"))             # False\nprint(is_valid_email(\"<email>\"))      # True\nprint(is_valid_email(\"missing@domain\"))             # False\n```\n\n**For production use**, I'd recommend the `email-validator` library instead, which performs more thorough validation including DNS checks:\n\n```python\nfrom email_validator import validate_email, EmailNotValidError\n\ndef is_valid_email(email: str) -> bool:\n    try:\n        validate_email(email)\n        return True\n    except EmailNotValidError:\n        return False\n```\n\nInstall it with: `pip install email-validator`\n\nThe regex version is lightweight and suitable for basic client-side validation, while `email-validator` is more robust and handles edge cases better for production systems.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fe0986153acac2d0d2d8e7444dcce40cf25006ddda23fae13d2af8114f65c240"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r1",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 81,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34101,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1852871,
+  "numTurns": 11,
+  "durationMs": 32744,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2090
+  },
+  "contextTraffic": 222280,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 12200,
+  "narrationWords": 68,
+  "finalWords": 176,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js` acquired a connection with `pool.acquire()` but called `pool.release(conn)` as a plain statement after `await run(conn, order)`, not in a `finally`. Any order that failed validation (rejected) skipped the release entirely, permanently shrinking the pool by one — `pool.js` has no timeout-based reclaim, so it's a genuine leak, not a transient stall. `worker.log` confirms this: `order-4013 failed: invalid order payload` at 01:56:11, and unlike every other job, no \"connection released\" line follows it. Each subsequent bad order ate another connection until the pool exhausted and `acquire()` started throwing — which lines up with the 2am page.\n\n**Fix:** routed `processOrder` through the existing `withConnection` helper (already used correctly by `handlers/api.js`), which releases in a `finally` regardless of success/failure. The stale comment explaining why it bypassed that helper no longer applied (the retry-loop reason was gone), so I removed it along with the direct acquire/release.\n\nThe test suite itself was fine — it just needed `--test \"tests/*.test.js\"` since `node --test tests/` doesn't glob directory files the same way on this setup.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "99883eb444da946878221956fe67e4cfc506db4df12983b7802b6c3d5e45e9ff"
+}

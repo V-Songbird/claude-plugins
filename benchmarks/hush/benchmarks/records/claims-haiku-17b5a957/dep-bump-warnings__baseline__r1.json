@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 60,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 30178,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0465852,
+  "numTurns": 10,
+  "durationMs": 28882,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1868
+  },
+  "contextTraffic": 165931,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6780,
+  "narrationWords": 122,
+  "finalWords": 75,
+  "finalText": "Done! Your build is now clean. The two real bugs exposed by the dependency bump were:\n\n1. **options.js** — the new bundler passes `retryCount` but the code was still looking for `retries`\n2. **retryPolicy.js** — the new config loader returns `undefined` for unset flags, but the strict boolean check didn't handle that case (now defaults to `false`)\n\nThe remaining 8 warnings are deprecation notices from the dependency bump itself — that's just noise from upstream.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e1548c0c8353878ba377f4bb86dda95d485be97f87a462263c438a0d6e1f10b9"
+}

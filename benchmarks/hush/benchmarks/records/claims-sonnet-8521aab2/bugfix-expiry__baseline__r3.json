@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__baseline__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 5,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 40070,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1032574,
+  "numTurns": 7,
+  "durationMs": 39286,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1008
+  },
+  "contextTraffic": 174951,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 3453,
+  "narrationWords": 59,
+  "finalWords": 52,
+  "finalText": "All 5 tests pass now.\n\nThe bug was in `token.js:7` — `isExpired` used `token.exp < nowSeconds`, so a token expiring at exactly the current second was still treated as valid, contradicting the module's own doc comment (\"expired the moment `exp` is reached\"). Changed it to `<=` so boundary-expiring tokens are correctly rejected.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e298e3bdd7f1feb2895548fd8857a62f81eaf6d15ebe795ec7b3d052dcb31460"
+}

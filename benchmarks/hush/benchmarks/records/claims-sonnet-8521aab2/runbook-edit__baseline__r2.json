@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__baseline__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 152,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 54677,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2626743,
+  "numTurns": 12,
+  "durationMs": 49971,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3564
+  },
+  "contextTraffic": 400611,
+  "apiCalls": 12,
+  "toolCalls": 9,
+  "toolResultChars": 9971,
+  "narrationWords": 0,
+  "finalWords": 38,
+  "finalText": "Updated all three production admin-port mentions (8081 → 9090): the health-check curl command, the \"Known issues\" note about the unauthenticated admin endpoint, and the environment reference table. Staging's `8091` was left as-is since only the production port moved.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "388f94ce1b6914c740824de13c1717719d60988cd7390701f9c687ff09621498"
+}

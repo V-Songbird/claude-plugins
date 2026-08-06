@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__baseline__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 15,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 20073,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1066976,
+  "numTurns": 6,
+  "durationMs": 18702,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 650
+  },
+  "contextTraffic": 144722,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2189,
+  "narrationWords": 28,
+  "finalWords": 38,
+  "finalText": "All 5 tests pass. The bug was an off-by-one: `paginate.js` computed `start = page * perPage`, but pages are 1-indexed, so page 1 was skipping the first `perPage` items. Fixed to `start = (page - 1) * perPage`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b2ccd2c37dc6759bc9886f7f7830ed3f0a9d4879fc61b26857d26f707440f601"
+}

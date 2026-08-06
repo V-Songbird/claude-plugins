@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 40,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10941,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0175728,
+  "numTurns": 1,
+  "durationMs": 9269,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 689
+  },
+  "contextTraffic": 21211,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 240,
+  "finalText": "**The core difference:**\n\n- **Merge** creates a new commit that ties two branches together, keeping both histories intact. You end up with a \"merge commit\" and a branching timeline.\n- **Rebase** replays one branch's commits on top of another, rewriting history so it appears linear. The original commits get new hashes.\n\n**When to use each:**\n\n**Reach for merge when:**\n- Integrating branches that other people have pushed (shared history)\n- You want to preserve *when and how* branches diverged\n- Multiple people are working on the feature branch\n- You're integrating a long-lived feature branch into a release branch\n\n**Reach for rebase when:**\n- Cleaning up local commits before the PR is merged (still on your machine)\n- You want a clean, linear history on the target branch\n- You're syncing your local branch with main before pushing\n- The branch is private/personal and won't cause others pain if history changes\n\n**The danger with rebase:** If you rebase a branch that other people have pulled, their copies are now out of sync with the new history. Never rebase shared branches. The rule is simple: *rebase local, merge shared*.\n\n**Practical workflow:** Many teams rebase locally to clean up (`git rebase -i`), then merge to main. This gives you the benefits of both—a clean history without the pain of rewriting shared work.\n\nThe tl;dr: merge is the safe default for anything shared; rebase is for tidying up your own work before merging.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d2dac2affcbe4d45f11a809c26b6fc0025e12f571b7053f28c70a2852718a313"
+}

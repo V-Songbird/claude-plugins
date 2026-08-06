@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__baseline__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 154,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 50984,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2667925,
+  "numTurns": 13,
+  "durationMs": 45933,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3587
+  },
+  "contextTraffic": 426772,
+  "apiCalls": 13,
+  "toolCalls": 10,
+  "toolResultChars": 8171,
+  "narrationWords": 21,
+  "finalWords": 25,
+  "finalText": "All three production references to port 8081 (health-check command, the SEC-233 known-issue note, and the appendix table) are now 9090; staging's 8091 was left as-is.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f3b8b9b340dc1e97fe07675c8baf785e7677a570828e7ad78cef07ae13d16066"
+}

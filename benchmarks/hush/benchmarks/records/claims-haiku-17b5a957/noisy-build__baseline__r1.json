@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 24,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 34534,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0604881,
+  "numTurns": 10,
+  "durationMs": 32918,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2048
+  },
+  "contextTraffic": 230978,
+  "apiCalls": 9,
+  "toolCalls": 9,
+  "toolResultChars": 15110,
+  "narrationWords": 83,
+  "finalWords": 83,
+  "finalText": "Perfect! Build is now clean. The issue was in `src/core/settings.js:17` — it referenced an undefined variable `retries` instead of accessing it from the `env` parameter.\n\n**The fix:**\n- Added `retries: 1` to the `DEFAULTS` object \n- Changed `maxRetries: retries` to `maxRetries: env.retries || DEFAULTS.retries`\n\nThe build now completes successfully (exit code 0) with only the expected 3 warnings. Those warnings are legitimate (deprecated API, unused export, circular import) but not blocking — the real error that was buried in the noise is gone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5611644051c6ad08be1b56f98d2365d502a7e95e0b1e23696c6f14a8e36ab47a"
+}

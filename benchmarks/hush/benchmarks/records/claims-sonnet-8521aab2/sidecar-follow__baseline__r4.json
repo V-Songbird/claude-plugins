@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 166,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 14960,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "0/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0972258,
+  "numTurns": 6,
+  "durationMs": 13257,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 494
+  },
+  "contextTraffic": 142266,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 111,
+  "narrationWords": 0,
+  "finalWords": 39,
+  "finalText": "The `logs` directory exists but is empty — there's no `test-output.log` file in this repo (or anywhere else I can find). Can you double check the path, or did the file maybe not get copied/committed from last night's run?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cf4da2867bdc9ccebe451a4afd01d6606e1eaefd9061a2d2370283bef97cc33c"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__baseline__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 123,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16160,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.13681680000000002,
+  "numTurns": 4,
+  "durationMs": 14831,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 995
+  },
+  "contextTraffic": 121126,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 15259,
+  "narrationWords": 0,
+  "finalWords": 97,
+  "finalText": "17 call sites across 7 files still pass the legacy second argument (all `true`). Breakdown:\n\n| File | Count |\n|---|---|\n| `src/reports/quarterly.js` | 5 (bundle, holdback, subtotal, surcharge, gross) |\n| `src/admin/exports.js` | 3 (tip, commission, credit) |\n| `src/billing/invoice.js` | 3 (tip, balance, payout) |\n| `src/reports/monthly.js` | 2 (tip, settlement) |\n| `src/checkout/cart.js` | 2 (prepayment, writeOff) |\n| `src/checkout/receipt.js` | 1 (tip) |\n| `src/billing/statement.js` | 1 (bundle) |\n\n`src/reports/quarterly.js` has the most, with 5. The definition is at `src/lib/format.js:6` (`formatAmount(value, legacyRounding)`); files like `refunds.js`, `dashboard.js`, and `ledger.js` are already clean (single-arg only).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a3d9b6b5c97f9741c775c712c4c937cf3e24b7a6f7100396fc1dea552a2d0791"
+}

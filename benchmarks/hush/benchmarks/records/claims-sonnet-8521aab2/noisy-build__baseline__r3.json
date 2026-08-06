@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 44,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28443,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.17395739999999998,
+  "numTurns": 9,
+  "durationMs": 26934,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1390
+  },
+  "contextTraffic": 195847,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 14273,
+  "narrationWords": 83,
+  "finalWords": 69,
+  "finalText": "Build now exits 0. The real bug was in `src/core/settings.js:17` — `resolveConfig` referenced an undefined bare variable `retries` instead of `env.retries`, throwing a `ReferenceError` that aborted the build after all the compile/dedupe noise. Fixed by reading `env.retries` with a fallback to a new `DEFAULTS.maxRetries` constant. The 3 warnings (deprecated `crypto.createCipher`, an unused export, a circular import) are non-fatal and still print, but the build finishes clean with 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4ce1d58cef018219bbe2f33d320cec35060ebf33fb7dd6fc082d7afe20aa3750"
+}

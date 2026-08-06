@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 36,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9673,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0167628,
+  "numTurns": 1,
+  "durationMs": 8003,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 527
+  },
+  "contextTraffic": 21211,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 240,
+  "finalText": "**Merge** combines branches by creating a merge commit that ties two histories together. The original commits stay intact, and you see the full branching history: you can see when features were worked on in parallel.\n\n**Rebase** replays your commits on top of another branch, rewriting history. It looks like you did all your work sequentially, with no branching. History is linear and cleaner, but it rewrites commit SHAs (destructive on shared branches).\n\n## When to use each:\n\n**Merge**: Default for collaborative branches. Use when:\n- The branch is shared or already pushed\n- You want to preserve *when* the branches diverged (useful for understanding what happened)\n- You're pulling main into a feature branch to integrate changes from others\n\n**Rebase**: When you want a clean history. Use when:\n- It's your local branch (not yet pushed or only you use it)\n- You're integrating your work onto main before merging (rebase then merge)\n- You're cleaning up commits before a PR\n\n**Practical workflow**: `git rebase main` on your local branch to get a clean diff, then `git merge --ff-only` (or use a normal merge PR) to integrate. This gives you a linear history on main without the messy branching, but only because you rewrote before sharing.\n\n**Golden rule**: Never rebase anything you've pushed or that others depend on — it causes painful conflicts when they pull. The \"it rewrites history\" problem is only a problem if that history is shared.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c3c9c597d05f810223be1c79f0afc2015f73e7af139841de797453b62f06d1bc"
+}

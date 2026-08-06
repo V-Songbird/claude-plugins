@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 67,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 4,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 8117,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.078357,
+  "numTurns": 1,
+  "durationMs": 5972,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 328
+  },
+  "contextTraffic": 31700,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 170,
+  "finalText": "Both let you combine work from different branches, but they leave different marks.\n\n**Merge** keeps history exactly as it happened. It adds one new commit that ties two branches together, and every commit you made stays visible, in order, with timestamps. Nothing gets rewritten.\n\n**Rebase** rewrites history instead. It takes your commits and replants them on top of the other branch, one by one, as if you'd started there. The result looks like a straight line, but the original commits are gone, replaced with new ones.\n\nFor everyday work: reach for merge on shared branches, like when you're bringing `main` into a feature branch or finishing one. It's safe because it never rewrites commits other people might have.\n\nReach for rebase on your own branch, before it's shared, when you want a clean line of commits to hand off or open a pull request with. Once you've pushed a branch and someone else is working off it, don't rebase it — you'd be pulling the ground out from under them.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "68b4ff8d63a1f008d189939fea7cd888eb47cbbfd6c2844ec129c249e98c9e30"
+}

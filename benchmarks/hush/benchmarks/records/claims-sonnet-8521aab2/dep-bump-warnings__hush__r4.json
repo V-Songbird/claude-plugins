@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 107,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 38895,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.22635489999999997,
+  "numTurns": 11,
+  "durationMs": 37179,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1901
+  },
+  "contextTraffic": 314963,
+  "apiCalls": 9,
+  "toolCalls": 10,
+  "toolResultChars": 8222,
+  "narrationWords": 0,
+  "finalWords": 118,
+  "finalText": "Build passes now, exit 0. The screenful of warnings was mostly noise from the bump, but two real bugs were hiding in there.\n\nThe bundler changed the shape of the options it hands to modules — `retries` became `retryCount` — and `src/core/options.js` was still reading the old field, so it crashed on `undefined.toFixed()`. Fixed by reading `retryCount`.\n\nSecond, the new config loader leaves unset flags as `undefined` instead of `false`, and `src/net/retryPolicy.js` only accepted explicit booleans, so it threw on the unset case. Fixed by treating `undefined` the same as `false`.\n\nThe rest — deprecation notices, tree-shaking notes, dedupe lines — are just leftover log noise and don't need touching. Build now finishes with 8 warnings, 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "192ae1955fcda9c7dde91c71e577e6eba7f740df1d4f1097203ffededded8086"
+}

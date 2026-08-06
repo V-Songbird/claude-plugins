@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 66,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 27460,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0386866,
+  "numTurns": 9,
+  "durationMs": 26171,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1492
+  },
+  "contextTraffic": 134300,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 5029,
+  "narrationWords": 26,
+  "finalWords": 322,
+  "finalText": "Here's the architecture of this Node.js server project:\n\n## Core Structure\n\n**This is a lightweight REST API** for user and order management. It has 5 modular pieces:\n\n### 1. **server.js** — HTTP Entry Point\n- Creates a Node HTTP server (port 8080, configurable via `PORT` env var)\n- Every request first goes through authentication via a bearer token check\n- If auth passes, request routes to the handler; if not, returns 401\n\n### 2. **auth.js** — Token Verification\n- HMAC-based token scheme: `\"Bearer <userId>.<hex-signature>\"`\n- Signs tokens using a shared secret (`AUTH_SECRET` env var, falls back to `'dev-secret'`)\n- Validates tokens with timing-safe comparison (protects against timing attacks)\n- Extracts the user ID from the token if valid\n\n### 3. **routes.js** — Request Dispatcher\n- Route table maps HTTP methods + paths to handlers:\n  - `GET /users?id=X` — fetch a user (cached)\n  - `GET /orders` — list orders for the current user (cached)\n  - `POST /orders` — create a new order (bypasses cache)\n- Reads go through the LRU cache; writes invalidate relevant cache keys\n- Handles errors and JSON serialization\n\n### 4. **cache.js** — LRU Read Cache\n- 256-entry in-memory cache (no built-in TTL — defers freshness to the store)\n- Absorbs repeated reads without hitting the store\n- Simple bump-to-front LRU eviction\n\n### 5. **store.js** — In-Memory Data Layer\n- Simulated database using a `Map`\n- Per-record TTL: records expire 15 minutes after their last write\n- Two data types: users and orders (orders are lists per user)\n\n## Data Flow\n\n1. Request comes in → **auth.js** checks token\n2. Valid request → **routes.js** dispatches to handler\n3. Read handlers → **cache.js** (hit = return; miss → **store.js**)\n4. Write handlers → **store.js** directly, cache is invalidated implicitly\n\nThis is a minimal but realistic pattern: thin HTTP layer, pluggable auth, read cache over a TTL-aware store. Swap out the store with a real DB and you have a production baseline.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a49cbe227e697198f12363422477f77864b63244f66223ec51ff7ff263c16171"
+}

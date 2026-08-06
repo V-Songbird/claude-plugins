@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__hush__r1",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 31,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34373,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.22388349999999999,
+  "numTurns": 16,
+  "durationMs": 32828,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2401
+  },
+  "contextTraffic": 281430,
+  "apiCalls": 8,
+  "toolCalls": 15,
+  "toolResultChars": 5746,
+  "narrationWords": 20,
+  "finalWords": 35,
+  "finalText": "Renamed `calcTotal` to `computeTotal` in `cart.js`, `index.js`, `invoice.js`, and `report.js` — comments included. The one leftover match in `total.test.js` is intentional, it asserts the old name is gone from `cart`'s exports.\n\nTests: 4 pass, 79ms.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "484ef5d7a3be5fa6ed7e605ac8d914e2a1b9eeaf396443a6a35826632395ce29"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 85,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31769,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.18397880000000003,
+  "numTurns": 11,
+  "durationMs": 30447,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2049
+  },
+  "contextTraffic": 222021,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 11852,
+  "narrationWords": 83,
+  "finalWords": 124,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js` acquired a connection directly (bypassing `withConnection`'s safe wrapper) and only called `pool.release(conn)` on the line after `run()` — with no `try/finally`. Any rejected order (bad payload, DB error, etc.) skipped the release entirely, permanently shrinking the pool by one. `worker.log` confirms it: `order-4013 failed: invalid order payload` at 01:56:11 is the only job in the log missing its `connection released` line. Under enough failures in the 2am window, the pool exhausted and started throwing `pool exhausted: no connections available`, which is what paged you. The request path (`handlers/api.js`) was already safe since it went through `withConnection`.\n\n**Fix:** wrapped the `run()` call in `try/finally` so `pool.release(conn)` always fires, matching what `withConnection` already does for the API path.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4673d6f83c31a9a84a2b653895ac82987073152723e9a780aaa8569ee4979112"
+}

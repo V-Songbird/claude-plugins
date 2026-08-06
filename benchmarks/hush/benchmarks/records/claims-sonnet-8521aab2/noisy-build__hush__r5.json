@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 49,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28259,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.17418960000000003,
+  "numTurns": 7,
+  "durationMs": 26510,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 918
+  },
+  "contextTraffic": 237493,
+  "apiCalls": 7,
+  "toolCalls": 6,
+  "toolResultChars": 6280,
+  "narrationWords": 0,
+  "finalWords": 77,
+  "finalText": "**Fixed.** The build was crashing at the link step because `src/core/settings.js` referenced a variable called `retries` that never existed — it should have read `env.retries`.\n\nI changed that one line, and the build now finishes clean: exit code 0, 3 warnings, 0 errors.\n\nThose 3 warnings are just noise from the fake modules (a deprecated crypto call, an unused export, and a circular import) — nothing broken, safe to ignore or clean up later if you want.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3c5ca164c6a58501a7175a3a56d2976337313242d18b6d59fb66b46a0127a344"
+}

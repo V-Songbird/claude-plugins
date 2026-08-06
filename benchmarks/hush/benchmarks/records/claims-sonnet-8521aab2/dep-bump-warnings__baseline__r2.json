@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 102,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 26124,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.16238299999999997,
+  "numTurns": 10,
+  "durationMs": 24827,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1817
+  },
+  "contextTraffic": 214903,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6107,
+  "narrationWords": 69,
+  "finalWords": 109,
+  "finalText": "Build's clean now (exit 0). The remaining 8 warnings are the deprecation-noise lines (`DEP0142`, `DEP0198`, etc.) that are just informational, not the actual break.\n\nWhat was wrong: the bundler bump changed the options shape it hands to modules from `{ retries }` to `{ retryCount }`, and its config loader now leaves unset flags as `undefined` instead of `false`. Two call sites hadn't been updated for either change:\n\n- `src/core/options.js:7` — `resolveRetries` read `options.retries` (now always `undefined`), crashing on `.toFixed()`. Fixed to read `options.retryCount`.\n- `src/net/retryPolicy.js:7-11` — `isBackoffEnabled` only accepted explicit `true`/`false` and threw on `undefined`. Simplified to `flags.backoffEnabled === true`, treating any non-`true` value (including unset) as disabled.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3de83498959c576372c98510136dc286182bc656d8d15941587725e64c101b45"
+}

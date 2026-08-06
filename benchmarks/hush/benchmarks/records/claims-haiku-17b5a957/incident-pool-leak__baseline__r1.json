@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 49,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 44707,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.10376880000000001,
+  "numTurns": 11,
+  "durationMs": 43131,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2994
+  },
+  "contextTraffic": 272801,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 53589,
+  "narrationWords": 181,
+  "finalWords": 107,
+  "finalText": "Perfect! All tests pass. The fix is confirmed.\n\n## Summary\n\nThe connection leak was in `src/jobs/processOrder.js`. It was manually acquiring and releasing connections without a try/finally block:\n\n```javascript\nconst conn = pool.acquire();\nconst result = await run(conn, order);  // if this throws, release never runs\npool.release(conn);\n```\n\nWhen orders failed validation (throwing errors), the release call was skipped, leaking connections. Once all 5 pool connections were exhausted, the service crashed with \"pool exhausted\" errors.\n\nThe fix: use the existing `withConnection` helper (which already has try/finally safety) — the same pattern `handleRequest` already uses. This guarantees the connection is always released, even on failure. All tests now pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b9000f2f687d82686929bf138dd487b938d3cd63b26943c46bc1d50e858c9cb7"
+}

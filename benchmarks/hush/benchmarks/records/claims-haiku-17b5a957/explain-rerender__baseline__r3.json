@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 34,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10248,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0177308,
+  "numTurns": 1,
+  "durationMs": 8644,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 720
+  },
+  "contextTraffic": 21212,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 225,
+  "finalText": "The most common causes are:\n\n1. **Parent re-rendering** — When the parent renders, it re-renders children by default, even if props haven't changed. The child only skips re-render if *both* conditions are true:\n   - Props haven't actually changed (by reference equality)\n   - The child is wrapped in `React.memo()`\n\n2. **Creating new references on each render** — You're passing a new object or function as a prop:\n   ```jsx\n   // Every render creates a new object → child re-renders every time\n   <Child style={{ color: 'red' }} />\n   \n   // Every render creates a new function → child re-renders every time\n   <Child onClick={() => doSomething()} />\n   ```\n\n3. **Not memoizing the child** — Without `React.memo()`, the child always re-renders when the parent re-renders:\n   ```jsx\n   const Child = React.memo(({ prop }) => <div>{prop}</div>);\n   ```\n\n4. **Parent's dependencies** — If the parent is in a `useEffect` that re-runs frequently, it might be re-rendering more than you expect.\n\n**Quick fix**: Wrap the child in `React.memo()` and move object/function props outside the render or wrap them in `useMemo()`/`useCallback()`:\n\n```jsx\nconst Parent = () => {\n  const handleClick = useCallback(() => {}, []);\n  const style = useMemo(() => ({ color: 'red' }), []);\n  \n  return <Child onClick={handleClick} style={style} />;\n};\n\nconst Child = React.memo(({ onClick, style }) => ...);\n```\n\nShare your code if you want me to pinpoint which of these is your issue.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c9b5f4187757fee78200cf4182cc347308e9a35518a5fd7eb7dc2e2654a2f828"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 26,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 32631,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.052764200000000004,
+  "numTurns": 8,
+  "durationMs": 30897,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1738
+  },
+  "contextTraffic": 176969,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 15314,
+  "narrationWords": 86,
+  "finalWords": 79,
+  "finalText": "Perfect! Build is now clean. \n\n**The bug:** Line 17 in `src/core/settings.js` was referencing an undefined variable `retries`. It should have been `env.retries` to read the value passed by the caller.\n\n**The fix:** Changed `maxRetries: retries,` to `maxRetries: env.retries || 1,` so it properly reads the retries value from the environment parameter (with a fallback default).\n\nThe build now succeeds with the message: `build finished in 41.7s with 3 warnings, 0 errors` — those three warnings are harmless and expected.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "71649b548fe8d6e7b010b547c57de2af3bb36be273bddc1612aaf10a48ba0fe8"
+}

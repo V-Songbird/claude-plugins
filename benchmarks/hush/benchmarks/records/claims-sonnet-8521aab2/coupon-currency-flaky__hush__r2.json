@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 92,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 37991,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2401954,
+  "numTurns": 12,
+  "durationMs": 36136,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2085
+  },
+  "contextTraffic": 325325,
+  "apiCalls": 9,
+  "toolCalls": 11,
+  "toolResultChars": 9444,
+  "narrationWords": 0,
+  "finalWords": 131,
+  "finalText": "**Found it: `engine.js` was rounding to cents twice.**\n\nAfter a percent coupon, and again after a flat coupon, it rounded the running total to 2 decimal places — while still in USD, before converting to the order's currency. That's an extra rounding step the currency conversion then compounds, landing the final total a cent or two off. It only showed up with a percent coupon (`SAVE10PCT`), and only in GBP, CAD, and JPY — currencies whose exchange rate happens to shift the rounding error across a cent boundary. USD and EUR just got lucky with these baskets.\n\nFix: stopped rounding mid-calculation. The total now stays exact through both coupon steps and rounds only once, at the very end, in the target currency's own decimal places.\n\nAll 40 pricing tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d84326748095db7fc79f5b0e659bf0ec3d5e697b6d0234e7fbba51d077df055b"
+}

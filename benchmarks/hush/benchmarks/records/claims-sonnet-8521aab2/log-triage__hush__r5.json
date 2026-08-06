@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 138,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 26114,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2475621,
+  "numTurns": 7,
+  "durationMs": 24377,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1372
+  },
+  "contextTraffic": 278861,
+  "apiCalls": 7,
+  "toolCalls": 6,
+  "toolResultChars": 23688,
+  "narrationWords": 0,
+  "finalWords": 165,
+  "finalText": "Redis died at 02:14:07 — `connect ECONNREFUSED 10.0.0.12:6379` — and never came back. Twelve reconnect attempts over the next 17 minutes all failed the same way.\n\nWith no cache, every request fell through to the store directly, and it couldn't keep up. Timeouts and queue depth climbed steadily worker by worker, api, and scheduler alike, request queue depth going from the 50s up past 560 against a max of 500. Right at the end, worker-2 ran out of memory trying to hold the backlog, crashed, restarted, and then the whole api process stopped responding. The supervisor killed the process group at 02:31:52 — that's the outage.\n\nSo the chain was: Redis at 10.0.0.12 went unreachable → cache fell back to the store → store couldn't handle direct load → requests piled up for 17 straight minutes → memory exhausted → hard crash.\n\nThe one thing worth chasing first is why Redis at `10.0.0.12:6379` dropped — that's the root cause, everything else is downstream of it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "043e6b098355f996cf8b656d6da32b46f77718fc42aee8c423aa40ecc0483c6d"
+}

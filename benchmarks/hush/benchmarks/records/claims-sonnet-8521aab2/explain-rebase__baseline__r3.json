@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 64,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 9537,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0590815,
+  "numTurns": 1,
+  "durationMs": 7737,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 463
+  },
+  "contextTraffic": 28134,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 217,
+  "finalText": "Both combine changes from one branch into another, but they do it differently:\n\n**Merge** creates a new commit that ties together two histories, preserving both branches exactly as they happened. Nothing is rewritten — you get a merge commit with two parents.\n\n**Rebase** replays your branch's commits one by one on top of another branch's tip, producing new commits (new hashes) with a linear history. The original commits are effectively discarded in favor of rewritten equivalents.\n\n**Trade-offs:**\n- Merge preserves true history and is always safe on shared/public branches, but the log gets cluttered with merge commits and can be harder to read.\n- Rebase gives a clean, linear history that's easier to bisect and read, but it rewrites commit hashes — which breaks anyone else's copy of that branch if you rebase something already pushed/shared.\n\n**When to reach for each:**\n- **Rebase** your local feature branch onto `main` before opening a PR, to keep history linear and resolve conflicts incrementally against the latest base. Also use it to clean up/squash your own commits before sharing.\n- **Merge** when integrating a finished feature branch into `main` (especially via PR merge button), or any time the branch is shared with others — never rebase commits others have already pulled.\n\nRule of thumb: rebase private/local work, merge shared/public work.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "67d73155e5ca2fa3777be81a0c0ed359fbc421c20d6afaf4396982fb99a9838f"
+}

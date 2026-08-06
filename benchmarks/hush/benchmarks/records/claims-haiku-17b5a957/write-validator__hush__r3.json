@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__hush__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 47,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9433,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0224692,
+  "numTurns": 1,
+  "durationMs": 7586,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 602
+  },
+  "contextTraffic": 23900,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 138,
+  "finalText": "Here's a practical email validation function using the `email-validator` library, which handles the tricky edge cases:\n\n```python\nfrom email_validator import validate_email, EmailNotValidError\n\ndef validate_email_address(email):\n    try:\n        valid = validate_email(email)\n        return True, valid.normalized\n    except EmailNotValidError as e:\n        return False, str(e)\n```\n\nUse it like:\n```python\nis_valid, result = validate_email_address(\"<email>\")\n# Returns: (True, '<email>')\n\nis_valid, result = validate_email_address(\"invalid.email\")\n# Returns: (False, 'The email address is not valid...')\n```\n\nInstall the library with `pip install email-validator`.\n\nIf you want something simpler without dependencies, here's a basic regex version that covers common cases:\n\n```python\nimport re\n\ndef validate_email_address(email):\n    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'\n    return bool(re.match(pattern, email))\n```\n\nThe library version is more robust for production use — it checks DNS records, handles edge cases, and follows RFC standards. The regex version is lighter but won't catch all invalid emails. Pick based on your strictness needs.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "aae4fc10305816352cff86f048fdd89832459be50a0eb0ea8232afb3c4e400a1"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 87,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 27428,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.31631690000000007,
+  "numTurns": 10,
+  "durationMs": 25988,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1986
+  },
+  "contextTraffic": 256828,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 51678,
+  "narrationWords": 128,
+  "finalWords": 124,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js` acquired a pool connection but only called `pool.release(conn)` after `run()` resolved — with no `try/finally`. Any order that rejected (e.g. `invalid order payload`) leaked its connection permanently, since the pool has no timeout-based reclaim. The `worker.log` shows this exactly: each validation failure bumps `pool in-use` by one without a matching release, until the pool hit 5/5, workers started throwing `pool exhausted`, then `api.js` (which already used the safe `withConnection` wrapper) started timing out on acquire, cascading into 503s and the 02:13:36 supervisor restarts.\n\n**Fix:** routed `processOrder` through the same `withConnection` helper `api.js` already used, so the connection releases in a `finally` regardless of success/failure. Removed the stale comment about a retry loop that no longer exists.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9daf3e789600b63f3778b983d4bceda8e9042eb045966a9c81b61148c7933fa6"
+}

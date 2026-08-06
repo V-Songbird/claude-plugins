@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 108,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 41286,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.23864149999999995,
+  "numTurns": 11,
+  "durationMs": 39877,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2342
+  },
+  "contextTraffic": 308767,
+  "apiCalls": 9,
+  "toolCalls": 10,
+  "toolResultChars": 18833,
+  "narrationWords": 57,
+  "finalWords": 136,
+  "finalText": "Build's clean now — exit 0, `0 errors`.\n\nTwo real bugs were hiding in that wall of deprecation noise, both from the bundler bump changing shapes on you:\n\n1. **`src/core/options.js`** — the new bundler passes options as `{ retryCount }`, but `resolveRetries` still read `options.retries`, which was `undefined` → threw `TypeError` on `.toFixed()`. Fixed to read `retryCount`.\n2. **`src/net/retryPolicy.js`** — the new config loader leaves unset flags as `undefined` instead of `false`, but `isBackoffEnabled` only handled explicit `true`/`false` and threw on anything else. Now treats `undefined` as `false` (disabled), matching the old loader's behavior.\n\nThe remaining 8 `WARN DEP0*` lines are genuine Node.js deprecation notices from the dependency bump (e.g. `Buffer()`, `fs.exists`, sync loader hooks, `punycode`) — harmless for now but worth scheduling a cleanup pass since some will become hard errors in future Node versions.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f07f227c1b7bfe9f180e5f08590b68890138b7a737d9b30566ec74358ac1547a"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 35,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11439,
+  "check": {
+    "pass": false,
+    "score": 0.3333333333333333,
+    "detail": "1/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0226062,
+  "numTurns": 1,
+  "durationMs": 9582,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 620
+  },
+  "contextTraffic": 23913,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 156,
+  "finalText": "The parent component is re-rendering, and React re-renders all children by default even when props stay the same.\n\nThe fix depends on which of these is happening:\n\n**Child gets wrapped in `React.memo()`** — prevents re-renders when props haven't changed. Use this first if the props are simple values.\n\n```jsx\nexport default React.memo(MyChild)\n```\n\n**Parent is creating new objects or functions every render** — the props look different each time even though the data is the same. Wrap them with `useMemo` or `useCallback` in the parent:\n\n```jsx\nconst handleClick = useCallback(() => { ... }, [])\nconst config = useMemo(() => ({key: value}), [value])\n```\n\n**Context is changing** — if your child pulls from a context that updates often, it will re-render regardless of props. Split context into separate providers (one that changes often, one that doesn't) so the static one doesn't trigger unnecessary renders.\n\nIf you share your code, I can spot which one is happening.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "aa547cc4c70189543a1411febba3183c9f9161a922b10f5cd43b5957226a0c4a"
+}

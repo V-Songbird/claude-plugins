@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 31,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11885,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.023186199999999997,
+  "numTurns": 1,
+  "durationMs": 10053,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 735
+  },
+  "contextTraffic": 23913,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 212,
+  "finalText": "This usually happens because the parent component re-renders and passes new object or function references, even if the values look identical.\n\nHere are the most common culprits:\n\n**Objects and arrays created in the render method** — every render creates a new reference, so React thinks the prop changed even though the values are the same. Move them outside the component or use `useMemo`.\n\n```jsx\n// ❌ New object every render\n<Child config={{color: 'red', size: 10}} />\n\n// ✅ Reference stays the same\nconst config = {color: 'red', size: 10};\n<Child config={config} />\n```\n\n**Functions created inline** — same issue as objects. Use `useCallback` to keep the same function reference across renders.\n\n```jsx\n// ❌ New function every render\n<Child onClick={() => doSomething()} />\n\n// ✅ Same function reference\nconst handleClick = useCallback(() => doSomething(), []);\n<Child onClick={handleClick} />\n```\n\n**The parent re-renders** — if the parent component re-renders, all its children re-render by default. Wrap the child in `React.memo` to skip re-renders when props are the same.\n\n```jsx\nconst Child = React.memo(({ prop }) => <div>{prop}</div>);\n```\n\nThe parent is usually re-rendering because its own state changed or a context it depends on changed. You can see this in React DevTools — check the \"Highlight updates\" option to watch which components re-render.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "28404f3f68d8e00b3e5e4c05afd6651d2ff2b1e00921d96663cd8e5cf88cd977"
+}

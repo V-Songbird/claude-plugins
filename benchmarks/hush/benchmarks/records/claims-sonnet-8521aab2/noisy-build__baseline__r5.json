@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 48,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 21427,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.16519219999999998,
+  "numTurns": 7,
+  "durationMs": 19851,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1109
+  },
+  "contextTraffic": 194602,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 14032,
+  "narrationWords": 81,
+  "finalWords": 117,
+  "finalText": "Build now completes clean (exit 0), 0 errors.\n\n**Root cause:** `src/core/settings.js:17` had `maxRetries: retries` — referencing an undefined bare variable instead of `env.retries`, throwing a `ReferenceError` during the link stage and aborting the build with exit code 1.\n\n**Fix:** changed it to `maxRetries: env.retries ?? 3`, so it takes the caller's override (`retries: 3` from `build.js`) with a sensible fallback, matching the intent of the existing comment.\n\nThe 3 warnings you're seeing (`crypto.createCipher` deprecation, an unused export, a circular import) are pre-existing lint-level notices unrelated to the crash — they don't fail the build and I left them alone since you asked specifically about what was breaking. Let me know if you'd like those cleaned up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1f7f92c9d3dbcc2bb3311b7e99fe6eb7b120215e1b91baac2fbf44892fe55478"
+}

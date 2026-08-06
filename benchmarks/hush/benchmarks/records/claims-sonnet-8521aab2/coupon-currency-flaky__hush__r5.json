@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 98,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 60995,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2214439,
+  "numTurns": 11,
+  "durationMs": 59128,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2478
+  },
+  "contextTraffic": 278357,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 6040,
+  "narrationWords": 0,
+  "finalWords": 123,
+  "finalText": "**Found it.** `computeTotal` in `src/pricing/engine.js` was rounding to 2 decimals right after the percent discount, and again after the flat discount, both while the amount was still in USD.\n\nThat's fine for USD orders, but for anything with a different exchange rate, rounding early locks in a slightly-off cent before the conversion multiplies it — so the final rounded total in GBP, CAD, or JPY ends up a cent short whenever a percent coupon is involved. Flat-only orders never showed it, since subtracting a whole-dollar coupon doesn't add extra decimal places.\n\nFix: only round once, at the very end, in the target currency's own decimal places. All 40 pricing tests pass now, and the 10 that were failing (GBP/CAD/JPY with `SAVE10PCT`) are fixed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ff0b939a4d58c5b86d19d66fabaa21ee8e998ce12b7daff37371bd449f9526b4"
+}

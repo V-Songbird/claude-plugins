@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 65,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 39553,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.06426300000000001,
+  "numTurns": 12,
+  "durationMs": 37970,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2147
+  },
+  "contextTraffic": 241888,
+  "apiCalls": 9,
+  "toolCalls": 11,
+  "toolResultChars": 8845,
+  "narrationWords": 0,
+  "finalWords": 85,
+  "finalText": "Build's passing now. The bump introduced two bugs that the script was catching:\n\n**First:** `src/core/options.js` expected the old `options.retries` field, but the new bundler sends `options.retryCount`. Changed line 7 to use the new field name.\n\n**Second:** `src/net/retryPolicy.js` didn't handle `undefined` in the backoff flag — the new config loader leaves unset flags as `undefined` instead of `false`. Added a check to treat `undefined` as `false`.\n\nThe remaining 8 warnings are deprecation notices from the bump itself, not actual issues. Build finished clean with 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "170ac34352b811df5129da8fe7453dfc3732283c5ed6c7727593838c2ed05b26"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 122,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 20806,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.14744459999999998,
+  "numTurns": 5,
+  "durationMs": 18936,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1181
+  },
+  "contextTraffic": 165873,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 3019,
+  "narrationWords": 0,
+  "finalWords": 39,
+  "finalText": "18 total minus the function definition itself in `format.js` leaves 17 real call sites still passing the rounding flag.\n\n`src/reports/quarterly.js` has the most, with 5 (lines 16, 37, 58, 83, 104).\n\nRunner-up spots: `admin/exports.js` and `billing/invoice.js` each have 3.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bdbf9d85401adbb2bc49e97dc50fbcc29f804c422c35722d5088fccf83fe4d24"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 95,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 38249,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1750428,
+  "numTurns": 9,
+  "durationMs": 36402,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1395
+  },
+  "contextTraffic": 207249,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 5519,
+  "narrationWords": 0,
+  "finalWords": 97,
+  "finalText": "**Found it.** `computeTotal` in `src/pricing/engine.js` rounded to 2 decimals after the percent coupon and again after the flat coupon — before converting to the order's currency. That's an extra rounding step the correct math never does.\n\nIt only showed up in GBP, CAD, and JPY orders with a percent coupon, since those currencies' conversion rates turn tiny rounding drift into a visible cent. USD and flat-only orders happened to round out even, so most carts looked fine.\n\nFix: only round once, after conversion, matching what finance expects. All 40 tests pass now (was 30 pass, 10 fail).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d1c9af981bb426e857da0a2dd1f4e34b6a94ce74cb43a10123b7e260fc681b4a"
+}

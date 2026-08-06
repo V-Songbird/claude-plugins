@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__hush__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 95,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 48354,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0645982,
+  "numTurns": 7,
+  "durationMs": 42727,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2493
+  },
+  "contextTraffic": 188272,
+  "apiCalls": 7,
+  "toolCalls": 4,
+  "toolResultChars": 5930,
+  "narrationWords": 0,
+  "finalWords": 24,
+  "finalText": "Updated all three mentions of the admin port from 8081 to 9090 — in the health check, the known issues, and the environment table.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "63b143e3224cddb720270df39eb0715ce9d07cacea2028f1db93253428f7ed69"
+}

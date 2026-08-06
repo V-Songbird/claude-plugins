@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 142,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 61064,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.4577793,
+  "numTurns": 13,
+  "durationMs": 55600,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3114
+  },
+  "contextTraffic": 562575,
+  "apiCalls": 13,
+  "toolCalls": 10,
+  "toolResultChars": 24258,
+  "narrationWords": 0,
+  "finalWords": 31,
+  "finalText": "Wrote the handoff to `INCIDENT-2026-07-04.md`. It covers the impact window (02:14–02:31 UTC), the root cause chain from the Redis drop to the crash, the `ioredis@5.4.1` version, and three follow-ups worth chasing.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b8ac4a60015158c8177b65b4766d47849322e769be293541695427bd01a6c995"
+}

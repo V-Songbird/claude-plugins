@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r1",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 80,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 26076,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.19416260000000002,
+  "numTurns": 10,
+  "durationMs": 24397,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1487
+  },
+  "contextTraffic": 185075,
+  "apiCalls": 5,
+  "toolCalls": 9,
+  "toolResultChars": 13982,
+  "narrationWords": 0,
+  "finalWords": 105,
+  "finalText": "Found it: `src/jobs/processOrder.js` grabbed a connection with `pool.acquire()` and only released it on the line right after `run()` — so a rejected order (bad payload) skipped `pool.release(conn)` entirely and the connection was gone for good. The worker log matches exactly: connections climb 2/5 → 5/5 as `invalid order payload` errors pile up, then everything starts timing out and the supervisor restarts the process.\n\nThe API path was already safe since it goes through `withConnection`, which releases in a `finally`. I made `processOrder` use that same helper instead of acquiring directly.\n\nAll 4 tests pass now, including the ones that were red for this exact leak.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "63215396ee09e46bb78e9d0e7d7d0a4e12bcbd73be2422ef304e5cc80f686f83"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 77,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11499,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0778339,
+  "numTurns": 2,
+  "durationMs": 10129,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 930
+  },
+  "contextTraffic": 56810,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 176,
+  "narrationWords": 0,
+  "finalWords": 109,
+  "finalText": "Wrote `validate_email.py` with an `is_valid_email(email)` function using a regex that checks local-part, domain labels, and a TLD, plus a length cap (254 chars, per RFC). It's a practical validator, not a full RFC 5322 parser (it rejects quoted-string locals and IP-literal domains, which real mail rarely uses).\n\n```python\nimport re\n\nEMAIL_PATTERN = re.compile(\n    r\"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+\"\n    r\"@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\"\n    r\"(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$\"\n)\n\ndef is_valid_email(email: str) -> bool:\n    if not isinstance(email, str) or len(email) > 254:\n        return False\n    return bool(EMAIL_PATTERN.match(email))\n```\n\nI included a `__main__` block with sample test cases. Want me to run it, or adapt it for something stricter (e.g. actual RFC 5322 compliance) or looser (just \"has an @ and a dot\")?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2bc4b17f696d12f60067c5a2a39e7240ffd0a020e5baeda7a68784c63ca0ac28"
+}

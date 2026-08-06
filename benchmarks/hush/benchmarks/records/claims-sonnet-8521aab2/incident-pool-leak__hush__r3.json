@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 84,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 38039,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.26282750000000005,
+  "numTurns": 13,
+  "durationMs": 36307,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1988
+  },
+  "contextTraffic": 340956,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 17442,
+  "narrationWords": 13,
+  "finalWords": 133,
+  "finalText": "Found it. `processOrder.js` grabbed a connection with `pool.acquire()` but only released it after a *successful* run — a failed order (bad payload, timeout, whatever) skipped the release entirely, since there was no try/finally. The logs match this exactly: each `job order-XXXX failed: invalid order payload` in `worker.log` lines up one-for-one with the pool's in-use count climbing, until it hit 5/5 and everything started throwing `pool exhausted`, then the API and worker both went FATAL and got restarted around 2am.\n\n`handleRequest` in `api.js` was already safe since it goes through the `withConnection` wrapper, which does use try/finally — `processOrder` bypassed that wrapper and paid for it.\n\nFix: wrapped the acquire/run in `processOrder` with try/finally so the connection always goes back, success or failure. All 4 tests pass now (77ms), no other files needed changes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b2b58f15bf2335f0692b397716588dd89fa40dc30f9b299f78fc0563718c62f2"
+}

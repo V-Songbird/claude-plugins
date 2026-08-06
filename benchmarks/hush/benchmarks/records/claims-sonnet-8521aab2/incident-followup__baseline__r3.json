@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 144,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 51903,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.42806,
+  "numTurns": 8,
+  "durationMs": 47613,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3532
+  },
+  "contextTraffic": 448688,
+  "apiCalls": 8,
+  "toolCalls": 5,
+  "toolResultChars": 60846,
+  "narrationWords": 12,
+  "finalWords": 356,
+  "finalText": "## On-Call Handoff — Prod Incident, 2026-07-04\n\n**Status:** Service down, recovery pending Redis restoration and code fixes below.\n\n### Impact Window\n- **02:14:07 UTC** — Redis connection lost, service degrades (falls back to direct store reads)\n- **02:31:52 UTC** — Full outage (supervisor kills process group)\n- **Total degraded/down time:** ~17m 45s degraded → hard outage from 02:31:52 onward (ongoing until Redis + service are restored)\n\n### Root Cause\nRedis at `10.0.0.12:6379` became unreachable (`ECONNREFUSED`) at 02:14:07 and never recovered — 13 reconnect attempts (0–12) over the next ~17 minutes all failed with the same error.\n\nWith the cache gone, `api`/`worker-1`/`worker-2`/`scheduler` fell back to hitting the backing store directly. This triggered a sustained overload loop: cache-miss storms → 5000ms store timeouts → growing request queue. The queue depth exceeded its own configured cap of 500 (hit 502 at 02:29:06, kept climbing to 568+) with no evidence of shedding/backpressure once over the limit.\n\nThe unbounded backlog exhausted memory on `worker-2` (`JavaScript heap out of memory` at 02:31:44.902). The supervisor restarted `worker-2`, but seconds later (02:31:52.318) deemed `api` unresponsive and killed the whole process group — full outage.\n\n### Contributing Factors / Open Questions\n- Why was Redis at `10.0.0.12:6379` unreachable for 17+ minutes — host/network failure vs. Redis process crash? Needs infra-side investigation.\n- Queue depth cap of 500 didn't actually stop growth once exceeded — load-shedding logic needs review.\n- No circuit breaker on direct-store fallback — degraded mode should fail fast / shed load rather than let every request queue up and retry for 5s.\n\n### Dependency Check\n- **ioredis version installed: 5.4.1** (`package-lock.json`, resolved from `^5.4.1` in `package.json`)\n- Flagged for changelog review re: reconnect-strategy behavior/fixes in later versions, given reconnect attempts never succeeded or backed off differently during the outage.\n\n### Suggested Next Steps\n1. Confirm Redis host `10.0.0.12` is healthy and reachable now.\n2. Review/fix queue depth enforcement so it actually caps and sheds at 500.\n3. Check ioredis changelog post-5.4.1 for reconnect/backoff fixes; consider upgrade.\n4. Add fail-fast/circuit-breaker behavior for store fallback path to prevent OOM cascade recurrence.\n\nWant me to save this to a file (e.g. `INCIDENT_2026-07-04.md`) in the repo?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "511abc55cfcd7b48e79a6e9951df1f62b7371a313b57c689c8ee3fd7b5a9e067"
+}

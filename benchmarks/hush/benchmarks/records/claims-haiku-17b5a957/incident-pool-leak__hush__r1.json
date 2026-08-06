@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 48,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 42877,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0692106,
+  "numTurns": 14,
+  "durationMs": 41023,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2323
+  },
+  "contextTraffic": 235520,
+  "apiCalls": 8,
+  "toolCalls": 13,
+  "toolResultChars": 13538,
+  "narrationWords": 0,
+  "finalWords": 84,
+  "finalText": "Found the leak. The `processOrder` function was acquiring a connection but not releasing it when the order failed validation. Unlike the safe `handleRequest` wrapper above it, it had no try/finally—so when `run()` threw an error, the connection never made it back to the pool.\n\nFixed it by wrapping the await in try/finally, matching the pattern in `withConnection`. All 4 tests pass now, including the one that explicitly checks for this scenario. Your pool will recover cleanly from validation failures instead of exhausting under load.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bb804ed960287cf3708b82cf8ffcea9d6aa01d64b1b3f4481f579c5b82b256ac"
+}

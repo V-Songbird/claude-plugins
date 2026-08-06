@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__baseline__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 5,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 30855,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0460376,
+  "numTurns": 9,
+  "durationMs": 29460,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2144
+  },
+  "contextTraffic": 160897,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 4126,
+  "narrationWords": 99,
+  "finalWords": 104,
+  "finalText": "Perfect! All tests pass now. Here's what I found and fixed:\n\n**The Bug:** The `isExpired` function was using `<` instead of `<=`, which allowed tokens to slip through at the exact expiration moment. When `exp === nowSeconds`, the condition `exp < nowSeconds` evaluates to false, incorrectly marking an expired token as valid.\n\n**The Fix:** Changed line 7 from:\n```javascript\nreturn token.exp < nowSeconds;\n```\nto:\n```javascript\nreturn token.exp <= nowSeconds;\n```\n\nThis ensures tokens are considered expired the moment their expiration time is reached, matching the documented behavior (\"A token is considered expired the moment `exp` is reached\") and making all 5 tests pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ddae5c61bc716e113aab898c1a3d03ff6c5ae4aea76fd9b0337c79a8303c2b0a"
+}

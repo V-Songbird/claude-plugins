@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__hush__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 21,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 51295,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.06890199999999999,
+  "numTurns": 16,
+  "durationMs": 49444,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2939
+  },
+  "contextTraffic": 250432,
+  "apiCalls": 9,
+  "toolCalls": 15,
+  "toolResultChars": 5286,
+  "narrationWords": 0,
+  "finalWords": 32,
+  "finalText": "Done. Renamed the function in all source files and updated all call sites. All 4 tests pass, and the test that checks `cart.calcTotal` is `undefined` confirms the old name is completely gone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5d02cc4863fbdb1cc6f0f394bb05cae8e5744cdfbf19d0695b09b49b8376457a"
+}

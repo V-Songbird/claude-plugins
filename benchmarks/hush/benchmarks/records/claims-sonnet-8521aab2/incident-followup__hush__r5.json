@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 149,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 56988,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.4375169,
+  "numTurns": 11,
+  "durationMs": 51137,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3356
+  },
+  "contextTraffic": 481851,
+  "apiCalls": 11,
+  "toolCalls": 8,
+  "toolResultChars": 24323,
+  "narrationWords": 0,
+  "finalWords": 41,
+  "finalText": "Handoff doc is saved at `INCIDENT-2026-07-04.md`.\n\nRedis dropped at 02:14:07, the cache miss storm and timeouts ran for 17m45s, and it ended at 02:31:52 when the supervisor killed the process group. `ioredis` is on `5.4.1`, which is what's locked in `package-lock.json`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "78be3787bec99731bb5cf72f37ad428ef19230f71159b2b5400c7e5e87fbb768"
+}

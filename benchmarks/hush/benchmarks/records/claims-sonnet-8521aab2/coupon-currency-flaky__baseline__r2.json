@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 93,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 40446,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1741894,
+  "numTurns": 9,
+  "durationMs": 38736,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2285
+  },
+  "contextTraffic": 190606,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 9422,
+  "narrationWords": 224,
+  "finalWords": 90,
+  "finalText": "All 40 tests pass now.\n\n**Summary for Finance:** the pricing engine rounded the discounted USD amount to cents *before* converting to the order's currency, then rounded again after conversion — a double-rounding bug. It only produced visible cent errors when a percent coupon was stacked and the currency conversion pushed the value across a rounding boundary (GBP, CAD, JPY in the test matrix), which is why it looked sporadic. Fixed by deferring all rounding to a single pass at the very end, in the target currency's own decimal precision (`src/pricing/engine.js:23-28`).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9afb956db7df5f5c35a3b784529d55d941106b3fe1f598024e5ce2e81935404a"
+}

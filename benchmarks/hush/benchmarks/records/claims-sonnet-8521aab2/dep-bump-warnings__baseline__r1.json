@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r1",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 100,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 39234,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2276489,
+  "numTurns": 11,
+  "durationMs": 37409,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2315
+  },
+  "contextTraffic": 273493,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 18482,
+  "narrationWords": 57,
+  "finalWords": 126,
+  "finalText": "Build is clean now — exit 0, 0 errors. There were two real bugs from the bump, both in the link stage:\n\n1. **`src/core/options.js`** — the new bundler passes options as `{ retryCount }`, but `resolveRetries` still read `options.retries` (undefined), so `.toFixed(0)` threw. Fixed to read `retryCount`.\n2. **`src/net/retryPolicy.js`** — the new config loader leaves unset flags as `undefined` instead of `false`, but `isBackoffEnabled` only handled explicit `true`/`false` and threw on anything else. Added an `undefined` → `false` case.\n\nThe remaining 8 `WARN DEP...`/`WARN W...` lines are genuine deprecation noise from the dependency bump (unrelated APIs like `fs.exists`, `Buffer()`, `punycode`, plus a couple of app-level lint-style warnings) — not build blockers, so I left those as-is. Let me know if you want those cleaned up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a6fc2c43c1683a22bd4ef31b96e28e2bb74aade643cd689ca2a97479b04283f8"
+}

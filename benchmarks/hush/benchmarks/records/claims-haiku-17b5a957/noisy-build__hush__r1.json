@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 25,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 35034,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.055241799999999994,
+  "numTurns": 7,
+  "durationMs": 33412,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2059
+  },
+  "contextTraffic": 184955,
+  "apiCalls": 7,
+  "toolCalls": 6,
+  "toolResultChars": 6568,
+  "narrationWords": 0,
+  "finalWords": 57,
+  "finalText": "Fixed the buried error in `src/core/settings.js`. Line 17 was using an undefined variable `retries` instead of `env.retries`, and there was no fallback constant. The fix: added `retries: 1` to DEFAULTS and changed `maxRetries: retries` to `maxRetries: env.retries || DEFAULTS.retries`.\n\nBuild now finishes clean with the 3 warnings still present but the 1 error gone. Exit code 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7c64baeb5bb17eed89d0eaf55ba262a8bd78b742c9856bf1c3d49efda885904f"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 145,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 63210,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.41614880000000004,
+  "numTurns": 10,
+  "durationMs": 57573,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3633
+  },
+  "contextTraffic": 422347,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 24015,
+  "narrationWords": 0,
+  "finalWords": 151,
+  "finalText": "**On-call handoff — prod outage, 2026-07-04**\n\n**Root cause**\nRedis at `10.0.0.12:6379` went unreachable at 02:14:07 UTC (`ECONNREFUSED`). The app fell back to direct database reads instead of cache, which the database couldn't sustain. 12 reconnect attempts through 02:31 all failed — Redis never came back on its own.\n\n**Impact window**\nDegradation started 02:14:07. Full outage hit at 02:31:52, when the supervisor killed the api process group. The log ends there with no recovery line, so confirm actual restore time separately — it isn't captured in `app.log`.\n\n**How it escalated**\nRequest queue depth climbed non-stop for 17 minutes, from 52 to 568, as timeouts and cache-miss storms piled up. worker-2 ran out of memory under that backlog at 02:31:44 and crashed. The api process followed 8 seconds later.\n\n**Dependency to check**\nRunning `ioredis@5.4.1`. Worth checking the changelog for reconnect-handling fixes released after this version, given how long the reconnect attempts kept failing.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "96e91c5fbd35b6cf0de2bb1fa1c5fff1816001a8186bf0e20e2ef11367b89e00"
+}

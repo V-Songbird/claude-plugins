@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__hush__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 6,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 67072,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0444499,
+  "numTurns": 7,
+  "durationMs": 65359,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1384
+  },
+  "contextTraffic": 150939,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 2293,
+  "narrationWords": 0,
+  "finalWords": 46,
+  "finalText": "The pagination was off-by-one. It used `page * perPage` to calculate the start index, which meant page 1 started at index 3 instead of 0. Changed it to `(page - 1) * perPage` to convert from 1-indexed pages to 0-indexed arrays. All 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3aa596c0299e6b30cd401265fb7002ee769efefa58485968a7571b619273b04a"
+}

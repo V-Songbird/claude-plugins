@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 96,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 35748,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1976908,
+  "numTurns": 9,
+  "durationMs": 33674,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1725
+  },
+  "contextTraffic": 243498,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 7564,
+  "narrationWords": 0,
+  "finalWords": 114,
+  "finalText": "**Found it: `computeTotal` in `src/pricing/engine.js` was rounding to the cent after each coupon step, instead of once at the end.**\n\nWhen a percent coupon knocked the price down to, say, $17.982, the code rounded that to $17.98 before applying the flat coupon and converting currency. That half-cent got thrown away early, so once it was multiplied by a foreign exchange rate the final total sometimes landed a cent short — always in the customer's favor, always on carts with a percent coupon.\n\nFixed by letting the math run in full precision through both coupon steps, and only rounding once, at the very end, in the order's own currency. All 40 pricing tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2f35d6a22d14238c56ed9a6c3e9e733c58779d907b8cfffdd726b8ec5c29e4e0"
+}

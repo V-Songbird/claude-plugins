@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__baseline__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 8,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16995,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.07455755,
+  "numTurns": 6,
+  "durationMs": 16150,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 647
+  },
+  "contextTraffic": 113729,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2114,
+  "narrationWords": 25,
+  "finalWords": 5,
+  "finalText": "Credit balance is too low",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "43d42af76adddcc97fc301c92334b361926802b9e997f274052c98c7e401b35e"
+}

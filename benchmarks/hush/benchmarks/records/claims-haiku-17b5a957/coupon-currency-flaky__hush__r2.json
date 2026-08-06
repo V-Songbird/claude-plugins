@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 56,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 55034,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0818213,
+  "numTurns": 12,
+  "durationMs": 53332,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3076
+  },
+  "contextTraffic": 309497,
+  "apiCalls": 11,
+  "toolCalls": 11,
+  "toolResultChars": 13507,
+  "narrationWords": 0,
+  "finalWords": 94,
+  "finalText": "Found it. The engine was rounding twice when stacking coupons — once after the percent discount and once after the flat discount. This created small precision errors that then got amplified by currency conversion, especially with currencies using non-integer rates like GBP (0.78) or CAD (1.35), and even more so with zero-decimal currencies like JPY.\n\nThe reference implementation applies all discounts first, then converts and rounds once at the very end. Removed the intermediate rounding in `engine.js` (lines 24 and 27), keeping only the single final round after conversion. All 40 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5529cda98b07498573529ac58979764dea91488ebac27946b5e0cb01928f1403"
+}

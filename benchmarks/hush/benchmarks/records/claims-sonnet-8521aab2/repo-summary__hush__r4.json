@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 117,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25016,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1459797,
+  "numTurns": 8,
+  "durationMs": 23208,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1521
+  },
+  "contextTraffic": 131247,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4743,
+  "narrationWords": 0,
+  "finalWords": 171,
+  "finalText": "Small Node service, five files under `src/`, no framework — just `node:http`.\n\n```mermaid\ngraph LR\n  server.js -->|verifyToken| auth.js\n  server.js -->|route| routes.js\n  routes.js -->|cached reads| cache.js\n  routes.js -->|writes| store.js\n  cache.js -->|loader| store.js\n```\n\n- **`server.js`** — raw HTTP server. Every request must carry a `Bearer <userId>.<sig>` header or it gets a 401.\n- **`auth.js`** — checks that header with an HMAC signature against a shared secret (`AUTH_SECRET` env var, defaults to `'dev-secret'`).\n- **`routes.js`** — a small table mapping `METHOD /path` to a handler: `GET /users`, `GET /orders`, `POST /orders`.\n- **`cache.js`** — a 256-entry LRU sitting in front of reads, no expiry of its own.\n- **`store.js`** — the \"database\": an in-memory `Map` where every record expires 15 minutes after it's written.\n\nOne thing worth knowing before you touch orders: the comment in `routes.js` says writes invalidate the cache, but `putOrder` never actually clears the `orders:<userId>` cache key. After someone posts an order, `GET /orders` can keep serving the stale list until it ages out of the LRU on its own.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "78623d916cabaf202a32847429aac3b22db5272fbf5542720d18f4df7bea582a"
+}

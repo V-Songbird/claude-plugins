@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 106,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 43927,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.23823709999999998,
+  "numTurns": 12,
+  "durationMs": 42649,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2162
+  },
+  "contextTraffic": 343248,
+  "apiCalls": 10,
+  "toolCalls": 11,
+  "toolResultChars": 16135,
+  "narrationWords": 95,
+  "finalWords": 126,
+  "finalText": "Build's clean now (exit 0). Two real bugs from the bump, both in the link stage:\n\n1. **`src/core/options.js`** — the bumped bundler now hands options as `{ retryCount }`, but the code still read `options.retries` (undefined), so `.toFixed(0)` threw. Fixed to read `retryCount`.\n2. **`src/net/retryPolicy.js`** — the new config loader leaves unset flags as `undefined` instead of `false`, but the strict boolean check only handled `true`/`false` and threw on anything else. Added an `undefined` → `false` case.\n\nThe remaining 8 warnings (DEP0142/198/233/250/267 deprecations plus a couple of `WARN Wxxxx` API/lint-style notices) are pre-existing noise unrelated to the crash — didn't touch those since you said the goal was getting the build clean, not silencing every warning. Let me know if you'd also like those deprecations addressed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8d8cc882be48b99ec40903e60c3db43dc4aab30160392beaba0618902cce3cc8"
+}

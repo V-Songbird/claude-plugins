@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r1",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 70,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 7847,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0608225,
+  "numTurns": 1,
+  "durationMs": 6295,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 586
+  },
+  "contextTraffic": 28120,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 160,
+  "finalText": "Here's a Python email validator using the `email-validator` library approach with a regex fallback — regex alone can't fully validate emails per spec, but this covers practical cases well:\n\n```python\nimport re\n\nEMAIL_REGEX = re.compile(\n    r\"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+\"\n    r\"@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\"\n    r\"(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$\"\n)\n\n\ndef is_valid_email(email: str) -> bool:\n    if not email or len(email) > 254:\n        return False\n    return bool(EMAIL_REGEX.match(email))\n```\n\nUsage:\n\n```python\nis_valid_email(\"<email>\")  # True\nis_valid_email(\"not-an-email\")              # False\n```\n\nNotes:\n- `len(email) > 254` enforces the RFC 5321 max total length.\n- The local part (before `@`) allows common special characters per RFC 5322 but doesn't handle quoted strings or comments.\n- Domain labels are capped at 63 chars each, matching DNS limits.\n\nIf you need stricter RFC compliance or actual deliverability checks (MX record lookup), use the `email-validator` package instead:\n\n```python\nfrom email_validator import validate_email, EmailNotValidError\n\ndef is_valid_email(email: str) -> bool:\n    try:\n        validate_email(email)\n        return True\n    except EmailNotValidError:\n        return False\n```\n\nLet me know which fits your use case better and I can adjust.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7f54f024e1635c18500c0303578137eec7af7cebf57e5b6bc01890e0efb7afa8"
+}

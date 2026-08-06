@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 57,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 58780,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0763225,
+  "numTurns": 9,
+  "durationMs": 57169,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4858
+  },
+  "contextTraffic": 184884,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 16104,
+  "narrationWords": 161,
+  "finalWords": 197,
+  "finalText": "Perfect! All tests pass now. Here's what was wrong:\n\n## The Problem\n\nThe code was **rounding intermediate USD values** after applying each coupon, then converting to the target currency. This magnified rounding errors across different currencies.\n\nExample breakdown (GBP, basket 2×$9.99 with SAVE10PCT):\n- **Buggy flow**: $19.98 → round($17.982 to 2 decimals) = $17.98 → ×0.78 = £14.0244 → **£14.02** ❌\n- **Correct flow**: $19.98 → $17.982 (no rounding) → ×0.78 = £14.02556 → **£14.03** ✓\n\nThe rounding error of $0.002 gets multiplied by the exchange rate (0.78), causing visible discrepancies when rounded in the target currency.\n\n## Why It Only Showed Up in Certain Cases\n\n- ✅ **USD tests passed** because the rate is 1.0 (rounding error doesn't get magnified)\n- ✅ **Single coupons mostly passed** because only percent coupons create intermediate fractional cents\n- ❌ **Failed on non-USD + percent coupons** because the rounding error gets magnified by foreign exchange rates\n\n## The Fix\n\nRemoved the intermediate `round()` calls after applying coupons. Now the code only rounds **once at the end** in the target currency's decimal places—exactly as the test reference implementation specifies and the comment promised.\n\nFinance should see those cent/yen-level discrepancies resolve now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5e19c7193066f00361a15d4c83a6c7c045ae58569a51c3de1fcd543fb03a5f6b"
+}

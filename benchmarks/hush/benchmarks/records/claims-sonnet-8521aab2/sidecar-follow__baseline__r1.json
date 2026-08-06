@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r1",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 160,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 17298,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "0/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.10738170000000001,
+  "numTurns": 6,
+  "durationMs": 15921,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 599
+  },
+  "contextTraffic": 170668,
+  "apiCalls": 6,
+  "toolCalls": 5,
+  "toolResultChars": 118,
+  "narrationWords": 0,
+  "finalWords": 71,
+  "finalText": "The `logs` directory exists but is empty — there's no `test-output.log` file in it or anywhere else in the repo. This working directory doesn't actually contain a git repo either, so it looks like the CI log you're thinking of was never saved here (or was written somewhere else / already cleaned up).\n\nCan you confirm the expected path, or point me to where the CI run would have dropped it?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "39a7807b2aeaa6e0202e8c513b94839a7bf411ac35edcd39e81e6bb42c8c4406"
+}

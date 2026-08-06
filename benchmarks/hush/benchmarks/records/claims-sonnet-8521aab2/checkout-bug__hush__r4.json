@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__hush__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 26,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 20378,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.15654590000000002,
+  "numTurns": 8,
+  "durationMs": 18529,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1266
+  },
+  "contextTraffic": 168612,
+  "apiCalls": 5,
+  "toolCalls": 7,
+  "toolResultChars": 4439,
+  "narrationWords": 0,
+  "finalWords": 58,
+  "finalText": "Found it. `pricing.js` was subtracting the flat coupon from the total after converting to the target currency, but flat coupons are stored in USD. So a $10 coupon on a 100 USD order in EUR was subtracting 10 EUR instead of 10 USD.\n\nFixed it to subtract the coupon before conversion. All 5 tests pass now in 69ms.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9c1e8445146548c3d9498a4bc59c929061750e8cdf276c75ebbce9412c60e8c0"
+}

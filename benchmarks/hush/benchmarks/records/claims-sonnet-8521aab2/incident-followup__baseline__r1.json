@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r1",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 141,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 56489,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.4521939,
+  "numTurns": 10,
+  "durationMs": 52509,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3772
+  },
+  "contextTraffic": 507748,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 60560,
+  "narrationWords": 25,
+  "finalWords": 279,
+  "finalText": "## On-Call Handoff — Prod Outage 2026-07-04\n\n**Status:** Resolved (service restarted by supervisor); root cause needs follow-up\n\n### Impact Window\n- **Start:** 02:14:07 UTC — Redis connection lost (`ECONNREFUSED 10.0.0.12:6379`), cache layer degraded\n- **End:** 02:31:52 UTC — Supervisor killed the api process group, service down; restarted after\n- **Duration:** ~17m45s of degraded/failing service, ending in a full outage\n\n### Root Cause\nRedis at `10.0.0.12:6379` became unreachable at 02:14:07 UTC. The app fell back to direct store reads on cache miss instead of failing gracefully, which overwhelmed the backing store. This triggered cascading `TimeoutError` (5000ms) across `api`, `worker-1`, `worker-2`, and `scheduler`. Redis never recovered — 13 reconnect attempts (0–12) all failed with `ECONNREFUSED` over the full window. With no backpressure/circuit breaker, the request queue grew unbounded (52 → 568, breaching the stated max of 500 around 02:29) until `worker-2` hit a JS heap OOM at 02:31:44, crashed, and the supervisor killed the whole process group at 02:31:52.\n\n### Dependency Check\n- **ioredis version installed:** `5.4.1` (locked, matches `package.json` range `^5.4.1`)\n- Action item: check ioredis 5.4.1 changelog for reconnect/backoff fixes — reconnect attempts were spaced ~2m20s apart and never succeeded, so worth confirming whether newer versions improve reconnect behavior or backoff strategy.\n\n### Follow-ups\n1. Confirm why Redis at `10.0.0.12` was down for 17+ minutes (infra-side).\n2. Add backpressure/circuit breaker so the request queue can't grow past its stated max instead of just logging a warning.\n3. Alert on the first `redis connection lost` event, not just on eventual crash.\n4. Review ioredis 5.4.1 → latest changelog for reconnect fixes (per above).\n\nLet me know if you want this saved to a file or pasted into a ticket/incident tracker.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "da38871d4bd3d8e827136a19a98bc10f010bc69624f0db2103d00efc9cb0ddf8"
+}

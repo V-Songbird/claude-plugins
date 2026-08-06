@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 103,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 40805,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2242142,
+  "numTurns": 10,
+  "durationMs": 39152,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1977
+  },
+  "contextTraffic": 312727,
+  "apiCalls": 9,
+  "toolCalls": 9,
+  "toolResultChars": 7801,
+  "narrationWords": 0,
+  "finalWords": 111,
+  "finalText": "Build's clean now — exit 0, 0 errors.\n\nTwo real bugs were hiding under all that deprecation noise, both from the bundler bump changing how it hands options to your code:\n\n1. `src/core/options.js` — `resolveRetries` still read `options.retries`, but the new bundler sends `retryCount`. It was crashing on `undefined.toFixed()`.\n2. `src/net/retryPolicy.js` — `isBackoffEnabled` only accepted `true`/`false`, but the new config loader leaves unset flags as `undefined`. It now treats `undefined` as `false` (backoff off), same as before.\n\nThe rest of the warnings (deprecated `Buffer()`, `fs.exists`, punycode, and a few unused-export/circular-import notes) are just noise from the bump — safe to ignore for now, worth a cleanup pass later if you want.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0811cf7476689da2181c5990c66c726c0c8160eb76f17122f8e8c2ad87d02ace"
+}

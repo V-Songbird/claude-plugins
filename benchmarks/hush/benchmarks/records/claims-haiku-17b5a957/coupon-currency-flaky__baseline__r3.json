@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 58,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 43716,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0610757,
+  "numTurns": 10,
+  "durationMs": 42368,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3072
+  },
+  "contextTraffic": 173185,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 12483,
+  "narrationWords": 142,
+  "finalWords": 128,
+  "finalText": "**Perfect! All 40 tests are passing now.** \n\n## Root Cause\nThe bug was **premature intermediate rounding** in `engine.js:24-27`. The pricing engine was rounding the USD amount to 2 decimal places after **each** discount was applied. When coupons stacked (percent then flat), this caused:\n- Round after percent discount\n- Round after flat discount  \n- Round again in target currency\n\nThe compounding rounding errors led to those cent-off discrepancies, especially across different currency conversions.\n\n## The Fix\nRemoved the intermediate `round()` calls on discount applications. Now the engine:\n1. Applies all discounts sequentially **without rounding**\n2. Converts to target currency\n3. Rounds **once** at the very end to the target currency's decimal places\n\nThis maintains full precision through all calculations and matches the contract shown in your reference tests.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "844873f07bbf03fc3e309b20b14b15a36abf9fc4278965eb7455bebba03668b2"
+}

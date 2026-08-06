@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 99,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 48425,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.20932869999999998,
+  "numTurns": 11,
+  "durationMs": 47087,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3359
+  },
+  "contextTraffic": 252538,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 7312,
+  "narrationWords": 262,
+  "finalWords": 110,
+  "finalText": "All 40 tests pass now.\n\n**Bug:** `computeTotal` in `src/pricing/engine.js` rounded the discounted subtotal to 2 decimal places *in USD*, before converting to the order's currency — then rounded again after conversion. That intermediate rounding step discarded fractional cents (e.g. `17.982` → `17.98`) before they got multiplied by an exchange rate, producing off-by-a-cent totals. It only surfaced with a **percent coupon** (which produces non-cent-aligned fractions) combined with a **non-USD currency** (rate ≠ 1 amplifies the lost fraction) — exactly the \"stacked promo, most look fine\" pattern Finance reported.\n\n**Fix:** removed the two intermediate `round()` calls so money is only rounded once, at the end, in the target currency's own decimal precision.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5ab2094bf17448c3dc44593de538f15be78ce3c7a15d3737a304ecc9c296b88d"
+}

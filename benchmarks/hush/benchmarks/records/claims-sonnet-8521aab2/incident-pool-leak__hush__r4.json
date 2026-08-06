@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 86,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 26259,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1719713,
+  "numTurns": 9,
+  "durationMs": 24566,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1260
+  },
+  "contextTraffic": 172690,
+  "apiCalls": 5,
+  "toolCalls": 8,
+  "toolResultChars": 9578,
+  "narrationWords": 0,
+  "finalWords": 95,
+  "finalText": "The leak was in `src/jobs/processOrder.js:6-10`. It acquired a connection then released it only after `run()` succeeded — a rejected order (bad payload) skipped the release line entirely, so each failed order permanently ate one connection. That matches the worker log exactly: a run of `invalid order payload` errors that steadily push `pool in-use` from 2/5 up to 5/5, then `pool exhausted`, then the fatal exit at 2:06:35.\n\nI wrapped the release in a `try/finally` so it always runs, win or lose. All 4 tests pass now, including the one that was catching this exact scenario.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "271449b7394f2cf7f2d333b7b2e179e58efd703aecf414b0864ca8c547c159f2"
+}

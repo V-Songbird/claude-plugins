@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__baseline__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 81,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 16101,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0741158,
+  "numTurns": 2,
+  "durationMs": 14858,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1091
+  },
+  "contextTraffic": 68629,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 60098,
+  "narrationWords": 10,
+  "finalWords": 238,
+  "finalText": "The logs tell a clear story of a cascading failure. Here's what happened:\n\n**Timeline:**\n\n1. **02:14:07** — Redis connection lost (ECONNREFUSED at 10.0.0.12:6379)\n   - Cache layer degraded, system fell back to direct store reads\n\n2. **02:14:08 onwards** — Cascading failure:\n   - Cache miss storm begins — every request now hits the backend data store directly instead of Redis\n   - Backend store gets overloaded (timeouts at 5000ms)\n   - Request queue depth starts climbing: 52 → 55 → 58 ... continuously increasing\n\n3. **02:15:26+** — Repeated failed reconnection attempts (attempts 0-12)\n   - Redis remains unreachable\n   - System is in full fallback mode with no relief\n\n4. **02:31:44** — Memory exhaustion\n   - `JavaScript heap out of memory (request backlog)` on worker-2\n   - The request queue has swollen to 568+ (max is 500) because the backend store can't keep up\n   - All requests are piling up in memory waiting to be processed\n\n5. **02:31:45** — Service crash\n   - worker-2 dies, supervisor marks API as unresponsive and kills the process group\n   - **Service down**\n\n**Root cause:** Redis went offline. The cache was absorbing ~90% of traffic (cache hit ratios 0.90-0.98 before the crash), so when it disappeared, the backend store got hit with 10x the load it could handle. Request queue exploded → memory exploded → out of memory → crash.\n\n**What needs investigation:** Why did Redis at 10.0.0.12:6379 go unreachable? Network issue? Redis process crashed? Check Redis server logs and network connectivity.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a52a63aa7c13bae9b6f6a3b364274b64c1cfc047157967d0ddbd85269eb6571e"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__baseline__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 15,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 44318,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.06215539999999999,
+  "numTurns": 10,
+  "durationMs": 42683,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3115
+  },
+  "contextTraffic": 241888,
+  "apiCalls": 10,
+  "toolCalls": 9,
+  "toolResultChars": 6417,
+  "narrationWords": 189,
+  "finalWords": 126,
+  "finalText": "Perfect! All 5 tests pass now. ✅\n\n**Summary of the fix:**\n\nThe bug was in how flat-amount coupons were applied when using non-USD currencies. The code was:\n1. Converting the subtotal to the target currency\n2. Subtracting the flat coupon (which is stored in USD) as if it were already in that currency\n\nThis caused the discount to be applied incorrectly. For example, a $10 coupon on a €100 order was being treated as a €10 discount.\n\n**The correct approach** is to subtract flat coupons from the USD subtotal **before** converting to the target currency. Now a $10 USD discount correctly means $10 off before the currency conversion is applied.\n\nAll tests pass, including the critical one: \"flat coupon is converted before being subtracted, not after.\"",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "24a4a3df0a3b51424444a4c663820334b3211fef481f0509f5eb70ce6a37be59"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__hush__r1",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 161,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 19082,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "0/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1255727,
+  "numTurns": 6,
+  "durationMs": 17486,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 507
+  },
+  "contextTraffic": 161134,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 93,
+  "narrationWords": 0,
+  "finalWords": 39,
+  "finalText": "The `logs` folder is here, but it's empty — there's no `test-output.log` inside it, and I couldn't find that file anywhere else in the repo either. Can you check the path or point me to where it actually landed?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6260c16f0fc8bcab69c9637ba0f2c9b0b470b30cbaf31c4d3146f341691ab32f"
+}

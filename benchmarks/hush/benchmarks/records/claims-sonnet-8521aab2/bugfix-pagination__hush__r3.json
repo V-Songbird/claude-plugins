@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__hush__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 14,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 18064,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.13607539999999999,
+  "numTurns": 6,
+  "durationMs": 16288,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 631
+  },
+  "contextTraffic": 164178,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2325,
+  "narrationWords": 0,
+  "finalWords": 37,
+  "finalText": "`paginate.js` was counting page 1 as items starting at index `perPage` instead of `0`, so every page was shifted one batch ahead. Changed the start calc to `(page - 1) * perPage`. All 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6e7d5161f2f3ad5ca63f9c1a4a61199d2942a747127bdadcea2097e3eb37a9d9"
+}

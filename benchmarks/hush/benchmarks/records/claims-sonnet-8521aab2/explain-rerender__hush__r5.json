@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 59,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 5,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 9453,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.08104700000000001,
+  "numTurns": 1,
+  "durationMs": 7406,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 507
+  },
+  "contextTraffic": 31699,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 128,
+  "finalText": "Two things usually cause this.\n\nFirst, a normal component re-renders whenever its parent re-renders, no matter what the props are. Wrapping it in `React.memo` is what makes React actually compare the props and skip the re-render if they look the same.\n\nSecond, even with `React.memo`, it still won't help if you're passing a new function or object each time — like an inline `() => ...}` or `{ foo: 1 }` written straight in the parent's return. Those look \"the same\" to you but are a brand new value every render, so the comparison always fails. Wrap those in `useCallback` or `useMemo` in the parent so the same reference gets reused.\n\nIf you share the parent and child code, I can point at the exact spot causing it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f31bc8bd4acaf32195f7960ab0eb9cc83f43e200a496671bb3f13271eccce856"
+}

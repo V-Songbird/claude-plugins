@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 65,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 7746,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.078557,
+  "numTurns": 1,
+  "durationMs": 5935,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 341
+  },
+  "contextTraffic": 31700,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 162,
+  "finalText": "Both combine changes from one branch into another, but they handle history differently.\n\n**Merge** adds a new commit that ties the two histories together, keeping both branches' commits exactly as they happened. Nothing gets rewritten, so it's safe even on shared branches.\n\n**Rebase** replays your commits one by one on top of the other branch, as if you'd started from there. This makes the history a straight line with no merge commit, but it rewrites your commits into new ones with new IDs.\n\nFor picking:\n- Use **merge** on shared or public branches, like bringing `main` into a feature branch, or finishing a feature branch back into `main`. Safer, keeps the true record.\n- Use **rebase** on your own local, not-yet-shared work, when you want a clean, straight-line history before opening a pull request.\n\nThe one hard rule: never rebase commits that others have already pulled. Since rebase rewrites history, it'll cause conflicts and confusion for anyone else working off those commits.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fb23aacb75aebe670470eef5bca75aef593d46371cf25d4168e42cffe4a7f5e9"
+}

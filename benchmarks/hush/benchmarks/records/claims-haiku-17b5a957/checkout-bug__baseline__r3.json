@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__baseline__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 17,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 46033,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0677842,
+  "numTurns": 11,
+  "durationMs": 44550,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3252
+  },
+  "contextTraffic": 269765,
+  "apiCalls": 11,
+  "toolCalls": 10,
+  "toolResultChars": 9471,
+  "narrationWords": 133,
+  "finalWords": 119,
+  "finalText": "Perfect! All tests pass now. Here's what I found and fixed:\n\n**The bug:** In `src/services/pricing.js`, flat-amount coupons were being subtracted *after* currency conversion, treating them as if they were in the target currency. This caused the discount to be applied incorrectly:\n- Buggy: `(100 USD × 0.9) - 10 = 80 EUR` ❌\n- Correct: `(100 USD - 10) × 0.9 = 81 EUR` ✓\n\n**The fix:** Reorganized the logic to apply flat-amount coupons to the USD subtotal *before* converting to the customer's currency, since coupons are always stored in USD (the store's base currency). Percentage coupons were already correct since they're currency-agnostic.\n\nAll 5 tests now pass, including the critical test case for flat coupons with non-USD currencies.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f4c61e580dde12a6bdd5d7ad7a79048ef825db84e241885f02b7905d61de3242"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__baseline__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 27,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 21014,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.13477060000000002,
+  "numTurns": 8,
+  "durationMs": 19607,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1454
+  },
+  "contextTraffic": 152054,
+  "apiCalls": 5,
+  "toolCalls": 7,
+  "toolResultChars": 5554,
+  "narrationWords": 53,
+  "finalWords": 52,
+  "finalText": "All 5 tests pass. The bug was in `src/services/pricing.js:computeTotal` — flat-amount coupons are stored in USD, but the code subtracted the raw USD amount from the already-currency-converted total, treating it as if it were denominated in the target currency. Fixed by subtracting the flat amount in USD first, then converting the result.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0a05d46337c27101f9a6bb743295270677cc8fc33afa4db560405424df928243"
+}

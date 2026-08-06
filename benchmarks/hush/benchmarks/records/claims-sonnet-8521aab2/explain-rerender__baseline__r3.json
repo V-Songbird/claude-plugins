@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r3",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 55,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11410,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0627765,
+  "numTurns": 1,
+  "durationMs": 9994,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 710
+  },
+  "contextTraffic": 28133,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 263,
+  "finalText": "This is one of the most common React gotchas. A few likely causes:\n\n**1. Parent re-renders create new prop references**\nEven if the *values* look the same, if you're passing objects, arrays, or functions as props, they're recreated on every parent render:\n```jsx\n// New function reference every render, even though it \"does the same thing\"\n<Child onClick={() => doSomething()} />\n\n// New object reference every render\n<Child style={{ color: 'red' }} />\n```\nReact compares props with `Object.is` (reference equality) by default, so these always look \"different\" to the child.\n\n**2. Missing `React.memo`**\nBy default, a function component re-renders whenever its parent re-renders, *regardless* of whether props changed. Wrapping it fixes that:\n```jsx\nconst Child = React.memo(function Child({ value }) {\n  return <div>{value}</div>;\n});\n```\nBut `memo` only helps if the props are actually reference-stable (see #1).\n\n**3. Fixing the reference stability**\nCombine `memo` with `useCallback`/`useMemo` in the parent:\n```jsx\nconst handleClick = useCallback(() => doSomething(), []);\nconst style = useMemo(() => ({ color: 'red' }), []);\n\n<Child onClick={handleClick} style={style} />\n```\n\n**4. Context re-renders**\nIf `Child` consumes a Context, it re-renders whenever that context's value changes — even if the props you pass it directly are unchanged.\n\n**5. `children` prop**\n`<Parent><Child /></Parent>` creates a new `children` element on every `Parent` render unless it's hoisted or memoized, which can cascade re-renders.\n\nIf you want a precise answer, paste the parent/child component code — I can point to the exact prop or pattern causing it. React DevTools' Profiler (with \"Highlight updates\" enabled) is also a quick way to confirm what's changing and why.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a3a91661078e1dc2e2299f7ad9fd594dae5309ddacc55190acc58f6ca734227e"
+}

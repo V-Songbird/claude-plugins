@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r5",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 78,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 6938,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0588325,
+  "numTurns": 1,
+  "durationMs": 5181,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 454
+  },
+  "contextTraffic": 28120,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 121,
+  "finalText": "Here's a Python email validator using the `re` module:\n\n```python\nimport re\n\nEMAIL_PATTERN = re.compile(\n    r\"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\"\n)\n\ndef is_valid_email(email: str) -> bool:\n    if not isinstance(email, str) or len(email) > 254:\n        return False\n    return bool(EMAIL_PATTERN.match(email))\n```\n\nUsage:\n\n```python\nprint(is_valid_email(\"<email>\"))  # True\nprint(is_valid_email(\"not-an-email\"))               # False\nprint(is_valid_email(\"<email>\"))          # True\n```\n\nNotes:\n- This covers the vast majority of real-world addresses (local part with common special chars, domain with a valid-looking TLD) without trying to fully implement RFC 5322, which is notoriously complex and mostly impractical for validation.\n- The length cap (254) matches the practical SMTP limit.\n- If you need stricter guarantees (e.g., verifying the domain actually exists/accepts mail), use the [`email-validator`](https://pypi.org/project/email-validator/) package, which does DNS/MX lookups — regex alone can't confirm deliverability.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "aa5d0b4bf0915ba371c0a892d3f3eecf7cca9efe2b3824e1416d9e01d68a35b4"
+}

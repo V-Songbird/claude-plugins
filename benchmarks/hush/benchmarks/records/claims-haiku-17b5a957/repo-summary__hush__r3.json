@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 71,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 26170,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.04282509999999999,
+  "numTurns": 9,
+  "durationMs": 24570,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1470
+  },
+  "contextTraffic": 124181,
+  "apiCalls": 5,
+  "toolCalls": 8,
+  "toolResultChars": 4200,
+  "narrationWords": 0,
+  "finalWords": 194,
+  "finalText": "This is a small order-management API with three layers: auth, routing, and data.\n\n**server.js** is the entry point — creates an HTTP server that checks the authorization header on every request, then passes authenticated ones to the router.\n\n**auth.js** handles stateless tokens. It signs a user ID with an HMAC secret (from the `AUTH_SECRET` env var), so the token is just `userId.signature`. The verifier checks that signature matches.\n\n**routes.js** maps HTTP methods and paths to handler functions. It has three endpoints: read a user, list orders, and create an order. Reads go through a cache; writes go straight to the store.\n\n**cache.js** is a tiny LRU cache (256 entries max, no TTL). It sits between the router and store to absorb repeated reads — the store itself handles expiry.\n\n**store.js** is an in-memory stand-in for a database. Every record expires 15 minutes after it's written. It holds user and order data keyed by user ID.\n\nThe architecture is: user sends a bearer token → server verifies it → route table picks a handler → if it's a read, check the cache first, otherwise load from store → if it's a write, store it directly.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "17c8ec585b9925abe294397f51d61c6107944ae69f6075fe1924dff662fff102"
+}

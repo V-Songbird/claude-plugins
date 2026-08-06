@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__hush__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 72,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 7980,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.079558,
+  "numTurns": 1,
+  "durationMs": 6026,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 415
+  },
+  "contextTraffic": 31686,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 93,
+  "finalText": "Here's a solid one using Python's standard library:\n\n```python\nimport re\n\nEMAIL_RE = re.compile(\n    r\"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+\"\n    r\"@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\"\n    r\"(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$\"\n)\n\ndef is_valid_email(email: str) -> bool:\n    if not email or len(email) > 254:\n        return False\n    return bool(EMAIL_RE.match(email))\n```\n\nIt checks the shape of the address, the length limit, and a real domain with a dot in it. It won't catch every fake address, since only actually sending mail can do that, but it filters out typos and junk input well.\n\nIf you want stricter checking, `email-validator` (a pip package) also confirms the domain can receive mail.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9fc29bde72ad5f65c227df876e9d0f7f7613a22a35aeb4ee764d86c331a453b2"
+}

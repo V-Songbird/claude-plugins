@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r1",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 91,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 44550,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1799136,
+  "numTurns": 9,
+  "durationMs": 43081,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3050
+  },
+  "contextTraffic": 187057,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 6186,
+  "narrationWords": 170,
+  "finalWords": 86,
+  "finalText": "All 40 cases pass now.\n\n**Root cause:** `computeTotal` rounded to USD cents after each discount step, before currency conversion. That's rounding twice — once mid-calculation, once at the end — which real financial rounding shouldn't do. Percent coupons (unlike flat ones) produce extra decimal digits (e.g. $19.98 × 0.9 = $17.982), and truncating that to $17.98 before multiplying by a non-USD rate could push the final result across a cent boundary. Fixed by carrying full precision through both discount steps and rounding only once, after conversion.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "81d6561466c8623b0e4d0ced4f0e30775d8e2c795099c9c59b406a64d8515fd4"
+}

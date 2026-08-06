@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 68,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 23222,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0413186,
+  "numTurns": 10,
+  "durationMs": 21362,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1581
+  },
+  "contextTraffic": 100381,
+  "apiCalls": 4,
+  "toolCalls": 9,
+  "toolResultChars": 4345,
+  "narrationWords": 0,
+  "finalWords": 216,
+  "finalText": "It's a small Node HTTP server for managing user orders. Five pieces, each pretty focused:\n\n**server.js** is the entry point — it creates an HTTP server that checks for a valid auth token on every request, then hands off to the router.\n\n**auth.js** handles tokens. They're HMAC-signed bearer tokens in the format `userId.signature`. It uses a shared secret from the environment to verify them. Protects against tampering using timing-safe comparison.\n\n**routes.js** is the request router. Three endpoints: `GET /users` and `GET /orders` fetch data through a read cache, and `POST /orders` writes directly to the store and invalidates cache. Queries come from URL params, response is JSON.\n\n**cache.js** is a lightweight LRU cache (256 entries max). No expiry — it just absorbs repeated reads. When the cache misses, the route calls the loader function (which hits the store), and cache stores the result.\n\n**store.js** is the data layer — an in-memory key-value store that mimics a database. Each record expires 15 minutes after it's written. Handles user lookups and order lists.\n\nThe data flow: request comes in, auth validates it, router picks a handler, reads go through cache to the store, writes go straight to store. Clean separation between concerns, and the cache layer sits exactly where it's useful — reads get faster, writes stay fresh.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7b0a55f367a2876e6878a3839fc670de15a07a697ef3a52d918696805c5ea428"
+}

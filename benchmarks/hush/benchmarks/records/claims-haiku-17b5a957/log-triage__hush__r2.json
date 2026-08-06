@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 80,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 15647,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.030494300000000002,
+  "numTurns": 2,
+  "durationMs": 14030,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 756
+  },
+  "contextTraffic": 50236,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 4602,
+  "narrationWords": 0,
+  "finalWords": 149,
+  "finalText": "**Redis died and took everything down with it.**\n\nAt 02:14:07, Redis stopped responding (connection refused on 10.0.0.12:6379). Your app fell back to reading straight from the database, which got hammered by every request that used to hit cache. The store overloaded, started timing out, and requests piled up in the queue.\n\nFor the next 17 minutes, the backlog grew — cache misses kept coming, timeouts kept climbing, and the request queue exceeded its 500-item max by over 60 items. At 02:31:44, the process ran out of heap memory trying to hold all those pending requests. Worker-2 crashed, and the supervisor gave up and killed the whole service.\n\nThe logs show 188 errors total, with timeouts and memory exhaustion as the killers. Everything looks normal until 02:14:07 when Redis vanished — that's your trigger to check why Redis wasn't responding and why your fallback cache strategy couldn't handle the load.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "130cb521f2c2891e2b76bdf3e8404042c8853442ccaf215f05cf82dd08430b68"
+}

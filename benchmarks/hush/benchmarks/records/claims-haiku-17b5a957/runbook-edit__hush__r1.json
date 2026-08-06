@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__hush__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 91,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 31551,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "tests exit 1"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0569349,
+  "numTurns": 7,
+  "durationMs": 26248,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1949
+  },
+  "contextTraffic": 158905,
+  "apiCalls": 7,
+  "toolCalls": 4,
+  "toolResultChars": 5910,
+  "narrationWords": 0,
+  "finalWords": 10,
+  "finalText": "API Error: 400 messages: text content blocks must be non-empty",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "32f179e5a3a6b571adb6ecbd14661b7d4ef1c11f97468ac91517b6555aa0254b"
+}

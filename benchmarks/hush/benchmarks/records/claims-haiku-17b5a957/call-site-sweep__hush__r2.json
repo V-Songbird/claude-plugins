@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 75,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10615,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0266843,
+  "numTurns": 2,
+  "durationMs": 8685,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 643
+  },
+  "contextTraffic": 48621,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 1218,
+  "narrationWords": 0,
+  "finalWords": 39,
+  "finalText": "**17 call sites** still pass the legacy rounding flag.\n\n`src\\reports\\quarterly.js` has the most with 5 of them. The rest are scattered: `src\\billing\\invoice.js` and `src\\admin\\exports.js` each have 3; `src\\reports\\monthly.js` and `src\\checkout\\cart.js` each have 2; `src\\checkout\\receipt.js` and `src\\billing\\statement.js` each have 1.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fecfd7f60bc1c95b2f427e2f9118cba29c5d04164b2e05fac31271a17b26de16"
+}

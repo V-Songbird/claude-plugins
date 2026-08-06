@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r4",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 57,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 4,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11061,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.08353200000000001,
+  "numTurns": 1,
+  "durationMs": 9348,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 673
+  },
+  "contextTraffic": 31699,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 98,
+  "finalText": "That happens for two common reasons.\n\nBy default, React re-renders a child whenever its parent re-renders, no matter what props you pass. React only skips it if you wrap the child in `React.memo`.\n\nEven with `React.memo`, the child still re-renders if any prop is a new function or object each render — like an inline arrow function or a `{}` literal — since those aren't the same reference twice, even though they look identical.\n\nFix: wrap the child in `React.memo`, and wrap any functions or objects you pass down in `useCallback` or `useMemo` so their references stay stable.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b88f2d90c8022ef5f58d2aa89edebfe4554ce817667275d48a64b4cf23f3e491"
+}

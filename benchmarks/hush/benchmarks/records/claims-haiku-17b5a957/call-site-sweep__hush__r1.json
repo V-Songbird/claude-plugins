@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r1",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 72,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 13183,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0304353,
+  "numTurns": 3,
+  "durationMs": 11344,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 788
+  },
+  "contextTraffic": 73200,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 1465,
+  "narrationWords": 0,
+  "finalWords": 54,
+  "finalText": "**17 call sites** still pass the second argument. `src\\reports\\quarterly.js` has the most with 5 of them.\n\nHere's the breakdown:\n- `src\\reports\\quarterly.js`: 5 call sites\n- `src\\admin\\exports.js`: 3 call sites\n- `src\\billing\\invoice.js`: 3 call sites\n- `src\\reports\\monthly.js`: 2 call sites\n- `src\\checkout\\cart.js`: 2 call sites\n- `src\\billing\\statement.js`: 1 call site\n- `src\\checkout\\receipt.js`: 1 call site",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2e357474e96f480284c3840130cb75eeb9cb95ac12823578fe91fddac499d022"
+}

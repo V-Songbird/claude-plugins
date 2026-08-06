@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r2",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 39,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 28704,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0326382,
+  "numTurns": 1,
+  "durationMs": 27007,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2627
+  },
+  "contextTraffic": 23912,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 95,
+  "finalText": "**Merge** joins two branches and keeps both history lines visible. It creates a merge commit to show where they met.\n\n**Rebase** replays your commits on top of the main branch. It rewrites history to make it linear.\n\nThe difference: Merge shows what happened. Rebase cleans it up but changes the record.\n\n**Reach for merge** with long-lived branches and shared work. You get the true history.\n\n**Reach for rebase** on your own branches before pushing. It tidies up your commits.\n\n**Rule:** Never rebase commits already pushed to a shared branch. Others may have built on them.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0af7c3114db550aaf9f372e88fc63fbed4aeca43956cf722174f4cb900e56101"
+}

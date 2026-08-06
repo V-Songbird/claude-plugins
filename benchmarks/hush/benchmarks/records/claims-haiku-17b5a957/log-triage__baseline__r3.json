@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__baseline__r3",
+  "batchId": "claims-haiku-17b5a957",
+  "seed": "1785911046443",
+  "orderIndex": 82,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 17074,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0743738,
+  "numTurns": 2,
+  "durationMs": 15468,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1117
+  },
+  "contextTraffic": 68693,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 60098,
+  "narrationWords": 10,
+  "finalWords": 205,
+  "finalText": "**Root Cause: Redis connection failure cascading to total system collapse**\n\nHere's what happened:\n\n## The Cascade\n\n**02:14:07** — Redis server (10.0.0.12:6379) became unreachable (ECONNREFUSED). The cache layer dropped completely and the app fell back to direct database reads (line 182).\n\n**02:14:07 to 02:31:26** — Without the cache:\n- Every request hit the database directly (\"cache miss storm\" warnings)\n- Database got overloaded and started timing out every request after 5 seconds\n- Request queues built up across all workers (52 → 568 depth, max 500)\n- Redis reconnection attempts every ~20 seconds all failed (12 failed attempts logged)\n\n**02:31:44** — Memory exhaustion:\n- worker-2 heap ran out of memory from queued requests (line 717)\n- Process was killed by supervisor\n\n**02:31:45** — Service down:\n- API became unresponsive\n- Supervisor killed the entire process group\n\n## The Problem\n\nThe system has a hard dependency on Redis with **no graceful fallback**. When Redis went down, there was no circuit breaker, no request shedding, no degradation mode — just a complete collapse as the database got hammered with the full request load it was never designed to handle.\n\n**Investigation needed**: Why did Redis become unreachable? Was it a process crash, network issue, or resource exhaustion on 10.0.0.12?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a46b96ffa87841b679f03dfe18fb15a19d64c8ba3c9c8431d266767eb421a1f2"
+}

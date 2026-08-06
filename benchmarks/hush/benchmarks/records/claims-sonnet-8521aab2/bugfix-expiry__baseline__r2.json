@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__baseline__r2",
+  "batchId": "claims-sonnet-8521aab2",
+  "seed": "1785911046347",
+  "orderIndex": 2,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 21139,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1565292,
+  "numTurns": 6,
+  "durationMs": 18480,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 719
+  },
+  "contextTraffic": 143300,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2113,
+  "narrationWords": 32,
+  "finalWords": 45,
+  "finalText": "All 5 tests pass. The bug was an off-by-one in `isExpired` (`token.js:7`): it used `<` instead of `<=`, so a token with `exp` equal to the current time was treated as still valid, letting it slip through the auth check for one extra second window.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e1bbff7ab8242b14fe7c00a1fb2adf69e7146abdba0d0b39c4e9d5a9718e633f"
+}
