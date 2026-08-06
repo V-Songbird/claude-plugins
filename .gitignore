@@ -15,7 +15,6 @@ __pycache__/
 *~
 .DS_Store
 Thumbs.db
-docs/
 # The Codex Razor and Foreman port dossiers are release-trackable; other local
 # research remains ignored (including the in-progress Hush dossier).
 /docs/*
@@ -25,7 +24,6 @@ docs/
 !/.claude/settings.json
 !/.claude/hooks/
 !/.claude/rules/
-telos/
 
 # Roadmap and foreman config are local-only, not published
 ROADMAP.jsonl
