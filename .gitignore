@@ -1,10 +1,6 @@
 # Benchmark harness (local-only, never published)
 .benchmarks/
 
-# Codex plugin ports remain local during development.
-plugins/razor-codex/
-plugins/foreman-codex/
-
 # Python cache directories
 __pycache__/
 .pytest_cache/
@@ -15,8 +11,8 @@ __pycache__/
 *~
 .DS_Store
 Thumbs.db
-# The Codex Razor and Foreman port dossiers are release-trackable; other local
-# research remains ignored (including the in-progress Hush dossier).
+# Everything under /docs/ stays local by owner decision — research notes, the
+# ADRs, and the Codex port dossiers are never published.
 /docs/*
 /plugins/
 

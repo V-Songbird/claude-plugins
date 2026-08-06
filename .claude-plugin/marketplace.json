@@ -124,6 +124,9 @@
   "renames": {
     "forge": null,
     "verity": null,
-    "jetbrains-router": null
+    "jetbrains-router": null,
+    "kairoi": null,
+    "rulesense": null,
+    "scriptorium": null
   }
 }
