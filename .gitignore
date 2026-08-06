@@ -11,8 +11,6 @@ __pycache__/
 *~
 .DS_Store
 Thumbs.db
-# Everything under /docs/ stays local by owner decision — research notes, the
-# ADRs, and the Codex port dossiers are never published.
 /docs/*
 /plugins/
 
