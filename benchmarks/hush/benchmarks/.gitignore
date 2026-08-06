@@ -4,4 +4,6 @@ results/
 
 # records/ is deliberately NOT ignored: those are the sanitized, hashed,
 # write-once copies a published number is generated from. Keep them.
-records/*/published/
+# records/*/published/ is committed too — the readiness gate compares each
+# batch's committed claim set byte-for-byte against what the records
+# regenerate, so a stale publish is caught instead of shipped.

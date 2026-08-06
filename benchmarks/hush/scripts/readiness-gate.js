@@ -1,10 +1,21 @@
 #!/usr/bin/env node
 'use strict';
 
-// The pre-1.0 readiness gate.
+// The 1.0 readiness gate.
 //
-//   node scripts/readiness-gate.js              audit this checkout
-//   node scripts/readiness-gate.js --root DIR   audit another one
+//   node scripts/readiness-gate.js                    audit this harness + the
+//                                                     marketplace's hush plugin
+//   node scripts/readiness-gate.js --root DIR         audit another checkout that
+//                                                     carries both halves itself
+//   node scripts/readiness-gate.js --plugin-root DIR  point the plugin half at a
+//                                                     hush checkout elsewhere
+//
+// Since the benchmark suite moved out of the shipped plugin, the evidence
+// lives in two homes: the plugin checkout (its tests, README, hooks, skills)
+// and this harness (the runner, the retained records, the published claims,
+// and the benchmark evidence tests). The gate reads each point's artifacts
+// from the home that owns them; a fixture checkout that carries both halves
+// under one root still audits exactly as before.
 //
 // Ten points decide whether hush can leave alpha. They are written out below,
 // verbatim, each one beside the check that proves it — this file is the
@@ -26,9 +37,13 @@ const { spawnSync } = require('node:child_process');
 const { readRecords } = require('../benchmarks/runner/records.js');
 const { buildClaims } = require('../benchmarks/runner/publish.js');
 
-const PLUGIN_ROOT = path.join(__dirname, '..');
+// The harness home (this checkout) and the plugin's default home (the
+// marketplace repo checks hush out as a sibling of benchmarks/).
+const HARNESS_ROOT = path.join(__dirname, '..');
+const SIBLING_PLUGIN = path.resolve(__dirname, '..', '..', '..', 'hush');
 const RECORDS_DIR = 'benchmarks/records';
-const PUBLISHED_CLAIMS = `${RECORDS_DIR}/published/claims.md`;
+// One published claim set per batch, beside the records that regenerate it.
+const publishedClaimsPath = (batchId) => `${RECORDS_DIR}/${batchId}/published/claims.md`;
 
 // --- running the evidence ----------------------------------------------------
 
@@ -60,10 +75,11 @@ const unmet = (claim, evidence, missing) => ({ met: false, claim, evidence, miss
 /**
  * The common shape: named test files carry the point, optionally alongside
  * artifact checks for the half of a point no test covers. Anything unmet takes
- * the whole point down with it.
+ * the whole point down with it. `runner` picks the home the files run in:
+ * ctx.tests for plugin evidence, ctx.harnessTests for benchmark evidence.
  */
-function proves(ctx, files, claim, extras = []) {
-  const runs = files.map((f) => ctx.tests(f));
+function proves(ctx, files, claim, extras = [], runner = 'tests') {
+  const runs = files.map((f) => ctx[runner](f));
   const plural = (n) => `${n} test${n === 1 ? '' : 's'}`;
   const evidence = runs.map((r) => `${r.file} — ${r.pass ? `${plural(r.tests)}, all passing` : `${r.fail} of ${plural(r.tests)} FAILING`}`
     + ` (${(r.ms / 1000).toFixed(1)}s)`).concat(extras.map((e) => e.evidence));
@@ -170,9 +186,14 @@ const POINTS = [
   {
     n: 6,
     point: 'Statistics distinguish observation from estimation.',
-    check: (ctx) => proves(ctx, ['tests/stats.test.js'],
-      '/hush:stats reports only what was observed — bytes in and out, decisions taken, recovery reads — and '
-      + 'never prints a savings figure, clamped or otherwise, for a counterfactual session nobody ran'),
+    // The stats dashboard was cut at 1.0; what remains — and what this point
+    // now pins — is the observation record itself: the HUSH_DEBUG manifest
+    // logs what each transform actually did (bytes in and out, the action,
+    // where recovery lives), and no surface anywhere computes a savings
+    // figure for a counterfactual session nobody ran.
+    check: (ctx) => proves(ctx, ['tests/hush_debug_manifest.test.js'],
+      "hush's record of its own activity is observation — bytes in and out, decisions taken, recovery "
+      + 'targets — for every handled output, and nothing in the product prints an estimated savings figure'),
   },
   {
     n: 7,
@@ -207,7 +228,7 @@ function optionalSurfacesStayCold(ctx) {
   let skills;
   try {
     wiring = JSON.stringify(JSON.parse(ctx.read('hooks/hooks.json')));
-    skills = fs.readdirSync(path.join(ctx.root, 'skills'), { withFileTypes: true })
+    skills = fs.readdirSync(path.join(ctx.pluginRoot, 'skills'), { withFileTypes: true })
       .filter((e) => e.isDirectory()).map((e) => e.name);
   } catch (err) {
     return { met: false, evidence: `hooks/hooks.json + skills/ — unreadable (${err.code || err.message})`, missing: 'the hook wiring cannot be read' };
@@ -233,7 +254,7 @@ function optionalSurfacesStayCold(ctx) {
  */
 function claimsComeFromRecords(ctx) {
   const claim = 'every public performance figure in README.md is regenerated from hash-verified run records, '
-    + 'per workload segment, from one batch';
+    + 'per workload segment, each batch complete and published';
   const { runs, batches, error } = retained(ctx);
   let readme = '';
   try { readme = ctx.read('README.md'); } catch { /* reported below through the figure count */ }
@@ -249,29 +270,45 @@ function claimsComeFromRecords(ctx) {
       + ' — run the segmented suite, retain its records, and regenerate the claim set with runner/publish.js');
   }
 
-  const segments = Object.keys(JSON.parse(ctx.read('benchmarks/config.json')).segments);
-  const covered = new Set(runs.map((r) => r.segment).filter(Boolean));
-  const uncovered = segments.filter((s) => !covered.has(s));
+  const segments = Object.keys(JSON.parse(ctx.readHarness('benchmarks/config.json')).segments);
 
-  // Throws when the records span two batches, or when the batch manifest
-  // planned runs whose records are no longer there.
-  const claims = buildClaims(runs, batches);
-  evidence.push(`benchmarks/runner/publish.js — regenerated ${claims.segments.length} segment tables from batch ${claims.batchId}`);
+  // Costs are only comparable inside one batch (publish.js refuses a mix),
+  // so the claim set is built per batch — a cross-model check is its own
+  // batch — and a README figure may trace to any batch's regenerated costs.
+  const byBatch = new Map();
+  for (const r of runs) {
+    const id = r.batchId || '(none)';
+    if (!byBatch.has(id)) byBatch.set(id, []);
+    byBatch.get(id).push(r);
+  }
 
-  let published = null;
-  try { published = ctx.read(PUBLISHED_CLAIMS); } catch { /* absence is reported below */ }
-  const untraceable = figures.filter((f) => !figureIsGenerated(f, claims));
+  const gaps = [];
+  const allCosts = { costs: [] };
+  for (const [batchId, batchRuns] of [...byBatch.entries()].sort()) {
+    // Throws when the batch manifest planned runs whose records are gone.
+    const claims = buildClaims(batchRuns, batches);
+    allCosts.costs.push(...(claims.costs || []));
+    evidence.push(`benchmarks/runner/publish.js — regenerated ${claims.segments.length} segment tables from batch ${claims.batchId}`);
 
-  const gaps = [
-    uncovered.length && `no records for segment(s) ${uncovered.join(', ')}`,
-    published === null && `${PUBLISHED_CLAIMS} has never been generated`,
-    published !== null && published.trim() !== claims.markdown.trim()
-      && `${PUBLISHED_CLAIMS} is stale — it does not match what the records regenerate`,
-    untraceable.length && `${untraceable.length} README figure(s) no record produces: ${someOf(untraceable)}`,
-  ].filter(Boolean);
+    const covered = new Set(batchRuns.map((r) => r.segment).filter(Boolean));
+    const uncovered = segments.filter((s) => !covered.has(s));
+    if (uncovered.length) gaps.push(`no records for segment(s) ${uncovered.join(', ')} in batch ${batchId}`);
 
-  if (published !== null) evidence.push(`${PUBLISHED_CLAIMS} — ${published.length} bytes, compared against the regenerated claims`);
-  evidence.push(`segments covered: ${[...covered].sort().join(', ') || 'none'}`);
+    const claimsFile = publishedClaimsPath(batchId);
+    let published = null;
+    try { published = ctx.readHarness(claimsFile); } catch { /* absence is reported below */ }
+    if (published === null) gaps.push(`${claimsFile} has never been generated`);
+    else if (published.trim() !== claims.markdown.trim()) {
+      gaps.push(`${claimsFile} is stale — it does not match what the records regenerate`);
+    } else {
+      evidence.push(`${claimsFile} — ${published.length} bytes, byte-identical to the regenerated claims`);
+    }
+  }
+
+  const untraceable = figures.filter((f) => !figureIsGenerated(f, allCosts));
+  if (untraceable.length) gaps.push(`${untraceable.length} README figure(s) no record produces: ${someOf(untraceable)}`);
+
+  evidence.push(`batches: ${[...byBatch.keys()].sort().join(', ')}`);
   return gaps.length ? unmet(claim, evidence, gaps.join('; ')) : met(claim, evidence);
 }
 
@@ -282,15 +319,17 @@ function claimsComeFromRecords(ctx) {
  */
 function benchmarkDataIsAuditable(ctx) {
   const { runs, error } = retained(ctx);
-  let publishedBytes = null;
-  try { publishedBytes = ctx.read(PUBLISHED_CLAIMS).length; } catch { /* absence is the finding */ }
+  const batchIds = [...new Set(runs.map((r) => r.batchId).filter(Boolean))].sort();
+  const unpublished = batchIds.filter((id) => {
+    try { return ctx.readHarness(publishedClaimsPath(id)).length === 0; } catch { return true; }
+  });
 
   const audit = (() => {
     if (error) return { met: false, evidence: `${RECORDS_DIR}/ — unreadable: ${error}`, missing: `${RECORDS_DIR}/ cannot be read: ${error}` };
     if (!runs.length) {
       return {
         met: false,
-        evidence: `${RECORDS_DIR}/ — 0 retained runs, ${publishedBytes === null ? 'no' : 'a'} published claim set`,
+        evidence: `${RECORDS_DIR}/ — 0 retained runs`,
         missing: `${RECORDS_DIR}/ holds no run data, so no number the suite has produced can be re-checked by anyone`,
       };
     }
@@ -302,35 +341,45 @@ function benchmarkDataIsAuditable(ctx) {
         missing: `${anonymous.length} record(s) carry no batch/seed/segment stamp — an unattributable number is not auditable`,
       };
     }
-    if (publishedBytes === null) {
+    if (unpublished.length) {
       return {
         met: false,
         evidence: `${RECORDS_DIR}/ — ${runs.length} runs, all hash-verified and stamped`,
-        missing: `${PUBLISHED_CLAIMS} has never been generated, so the run data is retained but not published`,
+        missing: `${unpublished.map(publishedClaimsPath).join(', ')} has never been generated, so the run data is retained but not published`,
       };
     }
     return {
       met: true,
-      evidence: `${RECORDS_DIR}/ — ${runs.length} hash-verified runs, all batch/seed/segment stamped, published as ${PUBLISHED_CLAIMS}`,
+      evidence: `${RECORDS_DIR}/ — ${runs.length} hash-verified runs, all batch/seed/segment stamped, published per batch (${batchIds.join(', ')})`,
     };
   })();
 
   return proves(ctx, ['tests/benchmark_evidence.test.js'],
     'every figure is a distribution: n, median, quartiles and a 95% interval per segment, the worst single '
     + 'regression named rather than averaged away — and the runs behind it are retained, tamper-evident and published',
-    [audit]);
+    [audit], 'harnessTests');
 }
 
 // --- driving -----------------------------------------------------------------
 
-function runGate({ root = PLUGIN_ROOT, runTestFile: runner = runTestFile, points = POINTS } = {}) {
+function runGate({ root = HARNESS_ROOT, pluginRoot = root, runTestFile: runner = runTestFile, points = POINTS } = {}) {
   const cache = new Map();
   const ctx = {
     root,
-    read: (rel) => fs.readFileSync(path.join(root, rel), 'utf8'),
+    pluginRoot,
+    // Plugin-side artifacts (README, hooks, the plugin's own tests) come from
+    // pluginRoot; harness-side ones (config, records, benchmark evidence)
+    // from root. A single-root fixture passes only `root` and gets both.
+    read: (rel) => fs.readFileSync(path.join(pluginRoot, rel), 'utf8'),
+    readHarness: (rel) => fs.readFileSync(path.join(root, rel), 'utf8'),
     tests: (file) => {
-      if (!cache.has(file)) cache.set(file, runner(file, root));
+      if (!cache.has(file)) cache.set(file, runner(file, pluginRoot));
       return { file, ...cache.get(file) };
+    },
+    harnessTests: (file) => {
+      const key = `harness:${file}`;
+      if (!cache.has(key)) cache.set(key, runner(file, root));
+      return { file, ...cache.get(key) };
     },
   };
   const started = Date.now();
@@ -342,11 +391,14 @@ function runGate({ root = PLUGIN_ROOT, runTestFile: runner = runTestFile, points
       return { n: p.n, point: p.point, met: false, claim: null, evidence: [], missing: `the check itself failed: ${err.message}` };
     }
   });
-  return { root, results, ok: results.every((r) => r.met), ms: Date.now() - started };
+  return { root, pluginRoot, results, ok: results.every((r) => r.met), ms: Date.now() - started };
 }
 
 function render(report) {
-  const out = [`hush 1.0 readiness gate — ${report.results.length} points`, `checkout: ${report.root}`, ''];
+  const out = [`hush 1.0 readiness gate — ${report.results.length} points`,
+    report.pluginRoot && report.pluginRoot !== report.root
+      ? `harness: ${report.root}\nplugin:  ${report.pluginRoot}`
+      : `checkout: ${report.root}`, ''];
   for (const r of report.results) {
     out.push(`${r.met ? '[MET]    ' : '[NOT MET]'} ${r.n}. ${r.point}`);
     if (r.claim) out.push(`          holds when: ${r.claim}`);
@@ -365,7 +417,12 @@ function render(report) {
 function main() {
   const argv = process.argv.slice(2);
   const i = argv.indexOf('--root');
-  const report = runGate({ root: i >= 0 ? path.resolve(argv[i + 1]) : PLUGIN_ROOT });
+  const p = argv.indexOf('--plugin-root');
+  // A bare invocation audits this harness plus the marketplace's own hush
+  // checkout; --root keeps the old single-checkout behavior for fixtures.
+  const root = i >= 0 ? path.resolve(argv[i + 1]) : HARNESS_ROOT;
+  const pluginRoot = p >= 0 ? path.resolve(argv[p + 1]) : i >= 0 ? root : SIBLING_PLUGIN;
+  const report = runGate({ root, pluginRoot });
   console.log(render(report));
   process.exit(report.ok ? 0 : 1);
 }
@@ -375,9 +432,10 @@ if (require.main === module) main();
 /** Every test file the gate runs, deduplicated — the suite's own coverage check reads this. */
 const evidenceFiles = () => {
   const seen = new Set();
-  const collect = { root: PLUGIN_ROOT, read: () => '', tests: (f) => { seen.add(f); return { file: f, pass: true, tests: 0, fail: 0, ms: 0 }; } };
+  const fake = (f) => { seen.add(f); return { file: f, pass: true, tests: 0, fail: 0, ms: 0 }; };
+  const collect = { root: HARNESS_ROOT, pluginRoot: HARNESS_ROOT, read: () => '', readHarness: () => '', tests: fake, harnessTests: fake };
   for (const p of POINTS) { try { p.check(collect); } catch { /* only the file names matter here */ } }
   return [...seen];
 };
 
-module.exports = { runGate, render, runTestFile, POINTS, evidenceFiles, figureIsGenerated, RECORDS_DIR, PUBLISHED_CLAIMS };
+module.exports = { runGate, render, runTestFile, POINTS, evidenceFiles, figureIsGenerated, RECORDS_DIR, publishedClaimsPath, HARNESS_ROOT, SIBLING_PLUGIN };
