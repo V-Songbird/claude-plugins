@@ -25,8 +25,8 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 
 const gate = require('../scripts/readiness-gate.js');
-const { writeRecord, readRecords } = require('../benchmarks/runner/records.js');
-const { buildClaims } = require('../benchmarks/runner/publish.js');
+const { writeRecord, readRecords } = require('../runner/records.js');
+const { buildClaims } = require('../runner/publish.js');
 
 const HARNESS_ROOT = path.join(__dirname, '..');
 const REAL_PLUGIN = gate.SIBLING_PLUGIN;
@@ -212,13 +212,12 @@ function fixtureRoot(tag, opts = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), `hush-gate-${tag}-`));
   scratch.push(root);
   fs.mkdirSync(path.join(root, 'hooks'), { recursive: true });
-  fs.mkdirSync(path.join(root, 'benchmarks'), { recursive: true });
   for (const skill of ['craft-style', 'hush-compress', 'hush-stats', 'pick-style']) {
     fs.mkdirSync(path.join(root, 'skills', skill), { recursive: true });
   }
   fs.writeFileSync(path.join(root, 'README.md'), opts.readme === undefined ? README_FIXTURE : opts.readme);
   fs.writeFileSync(path.join(root, 'hooks', 'hooks.json'), JSON.stringify(opts.hooks || HOOKS_FIXTURE, null, 2));
-  fs.writeFileSync(path.join(root, 'benchmarks', 'config.json'), JSON.stringify({ segments: opts.segments || SEGMENTS }, null, 2));
+  fs.writeFileSync(path.join(root, 'config.json'), JSON.stringify({ segments: opts.segments || SEGMENTS }, null, 2));
 
   const recordsDir = path.join(root, gate.RECORDS_DIR);
   const runs = opts.runs === undefined ? synthRuns() : opts.runs;

@@ -34,14 +34,14 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-const { readRecords } = require('../benchmarks/runner/records.js');
-const { buildClaims } = require('../benchmarks/runner/publish.js');
+const { readRecords } = require('../runner/records.js');
+const { buildClaims } = require('../runner/publish.js');
 
 // The harness home (this checkout) and the plugin's default home (the
 // marketplace repo checks hush out as a sibling of benchmarks/).
 const HARNESS_ROOT = path.join(__dirname, '..');
 const SIBLING_PLUGIN = path.resolve(__dirname, '..', '..', '..', 'hush');
-const RECORDS_DIR = 'benchmarks/records';
+const RECORDS_DIR = 'records';
 // One published claim set per batch, beside the records that regenerate it.
 const publishedClaimsPath = (batchId) => `${RECORDS_DIR}/${batchId}/published/claims.md`;
 
@@ -270,7 +270,7 @@ function claimsComeFromRecords(ctx) {
       + ' — run the segmented suite, retain its records, and regenerate the claim set with runner/publish.js');
   }
 
-  const segments = Object.keys(JSON.parse(ctx.readHarness('benchmarks/config.json')).segments);
+  const segments = Object.keys(JSON.parse(ctx.readHarness('config.json')).segments);
 
   // Costs are only comparable inside one batch (publish.js refuses a mix),
   // so the claim set is built per batch — a cross-model check is its own
@@ -288,7 +288,7 @@ function claimsComeFromRecords(ctx) {
     // Throws when the batch manifest planned runs whose records are gone.
     const claims = buildClaims(batchRuns, batches);
     allCosts.costs.push(...(claims.costs || []));
-    evidence.push(`benchmarks/runner/publish.js — regenerated ${claims.segments.length} segment tables from batch ${claims.batchId}`);
+    evidence.push(`runner/publish.js — regenerated ${claims.segments.length} segment tables from batch ${claims.batchId}`);
 
     const covered = new Set(batchRuns.map((r) => r.segment).filter(Boolean));
     const uncovered = segments.filter((s) => !covered.has(s));

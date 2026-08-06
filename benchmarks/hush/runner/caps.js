@@ -32,7 +32,7 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 // The hush plugin checks out as a sibling of benchmarks/ in the marketplace
 // repo, the same path metrics.js already reaches across.
-const STYLE = path.resolve(__dirname, '../../../../hush/output-styles/hush.md');
+const STYLE = path.resolve(__dirname, '../../../hush/output-styles/hush.md');
 
 // --- the caps, read from the style rather than copied out of it --------------
 // verify-style.js already treats the canonical style file as the source of

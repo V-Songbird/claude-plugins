@@ -1,6 +1,6 @@
 'use strict';
 
-// Cap conformance meter (benchmarks/runner/caps.js). All local/pure — no
+// Cap conformance meter (runner/caps.js). All local/pure — no
 // `claude` CLI invocation, no cost.
 //
 // The vocabulary here is pinned with LITERAL samples pushed through the shipped
@@ -13,7 +13,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const { readCaps, loadCaps, analyzeMessage, capReport, unitsOf, countWords } =
-  require('../benchmarks/runner/caps.js');
+  require('../runner/caps.js');
 
 const CAPS = { lineCap: 12, wordCap: 15 };
 

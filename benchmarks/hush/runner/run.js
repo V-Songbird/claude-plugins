@@ -24,7 +24,7 @@ const { parseTranscript, runCheck, readDebugManifest, assertUsableRun } = requir
 const { makeRng, shuffled, hashSeed } = require('./stats.js');
 const { writeRecord } = require('./records.js');
 
-const ROOT = path.resolve(__dirname, '..');            // hush/benchmarks
+const ROOT = path.resolve(__dirname, '..');            // benchmarks/hush
 const CONFIG = JSON.parse(fs.readFileSync(path.join(ROOT, 'config.json'), 'utf8'));
 const TASKS = JSON.parse(fs.readFileSync(path.join(ROOT, 'tasks.json'), 'utf8'));
 
@@ -60,7 +60,7 @@ const seedFlag = flag('seed', null);
 // to one machine's paths.
 const HUSH_DIR = process.env.HUSH_PLUGIN_DIR
   ? path.resolve(process.env.HUSH_PLUGIN_DIR)
-  : path.resolve(ROOT, '..', '..', '..', 'hush');
+  : path.resolve(ROOT, '..', '..', 'hush');
 
 function parseRivalEnv(s) {
   const env = {};

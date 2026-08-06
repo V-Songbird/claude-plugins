@@ -4,7 +4,7 @@
 // prompt styles. The four prompt arms differ by PROMPT FILE only — no plugin
 // dirs, no settings files, identical CLI flags. The opt-in `trio` arm reuses
 // the foreman prompt but plugs the destination session with hush + razor.
-// Same chassis as hush/benchmarks/runner/run.js.
+// Same chassis as benchmarks/hush/runner/run.js.
 //
 //   node runner/run.js --dry-run --tag smoke
 //   node runner/run.js --tag smoke --tasks api-constraint --reps 1 --model haiku --arms vibe,foreman

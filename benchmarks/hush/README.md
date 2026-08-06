@@ -8,7 +8,7 @@ It drives **real headless Claude Code sessions** (`claude -p`) on the same fixed
 
 - **Claude Code, signed in.** `claude` must be on your PATH and already authenticated (run any `claude` command once first). Every run bills your account — see the cost note below.
 - **Node** on your PATH (any recent version). If you use [fnm](https://github.com/Schniz/fnm), activate it in this shell first — e.g. on PowerShell: `fnm env --use-on-cd | Out-String | Invoke-Expression`.
-- Run the commands **from this `benchmarks/` directory.**
+- Run the commands **from this directory** (`benchmarks/hush/` in the marketplace repo).
 
 ## The honest disclaimer, up front
 

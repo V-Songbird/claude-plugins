@@ -13,16 +13,16 @@ const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 
-const BENCH = path.join(__dirname, '..', 'benchmarks');
+const BENCH = path.join(__dirname, '..');
 const CONFIG = JSON.parse(fs.readFileSync(path.join(BENCH, 'config.json'), 'utf8'));
 const TASKS = JSON.parse(fs.readFileSync(path.join(BENCH, 'tasks.json'), 'utf8'));
 const BENCH_README = fs.readFileSync(path.join(BENCH, 'README.md'), 'utf8');
 
-const stats = require('../benchmarks/runner/stats.js');
-const records = require('../benchmarks/runner/records.js');
-const publish = require('../benchmarks/runner/publish.js');
-const { barChartSvg } = require('../benchmarks/runner/chart.js');
-const { assertUsableRun } = require('../benchmarks/runner/metrics.js');
+const stats = require('../runner/stats.js');
+const records = require('../runner/records.js');
+const publish = require('../runner/publish.js');
+const { barChartSvg } = require('../runner/chart.js');
+const { assertUsableRun } = require('../runner/metrics.js');
 
 const tmp = (name) => fs.mkdtempSync(path.join(os.tmpdir(), `hush-${name}-`));
 /** Records are written read-only, so cleanup has to unlock them first. */
@@ -99,7 +99,7 @@ describe('segments: every task is placed, every segment is populated', () => {
   });
 });
 
-describe('benchmarks/README.md stays in step with the suite', () => {
+describe('README.md stays in step with the suite', () => {
   test('the stated task count matches tasks.json', () => {
     const m = BENCH_README.match(/The tasks: \*\*(\d+)\*\* in all/);
     assert.ok(m, 'README no longer states a task count in the expected shape');

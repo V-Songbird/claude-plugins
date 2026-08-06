@@ -1,5 +1,5 @@
 'use strict';
-// Adapted from hush/benchmarks/runner/metrics.js. Extensions for this
+// Adapted from benchmarks/hush/runner/metrics.js. Extensions for this
 // harness: readsBeforeFirstEdit, bashCommands (for verificationRan), and
 // hash/content scope checks (scoreRun) instead of keyword rubrics.
 

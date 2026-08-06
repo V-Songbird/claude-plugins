@@ -1,13 +1,13 @@
 'use strict';
 
-// Probe 9 Spec 1 ingestion: benchmarks/runner/metrics.js reads hush's
+// Probe 9 Spec 1 ingestion: runner/metrics.js reads hush's
 // HUSH_DEBUG manifest when present, fail-soft when absent. All local/pure —
 // no `claude` CLI invocation, no cost.
 
 const { test, describe, after } = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
-const { parseTranscript, readDebugManifest } = require('../benchmarks/runner/metrics.js');
+const { parseTranscript, readDebugManifest } = require('../runner/metrics.js');
 const { debugManifestPath } = require('../../../hush/hooks/compress-tool-output');
 
 describe('parseTranscript: session id', () => {
@@ -70,7 +70,7 @@ describe('readDebugManifest: fail-soft ingestion', () => {
 });
 
 describe('runCheck: keyword corpus', () => {
-  const { runCheck } = require('../benchmarks/runner/metrics.js');
+  const { runCheck } = require('../runner/metrics.js');
   const os = require('os');
   const path = require('path');
 

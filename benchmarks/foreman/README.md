@@ -109,11 +109,12 @@ system.
 ## Roadmap health and attention cost
 
 A different question again: does a roadmap stay accurate over months, and what
-does keeping one cost you? Mechanical tests can't answer either, so `health/`
-measures them directly.
+does keeping one cost you? Mechanical tests can't answer either, so the foreman
+plugin ships two health tools under `scripts/health/` that measure them
+directly. From this directory, in a marketplace checkout:
 
 ```bash
-node health/roadmap-health.js --roadmap /path/to/ROADMAP.jsonl --date 2026-07-28
+node ../../foreman/scripts/health/roadmap-health.js --roadmap /path/to/ROADMAP.jsonl --date 2026-07-28
 ```
 
 Free, deterministic, read-only, and no default roadmap — you name the file.
@@ -127,7 +128,7 @@ a report is reproducible.
 than what shape the roadmap is in:
 
 ```bash
-node health/attention-cost.js --roadmap /path/to/ROADMAP.jsonl --date 2026-07-28
+node ../../foreman/scripts/health/attention-cost.js --roadmap /path/to/ROADMAP.jsonl --date 2026-07-28
 ```
 
 Also free, deterministic, read-only, same flags. Three of its seven metrics
@@ -144,7 +145,7 @@ Seven of the sixteen metrics across the two tools — whether you accept the
 recommendation, override it, get what you meant from a hint, how long setup
 runs before the first useful task, how many questions a task costs, how often a
 commit gets interrupted, and whether an interrupted run comes back — only exist
-if a session records them as they happen. [`health/TRIALS.md`](health/TRIALS.md)
+if a session records them as they happen. [`TRIALS.md`](../../foreman/TRIALS.md)
 defines those as opt-in, local, count-only project trials: no titles, no paths,
 no ids, a log you can delete at any time, and nothing recording anything today.
 Pass `--trial-log <path>` and each tool computes its own rates; without one they
