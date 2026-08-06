@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 60,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10697,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.08198899999999999,
+  "numTurns": 1,
+  "durationMs": 8755,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 569
+  },
+  "contextTraffic": 31702,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 152,
+  "finalText": "Merge and rebase both bring one branch's changes into another, but they do it differently.\n\n**Merge** joins two branches with a new commit that has both as parents. Nothing gets rewritten, and you keep the full, true history — including every side branch and messy commit.\n\n**Rebase** takes your commits and replays them one by one on top of the other branch, as if you'd started there. History ends up as one straight line, but your original commits are gone — new ones take their place.\n\nFor picking one:\n- Use **merge** on shared branches, like `main`, where others already have copies of the history.\n- Use **rebase** to clean up your own local branch before you share it — squash typo fixes, reorder commits, make the story readable.\n\nOne hard rule: never rebase commits that someone else has already pulled. It rewrites them, so their copy and yours no longer match.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "93e92cc498b38bf652977dbdde0e622036a45508fdec6397d00e50b44a6488e8"
+}

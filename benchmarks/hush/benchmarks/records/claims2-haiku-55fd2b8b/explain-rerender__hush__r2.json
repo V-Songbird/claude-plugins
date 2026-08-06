@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 32,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10143,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0222202,
+  "numTurns": 1,
+  "durationMs": 7906,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 540
+  },
+  "contextTraffic": 23915,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 111,
+  "finalText": "I need to see your code to nail down the cause — there are usually just a few culprits. Can you share the parent component and the child component?\n\nThe most common ones are:\n\n1. **Parent re-renders** — even with the same props, if the parent rerenders, React rerenders all children by default\n2. **New object each render** — passing `onClick={() => {...}}` or `style={{...}}` creates a new reference every render, so React sees \"different\" props\n3. **Missing memoization** — wrapping the child in `React.memo()` stops rerenders when props truly haven't changed\n\nOnce you share your components, I can tell you exactly which one it is and show you the fix.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f60e5b5adb2787cccfc453687d00880bc6c952dec0db0fb5eacad76e0f14febd"
+}

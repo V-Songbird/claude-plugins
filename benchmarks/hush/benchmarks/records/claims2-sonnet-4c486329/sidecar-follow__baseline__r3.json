@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r3",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 165,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16147,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1647321,
+  "numTurns": 3,
+  "durationMs": 14698,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 654
+  },
+  "contextTraffic": 98909,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 24928,
+  "narrationWords": 0,
+  "finalWords": 75,
+  "finalText": "CI run summary: **698 passed, 2 failed** out of 700 tests.\n\n**Failures:**\n1. `refreshToken silently accepts an already-revoked token` — auth/tokens.test.js:400\n2. `sessionCleanup leaves orphaned rows after a rollback` — auth/tokens.test.js:650\n\nBoth failures are in the same file (`auth/tokens.test.js`) and both point to real auth/session-integrity bugs (not flaky timeouts or infra noise) — worth looking at before merging: one suggests revoked tokens can still be refreshed, the other suggests failed transactions leave orphaned session rows.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b4e73b2dc65c5a0c234d1e5ac5b600535ca697d4be9f46c4fa88e11be7f8135b"
+}

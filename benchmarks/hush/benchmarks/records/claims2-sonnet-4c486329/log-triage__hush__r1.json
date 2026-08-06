@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 130,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 19467,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.19588080000000002,
+  "numTurns": 4,
+  "durationMs": 17822,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1049
+  },
+  "contextTraffic": 142934,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 23467,
+  "narrationWords": 0,
+  "finalWords": 183,
+  "finalText": "Redis died and the whole stack backed up until it fell over.\n\nAt **02:14:07** the app lost its connection to Redis at `10.0.0.12:6379` and fell back to hitting the database directly. That triggered a cache miss storm, and every request started timing out after 5 seconds because the store couldn't keep up.\n\nFrom there it never recovered:\n- Redis reconnect attempts kept failing, roughly every 80 seconds, all the way to attempt 12 at **02:31:26**.\n- The request queue climbed the whole time, from 52 up past its cap of 500, reaching 568.\n- At **02:31:44** `worker-2` ran out of memory from the backlog and crashed.\n- At **02:31:52** the API stopped responding and the supervisor killed the whole process group — that's the outage.\n\nSo the trigger was Redis going unreachable, and the real damage was that nothing shed load while it was down, so the backlog just grew until a worker OOM'd and took the service with it. Worth adding a circuit breaker or load-shedding for when Redis is down, and finding out why `10.0.0.12:6379` was unreachable for 17+ minutes straight.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3438b817a1b4d47dcf587517b16679c2c608b9bc5663b2369dc087d35799d9f8"
+}

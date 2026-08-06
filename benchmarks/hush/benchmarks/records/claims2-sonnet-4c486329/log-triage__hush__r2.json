@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 132,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 22263,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2138192,
+  "numTurns": 5,
+  "durationMs": 20596,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1147
+  },
+  "contextTraffic": 188085,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 23574,
+  "narrationWords": 0,
+  "finalWords": 207,
+  "finalText": "**Redis died, and the fallback couldn't keep up until everything crashed.**\n\nAt 02:14:07 the app lost its connection to redis at `10.0.0.12:6379` and switched to reading straight from the store instead of the cache. That's when the trouble started.\n\nFrom there it was a slow bleed for about 17 minutes:\n1. Constant \"cache miss storm\" warnings, since nothing was landing in the cache anymore.\n2. Requests to the store started timing out at 5 seconds, logged over and over as `store overloaded`.\n3. The request queue climbed steadily, from the 50s up to 568 (way past its max of 500).\n4. Redis reconnect attempts kept failing, roughly every 90 seconds to two minutes, 12 tries in total, never recovering.\n\nAt 02:31:44 `worker-2` ran out of memory from the backlog and crashed. The supervisor restarted it, but 7 seconds later the api process itself stopped responding, and the supervisor killed the whole process group. Service went down at 02:31:52.\n\nSo the trigger was redis becoming unreachable and never coming back — everything else was the app slowly drowning without its cache until it ran out of memory. Worth checking why redis at `10.0.0.12:6379` dropped and didn't recover, since that's the root cause, not the timeouts or the OOM.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3f0dc13909214e871ee2b6bec3b60e5cbe0d4b69e03296fb1a9f664b8b3bb49a"
+}

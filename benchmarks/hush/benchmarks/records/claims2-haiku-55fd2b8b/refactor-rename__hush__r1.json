@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__hush__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 18,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 44974,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.06945090000000001,
+  "numTurns": 15,
+  "durationMs": 43184,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2643
+  },
+  "contextTraffic": 224413,
+  "apiCalls": 8,
+  "toolCalls": 14,
+  "toolResultChars": 11403,
+  "narrationWords": 0,
+  "finalWords": 42,
+  "finalText": "All tests pass. Renamed `calcTotal` to `computeTotal` across four source files: the function definition in `cart.js`, the re-export in `index.js`, and both import sites in `invoice.js` and `report.js`. The test suite was already expecting the new name and now confirms everything works.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "039e08904db7c8b01141ea13f45b5a217ecd23ab44e842d445f9b1ad1c0386ae"
+}

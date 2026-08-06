@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__hush__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 6,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 24978,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0418488,
+  "numTurns": 6,
+  "durationMs": 22856,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1410
+  },
+  "contextTraffic": 125834,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2203,
+  "narrationWords": 0,
+  "finalWords": 30,
+  "finalText": "The pagination was using 0-based indexing when pages are meant to be 1-indexed. Changing `page * perPage` to `(page - 1) * perPage` fixed it. All 5 tests now pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b2ce12df7d9ff45282672ebaae9653acdecd21d239bf856b16535386acaac8dc"
+}

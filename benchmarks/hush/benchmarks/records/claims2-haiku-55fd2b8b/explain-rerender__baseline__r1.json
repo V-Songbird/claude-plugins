@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 31,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 7644,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0161348,
+  "numTurns": 1,
+  "durationMs": 5915,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 400
+  },
+  "contextTraffic": 21214,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 83,
+  "finalText": "The parent component is re-rendering (due to its own state/props changes), and React re-renders child components by default—even if their props are the same. Wrap your child with `React.memo()` to skip re-renders when props are shallowly equal, but if you're passing new object/array/function references each render, those will still trigger re-renders; use `useMemo()` and `useCallback()` in the parent to memoize those props.\n\nDo you have a specific component setup you'd like me to look at, or want an example of the memoization pattern?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f4de7f27084be88b3db833f97d98705e3266a0806faaea3b5646e3a6657d4445"
+}

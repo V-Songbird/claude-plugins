@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 51,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 8402,
+  "check": {
+    "pass": false,
+    "score": 0.3333333333333333,
+    "detail": "1/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.078474,
+  "numTurns": 1,
+  "durationMs": 6413,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 335
+  },
+  "contextTraffic": 31701,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 102,
+  "finalText": "A few usual suspects:\n\n1. Every time the parent re-renders, it makes a **new function or object** for that prop — even if it looks the same, React sees a different one and re-renders the child.\n2. The child isn't wrapped in `React.memo`, so it re-renders whenever the parent does, no matter what the props are.\n3. If you're using context, any change to that context re-renders every component reading it, even ones with unrelated props.\n\nThe fix is usually `React.memo` on the child, plus `useCallback` or `useMemo` in the parent so the function or object props stay the same between renders.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "aa8dde1e069c97382638ab281d6ba4244ace0a06ce8b25671f205e3781676607"
+}

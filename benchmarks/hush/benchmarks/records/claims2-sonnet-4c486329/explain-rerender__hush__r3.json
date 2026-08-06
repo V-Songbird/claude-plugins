@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r3",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 55,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10283,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.07990400000000002,
+  "numTurns": 1,
+  "durationMs": 8434,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 430
+  },
+  "contextTraffic": 31701,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 147,
+  "finalText": "A few usual suspects cause this.\n\nIf the child is a plain function, React re-renders it whenever the parent re-renders, no matter what props it got. Wrapping it in `React.memo` stops that, as long as the props really are the same.\n\nBut \"same\" often isn't true. If you pass an inline function or a new object or array as a prop, like `onClick={() => doThing()}` or `style={{color: 'red'}}`, that makes a brand new value every render. Even `React.memo` sees that as a change. The fix is to keep those steady with `useCallback` for functions and `useMemo` for objects, or just define them outside the component.\n\nContext is another one. If the child reads from a `useContext`, it re-renders anytime that context value changes, even if none of its own props moved.\n\nIf you tell me which case fits, I can look at the actual code with you.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "74c2807c9a419de4b2de35a7cfa5377f14da9cee0317255bfb53fe4270d8d30d"
+}

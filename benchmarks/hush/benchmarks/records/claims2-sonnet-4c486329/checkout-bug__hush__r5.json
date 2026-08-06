@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__hush__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 29,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23416,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1657496,
+  "numTurns": 9,
+  "durationMs": 21773,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1455
+  },
+  "contextTraffic": 171874,
+  "apiCalls": 5,
+  "toolCalls": 8,
+  "toolResultChars": 5811,
+  "narrationWords": 0,
+  "finalWords": 77,
+  "finalText": "**Found it.** `pricing.js` was subtracting the flat coupon after converting to the target currency, treating a USD amount as if it were already in euros or whatever currency the order used.\n\nFlat coupons (like `WELCOME10`) are stored in USD. The fix takes the coupon off the USD subtotal first, then converts the result to the checkout currency — so a $10 coupon on a $100 EUR order now gives 81, not 80.\n\nAll 5 tests pass, 83ms.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bf69cd75d942b629a63e82dbab8685f7384cfbbde29ddbf14b76c22dcf2563e1"
+}

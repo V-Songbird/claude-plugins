@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 93,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 35002,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.20674810000000002,
+  "numTurns": 10,
+  "durationMs": 33144,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1760
+  },
+  "contextTraffic": 247372,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 9679,
+  "narrationWords": 0,
+  "finalWords": 115,
+  "finalText": "**Found it and fixed it.**\n\nThe pricing code was rounding to cents twice: once right after the percent discount, and again after the flat discount — both in dollars, before converting to the shopper's currency. That early rounding threw away tiny fractions that mattered once the exchange rate got applied.\n\nThat's why it only showed up sometimes: it needed a percent coupon (SAVE10PCT), a non-USD currency, and a basket total that happened to sit near a rounding edge. Flat-only or no-coupon carts never hit it.\n\n`src/pricing/engine.js` now applies both discounts in full precision and rounds only once, at the very end, in the order's own currency. All 40 tests pass now, versus 10 failing before.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "822c3383150e6e463888b2bcc2b5c1f827f07afafef7c979889487dea9ee4c31"
+}

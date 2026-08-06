@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 46,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 26887,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.17810550000000003,
+  "numTurns": 8,
+  "durationMs": 25277,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1051
+  },
+  "contextTraffic": 238538,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 6370,
+  "narrationWords": 0,
+  "finalWords": 85,
+  "finalText": "It builds clean now. The link stage was crashing because `resolveConfig` in `src/core/settings.js` referenced an undefined variable `retries` instead of `env.retries`, so every build died right after the compile phase.\n\nFixed that one line, and now it finishes with 0 errors: `retries 3` resolves correctly and both bundle files emit.\n\nThe three warnings (deprecated `crypto.createCipher`, an unused export, a circular import) are just noise from the fake compiler script and don't block the build — let me know if you want those cleaned up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d7a18529029a9375681408135111b3658bc7b65c33f79c51ff8389f95c621453"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 121,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 17929,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1333126,
+  "numTurns": 4,
+  "durationMs": 15372,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 782
+  },
+  "contextTraffic": 133761,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 4127,
+  "narrationWords": 0,
+  "finalWords": 14,
+  "finalText": "17 call sites still pass the second argument. `src\\reports\\quarterly.js` has the most, with 5.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4ced46e7ac61446a1c256e5c42c8b1d2da794f6d76ee9b949fc7c4fcf4187004"
+}

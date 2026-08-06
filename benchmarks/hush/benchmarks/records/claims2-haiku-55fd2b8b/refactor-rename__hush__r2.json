@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__hush__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 21,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 31624,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0531565,
+  "numTurns": 13,
+  "durationMs": 29833,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2171
+  },
+  "contextTraffic": 159120,
+  "apiCalls": 6,
+  "toolCalls": 12,
+  "toolResultChars": 3808,
+  "narrationWords": 0,
+  "finalWords": 28,
+  "finalText": "Done. Renamed `calcTotal` to `computeTotal` across five files — the function definition in cart.js, and all imports and usages in index.js, invoice.js, and report.js. All 4 tests pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6874b7f3e6d48536eb7a6213bc40db05cc2c8f383be1161dc36bdef5aaf670be"
+}

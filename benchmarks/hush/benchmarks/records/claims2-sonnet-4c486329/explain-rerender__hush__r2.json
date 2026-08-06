@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 52,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 13146,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.10585130000000001,
+  "numTurns": 3,
+  "durationMs": 11529,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 664
+  },
+  "contextTraffic": 95930,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 28,
+  "narrationWords": 0,
+  "finalWords": 145,
+  "finalText": "The folder's empty, so this is a general question, not something in your code.\n\nMost times, it's one of these:\n\n1. **The parent re-renders, and the child isn't wrapped in `React.memo`.** By default, a child re-renders whenever its parent does, no matter the props. Wrap the child in `React.memo(MyComponent)` to skip that.\n2. **A prop looks the same but is a new object each time.** Things like `{}`, `[]`, or an inline function (`onClick={() => ...}`) get rebuilt on every render, so React sees a \"different\" prop even though it reads the same. Fix with `useMemo` for objects/arrays or `useCallback` for functions.\n3. **You're passing children as JSX built inline in the parent.** That JSX is a new object every render too, so `React.memo` alone won't stop it.\n\nIf you paste the parent and child code, I can point at the exact line causing it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "53d670cb28ea8131d58194bdda5a35a3d44b5fd10ba7a5adc4d22e230065c904"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__hush__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 31,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34484,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2095962,
+  "numTurns": 15,
+  "durationMs": 32711,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2277
+  },
+  "contextTraffic": 243864,
+  "apiCalls": 7,
+  "toolCalls": 14,
+  "toolResultChars": 5720,
+  "narrationWords": 0,
+  "finalWords": 32,
+  "finalText": "Renamed `calcTotal` to `computeTotal` everywhere it was used — `src/cart.js`, `index.js`, `invoice.js`, and `report.js`. The tests already expected the new name, so no test edits were needed.\n\nAll 4 tests pass, 77ms.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "47f80a61cb8990e3bf8334fbf8c510c8d9c46e5556d4bc820de2ab7e0bbed788"
+}

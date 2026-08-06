@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 57,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 61558,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0844455,
+  "numTurns": 13,
+  "durationMs": 60303,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5219
+  },
+  "contextTraffic": 235062,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 15584,
+  "narrationWords": 199,
+  "finalWords": 148,
+  "finalText": "**All tests passing now.** ✅\n\n## The Bug\n\nThe pricing engine was rounding intermediate results after applying discounts (lines 24 and 27), but it should only round once at the very end in the target currency. This violates the critical principle: **preserve precision through all calculations, round exactly once at the end.**\n\nWhen you round the USD amount after a percent discount, you lose precision that compounds during currency conversion. Example:\n- **Correct**: 19.98 → ×0.9 = 17.982 → ×0.78 (GBP) = 14.02596 → **round to 14.03**\n- **Broken**: 19.98 → ×0.9 = 17.982 → **round to 17.98** → ×0.78 = 14.0244 → **round to 14.02** (wrong!)\n\nThe fix removed the two intermediate `round()` calls, letting the calculations maintain full precision until the final rounding in the target currency's decimal places. This is especially critical for zero-decimal currencies like JPY where the error was off by a yen.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ac8dfea673dce64f3966178faa989a7e0895db5c07a496c7b853a04831d08484"
+}

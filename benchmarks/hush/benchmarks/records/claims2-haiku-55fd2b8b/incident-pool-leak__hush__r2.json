@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 51,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 47805,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0731613,
+  "numTurns": 14,
+  "durationMs": 46213,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2750
+  },
+  "contextTraffic": 245892,
+  "apiCalls": 9,
+  "toolCalls": 13,
+  "toolResultChars": 13941,
+  "narrationWords": 0,
+  "finalWords": 113,
+  "finalText": "**Found and fixed the connection leak.**\n\nThe `processOrder` function in `src/jobs/processOrder.js` wasn't using the safe wrapper — it acquired a connection and released it only on success. When the `run()` callback threw (for invalid orders), the connection leaked permanently.\n\nThe logs show exactly this: starting around 2:06 AM, invalid orders began failing, and with each failure a connection stayed locked in the pool. By 2:11, the pool was exhausted and the service started serving 503s until it crashed.\n\nThe fix was simple: refactor `processOrder` to use the existing `withConnection` wrapper, which guarantees release even on error via try/finally. All 4 tests pass now, including the ones that specifically catch connection leaks on failure.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5eef1b265f56df8987c4bdd7ad224fc381867f7810e705da611ba82d0ce40042"
+}

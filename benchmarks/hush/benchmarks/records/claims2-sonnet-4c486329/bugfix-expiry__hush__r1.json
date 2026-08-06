@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__hush__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 1,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16977,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.13582999999999998,
+  "numTurns": 6,
+  "durationMs": 14900,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 662
+  },
+  "contextTraffic": 163688,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2126,
+  "narrationWords": 0,
+  "finalWords": 47,
+  "finalText": "Found it. `isExpired` in `token.js` checked `exp < now`, so a token expiring at exactly the current second still counted as valid. Changed it to `exp <= now`, matching the \"expired the moment exp is reached\" rule in the comment above it.\n\nAll 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "685a0895571c20e700798ce80cac98dc72085ae77627c1eed930686b92654179"
+}

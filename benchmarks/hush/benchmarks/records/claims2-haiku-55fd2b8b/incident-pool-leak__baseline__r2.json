@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 50,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 39222,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.10406660000000001,
+  "numTurns": 12,
+  "durationMs": 37944,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2745
+  },
+  "contextTraffic": 293648,
+  "apiCalls": 8,
+  "toolCalls": 11,
+  "toolResultChars": 52900,
+  "narrationWords": 132,
+  "finalWords": 104,
+  "finalText": "Perfect! All tests pass now. The fix is complete. \n\n**Root cause**: The `processOrder` function was acquiring a connection and then awaiting `run()`, but if `run()` threw an error (like \"invalid order payload\"), the `pool.release(conn)` line was never executed. The connection stayed in the `inUse` set permanently, slowly exhausting the pool.\n\n**The fix**: Wrapped the await in try/finally to guarantee release, just like the `withConnection` helper already does.\n\nThis explains the incident timeline perfectly—around 02:06, jobs started failing with validation errors, and each failure leaked a connection. By 02:11, all 5 connections were exhausted, causing cascading 503 errors and triggering the supervisor restart around 02:13.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8ce162b9c9dbec9079277bdb99d796894c776b63b3eac454f175f0f2cfb8f742"
+}

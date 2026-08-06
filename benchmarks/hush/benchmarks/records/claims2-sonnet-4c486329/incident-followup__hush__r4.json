@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 146,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 61228,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.4528629,
+  "numTurns": 12,
+  "durationMs": 55196,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3345
+  },
+  "contextTraffic": 530228,
+  "apiCalls": 12,
+  "toolCalls": 9,
+  "toolResultChars": 24292,
+  "narrationWords": 0,
+  "finalWords": 45,
+  "finalText": "Wrote the handoff to `INCIDENT-2026-07-04.md`.\n\nRedis dropped at 02:14:07, the cache fallback overloaded the store, and the backlog eventually killed `worker-2` and the whole service by 02:31:52 — about 17m45s of degradation with no recovery logged. You're running `ioredis@5.4.1`, good to check against the changelog.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ec0e31e5eddbdcfce4c5dff718aa1a7bb28cd7113e65d7056e8f36536778a9de"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__hush__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 72,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10628,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.10943979999999999,
+  "numTurns": 2,
+  "durationMs": 8776,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 361
+  },
+  "contextTraffic": 66904,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 58,
+  "finalText": "Here's a solid email validator using Python's standard library:\n\n```python\nimport re\n\nEMAIL_PATTERN = re.compile(\n    r\"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\"\n)\n\ndef is_valid_email(email: str) -> bool:\n    return bool(EMAIL_PATTERN.match(email))\n```\n\nIt checks for a name part, an `@`, a domain, and a dot-separated ending like `.com`. Good enough for form checks, but for real deliverability you'd still need to send a confirmation link.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "dcc3a129cfad23b440a148044d35c6f6c16b4aea7d51d63cd951908a1fbf9af8"
+}

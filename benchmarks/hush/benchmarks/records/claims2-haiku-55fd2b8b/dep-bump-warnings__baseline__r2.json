@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 62,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 31663,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.060383000000000006,
+  "numTurns": 12,
+  "durationMs": 30027,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2135
+  },
+  "contextTraffic": 201506,
+  "apiCalls": 8,
+  "toolCalls": 11,
+  "toolResultChars": 16701,
+  "narrationWords": 98,
+  "finalWords": 89,
+  "finalText": "Perfect! Build is now clean. The two real bugs from the bump have been fixed:\n\n1. **src/core/options.js:7** — Changed `options.retries` to `options.retryCount` to match the new bundler's shape\n2. **src/net/retryPolicy.js:10** — Changed the strict boolean check to default to `false` when the flag is `undefined` (instead of throwing)\n\nThe remaining 8 warnings you see are just the expected deprecation noise from the dependency bump itself (old Node APIs, Buffer constructors, etc.) — those are harmless and come from the packages themselves. The build now exits successfully with no errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d5f65357f7c94b29a03279643a9404aa7d1cdae26b10b5d593f03e6bb052ccb0"
+}

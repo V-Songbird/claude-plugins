@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 38,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9963,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0167568,
+  "numTurns": 1,
+  "durationMs": 7783,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 526
+  },
+  "contextTraffic": 21213,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 160,
+  "finalText": "**Merge** creates a commit that combines two branches—it preserves both histories and shows *when* integration happened. Good for integrating feature branches into main or shared branches; it's safe because it doesn't rewrite history.\n\n**Rebase** replays your commits on top of another branch, creating a linear history. Good for keeping your local branch clean before pushing. The tradeoff: it rewrites history, so never rebase commits you've already shared.\n\n**When to reach for each:**\n- **Merge**: default for integrating feature branches. Use it when the history that shows \"we integrated this on Thursday\" matters, and when others might have based work on your branch.\n- **Rebase**: keep your own work clean before merging. Rebase your local feature branch on main (after others update main), then merge cleanly. Also interactive rebase (`git rebase -i`) when you want to squash commits or reorganize before pushing.\n\n**Practical rule**: rebase locally, merge to shared branches. Local rebases are safe; shared rebases break things for other people.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "17de642f6d0b9e9e05574bd7f49d41a33b58c60e46ab91c9a9e21fedcc45301c"
+}

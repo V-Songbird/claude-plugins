@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r3",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 85,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 40723,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.23692969999999997,
+  "numTurns": 12,
+  "durationMs": 38995,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1761
+  },
+  "contextTraffic": 294536,
+  "apiCalls": 8,
+  "toolCalls": 11,
+  "toolResultChars": 14853,
+  "narrationWords": 0,
+  "finalWords": 109,
+  "finalText": "**Found it and fixed it.** `src/jobs/processOrder.js` grabbed a connection and released it with a plain line after the run — no `try/finally`. Any failed order (bad payload, timeout) skipped the release and the connection was gone for good.\n\nThe logs match exactly: worker log shows `invalid order payload` failures ticking the pool up 2/5 → 5/5, then `pool exhausted`, then the worker gives up and exits. The app log shows the same exhaustion hitting the API a few minutes later — 503s, then the supervisor restarting both api and worker-1.\n\nI wrapped the acquire/run/release in try/finally, same pattern the API handler already used. All 4 tests pass now, 71ms.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "631781864878fb76e3846e9fdccfed0285b690e0e5ccd4179cc59f2f61bbbb49"
+}

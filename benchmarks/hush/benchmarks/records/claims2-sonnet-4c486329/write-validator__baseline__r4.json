@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 76,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 15375,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0889984,
+  "numTurns": 3,
+  "durationMs": 14061,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1040
+  },
+  "contextTraffic": 85638,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 348,
+  "narrationWords": 0,
+  "finalWords": 117,
+  "finalText": "Created `validate_email.py` with an `is_valid_email(email: str) -> bool` function.\n\n```python\nimport re\n\nEMAIL_PATTERN = re.compile(\n    r\"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+\"\n    r\"@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\"\n    r\"(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$\"\n)\n\ndef is_valid_email(email: str) -> bool:\n    if not email or len(email) > 254:\n        return False\n    return bool(EMAIL_PATTERN.match(email))\n```\n\nIt checks: valid local-part characters, a proper domain with at least one dot, valid label lengths (≤63 chars), and an overall length cap of 254 (RFC 5321 limit). Ran it against sample cases (`<email>`, `invalid@`, `@example.com`, `user@.com`, etc.) and it correctly classified all of them.\n\nNote: this covers the common 99% case but isn't a full RFC 5322 parser (e.g., it won't accept quoted local-parts or IP-literal domains). If you need stricter validation, `email-validator` (PyPI) is the standard library for that.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "302bbf0ac7f9b01f9eb3ca0e89daa8a6d4682279dba29e3dd47bd1a4a4c08744"
+}

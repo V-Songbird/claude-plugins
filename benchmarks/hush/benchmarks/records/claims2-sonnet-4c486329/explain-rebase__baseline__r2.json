@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 62,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 9396,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.059753499999999994,
+  "numTurns": 1,
+  "durationMs": 7606,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 507
+  },
+  "contextTraffic": 28136,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 224,
+  "finalText": "Same goal — combining diverging branches — different mechanics:\n\n**Merge** creates a new commit with two parents, joining the histories as they actually happened. Nothing is rewritten.\n\n**Rebase** replays your branch's commits one-by-one onto a new base, producing new commits with new hashes. History ends up linear, but it's a rewritten linear history, not the literal record of what happened.\n\n**Practical differences:**\n- Merge preserves true history and is non-destructive — safe on shared/public branches. Rebase rewrites commits, so rebasing anything others have already pulled causes divergent history and pain for them.\n- Merge commits clutter the log with \"Merge branch 'x'\" noise; rebase gives a clean, linear, easy-to-read history (great for `git bisect` and `git log`).\n- Conflict resolution: merge resolves conflicts once, in a single commit. Rebase can force you to resolve the same conflict repeatedly, once per replayed commit.\n\n**When to reach for each:**\n- **Rebase** your local feature branch onto latest `main` before opening a PR, or to clean up/squash your own commits before sharing — as long as no one else has based work on your branch.\n- **Merge** when integrating a finished feature branch into `main`/`develop`, or any time the branch is shared/public and rewriting history would break other people's clones.\n\nRule of thumb: rebase private/local work to keep it tidy, merge to combine work that's already shared.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4ebce158fc96e8a8d1627454d0ddd579fbbdfcb296bd2e9b2bf6248a20c2e9fb"
+}

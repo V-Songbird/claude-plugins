@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 137,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 22935,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2014853,
+  "numTurns": 4,
+  "durationMs": 21252,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1416
+  },
+  "contextTraffic": 142926,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 23467,
+  "narrationWords": 0,
+  "finalWords": 240,
+  "finalText": "Redis died and took everything down with it.\n\n**What happened, in order:**\n1. `02:14:07` — Redis at `10.0.0.12:6379` refused connections. The app fell back to hitting the database directly instead of the cache.\n2. That fallback couldn't keep up. From `02:14` to `02:31` you get a steady stream of cache-miss storms and 5-second timeouts on `api`, `worker-1`, `worker-2`, and `scheduler`.\n3. Redis never came back — 12 reconnect attempts, roughly one every 2 minutes, all failed with the same `ECONNREFUSED`.\n4. Because requests kept queuing instead of finishing, the queue depth climbed the whole time — from 52 up past its own max of 500 by `02:29`.\n5. `02:31:44` — `worker-2` ran out of memory holding that backlog and crashed.\n6. `02:31:45` — the supervisor restarted `worker-2`, but the `api` process was already stuck.\n7. `02:31:52` — supervisor gave up on `api` and killed the whole process group. That's the outage.\n\nSo the trigger was Redis going unreachable, not a code deploy or a traffic spike — traffic was flat and normal right up until `02:14:07`. Fixing this for real means getting Redis back and reachable, and probably adding a cap on the request queue so a dead cache degrades service instead of taking the whole box down.\n\nFull log is 720 lines; the noisy middle stretch (02:14–02:31) is almost entirely the same three lines repeating — happy to pull any specific window if you want to see it raw.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7c599d98285a1fa8e104999b9785c61b8c32757995aa8ed0f09d79d0e8a22fb3"
+}

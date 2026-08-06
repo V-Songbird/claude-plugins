@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 97,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34618,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.18619070000000001,
+  "numTurns": 11,
+  "durationMs": 33171,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2392
+  },
+  "contextTraffic": 220649,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 9380,
+  "narrationWords": 224,
+  "finalWords": 133,
+  "finalText": "All 40 tests pass now.\n\n**Root cause:** `computeTotal` in `src/pricing/engine.js` rounded to 2 decimal places twice in USD (once after the percent coupon, once after the flat coupon) before converting to the order's currency and rounding a third time. Truncating fractional cents in USD before applying a non-1 exchange rate discards precision that should have rounded up in the target currency — so it only shows up when a percent coupon leaves a fractional-cent remainder *and* the order isn't USD (GBP, CAD, JPY in this case), which is why most carts looked fine.\n\n**Fix:** removed the two intermediate `round()` calls so the discount math stays in full precision through conversion, and only rounds once at the end in the target currency's own decimal places — matching how a finance ledger should compute it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6b2ef843fb4c2ef2aced00c0e89a231cd76fc21be4ad0d3cecd28a28c2db7508"
+}

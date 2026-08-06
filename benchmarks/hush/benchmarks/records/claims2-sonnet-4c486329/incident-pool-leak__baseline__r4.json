@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 87,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34940,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.3108648,
+  "numTurns": 10,
+  "durationMs": 33551,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1733
+  },
+  "contextTraffic": 256021,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 51677,
+  "narrationWords": 103,
+  "finalWords": 118,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js` acquired a connection and called `pool.release(conn)` on the line *after* `await run(conn, order)` — with no `try/finally`. Any rejected order (bad payload) skipped the release entirely, permanently removing that connection from the pool (`src/db/pool.js` has no timeout-based reclaim by design).\n\nThe logs match exactly: each `ERROR ... failed: invalid order payload` line has no matching \"connection released\" line, and `pool in-use` climbs by one per failure until it hit 5/5 at 02:06:33, cascading into request timeouts, 503s, and the supervisor restarting both `api` and `worker-1` at 02:13:37.\n\n**Fix:** wrapped the `run` call in try/finally so `release` always fires, mirroring the pattern `withConnection` already used correctly in the request path (`src/handlers/api.js`).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b4db9cf0ebfe392fb49405623e658db58cb90da990dad25a9c93955f299cd746"
+}

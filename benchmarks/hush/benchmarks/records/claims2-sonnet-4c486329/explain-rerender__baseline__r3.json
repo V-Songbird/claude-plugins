@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r3",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 54,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 8435,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.060838500000000004,
+  "numTurns": 1,
+  "durationMs": 6907,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 580
+  },
+  "contextTraffic": 28135,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 245,
+  "finalText": "React re-renders a child even with identical-looking props usually because of one of these:\n\n1. **New reference every render (most common)** — if the parent passes an inline object, array, or function as a prop, it's a *new* reference each render, even if the values are the same:\n   ```jsx\n   <Child style={{ color: 'red' }} />        // new object every time\n   <Child onClick={() => doThing()} />        // new function every time\n   <Child items={[1, 2, 3]} />                 // new array every time\n   ```\n   `React.memo` does a shallow comparison, so these always look \"different.\"\n\n2. **Child isn't memoized at all** — by default, a component re-renders whenever its parent re-renders, regardless of props. Wrap it in `React.memo(Child)` to opt into shallow prop comparison.\n\n3. **Context changes** — if `Child` (or something inside it) consumes a Context, any change to that context value triggers a re-render, independent of props.\n\n4. **Parent re-renders trigger children by default** — even with `React.memo`, if a non-primitive prop changes reference, memo won't help unless you fix #1.\n\n## Fix checklist\n\n```jsx\n// 1. Memoize the child\nconst Child = React.memo(function Child({ style, onClick, items }) {\n  ...\n});\n\n// 2. Stabilize object/array props\nconst style = useMemo(() => ({ color: 'red' }), []);\nconst items = useMemo(() => [1, 2, 3], []);\n\n// 3. Stabilize function props\nconst onClick = useCallback(() => doThing(), []);\n```\n\nIf you paste the parent/child component code, I can pinpoint exactly which prop is getting a new reference.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "396a2bfdc64fe5a04d22177a5ac00c93853ea79f93c3a187de9b16ac1c191ce0"
+}

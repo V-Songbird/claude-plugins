@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 109,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 45738,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.24035870000000004,
+  "numTurns": 12,
+  "durationMs": 44396,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2302
+  },
+  "contextTraffic": 343282,
+  "apiCalls": 10,
+  "toolCalls": 11,
+  "toolResultChars": 15801,
+  "narrationWords": 78,
+  "finalWords": 114,
+  "finalText": "Build is green now. Two real bugs from the bump, both fixed:\n\n- `src/core/options.js:7` — still read `options.retries`, but the bumped bundler now hands options as `{ retryCount }`, so `.toFixed()` was called on `undefined`. Changed to read `options.retryCount`.\n- `src/net/retryPolicy.js:8` — the new config loader leaves unset flags as `undefined` instead of `false`, but the boolean check only accepted literal `true`/`false` and threw otherwise. Added an explicit `undefined → false` case.\n\nThe remaining 8 warnings are just deprecation noise from the bumped packages (`fs.exists`, `Buffer()`, sync loader hooks, `punycode`, `module.parent`, plus a couple of app-level lint-style warnings) — none of those block the build or indicate broken behavior, so I left them as-is.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2d52efdf327da629847800f7facb23d59b8deea45a5bec04ffb30394fb5c7414"
+}

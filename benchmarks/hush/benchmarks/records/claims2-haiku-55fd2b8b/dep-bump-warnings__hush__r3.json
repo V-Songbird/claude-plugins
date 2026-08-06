@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r3",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 65,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 39801,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.06494110000000002,
+  "numTurns": 12,
+  "durationMs": 38061,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2138
+  },
+  "contextTraffic": 245870,
+  "apiCalls": 9,
+  "toolCalls": 11,
+  "toolResultChars": 9167,
+  "narrationWords": 0,
+  "finalWords": 76,
+  "finalText": "Build's clean now. Two real bugs hidden in that warning wall:\n\n1. **options.js** was trying to read `options.retries` but the bumped bundler passes `retryCount` instead. Fixed it to use the new key.\n\n2. **retryPolicy.js** strictly checked for `true` or `false`, but the new config loader leaves flags as `undefined` when unset. Updated it to treat `undefined` the same as `false`.\n\nBoth are resolved. The remaining warnings are deprecation notices from dependencies — the noise you suspected.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "39ba75a0fdb0ee81c6ddd7d5121d661ddc0766590d2401d745df079aafff53bb"
+}

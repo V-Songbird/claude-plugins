@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 99,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31254,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1741377,
+  "numTurns": 9,
+  "durationMs": 29852,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2253
+  },
+  "contextTraffic": 191504,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 9233,
+  "narrationWords": 210,
+  "finalWords": 183,
+  "finalText": "All 40 tests pass now.\n\n**Root cause:** `computeTotal` in `src/pricing/engine.js` rounded the discounted amount to 2 decimals twice while still in USD (once after the percent coupon, once after the flat coupon) before converting to the order's currency and rounding a third time. Rounding intermediate USD values discards fractional cents that matter once multiplied by a non-USD exchange rate — so a value like $14.045 gets rounded to $14.04 or $14.05 in USD *before* the ×0.78 GBP conversion, instead of converting the exact figure and rounding once at the end. This is invisible for USD orders (rounding twice at the same precision is a no-op) and for many currency/basket combos where the rounding boundary doesn't shift, which is exactly why it looked like \"most carts are fine\" — it only surfaces when a coupon changes the total *and* the target currency's rate tips the value across a rounding boundary.\n\n**Fix:** removed the two intermediate `round()` calls so the discount math stays in full precision through conversion, with a single rounding step at the end (matching the finance-approved reference calculation used in the tests).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7e959a30305523b575925937beca94e8046813e0e58cc94f8e9cb39a1dbd0cc1"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 26,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 35500,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.057095799999999995,
+  "numTurns": 8,
+  "durationMs": 33703,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1622
+  },
+  "contextTraffic": 212563,
+  "apiCalls": 8,
+  "toolCalls": 7,
+  "toolResultChars": 8831,
+  "narrationWords": 0,
+  "finalWords": 51,
+  "finalText": "Fixed it. The bug was in `src/core/settings.js:17` — it referenced `retries` directly, but that variable didn't exist. It should have been `env.retries`. Changed it to `env.retries || 1` so it pulls from the passed-in environment with a fallback.\n\nThe build now runs clean: 3 warnings (all harmless), 0 errors, exits successfully.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "063844bc7bf415530232d6c9acf5728fb617a838d7095fa23827334c3fbaf88c"
+}

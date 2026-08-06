@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 78,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 17880,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.08686719999999999,
+  "numTurns": 3,
+  "durationMs": 16508,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 885
+  },
+  "contextTraffic": 85676,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 381,
+  "narrationWords": 0,
+  "finalWords": 81,
+  "finalText": "Created `validate_email.py` with an `is_valid_email(email: str) -> bool` function using a regex that checks the standard local-part@domain structure, rejects leading/trailing/double dots, enforces valid characters, and caps length at 254.\n\nNote: it's a pragmatic regex validator, not full RFC 5322 compliance — `<email>` passes since consecutive dots in the local part are technically allowed by many mail providers even though the RFC forbids them. Let me know if you want stricter behavior there, or a version that also does a DNS/MX lookup.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "abdfdb3090d3ae1bd543444b814f180932752cdbc3c324a4980cdd077d9eeaf1"
+}

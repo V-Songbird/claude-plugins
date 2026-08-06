@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 66,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10185,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.061233499999999996,
+  "numTurns": 1,
+  "durationMs": 8535,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 606
+  },
+  "contextTraffic": 28136,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 280,
+  "finalText": "**Core mechanical difference:**\n\n- **Merge** creates a new commit with two parents, joining the histories of both branches together. Nothing gets rewritten — every commit that ever existed stays exactly as it was.\n- **Rebase** replays your branch's commits one by one on top of another branch's tip, generating brand-new commits (new hashes) as it goes. It rewrites history rather than joining it.\n\n**Practical consequences:**\n\n| | Merge | Rebase |\n|---|---|---|\n| History shape | Branching, shows exactly what happened | Linear, looks like it was written straight |\n| Commit hashes | Preserved | Changed for every replayed commit |\n| Safe on shared/pushed branches? | Yes | No — rewrites break anyone else's clone |\n| Conflict resolution | Once, at merge time | Potentially once per replayed commit |\n| Traceability | Clear record of when branches diverged/joined | That context is lost |\n\n**When to reach for each:**\n\n- **Use rebase** for your own local, not-yet-pushed feature branch to clean it up before opening a PR (squash/reorder junk commits, pull in the latest `main` without a merge bubble). Also good for keeping a long-lived feature branch up to date with `main` as you go, so the eventual merge is trivial.\n- **Use merge** for anything already shared/pushed, and for bringing a finished feature branch into `main`. It's non-destructive and preserves the actual record of what happened — important for shared branches and for not breaking collaborators' history.\n\nGolden rule: **never rebase a branch that others have pulled from** — you'll force everyone else to reconcile diverged histories. If it's public, merge; if it's private and yours to clean up, rebase is fine (and often nicer).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5c3668073e4711fddf1a142a7c01829d81f5b682dddabeca443435a1683e4a36"
+}

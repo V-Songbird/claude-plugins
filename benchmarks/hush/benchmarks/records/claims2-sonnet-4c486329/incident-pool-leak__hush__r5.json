@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 88,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25169,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1810127,
+  "numTurns": 9,
+  "durationMs": 23517,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1203
+  },
+  "contextTraffic": 210923,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 9150,
+  "narrationWords": 0,
+  "finalWords": 68,
+  "finalText": "Found it. `processOrder.js` acquired a connection but released it only after `run()` succeeded — a bad order made `run()` throw, skipping the release. Each failed order leaked one connection, so the pool slowly filled up until it hit 5/5 and the worker started throwing `pool exhausted`, then gave up.\n\nI wrapped the release in a `finally`, same pattern the request handler already used. All 4 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "31196a834ecf7c30242d697c5d6e7a7ab8bdfa17add5c14c15d2e580d584630f"
+}

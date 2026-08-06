@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 69,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 30351,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.045797,
+  "numTurns": 9,
+  "durationMs": 28921,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1612
+  },
+  "contextTraffic": 201917,
+  "apiCalls": 9,
+  "toolCalls": 8,
+  "toolResultChars": 4202,
+  "narrationWords": 14,
+  "finalWords": 235,
+  "finalText": "Here's the structure:\n\n**Entry point: `server.js`**\n- Creates an HTTP server that listens on port 8080 (or `PORT` env var)\n- On each request: verifies bearer token auth, then passes to the router\n\n**Request flow:**\n1. **Auth (`auth.js`)** — HMAC bearer tokens in format `Bearer <userId>.<signature>`. Uses `AUTH_SECRET` env var as the shared secret. Token validation happens before routing.\n\n2. **Routes (`routes.js`)** — Route table with three endpoints:\n   - `GET /users?id=X` → fetches user (cached)\n   - `GET /orders` → lists current user's orders (cached)\n   - `POST /orders` → adds an order (bypasses cache, writes directly)\n   \n   Query params are parsed from the URL, reads go through the cache layer, writes go straight to the store.\n\n3. **Cache (`cache.js`)** — Simple LRU cache (256 entries max, no TTL). Read-through design: if key exists, return it and mark as recently used; if not, load via the provided loader function, store it, and evict the oldest entry if we exceed 256 items.\n\n4. **Store (`store.js`)** — In-memory data store that's a stand-in for a database. Each record has a 15-minute TTL—they expire after their last write. Exposes: `getUser(id)`, `listOrders(userId)`, `putOrder(userId, order)`.\n\n**The data flow:** HTTP request → auth check → route → (for reads) cache lookup → store lookup. Writes skip cache and update the store directly.\n\nThe whole thing is a minimal order-management API where users authenticate with tokens and can view their orders or add new ones.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "91f5cf424d080a8432afa8e32d5def3d35f8ee411b23865f85c54edeb5a68674"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 101,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 32917,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2072095,
+  "numTurns": 9,
+  "durationMs": 31183,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1639
+  },
+  "contextTraffic": 279178,
+  "apiCalls": 8,
+  "toolCalls": 8,
+  "toolResultChars": 7795,
+  "narrationWords": 0,
+  "finalWords": 85,
+  "finalText": "Build's clean now, exit code 0.\n\nTwo real bugs were hiding under all that deprecation noise, both from the same options-shape change in the bump:\n\n1. `src/core/options.js` still read `options.retries`, but the new bundler passes `retryCount`. That threw on every build.\n2. `src/net/retryPolicy.js` treated an unset backoff flag as invalid instead of \"off\" — the new config loader leaves it `undefined` instead of `false`.\n\nFixed both, and the build now finishes with 0 errors, just the expected 8 deprecation warnings from the dependency bump itself.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d664ccdf984e5e3e86e2a73b6a34d803bd1affd62c86192a97983b653be982b6"
+}

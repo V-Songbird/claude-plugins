@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r3",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 88,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 45418,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1538594,
+  "numTurns": 6,
+  "durationMs": 41314,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2866
+  },
+  "contextTraffic": 327375,
+  "apiCalls": 6,
+  "toolCalls": 3,
+  "toolResultChars": 99381,
+  "narrationWords": 17,
+  "finalWords": 80,
+  "finalText": "Done. The handoff is in `INCIDENT_HANDOFF.md`. It covers:\n\n- **Root cause:** Redis unavailable (ECONNREFUSED on 10.0.0.12:6379)\n- **Impact window:** 02:14:07 to 02:31:44 UTC (~17.5 minutes)\n- **ioredis version:** 5.4.1\n- **Cascade flow:** Cache miss → DB overload → queue backup → memory exhaustion → service down\n- **Key fact:** 12+ reconnection attempts all failed; suggests Redis was down the whole time, not transient\n- **Next steps:** Verify Redis state, check for ioredis upgrades (5.5.0+), add monitoring for queue depth/Redis connectivity",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "075d2469f497bd83f208374048824c0426683539002f53fd9b8977c535be6a0d"
+}

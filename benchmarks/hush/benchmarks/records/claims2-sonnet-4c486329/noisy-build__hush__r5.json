@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 48,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 40896,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.17986009999999997,
+  "numTurns": 8,
+  "durationMs": 39280,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1122
+  },
+  "contextTraffic": 239046,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 6433,
+  "narrationWords": 0,
+  "finalWords": 86,
+  "finalText": "Build passes clean now: 0 errors, exit code 0.\n\nThe real bug was in `src/core/settings.js` — `resolveConfig` referenced a variable named `retries` that never existed (should have been `env.retries`), so every build crashed with a `ReferenceError` at the link stage. Fixed it to `env.retries || 3`.\n\nThe other three warnings (deprecated `crypto.createCipher`, an unused export, a circular import) are just noise the build already tolerates — it says \"0 errors\" with them still present, so I left those alone unless you want them cleaned up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cb9845c160d893bbfe9bf2ce38cd30594775705afd806d431398fa87fad2da83"
+}

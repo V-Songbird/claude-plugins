@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 42,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10187,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0173878,
+  "numTurns": 1,
+  "durationMs": 8250,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 661
+  },
+  "contextTraffic": 21201,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 149,
+  "finalText": "Here's a practical email validation function:\n\n```python\nimport re\n\ndef validate_email(email: str) -> bool:\n    \"\"\"\n    Validates an email address using a regex pattern.\n    Returns True if valid, False otherwise.\n    \"\"\"\n    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'\n    return re.match(pattern, email) is not None\n```\n\n**Usage:**\n```python\nprint(validate_email(\"<email>\"))      # True\nprint(validate_email(\"invalid.email@\"))        # False\nprint(validate_email(\"no-at-sign.com\"))        # False\n```\n\n**For production use**, I'd recommend the `email-validator` library instead, which is more robust:\n\n```python\nfrom email_validator import validate_email, EmailNotValidError\n\ndef validate_email_strict(email: str) -> bool:\n    try:\n        validate_email(email)\n        return True\n    except EmailNotValidError:\n        return False\n```\n\nInstall with: `pip install email-validator`\n\n**Why the difference:**\n- The regex function is simple, works without dependencies, and handles most common cases\n- The library validates against email RFCs more thoroughly (handles edge cases, DNS checks if needed, and normalization)\n\nUse the regex version for quick validations; use the library if you need production-grade validation or plan to actually send emails to these addresses.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8afe745ded2bec721d08a7f5e3bb5eaa434da7dc76e1f2afdb73356b48b48fd7"
+}

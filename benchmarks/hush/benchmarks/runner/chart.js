@@ -58,4 +58,36 @@ function barChartSvg(title, unit, values, arms, opts = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(`${title} (${unit})`)}"><rect width="${W}" height="${H}" fill="#fafafa"/>${heading}${axis}${bars}${labels}${legend}</svg>`;
 }
 
-module.exports = { barChartSvg, armColors, esc };
+/**
+ * Stacked lanes, one spike per run, amplitude = that run's value — the
+ * signature "what a session sounds like" image, drawn from the same runs the
+ * tables are built from. `series`: arm -> ordered numbers; `opts.label(arm,
+ * {silent, n, peak})` writes each lane's caption.
+ */
+function waveformSvg(title, unit, series, arms, opts = {}) {
+  const colors = opts.colors || armColors(arms);
+  const W = opts.width || 940, laneH = 110, gap = 40, padL = 24, padT = 46;
+  const H = padT + arms.length * (laneH + gap);
+  const max = Math.max(...arms.flatMap((a) => series[a] || []), 1);
+  let lanes = '';
+  arms.forEach((a, i) => {
+    const vals = series[a] || [];
+    const baseY = padT + i * (laneH + gap) + laneH;
+    const n = Math.max(vals.length, 1);
+    const step = (W - padL - 20) / n;
+    const silent = vals.filter((v) => !v).length;
+    const peak = Math.max(...vals, 0);
+    lanes += `<line x1="${padL}" x2="${W - 20}" y1="${baseY}" y2="${baseY}" stroke="#d9d9d9"/>`;
+    vals.forEach((v, k) => {
+      const h = (v / max) * (laneH - 8);
+      const x = padL + k * step + step / 2;
+      lanes += `<line x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${baseY}" y2="${(baseY - Math.max(h, v ? 2 : 0.5)).toFixed(1)}" stroke="${colors[a] || '#999'}" stroke-width="${Math.max(1.5, step - 3).toFixed(1)}" stroke-linecap="round"><title>run ${k + 1}: ${v} words</title></line>`;
+    });
+    const caption = opts.label ? opts.label(a, { silent, n: vals.length, peak }) : a;
+    lanes += `<text x="${padL}" y="${baseY - laneH - 8}" font-size="12" fill="#333">${esc(caption)}</text>`;
+  });
+  const heading = `<text x="${padL}" y="16" font-size="13" fill="#1a1a1a">${esc(title)}</text><text x="${padL + title.length * 7 + 12}" y="16" font-size="11" fill="#888">${esc(unit)}</text>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(`${title} (${unit})`)}"><rect width="${W}" height="${H}" fill="#fafafa"/>${heading}${lanes}</svg>`;
+}
+
+module.exports = { barChartSvg, waveformSvg, armColors, esc };

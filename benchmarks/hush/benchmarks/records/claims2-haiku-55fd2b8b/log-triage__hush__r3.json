@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r3",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 83,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 22969,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.043661200000000004,
+  "numTurns": 4,
+  "durationMs": 21290,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1484
+  },
+  "contextTraffic": 80012,
+  "apiCalls": 3,
+  "toolCalls": 3,
+  "toolResultChars": 10786,
+  "narrationWords": 0,
+  "finalWords": 177,
+  "finalText": "Your Redis server went down and pulled everything with it.\n\n**What happened:**\nAt 02:14:07, Redis lost connection (connect refused on 10.0.0.12:6379). The app fell back to direct database reads, which bypassed the cache entirely. Every request then hit the store directly, triggering cache miss storms. The database couldn't handle the load — requests started timing out after 5 seconds, and the queue started backing up.\n\n**The cascade:**\nOver 17 minutes (02:14 to 02:31), the request queue grew steadily from 52 to 562+ (it maxes at 500). Timeouts and cache misses repeating every 2 seconds. Each queued request was staying in memory. Eventually (02:31:44) worker-2 ran out of heap trying to hold all that backlog — it crashed with an OOM signal. The supervisor saw the API unresponsive and killed the entire process group, taking the service down.\n\n**The fix:**\nCheck why Redis lost connection. Check if 10.0.0.12 is reachable and if the Redis service is running. Once Redis is back, the cache hits should resume and the queue will drain naturally — you won't need a restart.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1013b7cc41d5b73d6489d6512357a644141c443690600e46f4b2d6b4351d95e3"
+}

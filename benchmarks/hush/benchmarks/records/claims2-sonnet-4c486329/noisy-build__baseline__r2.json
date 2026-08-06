@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 42,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23161,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.16891820000000002,
+  "numTurns": 8,
+  "durationMs": 21637,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1201
+  },
+  "contextTraffic": 195494,
+  "apiCalls": 6,
+  "toolCalls": 7,
+  "toolResultChars": 14363,
+  "narrationWords": 54,
+  "finalWords": 86,
+  "finalText": "Build now exits 0. The real bug: `resolveConfig` in `src/core/settings.js:17` referenced an undefined bare `retries` variable instead of reading it off the `env` parameter — a `ReferenceError` that aborted the link stage, buried under ~900 lines of harmless compile/dedupe noise. Fixed to `env.retries || 3`, matching the intent in the adjacent comment.\n\nThe 3 warnings (deprecated `crypto.createCipher`, unused export `formatLegacyDate`, circular import between `graph.js`/`tracker.js`) are cosmetic and still present — let me know if you want those cleaned up too, but the build is passing now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5bc2a8e5dc80903e090e54b5c759a0c0b1749ed2adc8bed5838a3b3d554d6c25"
+}

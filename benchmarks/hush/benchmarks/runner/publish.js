@@ -13,7 +13,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { readRecords } = require('./records.js');
 const { segmentReport, armNames, summarize, METRICS, quantile } = require('./stats.js');
-const { barChartSvg, armColors } = require('./chart.js');
+const { barChartSvg, waveformSvg, armColors } = require('./chart.js');
 
 // Cost is not comparable across batches — a warm prompt cache roughly halves
 // it — so a claim built from two batches is not a claim, it is a splice.
@@ -158,6 +158,14 @@ function buildClaims(allRuns, batches = []) {
       chartValues(runs, 'contextTraffic', arms), arms, { colors }),
     'narration-by-segment.svg': barChartSvg('Mid-turn narration by segment', 'words, median',
       chartValues(runs, 'narrationWords', arms), arms, { colors }),
+    'narration-waveform.svg': waveformSvg('Every session in the suite, one spike per run',
+      'words of play-by-play before the answer',
+      Object.fromEntries(arms.map((a) => [a, runs
+        .filter((r) => r.arm === a)
+        .sort((x, y) => (x.orderIndex ?? 0) - (y.orderIndex ?? 0))
+        .map((r) => r.narrationWords || 0)])),
+      arms,
+      { colors, label: (a, s) => `${a === 'baseline' ? 'no plugin' : a} — silent in ${s.silent} of ${s.n} sessions, loudest run ${s.peak} words` }),
   };
   return { markdown: md, charts, batchId, arms, segments, costs: costFigures(runs, arms) };
 }

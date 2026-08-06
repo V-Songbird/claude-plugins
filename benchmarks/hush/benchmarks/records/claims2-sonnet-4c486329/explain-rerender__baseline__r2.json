@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 53,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11517,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0633585,
+  "numTurns": 1,
+  "durationMs": 10105,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 748
+  },
+  "contextTraffic": 28135,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 261,
+  "finalText": "This is almost always about **referential equality**, not actual prop value changes. Common causes, roughly in order of likelihood:\n\n1. **New object/array/function literals on every render.** Even if the *values* are the same, `{}`, `[]`, and inline arrow functions create a new reference each render. `<Child config={{a: 1}} onClick={() => foo()} />` fails a `Object.is`/shallow-equal check every time.\n   - Fix: wrap with `useMemo` (objects/arrays) or `useCallback` (functions), or hoist static values outside the component.\n\n2. **No `React.memo` on the child.** By default, a function component re-renders whenever its parent re-renders, regardless of props. `React.memo(Child)` adds a shallow prop comparison to skip re-rendering when props are unchanged.\n   - Fix: `export default React.memo(Child)`.\n\n3. **`children` prop as JSX.** `<Parent><Child /></Parent>` creates a new `children` element on every parent render unless the JSX is hoisted or the parent itself doesn't re-render.\n\n4. **Context changes.** If the child consumes a Context (`useContext`), it re-renders whenever that context value changes — even if the props you're passing directly are stable. A common trap: the context *value* object is recreated each render (`<MyContext.Provider value={{a, b}}>`), so every consumer re-renders on every provider render.\n\n5. **Passing new object references from `useState`/`useReducer` unintentionally**, e.g. spreading into a new object each time instead of only updating on real changes.\n\nQuick way to confirm which one it is: install the **React DevTools Profiler**, check \"Highlight updates when components render,\" and look at the \"Why did this render?\" info — it'll tell you exactly which prop reference changed.\n\nIf you paste the parent/child component code, I can point to the exact cause.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e4c7ca8b9a882348f67814d0146ca180ccc70ddd56514a69e1f46af6f04ee79a"
+}

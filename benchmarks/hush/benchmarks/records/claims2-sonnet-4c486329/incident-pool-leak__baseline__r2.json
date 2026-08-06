@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 82,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31213,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.3354107,
+  "numTurns": 11,
+  "durationMs": 29785,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1988
+  },
+  "contextTraffic": 314067,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 52467,
+  "narrationWords": 127,
+  "finalWords": 133,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js:7-10` acquired a connection with `pool.acquire()` but called `pool.release(conn)` only on the line *after* `await run(conn, order)` — so any rejected order (invalid payload) skipped the release entirely. `src/handlers/api.js` was already safe because it uses the `withConnection` try/finally wrapper in `db/pool.js`; `processOrder.js` bypassed that helper and acquired directly.\n\n**Log trace matches exactly:** `logs/worker.log` shows `pool in-use` climbing by one on each `invalid order payload` failure (2/5 → 3/5 → 4/5 → 5/5) until it hit `pool exhausted`, and `logs/app.log` shows the resulting cascade — acquire timeouts, 503s, growing request queue, then supervisor restarting api and worker-1 at 02:13.\n\n**Fix:** rewrote `processOrder` to go through `withConnection`, same as `api.js`, guaranteeing release on both success and failure paths. Tests confirm the pool now recovers fully after failed/concurrent-failed orders.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "24c23733fa35617a402bd043d794f07e21f32bf3663b8ebdedf8dd626817be2e"
+}

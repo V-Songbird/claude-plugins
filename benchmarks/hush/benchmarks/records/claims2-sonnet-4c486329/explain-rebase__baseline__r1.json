@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 61,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 9537,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0603535,
+  "numTurns": 1,
+  "durationMs": 7990,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 547
+  },
+  "contextTraffic": 28136,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 257,
+  "finalText": "Both combine changes from one branch into another, but they differ in how history ends up looking.\n\n**Merge** creates a new commit that ties two histories together, preserving both branches' commits exactly as they happened, plus a merge commit with two parents. Nothing is rewritten — it's non-destructive and safe on shared/public branches.\n\n**Rebase** takes your branch's commits and replays them one by one on top of another branch's tip, producing new commits (new hashes) with a linear history. It rewrites history — the original commits are discarded and replaced.\n\n**Trade-offs:**\n- Merge preserves true chronological/branching history and is always safe, but over time produces a tangled graph with lots of merge commits, especially on busy repos.\n- Rebase gives you a clean, linear, easy-to-read history (great for `git log`, bisecting, blame), but because it rewrites commits, doing it on a branch others have already pulled causes divergent history and pain for collaborators.\n\n**When to reach for each:**\n- **Rebase** your local feature branch onto `main` before opening a PR, or to clean up/squash your own commits — anything not yet pushed/shared, or pushed but only used by you.\n- **Merge** when bringing a feature branch into `main`/`develop`, or any time the branch is shared with others — it's the safe default for combining work that other people depend on.\n- Rule of thumb: *rebase private history, merge public history.* Never rebase a branch other people are actively pulling from unless everyone's coordinated on it (and even then, `git push --force-with-lease` is required, which is itself risky).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "69fe7b771a9d2819792b7f9b798c811a11bbf3194b30a672a35ae09018a88d5d"
+}

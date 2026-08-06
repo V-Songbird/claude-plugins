@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 54,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 51056,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0787376,
+  "numTurns": 14,
+  "durationMs": 49316,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3539
+  },
+  "contextTraffic": 229743,
+  "apiCalls": 8,
+  "toolCalls": 13,
+  "toolResultChars": 14839,
+  "narrationWords": 0,
+  "finalWords": 74,
+  "finalText": "Found it. The engine was rounding the USD total after each discount before converting to the cart's currency. This causes precision loss — converting a rounded number gives a different result than converting the unrounded number and then rounding once at the end.\n\nThe fix: remove the intermediate `round()` calls on the percent and flat discount lines. Only round after the currency conversion, just like the reference test does.\n\nAll 40 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cd7365540ccd78f373c9ce41a9bc51605583f40f849b44b01df00c7f2d01923c"
+}

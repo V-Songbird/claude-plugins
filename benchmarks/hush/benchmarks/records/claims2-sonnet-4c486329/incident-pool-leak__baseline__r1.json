@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 81,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 37251,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.38169829999999993,
+  "numTurns": 13,
+  "durationMs": 35954,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2405
+  },
+  "contextTraffic": 408238,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 55715,
+  "narrationWords": 130,
+  "finalWords": 156,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js` acquired a connection directly and only called `pool.release(conn)` on the line *after* `await run(conn, order)` — with no try/finally. When `run` rejected (bad order payload), `release` never executed and the connection was permanently lost. `src/handlers/api.js` was already safe because it goes through the `withConnection` helper in `src/db/pool.js`, which releases in a `finally` block.\n\nThe worker.log timeline matches exactly: each `failed: invalid order payload` line is immediately followed by `pool in-use` climbing by one and never dropping, until it hit 5/5 and the worker started throwing `pool exhausted`, then gave up. app.log shows the same pattern on the API side a few minutes later, ending in the 2am page.\n\n**Fix:** rewrote `processOrder` to go through `withConnection` (same pattern as `api.js`), so the connection is released on both success and failure paths. All 4 tests in `tests/pool.test.js` now pass, including the two that were previously red for exactly this leak.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5ca8affec9535442ea03fab1dfdde0289dd6eb98e60caa5d6191ac02506bd5b6"
+}

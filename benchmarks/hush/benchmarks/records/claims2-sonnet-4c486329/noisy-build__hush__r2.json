@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 43,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28148,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1759929,
+  "numTurns": 8,
+  "durationMs": 26369,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 974
+  },
+  "contextTraffic": 238348,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 6297,
+  "narrationWords": 0,
+  "finalWords": 84,
+  "finalText": "Build's clean now, exit 0.\n\nThe real error was in `src/core/settings.js:17` — it referenced a variable `retries` that was never defined, instead of `env.retries`. That threw during the link stage and aborted the whole build. Changed it to `env.retries` and the build now finishes: `build finished in 41.7s with 3 warnings, 0 errors`.\n\nThe 3 warnings are just noise you can tackle separately if you want:\n- `crypto.createCipher` deprecated in `src/legacy/adapter.js`\n- unused export `formatLegacyDate` in `src/utils/format.js`\n- circular import between `src/core/graph.js` and `src/state/tracker.js`",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "48affb868273c68e1385087b7f89d03cd40a489cadff19765633911632d1f660"
+}

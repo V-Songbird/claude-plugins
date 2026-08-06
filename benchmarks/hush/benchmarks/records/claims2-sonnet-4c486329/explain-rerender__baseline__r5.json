@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 59,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 9920,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0618885,
+  "numTurns": 1,
+  "durationMs": 8223,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 650
+  },
+  "contextTraffic": 28135,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 259,
+  "finalText": "Common causes, roughly in order of likelihood:\n\n**1. Inline object/array/function props**\n```jsx\n<Child style={{color: 'red'}} onClick={() => doSomething()} />\n```\nEach render creates a *new* object/function reference, even though the contents look identical. React (and `React.memo`) compares props with `Object.is`, so `{color:'red'} !== {color:'red'}` on the next render → child re-renders.\n\n**2. No memoization on the child**\nBy default, a function component re-renders whenever its parent re-renders, regardless of whether its props changed. Wrapping it in `React.memo` is required to opt into a shallow-prop comparison.\n```jsx\nconst Child = React.memo(function Child(props) { ... });\n```\n\n**3. Context changes**\nIf the child (or something inside it) consumes a Context, *any* update to that context value re-renders every consumer — even `memo`-wrapped ones, since `memo` only checks props, not context.\n\n**4. Children as a prop**\n```jsx\n<Parent>\n  <Child />\n</Parent>\n```\nIf `Parent` re-renders and creates a new `<Child />` element inline (rather than it being passed down/hoisted), that's a new element reference each time.\n\n### How to fix\n- Wrap the child in `React.memo`.\n- Stabilize function props with `useCallback`.\n- Stabilize object/array props with `useMemo` (or move static objects outside the component/render).\n- If using context, split it or memoize the value passed to the provider.\n\n### How to confirm what's happening\nUse React DevTools Profiler — it highlights re-renders and shows *why* (in the \"ranked\" view or via the \"highlight updates\" setting), or add a quick log of prop identity:\n```jsx\nconsole.log(prevProps.someProp === nextProps.someProp);\n```\n\nIf you share the parent/child code, I can point to the exact culprit.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0c1ee7f369e8354220236f6ee076e7239b32f4afc722c4439e8d6c28e83bf65f"
+}

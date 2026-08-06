@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r2",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 98,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10603,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0436391,
+  "numTurns": 2,
+  "durationMs": 8967,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 601
+  },
+  "contextTraffic": 54637,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 24908,
+  "narrationWords": 0,
+  "finalWords": 50,
+  "finalText": "**Summary:** 698 passed, 2 failed.\n\n**Failures:**\n1. `refreshToken silently accepts an already-revoked token` (auth/tokens.test.js:400)\n2. `sessionCleanup leaves orphaned rows after a rollback` (auth/tokens.test.js:650)\n\nBoth are in the auth token tests. The first suggests a token revocation validation issue, and the second hints at a transaction rollback problem with cleanup logic.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "aabe6694ef83c8406c816dd915ee20dfd3485d75a87adddee2230d8303445a23"
+}

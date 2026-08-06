@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 111,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23522,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1214624,
+  "numTurns": 8,
+  "durationMs": 22216,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1748
+  },
+  "contextTraffic": 116208,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4534,
+  "narrationWords": 24,
+  "finalWords": 350,
+  "finalText": "It's a small five-file Node.js HTTP service — no framework, no build tooling, no tests, no package.json even present in this snapshot. Here's how the pieces fit together:\n\n**`server.js`** — entry point. Creates a raw `http.createServer` that does one thing before anything else: pulls the `Authorization` header and calls `verifyToken`. No valid user → `401`. Otherwise it hands `(req, res, user)` off to the router. Listens on `PORT` env var (default 8080) when run directly.\n\n**`auth.js`** — bearer token verification. Tokens are `\"<userId>.<hex hmac signature>\"`, signed with HMAC-SHA256 using `AUTH_SECRET` (falls back to `'dev-secret'` if unset — worth setting in any real deployment). Verifies with `crypto.timingSafeEqual` to avoid timing attacks. Note there's no expiry on tokens — they're valid forever as long as the secret doesn't rotate.\n\n**`routes.js`** — a flat lookup table keyed by `\"METHOD /path\"` (e.g. `'GET /orders'`), each entry a handler `(query, user) => result`. `route()` builds the key from the request, looks it up, runs it, and serializes whatever it returns as JSON (404 if no match, 500 on thrown/rejected errors using the raw error message — that leaks internals to the client, fine for a toy but not prod). Three endpoints: `GET /users`, `GET /orders`, `POST /orders`.\n\n**`cache.js`** — a small LRU (256 entries, no TTL) that wraps read paths. `cached(key, loader)` returns the cached value if present (bumping recency), otherwise calls `loader()` and stores the result, evicting the oldest entry once past capacity.\n\n**`store.js`** — the \"database\": an in-memory `Map` where every record carries an `expiresAt` and self-expires 15 minutes after last write. `getUser`, `listOrders`, `putOrder` sit on top of generic `get`/`put`.\n\n**Request flow:** `server.js` authenticates → `routes.js` dispatches → GET handlers go through `cache.js` (which calls into `store.js` on a miss) → POST handler (`putOrder`) writes directly to `store.js`.\n\nOne thing worth flagging: the `routes.js` comment claims writes \"invalidate the affected keys,\" but `putOrder` doesn't actually evict `orders:${userId}` from the LRU cache — so after a `POST /orders`, a cached `GET /orders` can keep serving stale data for up to 256-entries-worth of other traffic. Want me to dig into that or anything else?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7baa713a05adb57614d5a544308d8a5f68d944b0bbce34c70a923b04120d1b2c"
+}

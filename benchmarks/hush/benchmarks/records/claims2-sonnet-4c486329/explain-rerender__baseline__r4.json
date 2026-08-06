@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 56,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 8999,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0607085,
+  "numTurns": 1,
+  "durationMs": 7280,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 571
+  },
+  "contextTraffic": 28135,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 251,
+  "finalText": "React child components re-render on unchanged props for a few common reasons:\n\n1. **New object/array/function literals as props** — if the parent does `<Child style={{color: 'red'}}>` or `<Child onClick={() => doThing()}>`, a *new* object/function is created every render. Even though the values look the same, they fail `Object.is` reference equality, so React treats them as new props.\n\n2. **No memoization on the child** — by default, a function component re-renders whenever its parent re-renders, *regardless* of whether its own props changed. Wrapping it in `React.memo()` is what makes React actually compare props before skipping the render.\n\n3. **Context changes** — if the child consumes a Context (`useContext`), it re-renders whenever that context value changes, even if the props you pass directly are identical.\n\n4. **Key changes** — if the `key` prop on the element changes, React unmounts and remounts it entirely.\n\n### Fixes, in order of likely relevance\n\n```jsx\n// 1. Memoize the child so React skips re-render when props are shallow-equal\nconst Child = React.memo(function Child({ onClick, style }) {\n  ...\n});\n\n// 2. Memoize objects/arrays passed as props\nconst style = useMemo(() => ({ color: 'red' }), []);\n\n// 3. Memoize callback props\nconst handleClick = useCallback(() => doThing(), [doThing]);\n```\n\n**Quick way to confirm which prop is the culprit:** log props in the child, or use the React DevTools Profiler — it highlights *why* each component re-rendered (props/state/context/parent), which is faster than guessing.\n\nWant to paste the parent/child code? I can point to the exact prop causing it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5d09c95f39e05fe23dfcacc96f573ef19bb8c8ea0f04c7cc9d165fb7c85403dd"
+}

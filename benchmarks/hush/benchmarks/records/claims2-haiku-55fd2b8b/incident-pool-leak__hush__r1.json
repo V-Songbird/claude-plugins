@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 49,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 44575,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.07430869999999999,
+  "numTurns": 16,
+  "durationMs": 42741,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2485
+  },
+  "contextTraffic": 259558,
+  "apiCalls": 9,
+  "toolCalls": 15,
+  "toolResultChars": 15398,
+  "narrationWords": 0,
+  "finalWords": 89,
+  "finalText": "Found it. `processOrder.js` was manually managing the connection lifecycle instead of using the safe `withConnection` wrapper. When an order failed validation, the promise rejected before hitting the `pool.release()` line, so the connection stayed acquired forever.\n\nThe code had a comment about needing to bypass the wrapper for an old retry loop that no longer exists — the fix was just cleaning that up and using `withConnection` like the rest of the codebase does.\n\nAll 4 tests pass now, including the one that specifically checks for connection leaks on failure.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fbaac0b038b2acb35908422bb2091edd1ef2745b300a1ec4e6a72074e027993c"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r3",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 41,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11544,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0228122,
+  "numTurns": 1,
+  "durationMs": 9856,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 662
+  },
+  "contextTraffic": 23914,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 236,
+  "finalText": "**Merge** creates a new commit that ties two branches together. The history shows two lines of work happening at the same time, then coming together. Both branches' commits stay exactly as they were.\n\n**Rebase** replays your commits on top of the other branch, as if you'd started from today instead of some time ago. It rewrites your commit history to look like a straight line.\n\n**When to merge:**\n- When the branch is shared or already pushed — rewriting shared history breaks it for others.\n- When you want a clear record that two lines of work existed and were brought together.\n- For long-running feature branches where the integration point matters.\n\n**When to rebase:**\n- Before you push — keeps the history clean and linear for people reading it later.\n- On your own local branches — nobody else is depending on those commits yet.\n- When you've made small commits and want them to stack cleanly on top of the latest main.\n\n**The tradeoff:** Merge is safer (doesn't rewrite history), but the tree gets messier with a lot of branches. Rebase is cleaner (straight line), but you lose the record of when things diverged, and it's destructive if you rewrite commits someone else is using.\n\nA common pattern: rebase while working locally to keep things tidy, then merge back to main when it's ready. That gives you clean commits and a clear integration point.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a614726ca25c559d50b4955dbcadfae3877a8ad661d208b377a3507a864a38d7"
+}

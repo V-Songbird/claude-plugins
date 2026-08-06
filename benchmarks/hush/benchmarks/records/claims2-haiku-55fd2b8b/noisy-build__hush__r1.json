@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 24,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 39882,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0680951,
+  "numTurns": 10,
+  "durationMs": 38205,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2227
+  },
+  "contextTraffic": 275634,
+  "apiCalls": 10,
+  "toolCalls": 9,
+  "toolResultChars": 9545,
+  "narrationWords": 0,
+  "finalWords": 51,
+  "finalText": "Build is clean now. The error was in `src/core/settings.js` — line 17 was using an undefined variable `retries` instead of reading it from the environment object. Fixed it by adding `retries: 1` to defaults and accessing `env.retries || DEFAULTS.retries`. The three warnings are just noise from the compiler, not actual problems.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f4bc174e1b15dda2210c54db91c1663d66f92fff3b31e97fd4633d4cea4d5675"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r3",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 64,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 8234,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.077204,
+  "numTurns": 1,
+  "durationMs": 6453,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 250
+  },
+  "contextTraffic": 31702,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 136,
+  "finalText": "Both combine one branch's changes into another, but they do it differently.\n\n**Merge** adds a new commit that ties the two histories together. Nothing gets rewritten, so it's safe on shared branches, but your history ends up with extra \"merge commit\" clutter and every past branch point stays visible.\n\n**Rebase** takes your commits and replays them on top of the other branch, one by one, as if you'd written them there from the start. History stays a clean straight line, but it rewrites commit IDs — so if anyone else already has those commits, rebasing breaks their copy.\n\nRule of thumb: rebase your own local, unpushed work to keep things tidy before you share it. Once a branch is shared or public, merge instead — rewriting shared history causes real pain for everyone else pulling it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0660024873668d6d60c324f845c0cbb5ca62b4c650651a3bb26b0a1f05a8e7bd"
+}

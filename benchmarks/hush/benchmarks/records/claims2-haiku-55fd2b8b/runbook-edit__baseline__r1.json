@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__baseline__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 91,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 42955,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0519181,
+  "numTurns": 8,
+  "durationMs": 38644,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2490
+  },
+  "contextTraffic": 191935,
+  "apiCalls": 8,
+  "toolCalls": 5,
+  "toolResultChars": 5886,
+  "narrationWords": 10,
+  "finalWords": 41,
+  "finalText": "Done. Updated all three mentions of the production admin port from 8081 to 9090:\n- The health check curl command\n- The Known issues note about admin port access\n- The environment reference table (production row only; staging's 8091 stayed unchanged)",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "47e13a57ad52fa33e18256e5cd6fdf0cb1372f53a7c96381c25a98e1c16b1435"
+}

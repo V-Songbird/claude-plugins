@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 149,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 53114,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.3706433,
+  "numTurns": 8,
+  "durationMs": 47765,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2637
+  },
+  "contextTraffic": 341721,
+  "apiCalls": 8,
+  "toolCalls": 5,
+  "toolResultChars": 23903,
+  "narrationWords": 0,
+  "finalWords": 195,
+  "finalText": "**On-call handoff — prod outage, 2026-07-04**\n\n**Root cause:** Redis at `10.0.0.12:6379` went unreachable (`ECONNREFUSED`) at 02:14:07 UTC. The app fell back to hitting the database directly instead of the cache, which triggered constant cache-miss storms and 5-second timeouts across the api, workers, and scheduler. Redis never came back — reconnect attempts kept failing every ~80 seconds through at least attempt 12.\n\n**Impact window:** 02:14:07 UTC to 02:31:52 UTC (about 18 minutes). Requests backed up the whole time, with the queue growing from 52 to 568 (over its cap of 500). `worker-2` ran out of memory at 02:31:44 from the backlog, and the api itself stopped responding and was killed at 02:31:52 — that's when the service was actually down.\n\n**Dependency in play:** `ioredis 5.4.1`, pinned exactly and matching the `^5.4.1` range in `package.json`. Worth checking the changelog for reconnect-handling fixes past this version, since the client kept retrying without ever recovering or giving up.\n\n**Follow-up to flag:** no circuit breaker or queue cap kicked in while Redis was down, so a cache outage was free to cascade into an OOM crash. That gap is the bigger fix, separate from whatever Redis-side issue caused the outage.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "79c508993a3f447b9ffa2eb3cdaf1ca83169b8415dd44f6e89083d0c134b244d"
+}

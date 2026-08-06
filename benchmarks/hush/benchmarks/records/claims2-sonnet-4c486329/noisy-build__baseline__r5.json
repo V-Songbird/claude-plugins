@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 49,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 26189,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2299307,
+  "numTurns": 8,
+  "durationMs": 24820,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1227
+  },
+  "contextTraffic": 196010,
+  "apiCalls": 6,
+  "toolCalls": 7,
+  "toolResultChars": 34460,
+  "narrationWords": 26,
+  "finalWords": 107,
+  "finalText": "Build is clean now (exit 0, \"0 errors\").\n\n**Root cause:** `src/core/settings.js:17` — `resolveConfig` referenced a bare `retries` variable that was never declared, instead of reading `env.retries` from the passed-in options. That threw a `ReferenceError` during the link stage, which is what actually failed the build (`EBUILD01`), buried under ~900 lines of harmless compile/dedupe noise.\n\nFixed by changing `maxRetries: retries` → `maxRetries: env.retries`. Rebuilt: exits 0, links with `retries 3` as expected, `dist/bundle.js` emits.\n\nThe 3 warnings that remain (deprecated `crypto.createCipher` in `src/legacy/adapter.js`, unused export `formatLegacyDate`, circular import between `core/graph.js`/`state/tracker.js`) are pre-existing lint-style warnings, not build failures — let me know if you want those cleaned up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2613db98b08a35e1bc74e36f62816566c921f0e68b71860449fe27acf77f3875"
+}

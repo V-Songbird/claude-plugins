@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 36,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11493,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0227772,
+  "numTurns": 1,
+  "durationMs": 9893,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 654
+  },
+  "contextTraffic": 23914,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 198,
+  "finalText": "**Merge** combines two branches and keeps both histories intact — you end up with a commit that says \"these two branches came together here.\" The history shows that the work happened in parallel.\n\n**Rebase** replays one branch's changes on top of another, rewriting history to look like the work happened in sequence instead. No merge commit, just a straight line.\n\n**When to merge:** You're pulling someone else's work into a shared branch (main, release), or you want to preserve the fact that work happened on different paths. Safe because you're not rewriting history anyone else depends on.\n\n**When to rebase:** You're working on your own feature branch and want to catch up with changes on main before you're done — rebase keeps your branch clean and easy to review. Also good right before you push your own changes to a shared branch, to give reviewers a linear diff. Never rebase commits you've already pushed to a shared branch (you'd rewrite history others might have built on, causing chaos).\n\nThe tradeoff: merge is safer and shows the real story of how things evolved; rebase is cleaner but rewrites history, so use it only on commits that are yours alone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "256bc17746e32a4e7211f21fae9319e5426f29ce18addf2659975793bd312b7c"
+}

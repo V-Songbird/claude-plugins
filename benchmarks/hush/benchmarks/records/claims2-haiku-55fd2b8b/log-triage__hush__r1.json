@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 79,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 13609,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0301895,
+  "numTurns": 2,
+  "durationMs": 11792,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 692
+  },
+  "contextTraffic": 50243,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 4602,
+  "narrationWords": 0,
+  "finalWords": 120,
+  "finalText": "**Redis died at 02:14:07, and the app drowned trying to survive without it.**\n\nThe connection to Redis at 10.0.0.12:6379 went down. Without the cache, every request had to hit the database directly. The store couldn't keep up. Requests started timing out at 5s. The queue filled up (62+ pending). Each pending request sat in memory, and after 17 minutes of this, the heap ran out at 02:31:44. Worker-2 crashed, then the API went unresponsive and the supervisor killed the whole process group.\n\nThe app didn't fail because of bad code — it failed because it lost Redis and had no circuit breaker or cache bypass strategy. Once the queue exceeded the store's capacity, it was locked into a death spiral.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "10085c1dc9a0a73666abb3c58db2ac72bdf7c21e26c99fc322902e3baf8f94a4"
+}

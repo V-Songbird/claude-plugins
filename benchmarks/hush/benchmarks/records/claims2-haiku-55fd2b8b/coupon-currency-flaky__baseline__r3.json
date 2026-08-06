@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r3",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 58,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 52993,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.085234,
+  "numTurns": 11,
+  "durationMs": 51706,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3932
+  },
+  "contextTraffic": 244079,
+  "apiCalls": 9,
+  "toolCalls": 10,
+  "toolResultChars": 25176,
+  "narrationWords": 155,
+  "finalWords": 107,
+  "finalText": "Perfect! All 40 tests pass now. \n\n**The bug:** The code was rounding intermediate results after each coupon application (lines 24 and 27), which lost precision. When those rounding errors got multiplied through currency conversion rates, they could flip the final rounding direction by a cent or two.\n\n**The fix:** Keep full precision through all coupon calculations and round only once at the end—which is exactly what the reference implementation does and what Finance expects. This ensures rounding error doesn't compound across operations.\n\nThe patch is minimal and surgical: removed two `round()` calls that were truncating precision too early. All previously-failing stacked-coupon tests with non-USD currencies now pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1ee57ec301dedf80d8ccfeac17b4ceaf56ab2e37ec63723ed30c0690631f92f7"
+}

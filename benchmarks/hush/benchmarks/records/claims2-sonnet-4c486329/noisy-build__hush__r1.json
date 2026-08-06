@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 40,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23517,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.16320420000000002,
+  "numTurns": 7,
+  "durationMs": 21394,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 860
+  },
+  "contextTraffic": 203869,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 6248,
+  "narrationWords": 0,
+  "finalWords": 59,
+  "finalText": "Found it. `src/core/settings.js` computed `maxRetries` from a variable called `retries` that was never defined — a leftover from a rename. That threw at link time and crashed the whole build; the 3 warnings earlier were just noise, not the cause.\n\nFixed it to read `env.retries`, falling back to `3`. Build now finishes clean: exit `0`, 3 warnings, 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "973713a1de3cc86e4e2071637f49fcd7ed1e35f0153b1d1401eb843c54aac50c"
+}

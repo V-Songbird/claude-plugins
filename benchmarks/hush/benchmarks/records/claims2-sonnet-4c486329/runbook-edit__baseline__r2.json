@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__baseline__r2",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 152,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 47828,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2452162,
+  "numTurns": 13,
+  "durationMs": 43317,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2863
+  },
+  "contextTraffic": 413642,
+  "apiCalls": 13,
+  "toolCalls": 10,
+  "toolResultChars": 7162,
+  "narrationWords": 20,
+  "finalWords": 21,
+  "finalText": "Updated all three production references to 9090 (health-check command, known-issues note, appendix table); staging's 8091 is unchanged since only production moved.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1a5319bc0f48efe436effcbdda6d61ad7f5d009c28473c707311c0a3105fd88d"
+}

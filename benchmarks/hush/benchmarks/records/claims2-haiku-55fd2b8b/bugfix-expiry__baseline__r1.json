@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__baseline__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 0,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 33032,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.04768170000000001,
+  "numTurns": 11,
+  "durationMs": 31389,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1911
+  },
+  "contextTraffic": 185520,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 4925,
+  "narrationWords": 79,
+  "finalWords": 55,
+  "finalText": "Done! All tests are passing now. The issue was in the `isExpired` function—it was using `<` instead of `<=`, which allowed tokens to slip through when their expiry time exactly matched the current moment. The fix ensures that a token is considered expired the moment its `exp` field is reached, as documented in the comments.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "92e24688bba086598426f1d600e8ee4b6aa5bacdc4b4ec197499baaad23fd0fb"
+}

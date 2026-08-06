@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r3",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 104,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34982,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.22851559999999999,
+  "numTurns": 11,
+  "durationMs": 33674,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2153
+  },
+  "contextTraffic": 307834,
+  "apiCalls": 9,
+  "toolCalls": 10,
+  "toolResultChars": 16448,
+  "narrationWords": 98,
+  "finalWords": 93,
+  "finalText": "Build's clean now (exit 0). Two real bugs from the bump, both fixed:\n\n- `src/core/options.js:6` — `resolveRetries` still read `options.retries`, but the bumped bundler now hands options as `{ retryCount }`, so it crashed on `undefined.toFixed()`. Now reads `options.retryCount`.\n- `src/net/retryPolicy.js:7` — `isBackoffEnabled` threw on `undefined`, but the bumped config loader now leaves unset flags as `undefined` instead of `false`. Now treats `undefined` the same as `false` (disabled).\n\nThe remaining ~8 warnings (Node deprecations like `fs.exists`/`Buffer()`, plus the unused-export/circular-import notices) are pre-existing noise, not build-breaking — worth cleaning up eventually but not blockers.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e0e3f6af2e7c465d3ea9e2cb4df0e620e79aba6dabb6ce16e47229d68351fd01"
+}

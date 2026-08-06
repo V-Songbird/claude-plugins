@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 126,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 17920,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.13552360000000002,
+  "numTurns": 4,
+  "durationMs": 16257,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 963
+  },
+  "contextTraffic": 133119,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 4194,
+  "narrationWords": 0,
+  "finalWords": 39,
+  "finalText": "17 call sites across 7 files still pass the second argument.\n\n`src/reports/quarterly.js` has the most, with 5. Next are `admin/exports.js` and `billing/invoice.js` with 3 each, then `monthly.js` and `checkout/cart.js` with 2 each, and `billing/statement.js` and `checkout/receipt.js` with 1 each.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b777c9dc5b01cedce83995eb1b24b37fb153977cdfd479c691e3b6c67087cbf7"
+}

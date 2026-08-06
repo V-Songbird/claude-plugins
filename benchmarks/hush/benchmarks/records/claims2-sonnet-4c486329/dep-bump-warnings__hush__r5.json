@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 108,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 36165,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.20347189999999998,
+  "numTurns": 10,
+  "durationMs": 33777,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1867
+  },
+  "contextTraffic": 245569,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 8088,
+  "narrationWords": 0,
+  "finalWords": 102,
+  "finalText": "Build's clean now, exit 0.\n\nTwo real bugs were hiding in that wall of warnings, both from the bundler bump:\n\n1. `src/core/options.js` still read `options.retries`, but the new bundler passes `retryCount`. That threw and killed the link stage.\n2. `src/net/retryPolicy.js` treated an unset backoff flag as invalid. The new config loader leaves it `undefined` instead of `false`, so it threw too. Now `undefined` is treated as disabled, same as before.\n\nEverything else — the `DEP0xxx` lines, the tree-shaking notes, the vendor dedupe spam — was just noise from the version jump, not errors. Build finishes with 8 harmless warnings and 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d722efb60719d8ef372ca2090f7e8d7701e03b77199da622ac9a640d2cd56978"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r1",
+  "batchId": "claims2-haiku-55fd2b8b",
+  "seed": "1785984308646",
+  "orderIndex": 84,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 45325,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1579191,
+  "numTurns": 7,
+  "durationMs": 40986,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2695
+  },
+  "contextTraffic": 376678,
+  "apiCalls": 7,
+  "toolCalls": 4,
+  "toolResultChars": 99424,
+  "narrationWords": 10,
+  "finalWords": 45,
+  "finalText": "Done. Created `ON_CALL_HANDOFF.md` with the root cause (Redis connection loss at 02:14:07 UTC), impact window (17 min 37 sec), and ioredis 5.4.1. I included the failure cascade sequence and next-steps for whoever picks this up—mainly checking Redis infrastructure and whether the reconnection strategy needs hardening.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f90c488de58ea81cace775e36bc34a9712099d3ec163e4a3107e4f05ee25b2f8"
+}

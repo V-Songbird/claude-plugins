@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r5",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 128,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 5,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 24510,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1535312,
+  "numTurns": 5,
+  "durationMs": 22764,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1542
+  },
+  "contextTraffic": 166024,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 2615,
+  "narrationWords": 0,
+  "finalWords": 69,
+  "finalText": "17 call sites still pass that second flag, once you take out the function's own definition in `format.js`.\n\n`src\\reports\\quarterly.js` has the most, with 5.\n\nHere's the full breakdown:\n\n| File | Count |\n|---|---|\n| `reports\\quarterly.js` | 5 |\n| `billing\\invoice.js` | 3 |\n| `admin\\exports.js` | 3 |\n| `checkout\\cart.js` | 2 |\n| `reports\\monthly.js` | 2 |\n| `checkout\\receipt.js` | 1 |\n| `billing\\statement.js` | 1 |",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9ff87ee1747ef900bc62422aca0e84787d2fe4a6a772ad58cc364023b88136cf"
+}

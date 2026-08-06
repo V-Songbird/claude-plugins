@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r3",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 94,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34031,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2018274,
+  "numTurns": 10,
+  "durationMs": 32399,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1878
+  },
+  "contextTraffic": 243749,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 7661,
+  "narrationWords": 0,
+  "finalWords": 105,
+  "finalText": "**Found it.** `computeTotal` in `src/pricing/engine.js` was rounding to cents twice — once after the percent coupon, once after the flat coupon — before converting to the order's currency. That extra rounding threw away fractional cents that mattered once the exchange rate got applied, so GBP, CAD, and JPY carts landed a cent (or yen) short whenever a percent coupon was in play.\n\nIt never showed up with a flat coupon alone, which is why it looked random — only percent-discount carts in non-USD currencies were affected.\n\nFixed by rounding once, only at the very end, after conversion. All 40 tests pass now (`node --test`, ~0.1s).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4f860a43ec9a60f31cb19ab72c88a0ebc7e8de42195bf997ff78762a3b414857"
+}

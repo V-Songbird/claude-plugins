@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 110,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25074,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1449075,
+  "numTurns": 8,
+  "durationMs": 23133,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1458
+  },
+  "contextTraffic": 131203,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4617,
+  "narrationWords": 0,
+  "finalWords": 156,
+  "finalText": "It's a small Node HTTP API, five files, no framework and no real database yet.\n\n1. **`server.js`** — the entry point. Checks the bearer token on every request, then hands it to the route table.\n2. **`auth.js`** — signs and checks tokens as `<userId>.<hmac signature>`, using a shared secret from `AUTH_SECRET`.\n3. **`routes.js`** — a table mapping `METHOD /path` to handlers. Reads go through the cache, writes go straight to the store.\n4. **`store.js`** — an in-memory map standing in for a real database. Every record expires 15 minutes after its last write.\n5. **`cache.js`** — a 256-entry LRU cache in front of the store, just to absorb repeated reads.\n\nOne thing worth knowing before you build on this: `routes.js` says writes should invalidate the cache, but `putOrder` never does that. So after someone posts an order, `GET /orders` can keep serving the stale cached list until it ages out of the LRU on its own.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d6e5b7ba470e2cd9949552251b7b1a7ff6eeda5ff67b143fcc585bf5fb030b60"
+}

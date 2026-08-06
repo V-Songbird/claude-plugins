@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r4",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 166,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 4,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16132,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1687397,
+  "numTurns": 3,
+  "durationMs": 14810,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 920
+  },
+  "contextTraffic": 98913,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 24928,
+  "narrationWords": 0,
+  "finalWords": 63,
+  "finalText": "Read through it — here's the rundown:\n\n**Overall: 700 tests run, 698 passed, 2 failed.**\n\n**Failures (both in `auth/tokens.test.js`):**\n1. `refreshToken silently accepts an already-revoked token` — auth/tokens.test.js:400\n2. `sessionCleanup leaves orphaned rows after a rollback` — auth/tokens.test.js:650\n\nEverything else in the run passed cleanly. Both failures are clustered in the same file around token/session handling, so that's likely where to start digging.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bd6c0a4c23aa99bf080649e31da4ec2d280932bc077fa756c57ba8e92832df4c"
+}

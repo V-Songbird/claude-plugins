@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__baseline__r1",
+  "batchId": "claims2-sonnet-4c486329",
+  "seed": "1785982759651",
+  "orderIndex": 11,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 13218,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.10675459999999999,
+  "numTurns": 6,
+  "durationMs": 11623,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 655
+  },
+  "contextTraffic": 144700,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2193,
+  "narrationWords": 24,
+  "finalWords": 41,
+  "finalText": "All 5 tests pass. The bug was an off-by-one in `paginate.js:7` — `start = page * perPage` treated the 1-indexed `page` as 0-indexed, shifting every page's slice forward by one `perPage` chunk. Fixed to `start = (page - 1) * perPage`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d7b1ef493176e09529e0f6aa8fc32377325f9e6e3cbcfaf83360284e17634cbb"
+}
