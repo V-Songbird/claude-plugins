@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__adhd__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 83,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 22105,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.24054540000000002,
+  "numTurns": 7,
+  "durationMs": 20134,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 978
+  },
+  "contextTraffic": 209144,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 33922,
+  "narrationWords": 33,
+  "finalWords": 61,
+  "finalText": "Build passes now: exit code 0, \"0 errors.\"\n\nCause: `src/core/settings.js:17` used a bare `retries` variable that didn't exist (would throw `ReferenceError` at runtime), instead of reading `env.retries` from the passed-in config. Fixed by changing it to `env.retries`.\n\nThe 3 warnings (deprecated `crypto.createCipher`, unused export, circular import) are unrelated and non-blocking — didn't touch those unless you want them cleaned up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "becedc6b1cb1606e148af1054878de9bc2403a840c256968a8e5b14d1c5dd37c"
+}

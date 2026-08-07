@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 106,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 12328,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0233222,
+  "numTurns": 1,
+  "durationMs": 10096,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 739
+  },
+  "contextTraffic": 23971,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 210,
+  "finalText": "Most often, it's one of three things:\n\n**Your parent re-renders.** When a parent renders, all its children render too—unless you stop them. That's the default behavior.\n\n**Your props are being remade.** If you're passing an object, array, or function created fresh on each render—like `<Child data={{ id: 1 }} />` or `<Child onClick={() => handle()} />`—React sees it as a new prop every time, even if the value is the same. React compares by reference, not value.\n\n**Your child isn't memoized.** Wrap it with `React.memo` to tell React: only re-render if the props actually changed.\n\n```jsx\nconst Child = React.memo(({ value, onClick }) => {\n  return <div onClick={onClick}>{value}</div>;\n});\n```\n\nTo fix the recreated props, pull functions and objects out of the render:\n\n```jsx\n// Before: onClick recreated every render\n<Child onClick={() => handle()} />\n\n// After: same function each time\nconst handleClick = () => { /* ... */ };\n<Child onClick={handleClick} />\n```\n\nOr use `useCallback` for functions and `useMemo` for objects if they need to depend on state:\n\n```jsx\nconst handleClick = useCallback(() => {\n  // uses current props/state\n}, [dependency]);\n```\n\nCheck your browser DevTools Profiler—it shows exactly which components are re-rendering and why. That's the quickest way to spot which of these is your culprit.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bd5d4bc27e79c24838bc446bd8beed610b71c4d83007d2db98df569524cf9ef2"
+}

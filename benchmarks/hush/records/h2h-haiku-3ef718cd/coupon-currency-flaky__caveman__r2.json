@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__caveman__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 168,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 62194,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0832324,
+  "numTurns": 17,
+  "durationMs": 59739,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4259
+  },
+  "contextTraffic": 279942,
+  "apiCalls": 10,
+  "toolCalls": 16,
+  "toolResultChars": 13152,
+  "narrationWords": 84,
+  "finalWords": 57,
+  "finalText": "All 40 tests pass. The bug was intermediate rounding. Engine was rounding after percent and flat discounts in USD, losing precision before currency conversion. With rates like GBP (0.78) or CAD (1.35), small rounding errors escalate.\n\nFix: apply all discounts without intermediate rounding, round only once at the final step in target currency. Matches the reference implementation.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c0ff19a2f03da07b6b24b23eb7f5baac09887131001fb8466f75219debeed7a4"
+}

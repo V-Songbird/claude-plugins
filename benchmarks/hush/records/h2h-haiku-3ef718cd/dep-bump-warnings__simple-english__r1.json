@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__simple-english__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 181,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 35427,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0617092,
+  "numTurns": 11,
+  "durationMs": 33297,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2155
+  },
+  "contextTraffic": 211055,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 17719,
+  "narrationWords": 118,
+  "finalWords": 76,
+  "finalText": "Done! The build is now clean. Both bugs from the package bump have been fixed:\n\n1. **options.js** — Changed `options.retries` to `options.retryCount` to match the new bundler API.\n2. **retryPolicy.js** — Simplified the flag check to handle `undefined` as falsy, since the new config loader leaves unset flags as `undefined` rather than `false`.\n\nThe build now completes successfully with 0 errors. The 8 warnings shown are expected deprecation noise from the bundler itself, not actual issues.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "392083b1e600ca77b66b3fe29a1483ce68824352b8c4fa127995585124388c8c"
+}

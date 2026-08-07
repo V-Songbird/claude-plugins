@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__caveman__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 215,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 21719,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0350609,
+  "numTurns": 8,
+  "durationMs": 19837,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1317
+  },
+  "contextTraffic": 94225,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4137,
+  "narrationWords": 4,
+  "finalWords": 182,
+  "finalText": "**Server entry**: `server.js` creates HTTP listener on port 8080 (or `PORT` env var). Pulls auth header, verifies token via `verifyToken()`, passes user context to route handler. Dies on auth fail (401).\n\n**Auth**: `auth.js`. HMAC-SHA256 bearer tokens, format `<userId>.<signature>`. Secret from `AUTH_SECRET` env (fallback: dev-secret). No expiry — just signature verification with timing-safe compare.\n\n**Routes**: `routes.js`. Static table maps `METHOD /path` to handlers:\n- `GET /users` — fetch user by query param `id`, goes through cache\n- `GET /orders` — list orders for authenticated user, goes through cache  \n- `POST /orders` — write new order, hits store directly, cache silent (no invalidation logic yet)\n\n**Cache**: `cache.js`. Read-through LRU, 256 slots, no TTL. Absorbs repeated reads. Bumps used key to end on hit. When full, evicts oldest entry.\n\n**Store**: `store.js`. In-memory key-value. All records expire 15 mins after write. Has getUser, listOrders, putOrder helper methods.\n\n**Data flow**: HTTP → server (auth check) → routes table → handler → cache (reads) or store (writes) → JSON response.\n\nMain gap: POST doesn't invalidate cache. Orders write to store but GET /orders still serves stale cached value.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a30fcda7461b4cd9ea0a4751c854b8c8f09a6968ff5e63516041f435e915f7f6"
+}

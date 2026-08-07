@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__hush__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 127,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 16135,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.028942999999999997,
+  "numTurns": 2,
+  "durationMs": 14285,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1016
+  },
+  "contextTraffic": 48860,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 169,
+  "narrationWords": 0,
+  "finalWords": 65,
+  "finalText": "I wrote two email validation functions for you.\n\n`validate_email()` is a simple pattern that handles most common cases. `validate_email_strict()` follows RFC standards more closely and catches edge cases like consecutive dots or leading periods.\n\nThe test section at the bottom shows how they differ — strict mode is pickier. For most needs, the basic one is fine; use strict if you need to be thorough.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cc893b596dab47cecd98824c388b8abc9d345116bd50c54ab45da3671d221444"
+}

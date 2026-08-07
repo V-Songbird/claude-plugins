@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__caveman__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 246,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 18747,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.2973672,
+  "numTurns": 3,
+  "durationMs": 17289,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1086
+  },
+  "contextTraffic": 145102,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 60177,
+  "narrationWords": 0,
+  "finalWords": 223,
+  "finalText": "Root cause: Redis outage cascade, unmitigated queue growth OOM crash.\n\n**Timeline (2026-07-04):**\n- 02:14:07 — `redis connection lost: connect ECONNREFUSED 10.0.0.12:6379` (api). Cache layer degrade, fall back to direct store reads.\n- 02:14:08 onward — cache miss storm (all services hit store direct) + `TimeoutError: request timed out after 5000ms (store overloaded)` repeat every few sec across api/worker-1/worker-2/scheduler.\n- 02:14:12 onward — request queue depth climb steady: 52 → 500+ by 02:29:06, past stated max (500), keep growing to 568 at 02:31:24. No backpressure/shed, queue unbounded in practice.\n- Redis reconnect attempts fired every ~2min (12 total, 02:15:26 through 02:31:26), all fail same ECONNREFUSED. Redis never came back.\n- 02:31:44 — `worker-2` JavaScript heap out of memory (request backlog) — queue growth ate memory.\n- 02:31:45 — supervisor restart worker-2 (exit code 134).\n- 02:31:52 — `api unresponsive, killing process group — service down`. Full outage.\n\n**Root cause:** Redis (10.0.0.12:6379) died 02:14, connection refused. App had no circuit breaker / load shed for degraded-cache mode — kept hammering store directly, queue backed up unbounded instead of rejecting excess. 17 min later backlog OOM-killed worker-2, api followed, whole service down.\n\n**Fix directions:** restore/fail over Redis, add request queue cap with shed (503 instead of infinite queue), circuit breaker on store when timeout rate high, backoff/alert on repeated reconnect failures instead of silent retry loop.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a72c0ad0d8ed38b5d861968df3f25dbf4fddfd97b64058d543b2d10c7670dd03"
+}

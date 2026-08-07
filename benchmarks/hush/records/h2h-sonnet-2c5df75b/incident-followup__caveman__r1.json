@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__caveman__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 254,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 46880,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.4417554,
+  "numTurns": 9,
+  "durationMs": 41245,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2570
+  },
+  "contextTraffic": 524766,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 60411,
+  "narrationWords": 7,
+  "finalWords": 262,
+  "finalText": "## On-Call Handoff — Prod Incident, 2026-07-04\n\n**Impact window:** 02:14:07 UTC – 02:31:52 UTC (~17m 45s), service fully down from 02:31:52 UTC. Log ends at outage with no recorded recovery — confirm current status before assuming resolved.\n\n**Root cause:** Redis at 10.0.0.12:6379 went unreachable (`ECONNREFUSED`) at 02:14:07. App fell back to direct store reads instead of failing gracefully. Backing store couldn't handle full unc­ached load — repeating cache-miss storms and 5000ms timeouts. 12 reconnect attempts to Redis (every ~2 min) all failed; Redis never recovered. Request queue grew unbounded, breaching its own max(500) around 02:25:48, reaching 568. At 02:31:44, worker-2 hit `JavaScript heap out of memory` from the backlog, crashed (exit 134), supervisor restarted it, then at 02:31:52 api itself went unresponsive and supervisor killed the whole process group.\n\n**Contributing factors:**\n- No circuit breaker / backpressure — queue kept accepting work past its stated max instead of shedding load.\n- Cache-miss fallback path had no rate limit, amplifying load on store during outage.\n\n**ioredis version:** package.json pins `^5.4.1` (allows any 5.x). **No package-lock.json in repo** — exact resolved/installed version can't be confirmed from source. Run `npm ls ioredis` on the prod host for the real installed version before cross-checking changelog for reconnect-related fixes.\n\n**Follow-ups:**\n1. Confirm Redis at 10.0.0.12 is back up and root-caused (why it dropped).\n2. Get exact installed ioredis version off prod (`npm ls ioredis`), check changelog for reconnect/backoff fixes since 5.4.1.\n3. Add hard reject/backpressure once queue hits max instead of warn-only.\n4. Consider commit a lockfile — currently no way to verify exact deployed dependency versions.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6adc8458b92b375aa0dc9d756518b522bdeb071605e5ab8318c30148d0c68c5b"
+}

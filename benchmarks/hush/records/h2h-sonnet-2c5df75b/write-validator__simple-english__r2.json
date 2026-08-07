@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__simple-english__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 132,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10504,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0785626,
+  "numTurns": 2,
+  "durationMs": 8606,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 638
+  },
+  "contextTraffic": 58449,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 179,
+  "narrationWords": 0,
+  "finalWords": 65,
+  "finalText": "I wrote the function in `validate_email.py:1`.\n\nThe function `is_valid_email` checks the format of an email address with a regular expression. The check confirms the local part, the `@` symbol, and a valid domain with at least one dot. The function also rejects strings over 254 characters, per the email length limit in RFC 5321.\n\nTo test the file, run this command.\n\n```\npython validate_email.py\n```",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "08a822f71a087062b41e1b8ce421e55cdae767c87212ae862420552becd96f51"
+}

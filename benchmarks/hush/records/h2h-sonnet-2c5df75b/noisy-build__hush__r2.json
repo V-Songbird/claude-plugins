@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 79,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28632,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.17926799999999998,
+  "numTurns": 8,
+  "durationMs": 26511,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1089
+  },
+  "contextTraffic": 239107,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 6356,
+  "narrationWords": 0,
+  "finalWords": 83,
+  "finalText": "Builds clean now. The real bug was in `src/core/settings.js` — `resolveConfig` referenced an undefined variable `retries` instead of `env.retries`, so the link step crashed with a `ReferenceError` and aborted the build.\n\nFixed that one line, and the build now finishes with exit 0: `build finished in 41.7s with 3 warnings, 0 errors`. Those 3 warnings are pre-existing (a deprecated `crypto.createCipher` call, an unused export, and a circular import) — not blocking, but worth cleaning up separately if you want a truly quiet log.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ea4951f0281f94fad523fb5ae85d1506e8ec15427c34ba84990cd3b8c4100044"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__simple-english__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 192,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 37763,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.06798339999999999,
+  "numTurns": 13,
+  "durationMs": 36060,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2376
+  },
+  "contextTraffic": 266479,
+  "apiCalls": 10,
+  "toolCalls": 12,
+  "toolResultChars": 16089,
+  "narrationWords": 85,
+  "finalWords": 47,
+  "finalText": "Build is clean! Both bugs are fixed:\n\n- **options.js**: Changed `options.retries` → `options.retryCount` (new bundler shape)\n- **retryPolicy.js**: Simplified to treat `undefined` and `false` the same (new config loader behavior)\n\nThe 8 remaining warnings are just deprecation noise from the dependency bump itself—nothing that needs code changes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f6300762b4050d1895b726e750fd61e601f19666cf5e03084cd0b52694c7a8da"
+}

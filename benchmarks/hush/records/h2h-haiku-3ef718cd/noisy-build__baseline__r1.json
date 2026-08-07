@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 74,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 37141,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0701,
+  "numTurns": 12,
+  "durationMs": 35498,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2200
+  },
+  "contextTraffic": 176723,
+  "apiCalls": 7,
+  "toolCalls": 11,
+  "toolResultChars": 34930,
+  "narrationWords": 89,
+  "finalWords": 86,
+  "finalText": "Done! Build is now clean. Here's what I fixed:\n\n**The bug:** In `src/core/settings.js:17`, the code referenced an undefined variable `retries`. The function parameter `env` had `{ retries: 3 }` passed in, but the code tried to use `retries` directly instead of `env.retries`.\n\n**The fix:** Changed `maxRetries: retries` to `maxRetries: env.retries || 1` so it reads the retries value from the environment parameter with a sensible fallback.\n\nThe build now completes successfully with 3 warnings (deprecated API, unused export, circular import) but **0 errors**—exactly what you want.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f7b67d69c21f3e7baa0da210006c229cb74970d6b29b851fa5cfaf24d81d0098"
+}

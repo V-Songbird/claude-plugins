@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__caveman__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 73,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 32007,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0469832,
+  "numTurns": 7,
+  "durationMs": 30649,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1683
+  },
+  "contextTraffic": 172778,
+  "apiCalls": 7,
+  "toolCalls": 6,
+  "toolResultChars": 5235,
+  "narrationWords": 19,
+  "finalWords": 30,
+  "finalText": "Done. Error was in src/core/settings.js line 17 — `maxRetries: retries` referenced undefined variable. Changed to `env.retries || 1` to match env parameter pattern. Build now clean: 3 warnings, 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5701a74c2cc326ffbebe49bf0e284bb05befe9f1af1d3d711709aef576ec41c1"
+}

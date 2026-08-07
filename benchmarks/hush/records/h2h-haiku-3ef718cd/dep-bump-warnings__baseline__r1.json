@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 185,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 33203,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0534583,
+  "numTurns": 12,
+  "durationMs": 31905,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2262
+  },
+  "contextTraffic": 192534,
+  "apiCalls": 8,
+  "toolCalls": 11,
+  "toolResultChars": 9166,
+  "narrationWords": 119,
+  "finalWords": 126,
+  "finalText": "Perfect! ✓ Build is now clean. Here's what was wrong and what I fixed:\n\n**Issue 1 — src/core/options.js:7**  \nThe bundler upgrade changed the options shape from `retries` to `retryCount`, but the code still referenced the old property name. Changed it to use `options.retryCount`.\n\n**Issue 2 — src/net/retryPolicy.js:10**  \nThe new config loader returns `undefined` for unset flags instead of `false`. The function only checked for `true` and `false`, causing it to throw on `undefined`. Added a check to treat `undefined` as `false` (disabled).\n\nThe build now completes successfully:\n```\nlink ok: retry budget resolved to 3\nlink ok: exponential backoff disabled\nbuild finished in 44.9s with 8 warnings, 0 errors\n```\n\nThe remaining 8 warnings are just deprecation noise from the Node.js version and unused exports—nothing actionable.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "79ddffc796e87ffab4cb971bdfcee85f45479b9b60a5740d2ac346c6f9f58f31"
+}

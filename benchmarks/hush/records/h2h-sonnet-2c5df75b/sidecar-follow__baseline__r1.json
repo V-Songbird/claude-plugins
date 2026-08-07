@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 290,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11650,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1631871,
+  "numTurns": 3,
+  "durationMs": 10039,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 551
+  },
+  "contextTraffic": 98909,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 24928,
+  "narrationWords": 0,
+  "finalWords": 84,
+  "finalText": "CI run summary: **698 passed, 2 failed** out of 700 tests.\n\nBoth failures are in `auth/tokens.test.js`, and both point at real security gaps in token/session handling:\n\n1. **`refreshToken silently accepts an already-revoked token`** — `auth/tokens.test.js:400`\n2. **`sessionCleanup leaves orphaned rows after a rollback`** — `auth/tokens.test.js:650`\n\nEverything else in the run passed cleanly. Given both failures are in the same file and both are auth/session integrity issues, worth looking at `auth/tokens.test.js` together — likely related to how revocation and rollback are handled in that module.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2dff3e0b1fe36c12cb1a6c113f1650249f4b6e6d67675cd93f81d03324428c5b"
+}

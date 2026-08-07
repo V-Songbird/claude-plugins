@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__adhd__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 35,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 13710,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.12249869999999999,
+  "numTurns": 6,
+  "durationMs": 12233,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 600
+  },
+  "contextTraffic": 156680,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2185,
+  "narrationWords": 17,
+  "finalWords": 28,
+  "finalText": "All 5 tests pass. Fixed `paginate.js:7` — offset math used `page * perPage` instead of `(page - 1) * perPage`, so page 1 skipped the first batch entirely.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "94ce8fe9cd6fb634460fa49229ad5e4719cffca19f35e5f4ea07d251de0608dc"
+}

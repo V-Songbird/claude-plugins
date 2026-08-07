@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 122,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10344,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0612735,
+  "numTurns": 1,
+  "durationMs": 8410,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 609
+  },
+  "contextTraffic": 28136,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 283,
+  "finalText": "**Merge** creates a new commit that ties two branch histories together, preserving both as-is. **Rebase** replays your branch's commits one-by-one onto a new base, rewriting them (new hashes) into a linear sequence.\n\n**Practical differences:**\n\n| | Merge | Rebase |\n|---|---|---|\n| History | Preserved, non-linear (shows a merge commit + both branch paths) | Linear, commits rewritten as if built on top of latest base |\n| Commit hashes | Unchanged | Changed (new commits) |\n| Safety on shared branches | Safe — never rewrites existing commits | Unsafe on commits others have pulled — rewrites them, breaks their history |\n| Conflict resolution | Once, in the merge commit | Potentially once per replayed commit |\n| Resulting log | `git log --graph` shows the fork/join | Straight line, easy to read/bisect |\n\n**When to use each:**\n\n- **Rebase** your local feature branch onto `main` before opening a PR, or while it's still private/unshared. Gives a clean, linear history that's easy to review and bisect. Rule of thumb: never rebase commits that have already been pushed and someone else might have based work on — you'll rewrite their history out from under them.\n- **Merge** when integrating a finished feature branch into `main`/`develop`, especially for shared/long-lived branches, or when you want to preserve the actual chronological record of \"this branch existed and here's when it landed.\" Also just safer by default in team settings since it doesn't rewrite anything.\n\nA common workflow: rebase your feature branch on `main` locally to keep it up to date and squash/clean commits, then merge (often via a PR \"squash and merge\" or regular merge) into `main` so the shared branch's history is never rewritten.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e42facb3efc9012d9f6121052e7f4571ee8bb5ec5a2b8b1bcc18ea78197494b5"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__caveman__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 234,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 18031,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.07641769999999999,
+  "numTurns": 2,
+  "durationMs": 16490,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1013
+  },
+  "contextTraffic": 71735,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 60098,
+  "narrationWords": 0,
+  "finalWords": 173,
+  "finalText": "**Root cause: Redis died, caused cascading db meltdown.**\n\n**Timeline:**\n- **02:14:07** — Redis connection lost (ECONNREFUSED 10.0.0.12:6379, line 182). Cache layer goes dark.\n- **02:14:08+** — App falls back to direct DB reads. DB can't handle traffic that cache normally shields. \"Cache miss storm\" (lines 184+).\n- **02:14:10+** — Requests timeout (5s limit hit). Queue backlog starts building: queue depth 52 → 100 → 200 → 500+ (line 647 exceeds max 500).\n- **02:14:22 onward** — Reconnect attempts fail repeatedly (lines 224, 265, 306... every 20 seconds). No recovery.\n- **02:31:44** — Worker-2 heap exhausted. Backlog requests held in memory consumed all 534MB+ heap (line 717).\n- **02:31:45** — Process killed by supervisor (line 719), service down.\n\n**Why it cascaded:** No circuit breaker or fast-fail. App kept accepting requests into queue when Redis was dead and DB was drowning. Should reject or queue with bounded limits once DB latency spikes.\n\n**Fix:** Add circuit breaker in cache layer. When Redis down + DB timeouts hit, fail fast with 503 instead of queuing infinite requests.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "400369552f727865ac6e0cb150950f37ae63d0682eb46eab3b18169b17e081ea"
+}

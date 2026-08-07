@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__baseline__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 32,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 17461,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0357996,
+  "numTurns": 6,
+  "durationMs": 15343,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1552
+  },
+  "contextTraffic": 112172,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2730,
+  "narrationWords": 69,
+  "finalWords": 43,
+  "finalText": "Perfect! All 5 tests are now green. The bug was an off-by-one error: the function was calculating `start = page * perPage` when it should have been `start = (page - 1) * perPage` to account for pages being 1-indexed rather than 0-indexed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "82cca3a0960ee94d8dd684b0bb61445dbb56741f8f7cd207ff2b7205e4c8d9b7"
+}

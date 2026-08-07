@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 75,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23732,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1626627,
+  "numTurns": 7,
+  "durationMs": 21382,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 811
+  },
+  "contextTraffic": 204134,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 6240,
+  "narrationWords": 0,
+  "finalWords": 59,
+  "finalText": "It builds clean now, 0 errors.\n\nThe real bug was in `src/core/settings.js`. It tried to set `maxRetries: retries`, but `retries` was never defined there — it should have read `env.retries`, the value passed in. That's what crashed the link step under all the noise.\n\nI changed it to `env.retries`, and now the build finishes with 3 warnings, 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "47ab07d0edee0254fc4cca78e611066f6350c20ec46682aea5e3a8b80c2beb34"
+}

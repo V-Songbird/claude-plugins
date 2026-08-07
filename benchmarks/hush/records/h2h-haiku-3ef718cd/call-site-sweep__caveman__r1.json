@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__caveman__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 221,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11165,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0259242,
+  "numTurns": 3,
+  "durationMs": 9688,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 603
+  },
+  "contextTraffic": 69410,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 1398,
+  "narrationWords": 0,
+  "finalWords": 34,
+  "finalText": "17 call sites total. `src\\reports\\quarterly.js` has the most with 5.\n\nBreakdown by file:\n- quarterly.js: 5\n- exports.js: 3\n- invoice.js: 3\n- cart.js: 2\n- monthly.js: 2\n- statement.js: 1\n- receipt.js: 1",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fc1ea9b54099207a470c3f13643680a1e79d20c70988cd23f750ccf900f91b69"
+}

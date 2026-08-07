@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__nextstep__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 57,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 50732,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.08826520000000002,
+  "numTurns": 22,
+  "durationMs": 48769,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3105
+  },
+  "contextTraffic": 314148,
+  "apiCalls": 11,
+  "toolCalls": 21,
+  "toolResultChars": 6038,
+  "narrationWords": 0,
+  "finalWords": 34,
+  "finalText": "Done. Renamed `calcTotal` to `computeTotal` across all source files — the function definition, exports, imports, and all call sites. All 4 tests pass, including the check that the old name is no longer exported.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fde38f818e73bbc60a696141bdf1e53167d28c6046dfbdb314380e4e5ac40548"
+}

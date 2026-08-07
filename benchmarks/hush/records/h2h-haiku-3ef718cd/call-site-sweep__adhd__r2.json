@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__adhd__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 225,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10751,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.024105199999999997,
+  "numTurns": 2,
+  "durationMs": 8723,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 676
+  },
+  "contextTraffic": 46711,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 1218,
+  "narrationWords": 12,
+  "finalWords": 72,
+  "finalText": "**17 call sites** still pass the second argument.\n\n**`src\\reports\\quarterly.js`** has the most with 5 call sites (lines 16, 37, 58, 83, 104).\n\nBreakdown by file:\n- `src\\reports\\quarterly.js` — 5\n- `src\\admin\\exports.js` — 3\n- `src\\billing\\invoice.js` — 3\n- `src\\checkout\\cart.js` — 2\n- `src\\reports\\monthly.js` — 2\n- `src\\checkout\\receipt.js` — 1\n- `src\\billing\\statement.js` — 1\n\nNext: ready to sweep these? I can remove the second argument from all 17 call sites in one pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ec926020527e9d793531d17e9ebbf541bb35a5a5db02dcfaa37e4c5da179561e"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__nextstep__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 249,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "nextstep",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 15124,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.182886,
+  "numTurns": 3,
+  "durationMs": 13422,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 794
+  },
+  "contextTraffic": 111341,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 23455,
+  "narrationWords": 0,
+  "finalWords": 175,
+  "finalText": "Redis died at `02:14:07` — `connect ECONNREFUSED 10.0.0.12:6379` — and everything cascaded from there for the next 17 minutes straight through to the crash.\n\nHere's the chain:\n1. Redis connection lost, cache fell back to direct store reads.\n2. That triggered constant cache-miss storms and 5-second timeouts on `worker-1`, `worker-2`, and `scheduler`, all hitting the overloaded store.\n3. The request queue climbed the whole time — 52 deep at `02:14:12`, past its max of 500 by `02:29:12`, and up to 568 by the end.\n4. `api` tried to reconnect to redis 12 times between `02:14` and `02:31:26` — every attempt failed, same `ECONNREFUSED`.\n5. At `02:31:44`, `worker-2` ran out of memory under the backlog and crashed.\n6. The supervisor restarted it, but 7 seconds later at `02:31:52` declared `api` unresponsive and killed the whole process group — that's the outage.\n\nSo the root cause is the redis box at `10.0.0.12:6379` going unreachable and never coming back. Worth checking why that redis instance dropped and didn't recover — that's the thing to fix before this repeats.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "eb651eaeb91a43cbca5af9c74278f9966decd533ce570a29dc1baa910bc8ffef"
+}

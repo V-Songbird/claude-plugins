@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__hush__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 278,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 52317,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.080349,
+  "numTurns": 12,
+  "durationMs": 46662,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3622
+  },
+  "contextTraffic": 247267,
+  "apiCalls": 9,
+  "toolCalls": 9,
+  "toolResultChars": 6878,
+  "narrationWords": 0,
+  "finalWords": 30,
+  "finalText": "Done. All four mentions of the production admin port are now 9090 — health checks, the drain step, the known issues note, and the environment table. Staging stays at 8091.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7a18b143c3f545af941149d4d15bbb93ea427e8d0e25aa58c5ea6757cb6825c2"
+}

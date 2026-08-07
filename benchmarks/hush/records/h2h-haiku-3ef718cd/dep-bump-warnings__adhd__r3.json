@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__adhd__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 196,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 44494,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0750918,
+  "numTurns": 13,
+  "durationMs": 42781,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2779
+  },
+  "contextTraffic": 285912,
+  "apiCalls": 10,
+  "toolCalls": 12,
+  "toolResultChars": 16813,
+  "narrationWords": 88,
+  "finalWords": 62,
+  "finalText": "Build is clean. Both bugs from the bump are fixed:\n\n1. **options.js**: Changed `options.retries` to `options.retryCount` — the bundler update changed the property name.\n2. **retryPolicy.js**: Simplified to handle `undefined` as falsy — the new config loader leaves unset flags as `undefined` instead of `false`.\n\nThe 8 remaining warnings are just deprecation noise from the bump (legacy APIs, no actionable changes needed).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "102149a8c37e331c5e9814e85563a83461451895dd8fd705359427fe27b4224d"
+}

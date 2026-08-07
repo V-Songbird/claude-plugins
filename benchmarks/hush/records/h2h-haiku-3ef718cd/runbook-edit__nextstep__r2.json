@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__nextstep__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 280,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "nextstep",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 51030,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0833505,
+  "numTurns": 11,
+  "durationMs": 44764,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3213
+  },
+  "contextTraffic": 306653,
+  "apiCalls": 11,
+  "toolCalls": 8,
+  "toolResultChars": 6620,
+  "narrationWords": 0,
+  "finalWords": 32,
+  "finalText": "Updated all three mentions of the production admin port from 8081 to 9090 — in the health check command, the known issues section, and the environment reference table. Staging stays at 8091.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d25f6689f7ba607f3706015710d4986d00b2f83c5ec4b8b93698d205c755bc79"
+}

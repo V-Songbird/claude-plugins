@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__adhd__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 248,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 16025,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0774812,
+  "numTurns": 2,
+  "durationMs": 14600,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1068
+  },
+  "contextTraffic": 72400,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 60098,
+  "narrationWords": 0,
+  "finalWords": 154,
+  "finalText": "**Root cause: Redis connection lost at 02:14:07Z, triggered a cascading outage.**\n\n**Timeline:**\n\n1. **02:14:07** — Redis connection dies (`ECONNREFUSED 10.0.0.12:6379`). Cache layer degrades to direct store reads.\n\n2. **02:14:08–02:31:26** — Cascading failure:\n   - Store gets hammered with direct cache-bypass queries (cache hits drop from 0.98 to 0)\n   - Store overloads, requests timeout after 5s\n   - Queue depth explodes: 52 → 100 → 200 → 500+ waiting requests\n   - API keeps retrying failed requests, backlog builds faster than it drains\n\n3. **02:31:44** — Worker-2 runs out of memory trying to buffer the request backlog, crashes with `JavaScript heap out of memory`.\n\n4. **02:31:45** — Supervisor kills the API process group. Service down.\n\n**The problem:** Graceful degradation on cache-miss expected the store to handle ~4x traffic (without cache). It couldn't. No circuit breaker, no request shedding. Requests queued infinitely until memory exhaustion.\n\nWhat's the recovery status? Is Redis back up, or did it need manual intervention?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0180209a552d37d09770f374130d931a31f1fbf8c99e2e0b7fdad626fe272332"
+}

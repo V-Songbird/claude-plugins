@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 114,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 7171,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.077609,
+  "numTurns": 1,
+  "durationMs": 4892,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 251
+  },
+  "contextTraffic": 31767,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 125,
+  "finalText": "Both combine two branches, but they leave different marks.\n\n**Merge** adds a new commit that ties the two histories together. Nothing gets rewritten, so it's safe on shared branches, but you end up with a merge commit and a history that shows every side trip.\n\n**Rebase** replays your commits on top of the other branch, one by one, as if you'd started there. The result is a straight, clean line — no merge commit — but it rewrites commit history, so it's only safe on branches nobody else is working on.\n\nA simple rule: rebase your own local branch to keep it tidy before sharing it. Merge when bringing changes into a shared branch like `main`, so you don't rewrite history other people rely on.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6da47f29f151d5e0527d16d9d73a0070f2c44b92d9ceac1a88d7be2f1e5ce583"
+}

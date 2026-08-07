@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__nextstep__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 71,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 36213,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.21031769999999997,
+  "numTurns": 14,
+  "durationMs": 34363,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2289
+  },
+  "contextTraffic": 244833,
+  "apiCalls": 7,
+  "toolCalls": 13,
+  "toolResultChars": 5540,
+  "narrationWords": 0,
+  "finalWords": 24,
+  "finalText": "All the old `calcTotal` references in `cart.js`, `index.js`, `invoice.js`, and `report.js` are now `computeTotal`. Tests already expected the new name, and all 4 pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f16a35a192758680a8e30ff1f69657b129e4ef2e7b67fd5aef57cf47091390cf"
+}

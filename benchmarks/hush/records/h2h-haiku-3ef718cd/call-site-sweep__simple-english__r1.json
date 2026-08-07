@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__simple-english__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 219,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11402,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.025125599999999998,
+  "numTurns": 3,
+  "durationMs": 9282,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 712
+  },
+  "contextTraffic": 66689,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 1579,
+  "narrationWords": 13,
+  "finalWords": 74,
+  "finalText": "I found **17 call sites** still passing the second parameter (the legacy rounding flag). Here is the breakdown by file:\n\n| File | Count |\n|------|-------|\n| `src\\reports\\quarterly.js` | 5 |\n| `src\\billing\\invoice.js` | 3 |\n| `src\\admin\\exports.js` | 3 |\n| `src\\checkout\\cart.js` | 2 |\n| `src\\reports\\monthly.js` | 2 |\n| `src\\billing\\statement.js` | 1 |\n| `src\\checkout\\receipt.js` | 1 |\n\n**`src\\reports\\quarterly.js` has the most** with 5 occurrences (lines 16, 37, 58, 83, 104).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "67afe4e5df9d7e6239c129e6fb92772e4a252b5c31c40e4e008e6debd0676013"
+}

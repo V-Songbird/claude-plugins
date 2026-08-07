@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 79,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 31448,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.050528899999999995,
+  "numTurns": 7,
+  "durationMs": 29603,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1549
+  },
+  "contextTraffic": 182687,
+  "apiCalls": 7,
+  "toolCalls": 6,
+  "toolResultChars": 5028,
+  "narrationWords": 0,
+  "finalWords": 43,
+  "finalText": "Done. The bug was on line 17 of `src/core/settings.js` — it referenced `retries` directly instead of `env.retries`. Changed it to `env.retries || 3`, and now the build is clean: 3 warnings (deprecated API, unused export, circular import) and 0 errors. It finishes successfully.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f97ccd4cff6673882bbeb41cf548fa8d15ed86e01fa8096afee3660174abd6b9"
+}

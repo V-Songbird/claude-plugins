@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 89,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 28650,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.050118100000000006,
+  "numTurns": 8,
+  "durationMs": 26900,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1521
+  },
+  "contextTraffic": 172316,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 14180,
+  "narrationWords": 77,
+  "finalWords": 83,
+  "finalText": "Perfect! The build is now clean. The error was on line 17 of `src/core/settings.js` — it referenced `retries` as an undefined variable instead of `env.retries`. \n\nThe fix: changed `maxRetries: retries` to `maxRetries: env.retries || 1`, so it properly pulls the retry value from the environment object passed to the function.\n\nThe build now finishes with **3 warnings, 0 errors** (exit code 0). The three warnings about deprecated APIs and unused exports remain, but those are safe to ignore—the real blocking error is gone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bfc140d16c68d519c00c1c0657ebfa903ff1793e46274fea1f478cb377410f62"
+}

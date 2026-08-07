@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__adhd__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 167,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23775,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.16681859999999998,
+  "numTurns": 9,
+  "durationMs": 22436,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1363
+  },
+  "contextTraffic": 200752,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 7736,
+  "narrationWords": 95,
+  "finalWords": 33,
+  "finalText": "All 40 tests pass now. Next: commit this fix — say the word and I'll stage/commit it (no git repo initialized yet, so I'd need to `git init` first if you want that).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d2e11eabdcebcd3c0602b43dd32ce8fbb8d58d7251b9311f571f36762fedf634"
+}

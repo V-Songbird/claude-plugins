@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 108,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 9503,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0595285,
+  "numTurns": 1,
+  "durationMs": 7635,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 492
+  },
+  "contextTraffic": 28136,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 222,
+  "finalText": "The core difference is in how they combine diverging history:\n\n**Merge** creates a new commit with two parents, joining both branches' histories as-is. Nothing is rewritten — every commit that ever happened stays exactly where it was, and the merge commit records the point where they came together.\n\n**Rebase** takes your commits and replays them one by one on top of a new base, giving each one a new hash. History ends up linear, as if you'd branched off the latest code from the start — but the original commits are effectively rewritten/discarded.\n\n**When to reach for each:**\n\n- **Merge** for shared/public branches (e.g. bringing `main` into a long-lived feature branch, or finishing a feature branch back into `main`). It's non-destructive and preserves true history, which matters once others have pulled those commits.\n- **Rebase** for your own local/in-progress branch before it's shared — cleaning up commits, dropping \"wip\" noise, or catching up with `main` while keeping a linear, readable history for review.\n\n**The rule that matters most:** never rebase commits that others have already pulled/based work on. Since rebase rewrites hashes, doing that forces everyone else to reconcile diverged history (usually via a confusing force-push + `--force-with-lease` dance). Merge is always safe for shared branches; rebase is a local-cleanup tool.\n\nRough shorthand: rebase to *prepare* your branch, merge to *integrate* it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b29ce9ed709a49855133b8dad64eebf3ca6f88fe016da6f66a8e836ea65870aa"
+}

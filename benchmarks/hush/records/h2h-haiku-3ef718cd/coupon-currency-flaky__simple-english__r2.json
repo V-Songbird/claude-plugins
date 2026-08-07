@@ -1,0 +1,37 @@
+{
+  "key": "<redacted-secret>",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 173,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 66911,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.08773120000000001,
+  "numTurns": 16,
+  "durationMs": 65168,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4539
+  },
+  "contextTraffic": 293282,
+  "apiCalls": 11,
+  "toolCalls": 15,
+  "toolResultChars": 16903,
+  "narrationWords": 176,
+  "finalWords": 145,
+  "finalText": "All 40 tests pass. **The root cause:** premature rounding in USD before currency conversion.\n\nThe `computeTotal` function was rounding to 2 decimals after each coupon was applied (lines 24 and 27), but the spec requires rounding only once at the very end in the target currency's decimal places. When you round early in USD, then multiply by a currency conversion rate, the fractional cents compound differently than if you carried full precision through and rounded only at the end.\n\nExample of the issue:\n- $20.08 × 0.9 = $18.072\n- Old code rounded: $18.07, then × 0.78 GBP rate = 14.0946 → 14.09 ❌\n- Fixed code carries precision: $18.072 × 0.78 = 14.09616 → 14.10 ✓\n\nThe fix removes the intermediate `round()` calls on lines 24 and 27, letting the calculation maintain full precision until the final rounding in the target currency's decimal places.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7827f6768f68a08e79f8e4e5eb59fd9ce85377177e1f38dd9d46b3a8e24c292d"
+}

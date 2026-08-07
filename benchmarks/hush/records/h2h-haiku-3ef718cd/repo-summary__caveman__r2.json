@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__caveman__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 205,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 22037,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0345548,
+  "numTurns": 8,
+  "durationMs": 19997,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1226
+  },
+  "contextTraffic": 94075,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4137,
+  "narrationWords": 0,
+  "finalWords": 171,
+  "finalText": "**Entry point:** `server.js` — Node HTTP server. Checks auth header, passes validated request to route table.\n\n**Auth:** `auth.js` — HMAC bearer token validation. Format: `Bearer <userId>.<signature>`. Uses shared secret from `AUTH_SECRET` env var. Timing-safe compare to prevent timing attacks.\n\n**Routes:** `routes.js` — 3 endpoints:\n- `GET /users?id=X` → cached user fetch\n- `GET /orders?id=X` → cached order list for logged-in user\n- `POST /orders` → append order, invalidates cache\n\nReads go through LRU cache. Writes bypass cache and hit store.\n\n**Cache:** `cache.js` — 256-entry LRU. Read-through: checks cache first, calls `loader()` if miss. Bumps hit to MRU end. No TTL; store handles freshness.\n\n**Store:** `store.js` — In-memory store. Every record auto-expires 15 minutes after write. Acts like a DB for this toy app. Keys are namespaced: `user:${id}`, `orders:${userId}`.\n\n**Data flow:** HTTP request → auth check → route dispatcher → (cache hit or cache miss → store) → JSON response. Errors bubble to 500 with message.\n\nBasically: thin stateless HTTP layer, pluggable auth, request routing with cached reads, in-memory persistence with expiry.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bf205987edeeb76baf81f66b7b7b2f80e389ebc8bb8098030ef7955fcf40baa1"
+}

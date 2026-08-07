@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 144,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 46309,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0697492,
+  "numTurns": 11,
+  "durationMs": 44411,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2717
+  },
+  "contextTraffic": 208851,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 14489,
+  "narrationWords": 0,
+  "finalWords": 48,
+  "finalText": "Found the leak. `processOrder` was acquiring a connection but not releasing it when the order validation failed — when `await run()` threw, the exception bubbled up past the `pool.release()` line.\n\nThe fix: refactored it to use the safe `withConnection` wrapper like `handleRequest` already does. All tests now pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "72bc8d1463f50ca574c9fe1418f0b944b7dcf4aa99c8d60ea639cc85897b4371"
+}

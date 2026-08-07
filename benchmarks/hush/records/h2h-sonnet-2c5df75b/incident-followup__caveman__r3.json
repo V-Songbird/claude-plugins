@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__caveman__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 266,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 46300,
+  "check": {
+    "pass": false,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 3)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.3938271,
+  "numTurns": 7,
+  "durationMs": 41214,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2083
+  },
+  "contextTraffic": 397238,
+  "apiCalls": 7,
+  "toolCalls": 4,
+  "toolResultChars": 60285,
+  "narrationWords": 0,
+  "finalWords": 272,
+  "finalText": "Root cause, impact window solid from log. ioredis version — not found (no package-lock.json in dir, checked). Can't state exact version — will flag as open item, not guess.\n\nHere's the handoff:\n\n---\n\n## On-Call Handoff — Prod Outage 2026-07-04\n\n**Status:** Service down at end of log window (02:31:52Z). No recovery entry in `logs/app.log` — confirm current status before assuming resolved.\n\n**Root cause:** Redis instance at `10.0.0.12:6379` became unreachable (`ECONNREFUSED`) at 02:14:07Z. Cache layer degraded to direct store reads, which could not absorb full traffic load. No successful reconnect logged across 12 attempts (02:15:26 – 02:31:26, ~2m20s intervals).\n\n**Impact window:** 02:14:07Z – 02:31:52Z (~18 min), ongoing at log cutoff.\n\n**Cascade:**\n1. 02:14:07 — Redis connection lost, cache layer degraded\n2. 02:14:08 onward — cache miss storms + store timeouts (5000ms) recurring every ~2s across api/worker-1/worker-2/scheduler\n3. 02:14:12 onward — request queue depth climbing steadily\n4. 02:29:06 — queue depth breached configured max (500), kept climbing (no enforcement observed)\n5. 02:31:44 — worker-2 OOM (\"JavaScript heap out of memory, request backlog\"), restarted by supervisor (exit 134)\n6. 02:31:52 — api unresponsive, supervisor killed process group — full service down\n\n**ioredis version:** Unknown — no `package-lock.json` found in this directory. Need this pulled from the actual deploy/repo before checking against changelog for reconnect-backoff fixes.\n\n**Suggested follow-ups:**\n- Confirm current prod status (log doesn't show recovery)\n- Get exact ioredis version from deployed lockfile, not local dir\n- Review reconnect backoff strategy — 12 failed attempts over 17min with no success suggests retry logic may need circuit-breaker or longer backoff tuning\n- Queue depth max (500) was not enforced as hard backpressure — worth revisiting",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "991a6bdb923bbd80004bd1e4ff381c38fffbd72b5ee835c0d7a6dc7e5db8c4e0"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__adhd__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 183,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 32127,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0572311,
+  "numTurns": 11,
+  "durationMs": 30426,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1866
+  },
+  "contextTraffic": 229730,
+  "apiCalls": 9,
+  "toolCalls": 10,
+  "toolResultChars": 8453,
+  "narrationWords": 43,
+  "finalWords": 31,
+  "finalText": "Build succeeded. The deprecation warnings remain (those are noise from Node.js itself), but both real bugs are fixed:\n\n✓ `options.retries` → `options.retryCount`  \n✓ `flags.backoffEnabled` now handles `undefined`\n\nDone. Build is clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "084d3fda3afa2b7a8ce7169c4fe20ce0767c90fa3f005df5e6b58483a5411e2f"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 245,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 21278,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.18952170000000002,
+  "numTurns": 3,
+  "durationMs": 19686,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1287
+  },
+  "contextTraffic": 110957,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 23455,
+  "narrationWords": 0,
+  "finalWords": 193,
+  "finalText": "Redis died and took the whole service down with it.\n\n**What happened**, in order:\n1. `02:14:07` — Redis at `10.0.0.12:6379` went unreachable (`ECONNREFUSED`). The app fell back to hitting the store directly.\n2. That fallback couldn't keep up. Cache-miss storms and 5000ms timeouts started right away, and the request queue climbed steadily from 52 toward its cap of 500.\n3. Every reconnect attempt to Redis failed — 12 in a row, roughly every 2 minutes, all the same `ECONNREFUSED` on `10.0.0.12:6379`. Redis never came back.\n4. By `02:29` the queue blew past its 500 cap and kept growing, past 560.\n5. `02:31:44` — `worker-2` ran out of memory from the backlog and crashed.\n6. `02:31:52` — the API stopped responding and the supervisor killed the whole process group. That's the outage.\n\n**Root cause:** Redis at `10.0.0.12:6379` went down and stayed down for the full 17 minutes. Nothing in the app itself failed first — the direct-store fallback just couldn't absorb the load, and the backlog eventually crashed a worker and then the whole service.\n\n**Next step:** check why `10.0.0.12:6379` was unreachable from that box — that's the thing to fix before this repeats.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0a00fd998b7abd9ce039df9285a512f46eabb3d6365a83833599e8f89ef9b396"
+}

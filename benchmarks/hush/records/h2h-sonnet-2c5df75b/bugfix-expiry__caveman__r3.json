@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__caveman__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 14,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 14899,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.1205745,
+  "numTurns": 6,
+  "durationMs": 13223,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 587
+  },
+  "contextTraffic": 155552,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2111,
+  "narrationWords": 16,
+  "finalWords": 20,
+  "finalText": "All 5 test pass. Fix: `token.js` line 7, `<` to `<=` — expiry instant now count expired, match doc comment.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0c68e685b8f76fe86d7846e78d2e51b302fba1502a90d8c4782150d10d8c170c"
+}

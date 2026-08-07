@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 113,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 6986,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.077679,
+  "numTurns": 1,
+  "durationMs": 4856,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 256
+  },
+  "contextTraffic": 31767,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 125,
+  "finalText": "Both combine two branches' work, but they leave different footprints.\n\n**Merge** keeps both histories and adds a new commit tying them together. Nothing gets rewritten, so it's safe on shared branches, but the log ends up with extra merge commits and side branches tangled in.\n\n**Rebase** replays your commits on top of the other branch, one by one, as if you'd started there. The result is a straight, clean line with no merge commits. The catch: it rewrites commit history, so it's risky on anything already pushed and shared.\n\nRule of thumb: rebase your own local branch before you share it, to keep history tidy. Merge when combining work that others already have, or when you want a true record of how branches came together.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "75fbdea8f2c1ccf99236d8b9f28d545d877f0155d516d7e6620bd542a5b8318e"
+}

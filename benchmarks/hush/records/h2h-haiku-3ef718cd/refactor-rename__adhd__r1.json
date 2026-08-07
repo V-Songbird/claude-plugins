@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__adhd__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 56,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 46060,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0781185,
+  "numTurns": 21,
+  "durationMs": 44491,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3346
+  },
+  "contextTraffic": 273370,
+  "apiCalls": 10,
+  "toolCalls": 20,
+  "toolResultChars": 17785,
+  "narrationWords": 22,
+  "finalWords": 47,
+  "finalText": "All 4 tests pass. Renamed `calcTotal` to `computeTotal` across 5 files:\n- `src/cart.js` — function definition and export\n- `src/index.js` — import and re-export\n- `src/invoice.js` — import and function call\n- `src/report.js` — import and function call\n- `tests/total.test.js` — already expected the new name\n\nDone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4d55cec5697ac1fd21e97c64f8efef6a55689cee472930ecedcab43284f99fb7"
+}

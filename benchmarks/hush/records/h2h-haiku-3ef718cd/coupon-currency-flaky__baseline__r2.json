@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 171,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 55369,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0756023,
+  "numTurns": 12,
+  "durationMs": 53840,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3529
+  },
+  "contextTraffic": 290493,
+  "apiCalls": 12,
+  "toolCalls": 11,
+  "toolResultChars": 11794,
+  "narrationWords": 221,
+  "finalWords": 139,
+  "finalText": "Perfect! All 40 tests pass. The problem was exactly as Finance suspected — **intermediate rounding on stacked discounts**.\n\n**Summary of the bug:**\nThe code was rounding to 2 decimals after applying *each* coupon (percent, then flat), which lost precision. When both discounts stacked, errors compounded. The spec requires rounding exactly once at the very end after currency conversion.\n\n**The fix:**\nRemoved the intermediate `round()` calls after percent and flat discount calculations in `engine.js:24-27`. Now the full precision is maintained through all discount calculations, and only the final converted amount is rounded to the target currency's decimal places (2 decimals for USD/EUR/GBP/CAD, 0 for JPY).\n\nThis explains why the errors were hardest to spot:\n- Single coupons: worked fine (minimal compounding)\n- Stacked coupons: accumulated rounding errors off by 1-2 cents, magnified further in non-USD currencies especially JPY (×149 rate)",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "41c04aacfe4ab7d5f67aaea1543bb51eb0bbf59060c6bd1ea8598e1f5734f89a"
+}

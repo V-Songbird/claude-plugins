@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__adhd__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 61,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 32212,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0552959,
+  "numTurns": 18,
+  "durationMs": 30713,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2587
+  },
+  "contextTraffic": 180856,
+  "apiCalls": 7,
+  "toolCalls": 17,
+  "toolResultChars": 5178,
+  "narrationWords": 31,
+  "finalWords": 48,
+  "finalText": "Done. All 4 tests pass:\n- `computeTotal` sums discounted lines ✓\n- `computeTotal` is exported from cart ✓\n- Invoice uses the shared total ✓\n- Daily report grand total ✓\n\nAll occurrences of `calcTotal` have been renamed to `computeTotal` across the codebase (cart.js, index.js, invoice.js, and report.js).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "45fa8a28f093d07fcfaf0c5b0cabe914817af7dc2deaa7924e0dad762f38532f"
+}

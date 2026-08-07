@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__simple-english__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 211,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 21440,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0335956,
+  "numTurns": 8,
+  "durationMs": 19323,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1389
+  },
+  "contextTraffic": 90071,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4139,
+  "narrationWords": 10,
+  "finalWords": 217,
+  "finalText": "Here is how this project fits together:\n\n**Entry point:** `server.js` creates an HTTP server. Every request first passes through auth verification, then gets routed to a handler.\n\n**Authentication:** `auth.js` verifies bearer tokens. Tokens are HMAC signatures in the format `userId.signature`. The shared secret comes from an environment variable (defaults to `dev-secret`). Uses timing-safe comparison to prevent timing attacks.\n\n**Routing:** `routes.js` defines three endpoints:\n- `GET /users` — read user by ID\n- `GET /orders` — list orders for the authenticated user\n- `POST /orders` — create a new order for the user\n\nReads go through an LRU cache; writes bypass the cache and could invalidate keys. The route handler parses query parameters and always responds with JSON.\n\n**Caching:** `cache.js` is a simple 256-entry LRU cache. It loads data on miss and bumps accessed items to most recent. No TTL here—freshness is the store's responsibility.\n\n**Data store:** `store.js` is an in-memory database. Every record expires 15 minutes after its last write. It provides three methods: `getUser`, `listOrders`, and `putOrder`. Missing order lists return an empty array by default.\n\n**Data flow:** HTTP request → auth check → route dispatch → (cache hit or store access) → JSON response\n\nThis is a slim microservice with local read caching and expiring in-memory state. All five modules are required; nothing is optional.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8a323cac5fbc24fe7a17f64d2df58b60f8169f9171dbcb9f5096583b739151d6"
+}

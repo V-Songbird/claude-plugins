@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 206,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 27769,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.12456320000000001,
+  "numTurns": 8,
+  "durationMs": 26472,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1960
+  },
+  "contextTraffic": 116172,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4526,
+  "narrationWords": 0,
+  "finalWords": 369,
+  "finalText": "Here's the lay of the land — it's a small, single-purpose Node.js HTTP service (no framework, no `package.json` even present, just 5 files under `src/`):\n\n## Request flow\n\n```\nserver.js → auth.js → routes.js → cache.js → store.js\n```\n\n**`server.js`** — the entry point. Spins up a raw `node:http` server, checks every request's `Authorization` header via `auth.js`, and either rejects with 401 or hands off to the route table. Listens on `PORT` env var (default 8080).\n\n**`auth.js`** — bearer token verification. Tokens are `<userId>.<hexSignature>`, where the signature is an HMAC-SHA256 of the userId keyed by `AUTH_SECRET` (env var, defaults to `'dev-secret'`). Uses `timingSafeEqual` to avoid timing attacks. No token *issuance* endpoint here — just `sign()` (exported, presumably used elsewhere/externally) and `verifyToken()`.\n\n**`routes.js`** — a flat table mapping `\"METHOD /path\"` strings to handler functions:\n- `GET /users` → cached lookup by `q.id`\n- `GET /orders` → cached lookup by the authenticated user's id\n- `POST /orders` → direct write, no caching\n\nIt parses the URL for a path + query params, dispatches, and serializes the result as JSON (or 404/500 on failure).\n\n**`cache.js`** — a tiny 256-entry LRU sitting in front of reads. Pure in-memory `Map`, no TTL of its own — eviction is purely LRU-based (<redacted-secret> key gets dropped once size > 256).\n\n**`store.js`** — stands in for a real database. Also an in-memory `Map`, but *this* layer has a 15-minute TTL per record, refreshed on every write. Exposes the domain functions (`getUser`, `listOrders`, `putOrder`) that routes.js calls.\n\n## One thing worth flagging\n\nThe comment in `routes.js` (line 6) says writes \"invalidate the affected keys\" in the cache, but `POST /orders` (`src/routes.js:10`) calls `putOrder` directly — it never touches `cache.js`. So after posting an order, a previously-cached `orders:<userId>` entry will keep serving the stale list until it's LRU-evicted, since the cache has no TTL of its own. That's a real staleness bug relative to what the comment claims, might be worth confirming whether it's known/intentional.\n\nSince there's no `package.json`, test files, or config anywhere — this looks like either a trimmed-down excerpt of a larger service, or a very early-stage project. Want me to check if there's more elsewhere, or dig into any of these pieces in more detail?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c99401b519c06ec6574b9738d3df53f309051030745a1f28f3ccae7867301b5d"
+}

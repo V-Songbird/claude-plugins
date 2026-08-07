@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 91,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 18926,
+  "check": {
+    "pass": false,
+    "score": 0.3333333333333333,
+    "detail": "1/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.10624220000000001,
+  "numTurns": 2,
+  "durationMs": 17206,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1341
+  },
+  "contextTraffic": 63990,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 14,
+  "narrationWords": 0,
+  "finalWords": 139,
+  "finalText": "There's no code here to look at, so this is the general answer.\n\nBy default, React re-renders every child whenever its parent re-renders. It doesn't check if the props actually changed.\n\nThe fix is to wrap the child in `React.memo`. That tells React: skip this one if the props are the same as last time.\n\nBut there's a catch. If you pass a function or an object as a prop, a new one gets built on every render. It looks the same to you, but React sees a different value. So things like `onClick={() => doThing()}` or `style={{color: 'red'}}` will always count as \"changed,\" even with `React.memo` in place.\n\nTo fix that, keep the function stable with `useCallback`, and the object stable with `useMemo`. Then the same value gets passed each time, and `React.memo` can actually do its job.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "dda13190a9af1abd67994f9b75a5faab49a39de15334836a4d5b23c447da4e96"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__adhd__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 292,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 12176,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.047133299999999996,
+  "numTurns": 2,
+  "durationMs": 10713,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 652
+  },
+  "contextTraffic": 58305,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 24908,
+  "narrationWords": 0,
+  "finalWords": 41,
+  "finalText": "**698 passed, 2 failed.**\n\nFailures:\n1. `refreshToken silently accepts an already-revoked token` — auth/tokens.test.js:400\n2. `sessionCleanup leaves orphaned rows after a rollback` — auth/tokens.test.js:650\n\nBoth are in the token/auth layer. Check `auth/tokens.test.js` at those line numbers for what the tests expect.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "328ab64a8dd27beb11c2056efd6e47eb9c2fbbce8aa41b387d1b3189bc5d46d4"
+}

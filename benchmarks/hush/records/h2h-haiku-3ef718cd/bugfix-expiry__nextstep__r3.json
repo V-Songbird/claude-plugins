@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__nextstep__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 12,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "nextstep",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 35757,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0534673,
+  "numTurns": 9,
+  "durationMs": 33477,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1912
+  },
+  "contextTraffic": 183877,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 4270,
+  "narrationWords": 0,
+  "finalWords": 48,
+  "finalText": "The bug was a boundary condition in the `isExpired` function. It was using `<` instead of `<=`, so a token expiring at exactly the current moment slipped through as valid.\n\nChanged line 7 from `return token.exp < nowSeconds;` to `return token.exp <= nowSeconds;`\n\nAll 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3283b162ac3ee3412d3fcaa7e9fc3820467c2f8547221e60a1b3914d9c4f093b"
+}

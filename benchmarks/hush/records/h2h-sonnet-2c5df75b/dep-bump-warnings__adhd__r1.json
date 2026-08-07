@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__adhd__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 183,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 30564,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.19737749999999996,
+  "numTurns": 10,
+  "durationMs": 29179,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1641
+  },
+  "contextTraffic": 296774,
+  "apiCalls": 9,
+  "toolCalls": 9,
+  "toolResultChars": 6401,
+  "narrationWords": 36,
+  "finalWords": 71,
+  "finalText": "Build passes now, exit 0. Fixed two bugs the dependency bump exposed:\n\n1. `src/core/options.js` — reading `options.retries` when the new bundler passes `retryCount`. Crashed on `.toFixed()` of undefined.\n2. `src/net/retryPolicy.js` — strict boolean check threw on `undefined` flags instead of treating them as disabled.\n\nThe remaining 8 warnings are deprecation noise (`fs.exists`, `Buffer()`, punycode, etc.) — not blocking, just cosmetic. Want those cleaned up too, or is unblocked-and-green enough for now?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "beb012e76e10647780226f6206bda4c8a88822780489a1193bd615197c1661df"
+}

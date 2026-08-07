@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__baseline__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 32,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 14592,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.10607,
+  "numTurns": 6,
+  "durationMs": 13005,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 614
+  },
+  "contextTraffic": 144696,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2190,
+  "narrationWords": 17,
+  "finalWords": 32,
+  "finalText": "All 5 tests pass. The bug was an off-by-one in `paginate.js:7` — it used `page * perPage` as the start offset instead of `(page - 1) * perPage`, since pages are 1-indexed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "41ce38a37b825f5d49bfe93f09738bcf8d0e4ed42856fc1bf5d79dc19dc82d4f"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__simple-english__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 92,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 9962,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.06669,
+  "numTurns": 1,
+  "durationMs": 7917,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 651
+  },
+  "contextTraffic": 28947,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 186,
+  "finalText": "A child component re-renders when its parent re-renders, unless the child uses `React.memo`. React does not skip a child render just because the props look the same. `React.memo` performs a shallow comparison of props and skips the render if they match.\n\nEven with `React.memo`, re-renders can still happen for these reasons:\n\n- An inline function prop, such as `onClick={() => doSomething()}`, creates a new function reference on every parent render.\n- An inline object or array prop, such as `style={{color: 'red'}}`, creates a new reference on every parent render.\n- A `children` prop passed as JSX creates a new element on every parent render.\n- A value from context changes, and the child reads that context directly.\n\nTo fix these problems, apply the following:\n\n1. Wrap the child component in `React.memo`.\n2. Wrap function props in `useCallback` in the parent.\n3. Wrap object or array props in `useMemo` in the parent.\n4. Move state that changes often into a smaller component, so it does not force unrelated children to re-render.\n\nIf you want, share the parent and child code. I can point to the exact cause.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "61ff82cfa97bd154566e29efd4dee246914c492cebc45639afad3d3b345f3296"
+}

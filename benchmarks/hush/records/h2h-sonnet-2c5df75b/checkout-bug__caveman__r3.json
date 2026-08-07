@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__caveman__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 52,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 27597,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.195042,
+  "numTurns": 13,
+  "durationMs": 26011,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1705
+  },
+  "contextTraffic": 292553,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 5585,
+  "narrationWords": 16,
+  "finalWords": 28,
+  "finalText": "All 5 tests pass.\n\nBug: `pricing.js` subtracted flat coupon (USD) from already-converted total, treating USD amount as target currency. Fixed: subtract flat amount in USD first, then convert.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "835e7de9833934f1b6785c69c7f9c52ce7e10eaaa6af84820e1ea7faf7624440"
+}

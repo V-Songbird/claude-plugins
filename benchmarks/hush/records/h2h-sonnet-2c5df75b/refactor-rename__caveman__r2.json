@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__caveman__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 63,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31181,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.20703810000000003,
+  "numTurns": 15,
+  "durationMs": 29698,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2163
+  },
+  "contextTraffic": 294744,
+  "apiCalls": 9,
+  "toolCalls": 14,
+  "toolResultChars": 5695,
+  "narrationWords": 23,
+  "finalWords": 16,
+  "finalText": "All 4 test pass. calcTotal gone from src/cart.js, index.js, report.js, invoice.js — renamed to computeTotal everywhere.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4d14554edbc3d06ab0f85c73d7b54777bb402ddb57a1c228a76282757880f17c"
+}

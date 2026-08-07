@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__simple-english__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 260,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 59172,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1287623,
+  "numTurns": 9,
+  "durationMs": 53688,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3432
+  },
+  "contextTraffic": 420048,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 60731,
+  "narrationWords": 10,
+  "finalWords": 40,
+  "finalText": "Done. The handoff document covers root cause (Redis at 10.0.0.12:6379 unreachable), impact window (02:14:07 to service kill at 02:31:44, ~17 min), and notes that ioredis is configured to `^5.4.1` but the exact installed version is unknown without a lock file.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ab286c0fb7e2f32c67b0b58d743e21ff70593829cd09e1a895aa27d431e48666"
+}

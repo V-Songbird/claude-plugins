@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__simple-english__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 80,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 27677,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.184064,
+  "numTurns": 9,
+  "durationMs": 26097,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1557
+  },
+  "contextTraffic": 201782,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 14454,
+  "narrationWords": 78,
+  "finalWords": 86,
+  "finalText": "The build now finishes with exit code 0.\n\n**Root cause**: `src/core/settings.js:17` referenced an undefined variable `retries` instead of `env.retries`, which threw a `ReferenceError` during the link step.\n\n**Fix**: added a `maxRetries` default and read the value from `env.retries` with that fallback, matching the pattern already used for `cacheSize`.\n\nThe build still reports 3 warnings (deprecated `crypto.createCipher` in `src/legacy/adapter.js`, an unused export in `src/utils/format.js`, and a circular import between `src/core/graph.js` and `src/state/tracker.js`). These do not break the build. Tell me if you want those cleaned up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d42da0b771467c8aa32e08fb4960575f85effdfa7d9e40d4aadb881d6e59d676"
+}

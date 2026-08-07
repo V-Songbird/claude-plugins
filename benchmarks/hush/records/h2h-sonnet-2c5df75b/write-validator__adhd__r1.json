@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__adhd__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 126,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 7202,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0693825,
+  "numTurns": 1,
+  "durationMs": 4922,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 234
+  },
+  "contextTraffic": 30526,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 55,
+  "finalText": "```python\nimport re\n\ndef is_valid_email(email: str) -> bool:\n    pattern = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'\n    return bool(re.match(pattern, email))\n```\n\nUsage: `is_valid_email(\"<email>\")` → `True`\n\nNote: this covers common cases, not full RFC 5322 compliance (no quoted strings, IP literals, etc.).\n\nNext: paste a few real email samples you need validated (especially edge cases) and I'll tighten the regex if needed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8a76c55d4f225cfceac4fb1e3beabef4d0a24a0a9d7ad9c63f56528c6f0d1832"
+}

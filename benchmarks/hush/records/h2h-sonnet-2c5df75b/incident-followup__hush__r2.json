@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 258,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 55730,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.3520368,
+  "numTurns": 12,
+  "durationMs": 50043,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2947
+  },
+  "contextTraffic": 465639,
+  "apiCalls": 12,
+  "toolCalls": 9,
+  "toolResultChars": 11904,
+  "narrationWords": 0,
+  "finalWords": 196,
+  "finalText": "**On-call handoff — prod outage, 2026-07-04**\n\n**Root cause:** Redis at `10.0.0.12:6379` dropped at 02:14:07 UTC (`ECONNREFUSED`). The app fell back to hitting the database directly for every request instead of using cache. That fallback path couldn't handle full load — requests started timing out immediately, and the backlog grew nonstop for 17 minutes. Redis tried to reconnect 12 times and never came back. `worker-2` ran out of memory holding the backlog and crashed at 02:31:44, and the supervisor killed the whole process group 8 seconds later.\n\n**Impact window:** 02:14:07 – 02:31:52 UTC (about 18 minutes). Degraded service from the first Redis drop, full outage from 02:31:52 when the supervisor killed the process group.\n\n**ioredis version:** Can't give you an exact one — there's no `package-lock.json` in the repo. `package.json` only pins a range, `^5.4.1`, meaning anything from 5.4.1 up to but not including 6.0.0. You'll want to run `npm ls ioredis` on the actual prod box to get the resolved version before checking it against the changelog.\n\n**Follow-up worth flagging:** why Redis at `10.0.0.12` went unreachable, and whether the fallback path needs a circuit breaker so a dead cache doesn't take the whole service down again.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3a54c2e456dd3c381821cc13b02ac1e003ceecf6c824c989e165a5771ddc6e6a"
+}

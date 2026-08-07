@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__baseline__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 286,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 43607,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.060461,
+  "numTurns": 9,
+  "durationMs": 38960,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3202
+  },
+  "contextTraffic": 221020,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 6256,
+  "narrationWords": 33,
+  "finalWords": 29,
+  "finalText": "Done. Updated all three mentions of the production admin port from 8081 to 9090: the health checks curl command, the Known issues security note, and the environment reference table.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "afa1ace84196c126e8a8cfb1ba3190b276a01d4b840e127faf436306b8f8706f"
+}

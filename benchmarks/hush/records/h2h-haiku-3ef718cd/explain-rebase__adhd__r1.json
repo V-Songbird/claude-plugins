@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__adhd__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 110,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 13223,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.021109799999999998,
+  "numTurns": 1,
+  "durationMs": 11575,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 793
+  },
+  "contextTraffic": 23025,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 312,
+  "finalText": "**What they do**\n\n`merge` combines two branches into one commit, keeping both histories intact. `rebase` replays your commits on top of another branch, rewriting history so it looks linear.\n\n`merge` = \"I'm combining two parallel paths\"\n`rebase` = \"I'm moving my work to start from a newer point\"\n\n**The history looks different**\n\nMerge creates a visible fork-and-join:\n```\nmain:   A—B—C—M (M is the merge commit)\n                /\nfeature: D—E—F\n```\n\nRebase erases the fork:\n```\nmain:   A—B—C\nfeature:       D'—E'—F'\n```\nThe D', E', F' are *new* commits with new hashes, replaying the original changes on top of C.\n\n**When to merge**\n\n- Integrating a finished feature into `main` (leaves a record of the integration)\n- Pulling updates from a shared branch (keeps the shared branch intact)\n- Anything where the team saw the branch as a parallel effort worth recording\n- When the feature branch is already public or others are working on it\n\n**When to rebase**\n\n- Before you merge: rebase your feature branch onto the latest `main` to resolve conflicts locally and keep history clean\n- Cleaning up your own commits before pushing (squashing, reordering, rewording)\n- When you want a linear, easy-to-read history in the main branch\n- Only on branches you haven't shared yet (or only with people who know you'll rebase)\n\n**The crucial rule: never rebase shared history**\n\nIf someone else has checked out your branch, or the branch is on a shared remote, don't rebase. Rewriting history breaks their copy. Use merge instead.\n\n**Practical flow**\n\nMost teams do both:\n1. Rebase your feature branch onto the latest `main` locally (keeps your work tidy, resolves conflicts you own)\n2. Merge the rebased branch into `main` with `git merge --no-ff` (leaves a record, preserves the integration point)\n\nIf you only rebase on `main` without a merge commit, history stays linear but you lose the \"this feature landed here\" signal.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cca4810dc8aede12a576a8463d2b9d8539898040a63adb256984d6fd809dbd24"
+}

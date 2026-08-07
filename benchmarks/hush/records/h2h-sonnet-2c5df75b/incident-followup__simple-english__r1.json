@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__simple-english__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 253,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 55857,
+  "check": {
+    "pass": false,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.4602767,
+  "numTurns": 9,
+  "durationMs": 51546,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4029
+  },
+  "contextTraffic": 489181,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 60473,
+  "narrationWords": 45,
+  "finalWords": 68,
+  "finalText": "Wrote the handoff to `INCIDENT_HANDOFF.md`. Two open items to flag to the next on-call:\n\n- **ioredis version**: not found — `package-lock.json` is not in this directory, so I left that field blank with instructions to run `npm ls ioredis` in the real service repo.\n- **Outage end time**: the log ends at the \"service down\" event with no recovery entry, so the full impact window is not confirmed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3e589c0c17d86a968485b34f0fff22057e559c1972fc80ce0dbebe5112b0eac5"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 214,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 21356,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.11805679999999999,
+  "numTurns": 8,
+  "durationMs": 20048,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1612
+  },
+  "contextTraffic": 117755,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4172,
+  "narrationWords": 6,
+  "finalWords": 314,
+  "finalText": "This is a small, self-contained Node.js HTTP API — just 5 files, no `package.json`/tests in the repo. Here's how it fits together, in request order:\n\n**1. `server.js` — entry point**\nCreates a raw `http.Server`. For every request it calls `verifyToken` on the `Authorization` header; 401s if that fails, otherwise hands off to `route()`. Starts listening on `PORT` (default 8080) when run directly.\n\n**2. `auth.js` — authentication**\nCustom bearer-token scheme: `Bearer <userId>.<hmac-sha256-hex>`, signed with `AUTH_SECRET` (defaults to `'dev-secret'` — worth overriding in any real deployment). Verifies with `timingSafeEqual` to avoid timing attacks. Returns `{ id: userId }` or `null`. Note there's no real user database/password check — trust is entirely in possessing a validly-signed token.\n\n**3. `routes.js` — routing + handlers**\nA flat lookup table keyed by `\"METHOD /path\"` (e.g. `'GET /orders'`), each entry a handler `(query, user) => value`. Three routes: `GET /users`, `GET /orders`, `POST /orders`. Query string is parsed into an object; results are JSON-serialized; unhandled routes get 404, thrown errors get 500.\n\n**4. `cache.js` — read-through LRU**\nWraps reads with an in-memory `Map`-based LRU (256 entries, no TTL). `GET /users` and `GET /orders` go through `cached(key, loader)`.\n\n**5. `store.js` — data layer**\nIn-memory `Map` standing in for a real database, with a 15-minute TTL per record from last write. Exposes `getUser`, `listOrders`, `putOrder`.\n\n**One thing to flag:** `routes.js`'s comment says writes \"invalidate the affected keys,\" but `POST /orders` (`putOrder`) never actually evicts the `orders:${user.id}` entry from the LRU cache — so after a write, cached reads can serve stale order lists for up to 256-entries'-worth of other traffic. That's a real bug you'll likely want to fix if this cache is meant to reflect writes promptly.\n\nOverall shape: `server → auth → routes → cache → store`, a straight-line layered toy API (auth, in-memory cache, in-memory TTL store) — good bones for something small, but nothing here persists across a restart.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bbb89be9fdc3fd14fe311aba19620df1f7a0574e220b2d04090294cbb3ab0928"
+}

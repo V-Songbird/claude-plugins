@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__caveman__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 227,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 12492,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.13263060000000002,
+  "numTurns": 3,
+  "durationMs": 10986,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 657
+  },
+  "contextTraffic": 97921,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 14041,
+  "narrationWords": 0,
+  "finalWords": 48,
+  "finalText": "17 call sites still pass second arg. Most in `src\\reports\\quarterly.js` — 5 (lines 16, 37, 58, 83, 104).\n\nBreakdown by file:\n- reports\\quarterly.js: 5\n- admin\\exports.js: 3\n- billing\\invoice.js: 3\n- checkout\\cart.js: 2\n- reports\\monthly.js: 2\n- billing\\statement.js: 1\n- checkout\\receipt.js: 1\n\n(admin\\dashboard.js, billing\\refunds.js, reports\\ledger.js — clean, zero.)",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "138938aba077096ba8dc2ff3f2f76a593fa4a90af899493cf9a71ede3e146257"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__nextstep__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 209,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "nextstep",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 22737,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1463349,
+  "numTurns": 8,
+  "durationMs": 21064,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1450
+  },
+  "contextTraffic": 132036,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4666,
+  "narrationWords": 0,
+  "finalWords": 160,
+  "finalText": "It's a small Node service, five files, no framework. Request flow is simple: `server.js` → `auth.js` → `routes.js` → `cache.js` / `store.js`.\n\n- `server.js` opens the HTTP server. Every request goes through `verifyToken` first, then to the router.\n- `auth.js` checks bearer tokens shaped like `userId.signature`, signed with HMAC and a shared secret.\n- `routes.js` is a small table matching method and path to a handler. Reads go through the cache, writes hit the store directly.\n- `cache.js` is a 256-entry LRU cache with no expiry of its own.\n- `store.js` is an in-memory stand-in for a database. Every record expires 15 minutes after it's written.\n\nOne thing worth flagging: the comment in `routes.js` says writes invalidate the cache, but `putOrder` never touches `cache.js`. So a cached `GET /orders` can serve stale data after a `POST /orders`, for up to however long that key sits in the LRU.\n\nGood next step is deciding whether to fix that cache invalidation gap.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cf3491efa8c323837fc703c9c78c73cd5527b7959f33490953f334fc714eff90"
+}

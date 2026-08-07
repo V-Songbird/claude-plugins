@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__caveman__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 205,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 22073,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.1310019,
+  "numTurns": 8,
+  "durationMs": 20601,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1428
+  },
+  "contextTraffic": 124908,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4504,
+  "narrationWords": 6,
+  "finalWords": 220,
+  "finalText": "Repo tiny — 5 files, no package.json, no tests. Plain Node.js, zero deps.\n\n**Flow:** `server.js` → `auth.js` → `routes.js` → `cache.js` → `store.js`\n\n- **server.js** — raw `http.createServer`. Every request: pull `Authorization` header, call `verifyToken`. No token, no match = 401. Else hands off to `route()`.\n\n- **auth.js** — bearer token = `<userId>.<hmac-sig>`. Sig = HMAC-SHA256 of userId, secret from `AUTH_SECRET` env (default `'dev-secret'`). Verify via `timingSafeEqual`. No expiry, no real user lookup — just trusts userId if sig matches.\n\n- **routes.js** — table-driven router, key = `\"METHOD /path\"`:\n  - `GET /users` → cached user lookup\n  - `GET /orders` → cached order list (scoped by authed user)\n  - `POST /orders` → write, straight to store\n  \n  Query parsed from URL search params. Response: JSON 200, or 404/500 on miss/error.\n\n- **cache.js** — bare LRU, 256 entries, no TTL. Map-based, bump-on-read for recency.\n\n- **store.js** — fake DB, `Map` in memory. Every record 15min TTL from last write.\n\nBug worth your eye: comment in routes.js:6 claims writes \"invalidate the affected keys\" — code doesn't. `putOrder` never touches `cache.js`. So `orders:${userId}` cache entry serves stale data after a POST until it ages out of LRU or the *store's* 15min TTL kicks in (cache itself has no TTL). Real bug or comment lying about a removed feature — worth check with whoever wrote it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c1941421244a134ddeb9fbfcb9b93ede5b40771a596bf256501070bab3b22c55"
+}

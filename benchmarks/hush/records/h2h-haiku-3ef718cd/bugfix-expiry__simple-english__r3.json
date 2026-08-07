@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__simple-english__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 16,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 25394,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0417561,
+  "numTurns": 8,
+  "durationMs": 23635,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1673
+  },
+  "contextTraffic": 140714,
+  "apiCalls": 6,
+  "toolCalls": 7,
+  "toolResultChars": 4142,
+  "narrationWords": 70,
+  "finalWords": 99,
+  "finalText": "Done! All tests are passing. The bug was in the `isExpired` function at token.js:7. It used `<` when it should use `<=`.\n\n**The issue:** The code checked `token.exp < nowSeconds`, which returned `false` when a token's expiry time equaled the current time. This allowed tokens that expired exactly now to slip through as valid.\n\n**The fix:** Changed the comparison to `token.exp <= nowSeconds`. Now tokens are correctly considered expired the moment their expiry time is reached, not after.\n\nAll 5 tests now pass, including the critical test that validates tokens expiring exactly at the current moment are properly rejected.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "aa67a224c04925db284fb5a2564f892c84bb2fa7a263aa81074fbd74413f1a7c"
+}

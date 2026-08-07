@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__simple-english__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 112,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 18347,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0758,
+  "numTurns": 1,
+  "durationMs": 16795,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1258
+  },
+  "contextTraffic": 28948,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 174,
+  "finalText": "**The core difference**\n\nGit merge joins two branches. It creates a new commit with two parents, and it combines both histories into one. The original commits do not change.\n\nGit rebase moves the commits from one branch onto the tip of another branch. It rewrites each commit with a new hash, and it produces a straight line of commits with no merge commit.\n\n**When to use merge**\n\nUse merge on a branch that other people use. Merge keeps the true history of the project, and it does not change existing commits, so it is safe for shared branches.\n\n**When to use rebase**\n\nUse rebase to clean up commits on your own local branch before you share it. Rebase produces a linear history that is easier to read.\n\nDo not rebase a branch that other people already pulled. Rebase changes commit hashes. This action breaks the history for anyone who has a copy of the old commits.\n\n**Simple rule**\n\nIf the branch is private, you can rebase it. If the branch is public, use merge.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "404bc70f050ae1b0f3cb3b42a347eb824867317213cf8a5be44a4d0402de75f8"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__adhd__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 125,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 12628,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0769215,
+  "numTurns": 1,
+  "durationMs": 10836,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 731
+  },
+  "contextTraffic": 30540,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 322,
+  "finalText": "## Core mechanical difference\n\n**Merge** creates a new commit that ties two branch histories together. Both parent commits stay exactly as they were; a new \"merge commit\" sits on top pointing to both.\n\n**Rebase** rewrites history. It takes your branch's commits, throws them away, and replays them one-by-one on top of a new base — creating brand-new commits (new hashes) with the same changes.\n\n## What that means in practice\n\n**Merge:**\n- History shows the true shape of what happened, including when branches diverged and reconverged.\n- Nothing is rewritten — safe on shared/public branches.\n- History gets messy with lots of merge commits (\"merge bubbles\") on active repos.\n\n**Rebase:**\n- History becomes a straight line — looks like you wrote everything sequentially on top of `main`.\n- Original commits are destroyed and replaced. Anyone else who had the old commits now has a diverging, incompatible history.\n- Conflicts get resolved one commit at a time (can mean resolving the same conflict repeatedly) instead of once, all at once like merge.\n\n## When to reach for each\n\n1. **Rebase your own local/feature branch before opening a PR** — cleans up \"wip\", \"fix typo\" commits into a readable story, and lets the PR apply as a clean fast-forward.\n2. **Merge when combining a completed feature branch into `main`** — preserves the record of what happened and when, and is safe once others may have pulled the branch.\n3. **Never rebase a branch others are already pulling from** — it rewrites hashes and breaks their local history (force-push hell).\n4. **Use `git pull --rebase` for your own commits vs. upstream changes** — avoids pointless merge bubbles from routine \"sync with main\" pulls.\n\n**The one-line rule:** rebase to clean up history *before* it's shared, merge to combine history *after* it's shared.\n\nNext: if you're deciding right now for a specific branch, tell me whether anyone else has pulled it — that determines rebase-safe or not.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "12c6a0f902e1e7f2dc13a0e720015642af9b8e8ec6e939df14eda649f5b01790"
+}

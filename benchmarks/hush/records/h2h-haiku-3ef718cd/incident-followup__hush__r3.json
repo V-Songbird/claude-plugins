@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 267,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 43406,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0657323,
+  "numTurns": 8,
+  "durationMs": 37192,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2348
+  },
+  "contextTraffic": 216291,
+  "apiCalls": 8,
+  "toolCalls": 5,
+  "toolResultChars": 5171,
+  "narrationWords": 0,
+  "finalWords": 42,
+  "finalText": "Handoff written to `INCIDENT_HANDOFF.md`. It covers the Redis connection loss at 02:14:07, the 17-minute cascade from cache misses through queue buildup to out-of-memory crash, and notes that ioredis is declared as ^5.4.1 but the exact version is unknown without a package-lock.json file.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6780a171c0620cab452e38203698f31a51b5fa497053dfda27298a06ee5de2ee"
+}

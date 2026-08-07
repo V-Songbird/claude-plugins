@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__adhd__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 61,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 32183,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.19237110000000002,
+  "numTurns": 15,
+  "durationMs": 30649,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2311
+  },
+  "contextTraffic": 232011,
+  "apiCalls": 7,
+  "toolCalls": 14,
+  "toolResultChars": 5676,
+  "narrationWords": 27,
+  "finalWords": 13,
+  "finalText": "All 4 tests pass. Renamed `calcTotal` → `computeTotal` in `cart.js`, `index.js`, `invoice.js`, `report.js`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c9252ae47afc86d6e4dd3d77982bedcabd292ce3d4460ccaa80ce8083c721e03"
+}

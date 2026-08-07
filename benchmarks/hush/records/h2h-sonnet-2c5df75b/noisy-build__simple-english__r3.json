@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__simple-english__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 88,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 20399,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1705986,
+  "numTurns": 7,
+  "durationMs": 18702,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1052
+  },
+  "contextTraffic": 199556,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 14040,
+  "narrationWords": 47,
+  "finalWords": 73,
+  "finalText": "The build now completes with exit code 0.\n\n**Root cause:** `src/core/settings.js:17` referenced an undefined variable `retries` instead of `env.retries`, throwing a `ReferenceError` during the link stage.\n\n**Fix:** changed it to `env.retries || 3`, matching the comment's stated intent (fall back to a constant if not provided).\n\nThe 3 warnings (`deprecated-api`, `unused-export`, `circular-import`) and ~900 lines of compile/dedupe noise were unrelated and still present but harmless — the build now finishes with 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b8c7b08b5dc93a4eea1ed12e5203d3aca7a739ed84d9bf474f3cf50e3c975066"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__simple-english__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 2,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16236,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.23245930000000004,
+  "numTurns": 6,
+  "durationMs": 13842,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 788
+  },
+  "contextTraffic": 148957,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2118,
+  "narrationWords": 43,
+  "finalWords": 48,
+  "finalText": "All 5 tests pass now.\n\nFixed `isExpired` in `token.js:7`: it used `<` instead of `<=`, so a token with `exp` equal to the current time counted as valid. The comment on line 4 says a token expires \"the moment `exp` is reached,\" so the check now uses `<=`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "03c7fcac750b06737a6011efaeb1ffe30d36b0e8335f1a978d99a157e55a3ee5"
+}

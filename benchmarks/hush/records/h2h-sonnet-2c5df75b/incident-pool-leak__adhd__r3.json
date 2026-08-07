@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__adhd__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 157,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28879,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.17790240000000002,
+  "numTurns": 10,
+  "durationMs": 26838,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1619
+  },
+  "contextTraffic": 230466,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 7267,
+  "narrationWords": 46,
+  "finalWords": 97,
+  "finalText": "All 4 tests pass.\n\n**Root cause:** `src/jobs/processOrder.js` acquired a pool connection but released it only on the success path — no try/finally. Every failed order (bad payload, timeout, etc.) permanently ate one connection. `worker.log` shows order-4013 failing with no matching \"connection released\" line, consistent with steady leakage until the pool hit zero around 2am.\n\n**Fix:** wrapped the `run(conn, order)` call in try/finally so `pool.release(conn)` always runs, matching the pattern already used correctly in `src/handlers/api.js`.\n\nNext: redeploy the worker with this fix — the pool won't self-heal on its own for connections already leaked in the current process.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a8666ab67a06a90ef866ab326a913697550d197a8bfbc4c25b6b67d4a9cb98bc"
+}

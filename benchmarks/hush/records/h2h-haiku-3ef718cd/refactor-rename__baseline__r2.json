@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__baseline__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 62,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 30417,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.04761909999999999,
+  "numTurns": 17,
+  "durationMs": 29039,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2482
+  },
+  "contextTraffic": 142183,
+  "apiCalls": 6,
+  "toolCalls": 16,
+  "toolResultChars": 4923,
+  "narrationWords": 69,
+  "finalWords": 61,
+  "finalText": "Perfect! All tests pass. The refactoring is complete. I've successfully renamed the `calcTotal` API to `computeTotal` across:\n\n- **src/cart.js** - renamed the function definition and export\n- **src/index.js** - updated the import and re-export\n- **src/invoice.js** - updated the import and function call\n- **src/report.js** - updated the import and function call\n\nAll 4 tests pass, confirming the migration is successful.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6cab6a5be076a27d00952ac856cc0ee2cd3757c0fa27ba9c1b90d11ef3ee05ea"
+}

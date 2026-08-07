@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__caveman__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 26,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 18520,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.12247919999999998,
+  "numTurns": 6,
+  "durationMs": 16708,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 665
+  },
+  "contextTraffic": 155911,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2200,
+  "narrationWords": 20,
+  "finalWords": 22,
+  "finalText": "All 5 pass. Off-by-one bug: `start` used `page * perPage` (0-indexed math) but pages 1-indexed. Fixed to `(page - 1) * perPage`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "37dfbad70c64d443ccec2592c45936609505078b58676f04cb754d0a58399cf5"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__simple-english__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 208,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 22187,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0373039,
+  "numTurns": 10,
+  "durationMs": 20684,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1472
+  },
+  "contextTraffic": 113572,
+  "apiCalls": 5,
+  "toolCalls": 9,
+  "toolResultChars": 4312,
+  "narrationWords": 22,
+  "finalWords": 218,
+  "finalText": "Here is the architecture. This is a Node.js HTTP server with five layers:\n\n**Server (server.js)** — Entry point. Creates an HTTP server that verifies tokens from the `Authorization` header before passing requests downstream. Runs on port 8080 (or `$PORT`).\n\n**Authentication (auth.js)** — Token verification. Validates bearer tokens in the format `userId.signature` using HMAC-SHA256. Reads the secret from `AUTH_SECRET` environment variable (defaults to `'dev-secret'` for local testing).\n\n**Routes (routes.js)** — Dispatcher. Maps HTTP methods and paths to handler functions. Three endpoints:\n- `GET /users` — Fetch a single user (cached)\n- `GET /orders` — List orders for the current user (cached)\n- `POST /orders` — Add an order for the current user (bypasses cache, invalidates the list)\n\n**Store (store.js)** — In-memory data layer. Holds key-value records with automatic expiry (15 minutes after last write). Provides functions to read users and manage orders per user.\n\n**Cache (cache.js)** — Read-through LRU cache. Sits in front of the store to avoid repeated reads. Holds up to 256 entries, no TTL (the store handles freshness).\n\n**Request flow:** Incoming HTTP request → server checks token → route dispatcher sends to the right handler → handler checks cache, or calls store if miss → response serialized as JSON.\n\nIt's a simple order-management system. No real database; data lives in memory and expires after idle time.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d2e333001ae606664b2b0f8fe81f941149459f3be2ae4c0f11651c3d534381e1"
+}

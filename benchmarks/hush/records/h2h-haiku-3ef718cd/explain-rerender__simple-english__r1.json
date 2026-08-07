@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__simple-english__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 92,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11045,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0188142,
+  "numTurns": 1,
+  "durationMs": 8645,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 711
+  },
+  "contextTraffic": 21787,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 186,
+  "finalText": "The most common cause is that the **parent re-renders**, which re-renders all children by default—even with identical props. Here are the typical culprits:\n\n**1. Inline object/array props (most common)**\n```jsx\n// ❌ Creates a new object every render\n<Child data={{name: \"Alice\"}} />\n\n// ✅ Create once outside the component\nconst data = {name: \"Alice\"};\n<Child data={data} />\n```\n\n**2. Inline function props**\n```jsx\n// ❌ New function every render\n<Child onClick={() => console.log(\"clicked\")} />\n\n// ✅ Use useCallback to memoize\nconst handleClick = useCallback(() => console.log(\"clicked\"), []);\n<Child onClick={handleClick} />\n```\n\n**3. Child not memoized**\n```jsx\n// ❌ Always re-renders when parent re-renders\nexport function Child({name}) {\n  return <div>{name}</div>;\n}\n\n// ✅ Skip re-render if props are the same\nexport const Child = React.memo(({name}) => {\n  return <div>{name}</div>;\n});\n```\n\n**To debug**, add a log to your child component:\n```jsx\nexport const Child = React.memo(({name}) => {\n  console.log(\"Child rendered with props:\", name);\n  return <div>{name}</div>;\n});\n```\n\nIf you see the log every time even though the `name` value doesn't change, one of the above is the issue. Share your code if you need help pinpointing it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "96be2354b483ed3fad4d68c1918e7c841e17a0aef93f8099226eaf5f695c0bcf"
+}

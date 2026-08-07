@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__caveman__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 197,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 44214,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.08085600000000001,
+  "numTurns": 13,
+  "durationMs": 42296,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2465
+  },
+  "contextTraffic": 359228,
+  "apiCalls": 13,
+  "toolCalls": 12,
+  "toolResultChars": 18770,
+  "narrationWords": 24,
+  "finalWords": 41,
+  "finalText": "Done. Two real bugs buried in the warnings:\n\n1. **options.js** — function read `options.retries` but new bundler passes `options.retryCount`\n2. **retryPolicy.js** — strict check didn't handle `undefined` flag (new config loader default), threw instead of defaulting to disabled\n\nBuild now clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1d5e746932c235134666ebabcb20f06530fb6e4c669f6ff1b46886e389210880"
+}

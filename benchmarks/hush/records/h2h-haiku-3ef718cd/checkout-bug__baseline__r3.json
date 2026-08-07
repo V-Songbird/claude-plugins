@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__baseline__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 48,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 43304,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.05858870000000001,
+  "numTurns": 9,
+  "durationMs": 42039,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2927
+  },
+  "contextTraffic": 217501,
+  "apiCalls": 9,
+  "toolCalls": 8,
+  "toolResultChars": 7347,
+  "narrationWords": 125,
+  "finalWords": 118,
+  "finalText": "Perfect! All tests are now passing. \n\n**Summary of the fix:**\n\nThe bug was in `src/services/pricing.js`. When a flat-amount coupon (stored in USD) was applied to a non-USD currency order, it was being subtracted from the already-converted total—treating the USD coupon amount as if it were in the target currency.\n\nFor example:\n- **Buggy:** 100 USD → 90 EUR (converted) → 90 - 10 = 80 EUR ❌ (treated the $10 coupon as 10 EUR)\n- **Fixed:** 100 USD - 10 USD = 90 USD → 90 * 0.9 = 81 EUR ✓\n\nThe solution was to apply flat coupons **before** currency conversion, while keeping percent coupons applied **after** conversion (since percentages are currency-agnostic). All 5 tests now pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d7e56e31bed27a8a1f80092e15f6e0bba3adafacb97b813ea70f07d238e640fe"
+}

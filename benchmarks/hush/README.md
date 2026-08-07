@@ -99,6 +99,23 @@ The tasks: **17** in all, across five segments:
 
 Every repo the tool tasks run in is a purpose-built fixture — a small seeded project with the bug, the noisy log, or the document already in place, not an open-source checkout. That keeps runs comparable and cheap; it also means the suite measures those shapes of work, not the shape of your repo.
 
+## How hard is the answer to read?
+
+Cost is only half of what a plugin changes. `readability.js` scores the one final
+message every arm shipped, on measures that predate all of them — Flesch Reading
+Ease, Flesch-Kincaid grade level, words per sentence, the share of long words,
+whether the reply opens with the answer, and whether it hands you something to run:
+
+```bash
+node runner/readability.js --records records/mine-1a2b3c4d --by-segment
+```
+
+Same code scores every arm, so no tool is marked against its own rulebook. It is a
+regex pass over markdown, not a reader: syllables come from the usual vowel-group
+heuristic, wrong on some words in every English text and wrong the same way for
+every arm. The numbers compare two texts scored by the same version. They are not
+a literacy verdict.
+
 ## Records you can audit
 
 Every run leaves two copies. `results/<tag>/` is yours: raw transcripts and reports, full of your paths and your machine's name, and gitignored so it stays put. `records/<batch>/` is the auditable copy — the same numbers with absolute paths, usernames, machine names, env values and anything secret-shaped scrubbed out before the file is written. Records are written once and stamped with a content hash: a second write to the same name is refused, and an edited record is caught on read rather than quietly published. They land read-only, so on Windows a batch you no longer want needs its read-only attribute cleared before it will delete — `attrib -R records\<batch>\*.* /S` and then remove the folder.

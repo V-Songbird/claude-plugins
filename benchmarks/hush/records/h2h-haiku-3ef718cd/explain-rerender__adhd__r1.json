@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__adhd__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 93,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10422,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0203968,
+  "numTurns": 1,
+  "durationMs": 8841,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 650
+  },
+  "contextTraffic": 23026,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 207,
+  "finalText": "Add `console.log` to your child component and check if the props object reference is changing:\n\n```jsx\nfunction Child({ data, callback }) {\n  console.log('Child rendered', { data, callback })\n  return <div>{data}</div>\n}\n```\n\nOpen DevTools and watch the console. If you see the logs repeat with **different** object/function references even though the values look the same, that's the problem.\n\n**Three most likely causes:**\n\n1. **Parent creates props inline** — if your parent does `<Child onClick={() => {...}} />` or `<Child data={{x: 1}} />`, those are new objects every render. Fix: move them outside the JSX or wrap the child in `React.memo`.\n\n2. **Parent re-renders for unrelated reasons** — parent's state/props change, so it re-renders, which re-renders the child regardless. Fix: memoize the child with `React.memo(Child)`.\n\n3. **Key prop is unstable** — if you're rendering a list and the key changes, React treats it as a new component. Fix: use stable IDs, not array indices.\n\n**Quick fix to test:** wrap your child in `React.memo`:\n\n```jsx\nexport default React.memo(Child)\n```\n\nDoes that stop the re-renders? If yes, your parent is passing new object/function references. If no, the parent itself is not re-rendering — something else is triggering the child.\n\nRun the console test and let me know what you see.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8a9dc38de95742f1abf56b95bb03d56f4bf7d5621986b07f06f789742840f1ce"
+}

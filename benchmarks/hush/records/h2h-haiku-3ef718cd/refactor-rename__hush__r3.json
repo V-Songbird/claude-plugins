@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__hush__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 68,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 32961,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0686139,
+  "numTurns": 18,
+  "durationMs": 31219,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2378
+  },
+  "contextTraffic": 188419,
+  "apiCalls": 7,
+  "toolCalls": 17,
+  "toolResultChars": 4764,
+  "narrationWords": 0,
+  "finalWords": 13,
+  "finalText": "All occurrences of `calcTotal` have been renamed to `computeTotal`. All 4 tests pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f1ddca8d5b06a520419beaf2657c50cc87934b6bcbe9992225494f167030aa61"
+}

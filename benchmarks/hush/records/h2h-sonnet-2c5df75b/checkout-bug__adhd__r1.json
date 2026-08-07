@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__adhd__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 38,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 26168,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.174375,
+  "numTurns": 12,
+  "durationMs": 24636,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1637
+  },
+  "contextTraffic": 227593,
+  "apiCalls": 7,
+  "toolCalls": 11,
+  "toolResultChars": 4952,
+  "narrationWords": 26,
+  "finalWords": 41,
+  "finalText": "All 5 tests pass.\n\nCause: `pricing.js` subtracted the flat coupon amount (stored in USD) from the total after currency conversion, treating a USD amount as if it were in the target currency. Fixed by subtracting the coupon in USD before converting.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "35e8e59ea80840788bdb75bcd065a28ef505fd3604046ef710dce55901af8c5e"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__adhd__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 230,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10442,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0239542,
+  "numTurns": 2,
+  "durationMs": 8573,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 619
+  },
+  "contextTraffic": 46778,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 1218,
+  "narrationWords": 10,
+  "finalWords": 62,
+  "finalText": "**17 call sites pass the legacy rounding flag. `src/reports/quarterly.js` has the most with 5.**\n\nBreakdown:\n- `src/reports/quarterly.js`: 5 calls\n- `src/admin/exports.js`: 3 calls\n- `src/billing/invoice.js`: 3 calls\n- `src/reports/monthly.js`: 2 calls\n- `src/checkout/cart.js`: 2 calls\n- `src/billing/statement.js`: 1 call\n- `src/checkout/receipt.js`: 1 call\n\nAll pass `true` as the second argument.\n\nNext: Want me to remove the second argument from all of them?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "07687ec73e9c639ece2b62b3765d35d49aa9d83a5464971bf8c2f3d0a6e2eed8"
+}

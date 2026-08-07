@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__simple-english__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 192,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 30706,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2140802,
+  "numTurns": 10,
+  "durationMs": 29247,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1802
+  },
+  "contextTraffic": 273769,
+  "apiCalls": 8,
+  "toolCalls": 9,
+  "toolResultChars": 15845,
+  "narrationWords": 30,
+  "finalWords": 93,
+  "finalText": "The build now finishes with 0 errors. The remaining 8 warnings are unrelated deprecation notices from the bumped package itself, not from your code.\n\nRoot cause: the bundler bump changed the options shape it passes to modules.\n\n1. `src/core/options.js` — `resolveRetries` still read `options.retries`, but the new bundler sends `retryCount`. Fixed to read `options.retryCount`.\n2. `src/net/retryPolicy.js` — `isBackoffEnabled` treated any non-boolean as an error, but the new config loader leaves unset flags as `undefined` instead of `false`. Fixed to treat `undefined` as disabled.\n\nBuild now finishes in 44.9s with 8 warnings, 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c81676f5a9a58678065a6ffeb25722f4db1c5d5c351dac16b19b02e597a969ed"
+}

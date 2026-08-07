@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__nextstep__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 118,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11266,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.080592,
+  "numTurns": 1,
+  "durationMs": 9349,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 397
+  },
+  "contextTraffic": 31900,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 213,
+  "finalText": "Both take two branches of history and combine them, but they leave different footprints.\n\n**Merge** adds a new commit that ties the two histories together, with both parents kept. Nothing gets rewritten. Your history shows exactly what happened, including a fork and a joint, but it can get messy with lots of little \"merge\" commits.\n\n**Rebase** takes your commits and replays them one by one on top of the other branch, like moving a stack of boxes to a new starting point. The result looks like a straight line, as if you'd built your work on the latest code from the start. But it rewrites commit history, so it's risky on anything shared.\n\nA simple rule for picking:\n- Working alone on a feature branch, want a clean, readable line → **rebase** before merging in.\n- Branch is shared with others, or already pushed and pulled by someone else → **merge**, never rebase it out from under them.\n- Bringing your feature branch up to date with the latest main → either works, but rebase gives a tidier result if nobody else is using your branch.\n\nThe one hard rule: never rebase a branch other people have already pulled. It rewrites commits they already have, and their next pull turns into a mess.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "400ed16d9c12c57d732cfe9b0d78edf11d18a883de60a8ade20c2f2ea46b6bd9"
+}

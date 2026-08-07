@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__hush__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 293,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 14110,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1292556,
+  "numTurns": 4,
+  "durationMs": 12526,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 643
+  },
+  "contextTraffic": 133376,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 3124,
+  "narrationWords": 0,
+  "finalWords": 38,
+  "finalText": "700 tests ran, 698 passed. Two failed, both in `auth/tokens.test.js`:\n\n1. `refreshToken silently accepts an already-revoked token` — line 400\n2. `sessionCleanup leaves orphaned rows after a rollback` — line 650\n\nEverything else in the run was clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fbe322d084100283bc27e0123b2cfc045b520e08fce9f74099a3c1cd9fb29db0"
+}

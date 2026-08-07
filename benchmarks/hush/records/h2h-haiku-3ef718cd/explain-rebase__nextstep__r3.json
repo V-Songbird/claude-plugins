@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__nextstep__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 121,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11930,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.022676199999999997,
+  "numTurns": 1,
+  "durationMs": 10232,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 568
+  },
+  "contextTraffic": 24081,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 206,
+  "finalText": "**Merge** combines two branches by creating a commit that says \"these two lines of work came together here.\" It keeps both branches visible in your history — you can see when they split and when they joined. It's safe because it doesn't rewrite what's already done.\n\n**Rebase** takes your commits and replays them on top of another branch, like you wrote them there all along. It rewrites history to look like a straight line instead of branches. Cleaner to read, but if other people have your commits, you can break their work.\n\nReach for **merge** when: you're joining long-lived branches (main ← feature), other people are using your commits, or the merge itself is a meaningful event worth recording. Most team repos do this.\n\nReach for **rebase** when: you're syncing your local branch with main before pushing, you want to clean up a feature branch's history before the merge, or you're the only one using these commits. It's also safe on branches nobody else has pulled.\n\nThe middle ground a lot of teams use: rebase locally to stay synced and keep your branch tidy, then merge to main with a merge commit. That way your history on main reads clearly, but your local work wasn't messy.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6de0cdf3c3181138d76875a871d20ca468a6194551cad4829d67c0b0184f262c"
+}

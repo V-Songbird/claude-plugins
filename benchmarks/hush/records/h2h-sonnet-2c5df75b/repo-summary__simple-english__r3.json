@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__simple-english__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 211,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 46076,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.155746,
+  "numTurns": 7,
+  "durationMs": 44600,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4431
+  },
+  "contextTraffic": 89453,
+  "apiCalls": 3,
+  "toolCalls": 6,
+  "toolResultChars": 4107,
+  "narrationWords": 11,
+  "finalWords": 387,
+  "finalText": "This is a small Node.js HTTP service with five files. Each file has one job.\n\n**src/server.js** — This file starts the HTTP server. It reads the authorization header on each request and calls `verifyToken`. If the token is invalid, the server returns a 401 response. If the token is valid, the server passes the request to the route table in `routes.js`. The server listens on the `PORT` environment variable, or on port 8080 by default.\n\n**src/auth.js** — This file signs and checks bearer tokens. A token has the form `<userId>.<signature>`, where the signature is an HMAC-SHA256 hash of the user ID. The `AUTH_SECRET` environment variable holds the signing secret, with a fallback of `'dev-secret'`. The comparison uses `crypto.timingSafeEqual` to prevent timing attacks.\n\n**src/routes.js** — This file maps a method and a path to a handler function, for example `GET /users` or `POST /orders`. Read handlers wrap their store calls in `cached()`. The write handler, `POST /orders`, calls the store directly. Each handler returns a JSON response. The router returns a 404 response when no route matches, and a 500 response when a handler throws an error.\n\n**src/cache.js** — This file implements a small LRU cache with 256 entries and no expiration. The `cached()` function stores a value the first time a key is requested. On later requests for the same key, the cache returns the stored value instead of calling the loader again.\n\n**src/store.js** — This file is a stand-in for a real database. It keeps records in a `Map`, and each record expires 15 minutes after its last write. The functions `getUser`, `listOrders`, and `putOrder` build on two low-level operations, `get` and `put`.\n\n**How the pieces connect** — A request flow starts at `server.js`, which checks the token through `auth.js`. `server.js` passes valid requests to `routes.js`. `routes.js` reads through `cache.js`, and `cache.js` reads and writes through `store.js` when a value is missing.\n\n**One issue to flag** — The comment in `routes.js` states that writes invalidate affected cache keys, but `POST /orders` does not call the cache. Because of this gap, a cached `orders:<userId>` entry can serve stale data. The stale entry remains until an LRU eviction removes it, which can take a long time under light load. Fix this by adding a cache invalidation call to `POST /orders`, or by adding a short TTL to `cached()`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "938f6c604f0c293aacfae126878802c301496368dc60425c518776b04ccde085"
+}

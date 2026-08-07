@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__hush__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 50,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 43830,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0644443,
+  "numTurns": 14,
+  "durationMs": 41924,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2595
+  },
+  "contextTraffic": 218593,
+  "apiCalls": 8,
+  "toolCalls": 13,
+  "toolResultChars": 7035,
+  "narrationWords": 0,
+  "finalWords": 86,
+  "finalText": "Fixed the coupon bug. The problem was that flat-amount coupons stored in USD were being subtracted from the already-converted total, treating the coupon as if it were in the target currency.\n\nWith a $100 order in EUR and a $10 flat coupon, the code was doing: convert to EUR (90) → subtract $10 (80). It should convert the coupon too: convert to EUR (90) → subtract converted coupon $9 (81).\n\nThe fix converts the coupon to the target currency before subtracting it. All 5 tests pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6c1702fc30c3c7cd77c1719b6e2256251d8b129904c0485b8d9e99c7efb059e1"
+}

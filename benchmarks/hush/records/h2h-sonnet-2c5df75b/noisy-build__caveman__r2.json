@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__caveman__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 78,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 19976,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.236034,
+  "numTurns": 7,
+  "durationMs": 18353,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 856
+  },
+  "contextTraffic": 207350,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 33694,
+  "narrationWords": 13,
+  "finalWords": 49,
+  "finalText": "Build clean, exit 0.\n\nReal error: `src/core/settings.js` referenced undefined var `retries` (should've been `env.retries`) — ReferenceError killed link stage. Fixed:\n\n```js\nmaxRetries: env.retries || 3,\n```\n\nRest was noise: compile spam, tree-shake notes, dedupe passes, 3 harmless warnings (deprecated crypto API, unused export, circular import) — none caused failure.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "76dfb25274bd984020caef953f90c182a3bfdc1447c2f83b0ceb8219f9076d22"
+}

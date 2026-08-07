@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__adhd__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 24,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 23068,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.042142700000000005,
+  "numTurns": 6,
+  "durationMs": 21511,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1622
+  },
+  "contextTraffic": 144842,
+  "apiCalls": 6,
+  "toolCalls": 5,
+  "toolResultChars": 2184,
+  "narrationWords": 105,
+  "finalWords": 30,
+  "finalText": "All 5 tests passing. The bug was an off-by-one error: pages are 1-indexed, so the start position needs to subtract 1 from the page number to convert to array indices.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "994bb1a7a74935583b5cea8558c9ec1086bed9b95e2ce3e83702a892698e1c85"
+}

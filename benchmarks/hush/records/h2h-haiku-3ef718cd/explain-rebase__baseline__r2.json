@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 116,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9699,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0169758,
+  "numTurns": 1,
+  "durationMs": 7816,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 569
+  },
+  "contextTraffic": 21215,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 176,
+  "finalText": "**Merge** creates a new commit that combines two branches, keeping both histories intact. The result has two parents and explicitly shows when branches converged.\n\n**Rebase** replays one branch's commits on top of another, rewriting history to look linear. It's destructive—commits get new SHAs as they're replayed.\n\n**When to reach for each:**\n\n- **Merge**: Default for shared/published branches. Safe because it doesn't rewrite history. Use when you want the record of \"this feature branch existed\" or when multiple people have based work on the branch.\n\n- **Rebase**: Use on *local* branches before pushing, or when you're the only one working on it. Produces a cleaner, linear history. Good for \"catching up to main\" before opening a PR, or squashing work while you're still iterating.\n\n**The tradeoff:** Rebase looks cleaner but is destructive—rewriting history on a branch others depend on breaks their checkouts. Merge is safer but accumulates \"merge commit clutter\" in heavily-branched workflows.\n\n**Practical rule:** Rebase locally to clean up your branch. Merge to integrate into shared branches. Never force-push a rebase of something others have pulled.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4bd9b02ac79760c56d7f24be3e0b277c60be6a7f0f6a892bb414c8a412b81e7c"
+}

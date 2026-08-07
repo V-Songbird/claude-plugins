@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__simple-english__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 115,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 20375,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.084515,
+  "numTurns": 1,
+  "durationMs": 18926,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1839
+  },
+  "contextTraffic": 28948,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 236,
+  "finalText": "Git merge and git rebase both combine changes from one branch into another, but they change the commit history in different ways.\n\n**Merge**\nGit merge combines two branches and creates a new commit with two parents. Merge keeps the full history of both branches. The history includes all original commits, in order. The commit graph shows exactly when and how the branches diverged and joined.\n\n**Rebase**\nGit rebase moves a series of commits onto a new base commit. Rebase rewrites each commit with a new parent and a new hash. The result is a linear history. The history looks as if the work happened in one sequence, without a separate merge commit.\n\nThe key practical difference is this: rebase changes commit history. Merge does not change commit history.\n\nDo not rebase commits that other people already pulled. Rebase changes commit hashes. This breaks the history for anyone who has the old commits.\n\n**When to use merge:**\n- The branch is shared, or another person already pulled it.\n- You want to preserve the exact history of a feature branch.\n- You merge a long-lived branch, such as `develop`, into `main`.\n\n**When to use rebase:**\n- You work alone on a local branch.\n- You want a clean, linear history before you open a pull request.\n- You update a feature branch with the latest changes from `main`, and you do not want an extra merge commit.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6208c37fc388289e1539ea198282f03b7fec00c7e9fd6826d3744ee301dc1bc2"
+}

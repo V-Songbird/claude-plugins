@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 214,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 26256,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.03772310000000001,
+  "numTurns": 13,
+  "durationMs": 24859,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1774
+  },
+  "contextTraffic": 110777,
+  "apiCalls": 5,
+  "toolCalls": 12,
+  "toolResultChars": 4300,
+  "narrationWords": 14,
+  "finalWords": 300,
+  "finalText": "Here's how this project is structured:\n\n## High-Level Architecture\n\nThis is a **Node.js HTTP server** that manages users and orders. It has a layered design: authentication → routing → business logic → storage.\n\n## The Five Pieces\n\n**1. server.js** (entry point)\n- Starts an HTTP server on port 8080 (or `$PORT` env var)\n- Every request goes through authentication first\n- Passes authenticated requests to the router\n\n**2. auth.js** (security)\n- Uses HMAC-SHA256 bearer tokens in the format `userId.signature`\n- Verifies tokens against a shared secret (`AUTH_SECRET` env var)\n- Returns `null` for invalid tokens (which server.js rejects with 401)\n\n**3. routes.js** (request dispatcher)\n- Three endpoints:\n  - `GET /users` — fetch a user (cached)\n  - `GET /orders` — list orders for the current user (cached)\n  - `POST /orders` — add an order for the current user (not cached, invalidates list)\n- Reads use the cache layer; writes go straight to the store\n\n**4. cache.js** (read optimization)\n- Simple LRU cache with 256-entry limit\n- Read-through: if a key isn't cached, it calls the loader function\n- Only for reads—writes bypass the cache entirely\n\n**5. store.js** (data layer)\n- In-memory store (a `Map`) with 15-minute TTL per record\n- Provides `getUser()`, `listOrders()`, and `putOrder()` functions\n- Records automatically expire 15 minutes after they're written\n\n## How They Connect\n\n```\nHTTP Request\n    ↓\nserver.js (authenticate with bearer token)\n    ↓\nroutes.js (dispatch to handler)\n    ↓\nHandler for GET /orders\n    ↓\ncache.js (check if cached; if not, call loader)\n    ↓\nstore.js (fetch or compute data)\n    ↓\nResponse (JSON back to client)\n```\n\n**Write flows bypass the cache** — `POST /orders` calls the store directly, so it always updates immediately.\n\nNo external dependencies, no config files — this is a minimal standalone server. The store is in-memory only, so data doesn't persist across restarts.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d7c4d86cead2619c1d08a25fc12d830e433f90e6d8c453fff424d0e6e88eb409"
+}

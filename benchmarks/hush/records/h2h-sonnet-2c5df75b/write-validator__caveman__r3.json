@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__caveman__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 140,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10894,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0847176,
+  "numTurns": 2,
+  "durationMs": 8920,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 536
+  },
+  "contextTraffic": 61129,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 173,
+  "narrationWords": 0,
+  "finalWords": 42,
+  "finalText": "Made file `email_validator.py`. Regex check syntax (<email>), length cap 254 char, main block got test case.\n\n```python\ndef is_valid_email(email: str) -> bool:\n```\n\nReturn True/False. Not RFC-perfect (no full RFC 5322) — good enough for real-world form check. Need stricter, say word.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e7147376382d8406e6ea746a6bf3aa12a3958150de113583d0884e223058c94f"
+}

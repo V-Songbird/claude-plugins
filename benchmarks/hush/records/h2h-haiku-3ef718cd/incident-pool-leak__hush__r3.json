@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 161,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 50466,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0823126,
+  "numTurns": 14,
+  "durationMs": 48768,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2888
+  },
+  "contextTraffic": 323789,
+  "apiCalls": 11,
+  "toolCalls": 13,
+  "toolResultChars": 13808,
+  "narrationWords": 0,
+  "finalWords": 75,
+  "finalText": "The DB connection leak was in `processOrder.js`. When an order failed validation, it threw an error before reaching `pool.release(conn)`, permanently locking the connection.\n\nThe fix: switch to the `withConnection` helper that wraps everything in try-finally, exactly like the API handler already does. This guarantees release even on failure.\n\nAll 4 tests pass now, including the one that specifically checks that failed orders don't leak: \"processOrder does not leak a connection when an order fails validation.\"",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "36e04f45e3f3d0e5817c36352711a1c3b4e141c7f488ef492f88dfc8afa4c2f6"
+}

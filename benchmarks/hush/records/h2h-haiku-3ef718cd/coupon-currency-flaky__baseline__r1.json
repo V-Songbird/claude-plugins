@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 166,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 55293,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0922731,
+  "numTurns": 16,
+  "durationMs": 53645,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5831
+  },
+  "contextTraffic": 263058,
+  "apiCalls": 10,
+  "toolCalls": 15,
+  "toolResultChars": 16269,
+  "narrationWords": 197,
+  "finalWords": 150,
+  "finalText": "Perfect! All 40 tests pass now.\n\n**The Problem:**\nThe pricing engine was rounding discount amounts to 2 decimal places **immediately after applying each coupon**, before converting to the target currency. This introduced tiny rounding errors (fractions of a cent) that got magnified by currency exchange rates.\n\n**Why it only happened with stacked promos in other currencies:**\n- Single USD discounts masked the error because conversion rate is 1.0\n- Percent discounts in non-USD currencies were hit hardest: a 0.002 loss in USD becomes 0.0016 in GBP (×0.78), which is enough to knock you down a cent when the final rounding happens\n- JPY (149× multiplier) made the error even more visible (1 yen off)\n\n**The Fix:**\nRemoved intermediate rounding and only round once, at the very end after currency conversion. This matches the contract defined in the test's reference implementation and ensures precision is preserved through the entire calculation chain.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d9f4637f177e3e4dad241adaa0bddc88b330fc2ed32a7fd848ec5f47cd5f0dca"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__nextstep__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 90,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11552,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.083277,
+  "numTurns": 1,
+  "durationMs": 9289,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 576
+  },
+  "contextTraffic": 31899,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 146,
+  "finalText": "Same values, but not the same reference. That's almost always the reason.\n\nA few common causes:\n\n- The child isn't wrapped in `React.memo`, so it re-renders whenever the parent does, no matter what the props are.\n- You're passing an inline function or object, like `onClick={() => ...}` or `style={{...}}`. Each render makes a brand new one, so React sees it as \"changed.\"\n- A parent higher up is re-rendering and passing down new arrays or objects each time, even if the contents look identical.\n- Context values are changing, which re-renders every component reading that context.\n\nThe fix is usually two things together: wrap the child in `React.memo`, and make sure the props you pass it are stable, using `useCallback` for functions and `useMemo` for objects or arrays.\n\nIf you share the parent and child code, I can point to the exact spot causing it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e755827559b58182681ded21810a09e267e9dd389397f17c89339080c7ebc01d"
+}

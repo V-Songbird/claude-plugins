@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__caveman__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 146,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23851,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.15377490000000002,
+  "numTurns": 9,
+  "durationMs": 22221,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1201
+  },
+  "contextTraffic": 193379,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 5849,
+  "narrationWords": 20,
+  "finalWords": 44,
+  "finalText": "All 4 pass now.\n\nRoot cause: `processOrder.js` acquired conn without try/finally — failed order rejected before `pool.release(conn)` ran, conn stuck in `inUse` forever. Under repeated 2am failures, pool exhausted. `api.js` handler was fine (already used safe `withConnection` wrapper). Fixed by wrapping run in try/finally.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "71f2979f23a4b04543fd960349eb5b1f1cc050160d281582da4b44650387fecc"
+}

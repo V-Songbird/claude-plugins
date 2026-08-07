@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__adhd__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 167,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 43960,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0719841,
+  "numTurns": 14,
+  "durationMs": 42370,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2759
+  },
+  "contextTraffic": 240764,
+  "apiCalls": 9,
+  "toolCalls": 13,
+  "toolResultChars": 15553,
+  "narrationWords": 98,
+  "finalWords": 74,
+  "finalText": "All 40 tests pass. ✓\n\nThe issue was **premature rounding** on each discount step. When stacked discounts apply, intermediate rounding at 2 decimals truncates fractions. Those tiny losses then multiply when converting to JPY (×149 rate), turning subcent errors into full-yen discrepancies.\n\nThe fix keeps full precision through the discount chain and rounds only the final converted total — which matches the reference implementation and handles all currencies correctly, especially zero-decimal ones like JPY.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7c09c4b461ef30fc0a6cd74d3e0356bf220de234584dfeeaf718e6bb0da50b9c"
+}

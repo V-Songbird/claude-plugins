@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__adhd__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 153,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 36718,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.29346989999999995,
+  "numTurns": 12,
+  "durationMs": 35175,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2063
+  },
+  "contextTraffic": 358406,
+  "apiCalls": 9,
+  "toolCalls": 11,
+  "toolResultChars": 31174,
+  "narrationWords": 92,
+  "finalWords": 99,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js:6-11` acquired a connection but only released it after `run()` succeeded — no try/finally. Every rejected order (`invalid order payload`) permanently leaked one connection. Worker log shows exactly this: each failure bumps `pool in-use` and it never drops, until 5/5 at 02:06:30, exhaustion errors follow, worker exits at 02:06:35 — the 2am page.\n\n**Fix:** wrapped the `run()` call in try/finally so `pool.release(conn)` always runs, matching what `src/handlers/api.js` already did correctly via `withConnection`.\n\nNext: deploy this and watch `pool in-use` in the worker logs stay bounded through the next batch of bad orders.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ef374e3e0ddf63b3276bfa6ebaa3e0c8a402c464c00eca7b53e15fb61166a030"
+}

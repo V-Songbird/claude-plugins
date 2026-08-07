@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 263,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 74750,
+  "check": {
+    "pass": false,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.4714694,
+  "numTurns": 10,
+  "durationMs": 70683,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4356
+  },
+  "contextTraffic": 514225,
+  "apiCalls": 9,
+  "toolCalls": 7,
+  "toolResultChars": 60797,
+  "narrationWords": 23,
+  "finalWords": 43,
+  "finalText": "Wrote the handoff to `ONCALL_HANDOFF.md`. Key point to flag: I could **not** confirm an exact ioredis version — there's no lockfile in this directory, only `package.json`'s range `^5.4.1`, which I called out explicitly rather than guessing a specific version for your changelog comparison.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ebef8a1d1285df3c6a18752da32afe50ae3c9d2e03c6b285b878a9e94d0014ee"
+}

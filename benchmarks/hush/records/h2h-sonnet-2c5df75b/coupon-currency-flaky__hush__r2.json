@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 172,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 33982,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.17657599999999998,
+  "numTurns": 9,
+  "durationMs": 32444,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1494
+  },
+  "contextTraffic": 207443,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 5208,
+  "narrationWords": 0,
+  "finalWords": 113,
+  "finalText": "**Found it.** `engine.js` rounded to 2 decimals twice mid-calculation — once after the percent coupon, once after the flat coupon — before converting to the order's currency.\n\nThat's fine for USD, but for GBP, CAD, and JPY the early rounding baked in a tiny error that the currency conversion then scaled up, landing the final total a cent or two off. It only showed up when a percent coupon was in play, since that's the step that produces fractional cents.\n\nFix: only round once, at the very end, after conversion — matching what finance actually expects. All 40 tests pass now (111ms), including the 10 that were failing (GBP, CAD, JPY with SAVE10PCT).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "56108e7306211acac1987278eda1fa9ba69d85f476a43bbe225aef6cb47d3f88"
+}

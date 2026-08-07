@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__simple-english__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 152,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 39447,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.3527837,
+  "numTurns": 12,
+  "durationMs": 37693,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2287
+  },
+  "contextTraffic": 321801,
+  "apiCalls": 7,
+  "toolCalls": 11,
+  "toolResultChars": 53970,
+  "narrationWords": 96,
+  "finalWords": 181,
+  "finalText": "All 4 tests pass now.\n\n## Root cause\n\n`src/jobs/processOrder.js` acquired a connection directly and only called `pool.release(conn)` after `run()` succeeded:\n\n```js\nconst conn = pool.acquire();\nconst result = await run(conn, order); // rejects for a bad order\npool.release(conn);   // never reached if run() throws\nreturn result;\n```\n\nThe worker log matches exactly: at `02:06:15`–`02:06:34` three `invalid order payload` failures leaked a connection each, `pool in-use` climbed 2→5, then subsequent orders hit `pool exhausted`. That starved the whole pool, and the API and scheduler (sharing the same pool) began timing out at `02:11:14`, cascading into the `02:13:36` supervisor restart that paged you.\n\n`src/handlers/api.js` never had this problem because it already went through `withConnection`, which releases in a `finally` block.\n\n## Fix\n\nRewrote `processOrder` to use that same `withConnection` helper instead of acquiring/releasing by hand:\n\n```js\nasync function processOrder(pool, order, run) {\n  return withConnection(pool, (conn) => run(conn, order)); // rejects for a bad order\n}\n```\n\nThe stale comment about needing the connection held across a since-removed retry loop is gone too — that justification no longer applies. Test suite now passes 4/4.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "218a7e8afeafc5b86e2a902df22cb64ed04734f36f47ab90ed36652ab8449c58"
+}

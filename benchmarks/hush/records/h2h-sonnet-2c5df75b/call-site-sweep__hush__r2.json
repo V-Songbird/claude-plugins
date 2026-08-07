@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 226,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23645,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.15124410000000002,
+  "numTurns": 5,
+  "durationMs": 21891,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1410
+  },
+  "contextTraffic": 165879,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 2777,
+  "narrationWords": 0,
+  "finalWords": 31,
+  "finalText": "Found 17 call sites still passing the second argument, all using `true` for the legacy rounding flag.\n\n`src\\reports\\quarterly.js` has the most, with 5. Next are `src\\billing\\invoice.js` and `src\\admin\\exports.js`, with 3 each.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b87af81f06a1bd7e2ef06eb091175b1fef7b12c4d2c7ec42ea935babc541775a"
+}

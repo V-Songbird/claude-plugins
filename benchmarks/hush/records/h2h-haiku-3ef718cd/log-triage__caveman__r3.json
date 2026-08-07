@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__caveman__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 246,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 15233,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.07533870000000001,
+  "numTurns": 2,
+  "durationMs": 13312,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 806
+  },
+  "contextTraffic": 71713,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 60098,
+  "narrationWords": 0,
+  "finalWords": 98,
+  "finalText": "Redis crash triggered cascade. At 02:14:07, connection to 10.0.0.12:6379 lost: `connect ECONNREFUSED`. Cache layer degraded, requests routed to database, store overloaded. Request queue climbed from 52 → 550+ over ~17 minutes. Workers buried in timeouts, cache miss storms everywhere. Reconnect attempts 0-12 all failed — Redis stayed down. At 02:31:44, worker-2 heap exhausted from request backlog, process crashed. Service down.\n\n**Root cause:** Redis server unreachable. Fallback to direct DB access couldn't handle traffic volume.\n\n**Fixes:** Restart Redis. Add request queue circuit breaker (reject when queue > threshold) to prevent memory blowup. Add monitoring alert when cache layer degrades.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "236dc03594122c210a23dc15a05c5196f43c97035940b6529b689207166bbaf3"
+}

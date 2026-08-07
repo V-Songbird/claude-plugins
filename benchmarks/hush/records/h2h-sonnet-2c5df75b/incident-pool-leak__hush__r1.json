@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 144,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 42749,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.20808920000000003,
+  "numTurns": 11,
+  "durationMs": 40977,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1572
+  },
+  "contextTraffic": 279975,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 8154,
+  "narrationWords": 0,
+  "finalWords": 98,
+  "finalText": "Found it: `processOrder.js` grabbed a connection with `pool.acquire()` but only released it on success, no `try/finally`. Every failed order left a connection stuck as in-use. Your worker log shows that exact pattern — a run of `invalid order payload` failures right before 2:06am, then `pool exhausted: no connections available` twice, matching the page.\n\n`handleRequest` was fine the whole time since it already used the safe `withConnection` wrapper.\n\nFixed by wrapping the release in `try/finally` so it happens on both success and failure. All 4 tests pass now (they'd failed before because they expected connections back after simulated failures).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7340e8f8e0ad03a312b2ec251790a994c8aec128f4afc2dcd55868c8ef577cd4"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__nextstep__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 200,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "nextstep",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25786,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.14890079999999997,
+  "numTurns": 8,
+  "durationMs": 24151,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1630
+  },
+  "contextTraffic": 132000,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4522,
+  "narrationWords": 0,
+  "finalWords": 175,
+  "finalText": "This is a small Node service — five files, no framework, no database. Here's how a request flows.\n\n```mermaid\ngraph LR\n  A[server.js] -->|verifies Bearer token| B[auth.js]\n  A --> C[routes.js]\n  C -->|reads| D[cache.js]\n  C -->|writes| E[store.js]\n  D --> E\n```\n\n`server.js` is the raw `http` entry point: it checks the `Authorization` header via `auth.js` (HMAC-signed `userId.signature` tokens) and 401s anyone who fails. Everything past that goes to `routes.js`, a plain lookup table of `\"METHOD /path\"` to handler functions. Reads (`GET /users`, `GET /orders`) go through `cache.js`, a 256-entry LRU with no expiry of its own. Writes (`POST /orders`) go straight to `store.js`, an in-memory map where every record just expires 15 minutes after it's written.\n\nOne thing worth knowing before you touch this: the comment in `routes.js` says writes \"invalidate the affected keys,\" but `putOrder` never actually clears the matching cache entry. So a cached `orders:<userId>` list can go stale for up to 15 minutes after a new order is placed — worth checking if anyone's hit that.\n\nOpen `src/routes.js` if you want to start there.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a2f4aa8ed0bff3e123da6134b165c9052e284165ff9047a26cd8d3ae2d11e8d4"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__adhd__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 77,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28814,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.1809477,
+  "numTurns": 8,
+  "durationMs": 27101,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 993
+  },
+  "contextTraffic": 209007,
+  "apiCalls": 6,
+  "toolCalls": 7,
+  "toolResultChars": 14023,
+  "narrationWords": 29,
+  "finalWords": 61,
+  "finalText": "Build passes now, exit 0.\n\nReal bug was in `src/core/settings.js:17` — `maxRetries: retries` referenced an undefined variable instead of `env.retries`. Fixed. The three warnings (deprecated `crypto.createCipher` in `src/legacy/adapter.js`, unused export `formatLegacyDate` in `src/utils/format.js`, circular import between `core/graph.js` and `state/tracker.js`) are harmless noise, not errors — didn't touch them.\n\nNext: want me to also clean up those 3 warnings, or leave them?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "82209ece32c679ede0f3e59adf3a91869fc1a8b6a004a32319cd13e3b27d75ea"
+}

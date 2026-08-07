@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__caveman__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 26,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 20357,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.036507,
+  "numTurns": 7,
+  "durationMs": 18658,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1173
+  },
+  "contextTraffic": 119538,
+  "apiCalls": 5,
+  "toolCalls": 6,
+  "toolResultChars": 2491,
+  "narrationWords": 37,
+  "finalWords": 23,
+  "finalText": "Tests green. Off-by-one in index calculation — pages are 1-indexed, but start index was treating page 1 as index 1 instead of 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5a8e5065a220caca76d5b4bb126ef6b110886b2b3768e4fb363e599fdb4a71a1"
+}

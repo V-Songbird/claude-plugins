@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__adhd__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 261,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 49031,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.12797850000000002,
+  "numTurns": 9,
+  "durationMs": 44112,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2911
+  },
+  "contextTraffic": 428994,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 60856,
+  "narrationWords": 0,
+  "finalWords": 28,
+  "finalText": "Handoff written to `ON_CALL_HANDOFF.md`. Root cause: Redis down at 02:14:07Z, cascade to complete outage at 02:31:45Z (17m38s). ioredis version ^5.4.1 in package.json — exact version unknown (no package-lock.json).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ab5b950ad88cd11f1e2367b0543867556716827d3af2a5ce24e9240e2f7aa521"
+}

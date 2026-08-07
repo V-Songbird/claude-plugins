@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__adhd__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 3,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 17629,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.2402787,
+  "numTurns": 6,
+  "durationMs": 14766,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 636
+  },
+  "contextTraffic": 156669,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2108,
+  "narrationWords": 24,
+  "finalWords": 30,
+  "finalText": "All 5 tests pass. Fix: `token.js:7` changed `exp < now` to `exp <= now`, so a token expiring exactly at the current second is now correctly rejected instead of accepted.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ade31ef9fdfdeee39370e1e39431f6df0df36e6b8a11661056eaf07cad886508"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__nextstep__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 98,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 6747,
+  "check": {
+    "pass": false,
+    "score": 0.3333333333333333,
+    "detail": "1/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.07938200000000001,
+  "numTurns": 1,
+  "durationMs": 4638,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 316
+  },
+  "contextTraffic": 31899,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 150,
+  "finalText": "Even with the exact same props, a React child re-renders when its parent re-renders — unless the child is wrapped in `React.memo`.\n\nHere's why that happens, and how to stop it:\n\n1. **Parent re-renders → child re-renders too.** That's React's default. It doesn't check props first.\n2. **`React.memo` adds that check.** Wrap the child: `export default React.memo(MyChild)`. Now React compares old and new props, and skips the re-render if they're the same.\n3. **Watch out for props that \"look\" the same but aren't.** Functions, objects, and arrays made fresh on every render (like `onClick={() => ...}` or `style={{...}}`) count as different props each time, even if the values inside look identical. `React.memo` won't help there unless you also wrap those with `useCallback` or `useMemo` in the parent.\n\nIf your child still re-renders after adding `React.memo`, check whether you're passing it an inline function or object — that's the usual culprit.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b638ce6c04a35d88d0b77749d05eccc55eda24085c18dab4c037b67ee476ee67"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__nextstep__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 71,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 39443,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.07500620000000001,
+  "numTurns": 19,
+  "durationMs": 37701,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2603
+  },
+  "contextTraffic": 220805,
+  "apiCalls": 8,
+  "toolCalls": 18,
+  "toolResultChars": 5859,
+  "narrationWords": 0,
+  "finalWords": 18,
+  "finalText": "Done. All occurrences of `calcTotal` renamed to `computeTotal` across the source files and exports. All 4 tests pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ef7413594b7684dd5e91ecb772426e50a6173966a15a50910c6954c83373475f"
+}

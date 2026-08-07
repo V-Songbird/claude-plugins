@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__caveman__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 184,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 29618,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.1818885,
+  "numTurns": 10,
+  "durationMs": 28073,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1664
+  },
+  "contextTraffic": 232383,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 7776,
+  "narrationWords": 10,
+  "finalWords": 72,
+  "finalText": "Build clean, exit 0. Rest of screenful was noise (deprecation warns, tree-shake notes) — real bugs were two link-stage crashes, both from bundler's options-shape change:\n\n- `src/core/options.js`: read `options.retries`, bundler now sends `retryCount` → fixed to `options.retryCount`.\n- `src/net/retryPolicy.js`: strict boolean check threw on `undefined` (new loader leaves unset flags undefined instead of `false`) → now treats `undefined` as `false`.\n\n8 deprecation warnings remain, all pre-existing noise from the bump, not errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d00603f7cd19a8958e75e89bd789ff137840d3a2da64a14338dfab92ea05342e"
+}

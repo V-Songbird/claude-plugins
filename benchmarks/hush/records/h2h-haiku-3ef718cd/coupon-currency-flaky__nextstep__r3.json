@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__nextstep__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 179,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "nextstep",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 49936,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.07418140000000001,
+  "numTurns": 13,
+  "durationMs": 47889,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2921
+  },
+  "contextTraffic": 231585,
+  "apiCalls": 8,
+  "toolCalls": 12,
+  "toolResultChars": 14241,
+  "narrationWords": 0,
+  "finalWords": 96,
+  "finalText": "The problem was rounding twice: once after each coupon applied in USD, then again after converting to the target currency. When you round intermediates, you lose precision that gets amplified by the exchange rate.\n\n**The fix:** Remove the intermediate `round()` calls on lines 24 and 27. Keep the values precise in floating point until the final round at the end in the target currency.\n\nAll 40 tests now pass. The failures only hit currencies with non-trivial exchange rates (GBP, CAD, JPY) when a percent coupon was applied, because that's where the precision loss compounded most visibly.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0b6d7523ddf6e791082287881bde78d2a87cf24cba86f1bd234a81ac480e0f02"
+}

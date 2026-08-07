@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__nextstep__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 255,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "nextstep",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 63519,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1114917,
+  "numTurns": 13,
+  "durationMs": 57121,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3444
+  },
+  "contextTraffic": 377672,
+  "apiCalls": 12,
+  "toolCalls": 10,
+  "toolResultChars": 15049,
+  "narrationWords": 0,
+  "finalWords": 39,
+  "finalText": "Handoff written to `HANDOFF.md`. Root cause is the Redis failure at 02:14:07; the system cascaded into an out-of-memory crash by 02:31:52. ioredis is pinned to `^5.4.1` in package.json, but the exact deployed version isn't recorded without a lock file.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7e631ab6f5979b2223987cdef5a35f66a2a48ba0b4d0f2a5ff6cd005a4c22765"
+}

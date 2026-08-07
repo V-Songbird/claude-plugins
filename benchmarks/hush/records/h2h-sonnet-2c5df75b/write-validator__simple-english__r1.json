@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__simple-english__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 129,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 12947,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0772816,
+  "numTurns": 2,
+  "durationMs": 10565,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 607
+  },
+  "contextTraffic": 58313,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 179,
+  "narrationWords": 0,
+  "finalWords": 77,
+  "finalText": "I created `validate_email.py` with the function below.\n\n```python\nimport re\n\nEMAIL_PATTERN = re.compile(\n    r\"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$\"\n)\n\n\ndef is_valid_email(email):\n    if not isinstance(email, str):\n        return False\n    return bool(EMAIL_PATTERN.match(email))\n```\n\nThe function checks the format of an email address. It returns `True` for a valid format. It returns `False` for an invalid format or a non-string input.\n\nThis function checks the format only. It does not confirm that the address exists. To confirm existence, send a verification email to the address.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c93117a90c44844ff2c1a6318742e4677da021ea0e776357d8796bd6844e8997"
+}

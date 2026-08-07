@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__simple-english__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 288,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9651,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.044443800000000006,
+  "numTurns": 2,
+  "durationMs": 7973,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 521
+  },
+  "contextTraffic": 55792,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 24908,
+  "narrationWords": 0,
+  "finalWords": 58,
+  "finalText": "**Overall:** 698 passed, 2 failed out of 700 tests.\n\n**Failures:**\n\n1. **refreshToken silently accepts an already-revoked token** (auth/tokens.test.js:400)\n2. **sessionCleanup leaves orphaned rows after a rollback** (auth/tokens.test.js:650)\n\nBoth failures are in the auth token handling tests. The first suggests the refresh token endpoint isn't properly rejecting revoked tokens, and the second indicates a transaction handling issue during cleanup.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cd4747cc0c5e39fcf38af482bd23e9d16e47af922d54e33c7dd349672c4de0d4"
+}

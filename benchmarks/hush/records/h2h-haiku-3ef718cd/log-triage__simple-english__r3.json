@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__simple-english__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 251,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 16336,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.07520370000000001,
+  "numTurns": 2,
+  "durationMs": 14644,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1087
+  },
+  "contextTraffic": 69740,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 60098,
+  "narrationWords": 14,
+  "finalWords": 221,
+  "finalText": "## Root Cause: Redis Outage\n\nThe production failure was triggered by a **Redis connection loss at 2026-07-04T02:14:07Z**. Here is the sequence of events:\n\n**1. Initial Failure (Line 182)**\nRedis connection refused to the cache server at `10.0.0.12:6379`. The app switched to fallback mode, reading directly from the data store without cache.\n\n**2. Cascade Degradation (Lines 183–223)**\nWithout cache, incoming requests overwhelmed the backend data store:\n- Store began responding with 5000ms timeouts\n- Requests accumulated in worker queues (52 → 100 → 200 depth)\n- Cache miss storms appeared as every request went straight to the store\n\n**3. Reconnection Attempts Failed (Lines 224–716)**\nThe app attempted automatic Redis reconnection 13 times (attempts 0–12), all failing with the same `ECONNREFUSED` error. No retry succeeded, keeping the system in degraded mode.\n\n**4. Memory Exhaustion (Line 717)**\nBy ~17 minutes later, the request backlog in worker-2 consumed all available heap memory. The process crashed with an out-of-memory error.\n\n**5. Total Failure (Line 719)**\nThe supervisor killed the entire process group when the API became unresponsive. Service went down completely.\n\n**Impact timeline:** ~13 minutes from initial Redis failure to total service outage.\n\n**Next steps:** Check if Redis at `10.0.0.12:6379` is running and reachable, review its logs for the crash, and consider implementing circuit breakers or request shedding to prevent cascading failures when cache is unavailable.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "213ec120c76b9753aeeabffdaf8cc7c0bc2a0370e6094ad5a2d397a0c62db68c"
+}

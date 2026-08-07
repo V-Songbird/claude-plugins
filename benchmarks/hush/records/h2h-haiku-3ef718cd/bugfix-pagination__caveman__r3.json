@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__caveman__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 33,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 22078,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0399234,
+  "numTurns": 7,
+  "durationMs": 20371,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1305
+  },
+  "contextTraffic": 143819,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 2728,
+  "narrationWords": 38,
+  "finalWords": 22,
+  "finalText": "Tests green. Fix was off-by-one in page start calculation—needed `(page - 1) * perPage` not `page * perPage` since pages are 1-indexed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d350bb9b7fea4cece9d1758b647e92ef10a0bf9c43ea1ba78d5d8a63052ba4d5"
+}

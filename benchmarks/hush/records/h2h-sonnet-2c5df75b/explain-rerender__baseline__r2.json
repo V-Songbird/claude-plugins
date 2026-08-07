@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 101,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11379,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.061963500000000005,
+  "numTurns": 1,
+  "durationMs": 9691,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 655
+  },
+  "contextTraffic": 28135,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 253,
+  "finalText": "A few common causes, roughly in order of likelihood:\n\n1. **New reference every render, even if \"equal\" in content.** Objects, arrays, and functions are compared by reference in JS. If you write `<Child data={{ id: 1 }} />` or `<Child onClick={() => ...}/>` inline, a *new* object/function is created on every parent render — so \"same\" props aren't actually `===` equal.\n\n2. **No memoization on the child.** Even with stable props, a functional component re-renders whenever its parent re-renders, unless it's wrapped in `React.memo`. `React.memo` does a shallow prop comparison and skips re-rendering if all props are `===` to the previous render.\n\n3. **Unstable callback/object props defeat `React.memo`.** Wrapping the child in `React.memo` won't help if you're still passing a new inline function/object each time (see #1). You also need `useCallback`/`useMemo` in the parent to keep those references stable.\n\n4. **Context changes.** If the child consumes a Context, it re-renders whenever that context's value changes — regardless of its own props — and a new object literal passed as the context `value` causes this every render too.\n\n5. **`key` prop changing**, which unmounts/remounts rather than \"re-renders\" but can look similar.\n\nQuick fix pattern:\n\n```jsx\nconst Child = React.memo(function Child({ data, onClick }) {\n  // ...\n});\n\nfunction Parent() {\n  const data = useMemo(() => ({ id: 1 }), []);\n  const onClick = useCallback(() => { /* ... */ }, []);\n  return <Child data={data} onClick={onClick} />;\n}\n```\n\nIf you paste the actual parent/child code, I can point to the exact prop that's unstable.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ab43928b7020bf2e797cde0751f08861e2c69cf995071a0b3eace1ab8189c7d1"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 194,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 40940,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.22709419999999997,
+  "numTurns": 11,
+  "durationMs": 39235,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2153
+  },
+  "contextTraffic": 305661,
+  "apiCalls": 9,
+  "toolCalls": 10,
+  "toolResultChars": 16225,
+  "narrationWords": 30,
+  "finalWords": 125,
+  "finalText": "Build is clean now (exit 0). Two real bugs from the bump, both in the link stage — the rest was just deprecation noise from the version jump:\n\n1. **`src/core/options.js`** — the bundler's options shape changed from `{ retries }` to `{ retryCount }`; this call site still read `options.retries`, which was `undefined`, so `.toFixed(0)` threw. Fixed to read `options.retryCount`.\n2. **`src/net/retryPolicy.js`** — the new config loader leaves unset flags as `undefined` instead of `false`, but `isBackoffEnabled` only handled explicit `true`/`false` and threw on anything else. Added an `undefined` → `false` (disabled) case.\n\nThe remaining 8 warnings are genuine deprecation notices (`Buffer()`, `fs.exists`, sync loader hooks, etc.) — real console noise, not build-breaking, so I left those as-is unless you want them cleaned up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fdf5a32dffd6ca37bbf1cbac4bcbdf00644aea6e5fa50551662d8d688d9d3e43"
+}

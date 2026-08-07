@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__hush__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 305,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 14844,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0323394,
+  "numTurns": 4,
+  "durationMs": 13173,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 729
+  },
+  "contextTraffic": 75333,
+  "apiCalls": 3,
+  "toolCalls": 3,
+  "toolResultChars": 2404,
+  "narrationWords": 0,
+  "finalWords": 30,
+  "finalText": "Out of 700 tests, 698 passed. Two failures, both in `auth/tokens.test.js`:\n\n1. **refreshToken silently accepts an already-revoked token** (line 400)\n2. **sessionCleanup leaves orphaned rows after a rollback** (line 650)",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8c326131be6177f203d8cfcf8358d45aad9bc9dbf1d788d95564b8d209fdb6ae"
+}

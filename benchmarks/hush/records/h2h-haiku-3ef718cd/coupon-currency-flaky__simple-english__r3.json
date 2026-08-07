@@ -1,0 +1,37 @@
+{
+  "key": "<redacted-secret>",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 176,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 50773,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0768675,
+  "numTurns": 12,
+  "durationMs": 49357,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3598
+  },
+  "contextTraffic": 257985,
+  "apiCalls": 10,
+  "toolCalls": 11,
+  "toolResultChars": 15635,
+  "narrationWords": 195,
+  "finalWords": 134,
+  "finalText": "All 40 tests pass now. The issue was intermediate rounding in USD before currency conversion. The code was rounding after each discount was applied (lines 24 and 27), but financial calculations must round only once at the very end in the target currency.\n\nWhen both coupons stack, the first discount gets rounded in USD, then you subtract the flat discount from that rounded value, losing precision. After currency conversion with different exchange rates, those lost fractions compound into visible errors—hence the 1-2 cent differences Finance spotted.\n\nThe fix: remove the intermediate `round()` calls after each coupon. All discount math happens in full floating-point precision, and only the final converted amount gets rounded to the target currency's decimal places. This ensures every order totals consistently whether it has no coupons, one coupon, or both stacked.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cdf7b8b043dfd995fb2c5360799b1172f24108c96aede6e092feb95d9351a884"
+}

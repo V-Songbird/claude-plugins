@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__nextstep__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 98,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 12162,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0229892,
+  "numTurns": 1,
+  "durationMs": 9731,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 627
+  },
+  "contextTraffic": 24082,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 164,
+  "finalText": "The most common reason is that the *parent* re-renders, which by default makes React re-render all its children, even if their props didn't actually change.\n\nCheck whether the parent is creating new objects or functions on every render — like inline event handlers, array literals, or object props. React treats these as \"new\" props each time, even if the values are identical. If the parent is passing `{ id: 5 }` as a prop instead of storing it, that object is recreated on every render.\n\nTo check if props are actually changing, wrap your child in `React.memo` and add a simple console log — if the props object reference stays the same (same identity in memory), then memoization will skip the re-render. If it changes, you've found where the new object is coming from. Move object and function creation outside the component, or use `useCallback` and `useMemo` in the parent to keep them stable.\n\nDo you have code you'd like me to look at?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9d7fd0d0e0e2436294d1eeb97d3e149ab47f27919c98e3030722aad8e397f4de"
+}

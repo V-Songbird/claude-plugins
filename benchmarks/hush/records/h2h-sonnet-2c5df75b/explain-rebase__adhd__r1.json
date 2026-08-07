@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__adhd__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 110,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 12439,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0762315,
+  "numTurns": 1,
+  "durationMs": 10767,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 685
+  },
+  "contextTraffic": 30540,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 282,
+  "finalText": "## The core difference\n\n**Merge** creates a new commit that joins two branch histories together. Your original commits stay untouched; a merge commit ties them in.\n\n**Rebase** replays your branch's commits one by one onto the tip of another branch, creating new commits with new hashes. History ends up linear — no merge commit, no branching in the log.\n\n## What the history looks like\n\n**Merge:**\n```\nmain:     A---B---C---------M\n                \\           /\nfeature:         D---E---F\n```\n`M` is the merge commit. Both parent lines are preserved forever.\n\n**Rebase:**\n```\nmain:     A---B---C\n                    \\\nfeature:             D'---E'---F'\n```\n`D'`, `E'`, `F'` are copies of your original commits, replayed on top of `C`. Looks like you started your work after `C` all along.\n\n## When to reach for each\n\n1. **Merging shared/public branches** (feature → main, PRs) — always merge. Rebasing rewrites commit hashes; anyone else who pulled the original commits gets a broken history.\n2. **Cleaning up your own local branch before opening a PR** — rebase onto main. Keeps history linear and readable, no noise merge commits.\n3. **You've already pushed the branch and others pulled it** — merge, not rebase. Rewriting shared history breaks their local copies (this is the \"never rebase public history\" rule).\n4. **You want to preserve exactly when/how branches diverged and combined** (audit trail matters) — merge.\n5. **You want `git bisect` to work cleanly** — rebase. A linear history with no merge commits makes bisecting much easier.\n\n**Rule of thumb:** rebase what's private (not pushed, or pushed only to your own branch nobody else uses), merge what's shared.\n\nNext: if you want, tell me your team's actual workflow (PR-based? trunk-based?) and I'll give you the specific command sequence to use.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bd46b527be5182c9d7d1e5a3d78f4e848bdb5adcb3f572dbbf4158c942a329be"
+}

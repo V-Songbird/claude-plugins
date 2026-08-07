@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 145,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 41420,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.11117860000000002,
+  "numTurns": 13,
+  "durationMs": 39903,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2908
+  },
+  "contextTraffic": 358921,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 52278,
+  "narrationWords": 172,
+  "finalWords": 139,
+  "finalText": "Perfect! All tests pass. The fix is working correctly. \n\n## Summary\n\n**Root cause**: Database connection leak in `src/jobs/processOrder.js`. When an order failed validation, the error was thrown before the connection could be released back to the pool, leaving it permanently marked as \"in use\".\n\n**The fix**: Added a try-finally block to ensure `pool.release()` is always called, even when `run()` throws an error. This matches the safer pattern already used in the `withConnection()` helper.\n\n**What was leaking**: Each failed order (starting around 2:06 AM per the logs) was holding a connection indefinitely. Since the pool only has 5 connections and errors began hitting repeatedly, all connections got exhausted within minutes, causing cascading 503 errors and eventually crashing the service.\n\nAll 4 tests now pass, including the critical one: \"processOrder does not leak a connection when an order fails validation\" ✓",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e176f175b2e202818ed673d3b4f7cdb9744ee21ae36f2f1bf65a3eafa2b3dfec"
+}

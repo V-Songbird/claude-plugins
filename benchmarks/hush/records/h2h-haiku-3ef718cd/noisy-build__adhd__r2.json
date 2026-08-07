@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__adhd__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 83,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 34377,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0544735,
+  "numTurns": 10,
+  "durationMs": 32599,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2094
+  },
+  "contextTraffic": 203138,
+  "apiCalls": 8,
+  "toolCalls": 9,
+  "toolResultChars": 6766,
+  "narrationWords": 74,
+  "finalWords": 46,
+  "finalText": "**Build is now passing.** Error was on line 17 of src/core/settings.js — it referenced undefined `retries` instead of `env.retries`. Fixed it to use `env.retries || 1`.\n\nThe 3 warnings in the output (deprecated API, unused export, circular import) are informational, not errors. Build completes successfully now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "61b4e09c997b2b269c1d4795bdf3ed3a9cfe31ed754bdd4a76004349dc6009ca"
+}

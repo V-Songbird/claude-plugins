@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__caveman__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 63,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 39625,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.06283129999999999,
+  "numTurns": 17,
+  "durationMs": 37414,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2627
+  },
+  "contextTraffic": 259086,
+  "apiCalls": 10,
+  "toolCalls": 16,
+  "toolResultChars": 5298,
+  "narrationWords": 0,
+  "finalWords": 39,
+  "finalText": "Done. Renamed `calcTotal` to `computeTotal` across all files:\n- `src/cart.js` — function definition + export\n- `src/index.js` — export re-export  \n- `src/invoice.js` — import + usage\n- `src/report.js` — import + usage\n\nAll 4 tests pass. Old `calcTotal` removed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d5a0016cb611046f0ff70e19b68bb2b3a4689ad741f6af929712b81bee4d45ec"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__caveman__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 177,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 22873,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.14666820000000003,
+  "numTurns": 8,
+  "durationMs": 21272,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1371
+  },
+  "contextTraffic": 161930,
+  "apiCalls": 5,
+  "toolCalls": 7,
+  "toolResultChars": 4910,
+  "narrationWords": 90,
+  "finalWords": 36,
+  "finalText": "All 40 pass. Root cause: intermediate rounding to 2 decimals after each coupon step, before currency convert — compounds rounding error when stacked with non-USD rates. Fixed by rounding only once, at final step, matching reference.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8536105b9432d9bd3b391ca2365760b2a51e41404d6ccbc8cfb386b869771f56"
+}

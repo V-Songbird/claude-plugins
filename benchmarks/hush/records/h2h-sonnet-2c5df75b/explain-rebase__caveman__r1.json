@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__caveman__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 109,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10569,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.07270950000000001,
+  "numTurns": 1,
+  "durationMs": 8699,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 533
+  },
+  "contextTraffic": 30333,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 211,
+  "finalText": "Rebase vs merge — same goal (combine branch history), different method.\n\n**Merge**: make new commit, two parents. History stay exact as happen — both branch lines visible, plus merge commit.\n\n**Rebase**: replay your commits one-by-one on top of target branch. New commits, new hashes. History become straight line — look like work happen sequentially, no fork ever exist.\n\nKey differences:\n- Merge: safe, non-destructive, keep true history. Rebase: rewrite history, changes commit hashes.\n- Rebase on shared/pushed branch = danger. Other people history diverge, force-push needed, teammates break. Never rebase public branch.\n- Merge commit clutter log with lots branch-merge noise. Rebase give clean linear log, easy `git log` read, easy bisect.\n\nWhen reach for each:\n\n- **Feature branch, local only, not pushed yet**: rebase onto main before opening PR. Clean, linear, easy review.\n- **Already pushed, others pulled it**: merge. Don't rewrite shared history.\n- **Want preserve exact record of when branches diverge/joined** (audit trail matter): merge.\n- **Want clean bisectable history, small team, force-push private branch OK**: rebase workflow (rebase then fast-forward merge).\n- **Conflict resolution**: rebase = resolve conflict per-commit, can get repetitive on long branch. Merge = resolve once, in single merge commit.\n\nRule of thumb: rebase *before* share (clean local work), merge *when* integrate shared/public work.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "dac6c61b66cfa8af5ac7af773a05692b0e55d014c88ebafd46e5272aeed28724"
+}

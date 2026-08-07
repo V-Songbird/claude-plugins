@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__caveman__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 163,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 29494,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.049823,
+  "numTurns": 6,
+  "durationMs": 27989,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1798
+  },
+  "contextTraffic": 148435,
+  "apiCalls": 6,
+  "toolCalls": 5,
+  "toolResultChars": 9454,
+  "narrationWords": 74,
+  "finalWords": 63,
+  "finalText": "All 40 tests pass. Problem was intermediate rounding. Engine applied both coupons and rounded twice (after percent, after flat) before final currency conversion. Should only round once at end.\n\nStacking percent + flat meant two separate roundings that accumulated small errors. Removed intermediate `round()` calls on lines 24 and 27 — now applies all discounts in floating point, converts, then rounds exactly once.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "260b8ed6021349aedc307c2cfbbdca055b02eb2b18fe091c4af8050ec328efda"
+}

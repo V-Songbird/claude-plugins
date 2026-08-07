@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__adhd__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 13,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 27049,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0415415,
+  "numTurns": 7,
+  "durationMs": 25383,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1437
+  },
+  "contextTraffic": 146199,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 2890,
+  "narrationWords": 74,
+  "finalWords": 52,
+  "finalText": "**All tests passing.** ✓ 5/5\n\n**What was wrong:** Line 7 used `token.exp < nowSeconds`, which allowed tokens where `exp === nowSeconds` to slip through as valid. The spec says tokens expire *at* that moment, not after.\n\n**The fix:** Changed to `<=`. Now tokens are expired the instant their exp time is reached.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a730692d1c2424a235dc370936fc8d22e1a59bc2cc92920e54bd70844ffbf239"
+}

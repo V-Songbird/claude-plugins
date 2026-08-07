@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__baseline__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 286,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 40941,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.21473040000000002,
+  "numTurns": 11,
+  "durationMs": 35832,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2457
+  },
+  "contextTraffic": 345376,
+  "apiCalls": 11,
+  "toolCalls": 8,
+  "toolResultChars": 6463,
+  "narrationWords": 0,
+  "finalWords": 27,
+  "finalText": "Updated all three production mentions (health check curl, known issues note, appendix table) from 8081 to 9090; staging's 8091 is untouched since only the production port moved.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a045bbd9f0c60e1a8eae3de6a53156178445ae17f4b7ba153dc76d8c70798ca0"
+}

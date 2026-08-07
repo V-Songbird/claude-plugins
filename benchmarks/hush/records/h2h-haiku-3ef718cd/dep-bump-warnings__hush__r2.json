@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 189,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 41016,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0650446,
+  "numTurns": 11,
+  "durationMs": 39237,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2203
+  },
+  "contextTraffic": 221686,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 11696,
+  "narrationWords": 0,
+  "finalWords": 47,
+  "finalText": "Build is clean. Two bugs the bump exposed: `options.js` was still reading the old `retries` property when the bundler now passes `retryCount`, and `retryPolicy.js` didn't handle `undefined` flags from the new config loader. Both fixed — build exits 0 with 8 warnings (all deprecation noise, as expected).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5a4ce554715d9956a86514154d6026aa62b8ff3315c264fbe0db7c4e1b6d101b"
+}

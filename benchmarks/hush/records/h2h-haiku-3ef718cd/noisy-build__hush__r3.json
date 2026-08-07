@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 85,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 37816,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.059323100000000004,
+  "numTurns": 10,
+  "durationMs": 35922,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1952
+  },
+  "contextTraffic": 216398,
+  "apiCalls": 8,
+  "toolCalls": 9,
+  "toolResultChars": 8077,
+  "narrationWords": 0,
+  "finalWords": 64,
+  "finalText": "Build is clean. The error was on line 17 of `src/core/settings.js` — it referenced an undefined variable `retries` instead of `env.retries`. Changed it to `env.retries || 1` to read the retry count from the parameter with a fallback default.\n\nThe three warnings (deprecated crypto API, unused export, circular import) remain, but they're not breaking the build. All 0 errors, 41.7 seconds, exit code 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5926e0b684e4bb479d253e29ef83853fd2390ac4508d63392b87076ab7f9fe7b"
+}

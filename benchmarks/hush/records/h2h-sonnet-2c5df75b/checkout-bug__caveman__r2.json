@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__caveman__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 47,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 22914,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.1577568,
+  "numTurns": 9,
+  "durationMs": 21316,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1460
+  },
+  "contextTraffic": 192999,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 5103,
+  "narrationWords": 26,
+  "finalWords": 50,
+  "finalText": "All 5 pass now.\n\nRoot cause: `computeTotal` in `src/services/pricing.js` converted USD subtotal to target currency first, then subtracted flat coupon `amount` — but coupon amounts stored in USD (see `coupon.js`). Subtracting USD amount from converted total treats it as target-currency amount, wrong. Fixed: subtract flat coupon in USD before conversion.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "923536b8f4c9871e3f014b1e8306bc8620628bc0ab8807de191dcad246efe7ab"
+}

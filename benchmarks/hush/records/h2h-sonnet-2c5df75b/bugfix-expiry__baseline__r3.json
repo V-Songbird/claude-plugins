@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__baseline__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 15,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 20288,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1344064,
+  "numTurns": 8,
+  "durationMs": 18694,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 932
+  },
+  "contextTraffic": 205214,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 3370,
+  "narrationWords": 47,
+  "finalWords": 29,
+  "finalText": "All 5 tests pass. The bug: `isExpired` used `<` instead of `<=`, so a token expiring exactly at the current timestamp wasn't flagged as expired — fixed in `token.js:7`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "478e5a3f22a178ed2ab7a1ae805f32aa3edb3ee91668b47ed71f3260e1f59c75"
+}

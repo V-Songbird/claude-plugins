@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__simple-english__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 288,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11678,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1693594,
+  "numTurns": 3,
+  "durationMs": 10325,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 609
+  },
+  "contextTraffic": 101350,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 24928,
+  "narrationWords": 0,
+  "finalWords": 77,
+  "finalText": "I read the full log. Here is the summary.\n\n**Result:** 700 tests ran. 698 passed. 2 failed.\n\n**Failed tests:**\n\n1. `refreshToken silently accepts an already-revoked token` — `auth/tokens.test.js:400`\n2. `sessionCleanup leaves orphaned rows after a rollback` — `auth/tokens.test.js:650`\n\nBoth failures are in the same file, `auth/tokens.test.js`, and both point to auth/token-handling bugs: one lets a revoked token pass as valid, the other leaves orphaned rows after a rollback during session cleanup. Everything else in the run passed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e5e9038fb26b8b45f38573e9ce52f92dd13ba177fb92297919bab6835c6233b4"
+}

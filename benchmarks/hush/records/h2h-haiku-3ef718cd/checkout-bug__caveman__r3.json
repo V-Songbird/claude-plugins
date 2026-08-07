@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__caveman__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 52,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 41074,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.06534640000000001,
+  "numTurns": 11,
+  "durationMs": 39510,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2384
+  },
+  "contextTraffic": 283338,
+  "apiCalls": 11,
+  "toolCalls": 10,
+  "toolResultChars": 9099,
+  "narrationWords": 31,
+  "finalWords": 38,
+  "finalText": "All tests pass. Bug fixed.\n\nIssue was flat coupon subtraction order. Coupons stored in USD must be subtracted from the USD subtotal before conversion, not after. Was doing `converted - coupon` (wrong), now does `convert(subtotalUsd - coupon)` (right).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a7244c330788c69cae93914d4060915f97f1891e861ba58d3ff8d9bbb5fa6079"
+}

@@ -128,6 +128,26 @@ describe("isExemptPath — READMEs are the one allowed surface", () => {
   });
 });
 
+describe("isExemptPath — retained benchmark records are the evidential surface", () => {
+  test("matches a record under a plugin's records directory", () => {
+    assert.equal(isExemptPath("benchmarks/hush/records/h2h-sonnet-abc123/batch.json"), true);
+    assert.equal(isExemptPath("benchmarks/hush/records/h2h-sonnet-abc123/log-triage__zorblat__r1.json"), true);
+    assert.equal(isExemptPath("benchmarks/foreman/records/x/published/claims.md"), true);
+  });
+
+  test("does not exempt the rest of the harness", () => {
+    assert.equal(isExemptPath("benchmarks/hush/runner/run.js"), false);
+    assert.equal(isExemptPath("benchmarks/hush/tasks.json"), false);
+    assert.equal(isExemptPath("benchmarks/hush/results/mine/runs/a.json"), false);
+  });
+
+  test("does not exempt a records directory outside benchmarks/<plugin>/", () => {
+    assert.equal(isExemptPath("records/a.json"), false);
+    assert.equal(isExemptPath("benchmarks/records/a.json"), false);
+    assert.equal(isExemptPath("src/records/a.json"), false);
+  });
+});
+
 describe("addedLinesFromDiff — drops added lines in README files only", () => {
   const diff = (file, body) =>
     `diff --git a/${file} b/${file}\nindex 000..111 100644\n--- a/${file}\n+++ b/${file}\n@@ -0,0 +1 @@\n+${body}\n`;
@@ -143,6 +163,17 @@ describe("addedLinesFromDiff — drops added lines in README files only", () => 
   test("drops the README line but keeps the CHANGELOG line in a mixed diff", () => {
     const mixed = diff("README.md", "beat zorblat") + diff("CHANGELOG.md", "beat zorblat");
     assert.equal(addedLinesFromDiff(mixed), "+beat zorblat");
+  });
+
+  test("drops an added line in a retained benchmark record", () => {
+    const rec = "benchmarks/hush/records/batch-1/log-triage__zorblat__r1.json";
+    assert.equal(addedLinesFromDiff(diff(rec, '"arm": "zorblat",')), "");
+  });
+
+  test("keeps a runner line naming the same project", () => {
+    assert.equal(
+      addedLinesFromDiff(diff("benchmarks/hush/runner/run.js", "// beat zorblat")),
+      "+// beat zorblat");
   });
 
   test("ignores removed lines and the +++ header", () => {

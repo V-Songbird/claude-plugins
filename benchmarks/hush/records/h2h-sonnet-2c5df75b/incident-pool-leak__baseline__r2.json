@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 151,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 32967,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2062709,
+  "numTurns": 12,
+  "durationMs": 31705,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2173
+  },
+  "contextTraffic": 290263,
+  "apiCalls": 9,
+  "toolCalls": 11,
+  "toolResultChars": 11559,
+  "narrationWords": 103,
+  "finalWords": 114,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js` acquired a connection directly from the pool and only called `pool.release(conn)` *after* `run()` resolved — with no `try/finally`. When an order failed validation (`run` rejects), the release line never executed, permanently leaking that connection. `src/handlers/api.js` was fine since it goes through the pool's `withConnection` safe wrapper.\n\nThe worker log confirms it: each `job order-XXXX failed: invalid order payload` around 01:56–02:06 has no matching \"connection released\" line, and by 02:06:33 the pool logs `pool exhausted: no connections available` — that's your 2am page.\n\n**Fix:** wrapped the acquire in `processOrder` with `try/finally` (mirroring the pattern already used in `withConnection`) so the connection is always released, success or failure.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e0ac3e08630b0d756e589bba8458a140dbc325d55d12e3954aa60f378054e3c5"
+}

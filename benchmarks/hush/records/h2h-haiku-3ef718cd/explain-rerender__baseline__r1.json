@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 94,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11510,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0183088,
+  "numTurns": 1,
+  "durationMs": 10084,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 834
+  },
+  "contextTraffic": 21216,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 231,
+  "finalText": "The most common cause is that the **parent is re-rendering**, and React re-renders child components by default unless they're memoized. But if props are actually the issue, it's usually one of these:\n\n**Props are new object references each render** — even if they're logically the same:\n```jsx\n// ❌ Bad: creates new object every render\n<Child data={{id: 1, name: \"test\"}} />\n\n// ❌ Bad: creates new array every render  \n<Child items={[1, 2, 3]} />\n\n// ❌ Bad: creates new function every render\n<Child onClick={() => handleClick(id)} />\n```\n\n**Solutions:**\n\n1. **Memoize the child** (simplest):\n```jsx\nconst Child = React.memo(({data}) => {\n  return <div>{data.id}</div>\n})\n```\n\n2. **Memoize props from parent**:\n```jsx\nconst Parent = () => {\n  const data = useMemo(() => ({id: 1, name: \"test\"}), [])\n  const handleClick = useCallback((id) => { /* ... */ }, [])\n  \n  return <Child data={data} onClick={handleClick} />\n}\n```\n\n3. **Extract constants outside the component**:\n```jsx\nconst DEFAULT_DATA = {id: 1, name: \"test\"}\nconst ITEMS = [1, 2, 3]\n\nconst Parent = () => {\n  return <Child data={DEFAULT_DATA} items={ITEMS} />\n}\n```\n\n**To diagnose which is happening:**\n- Add a `console.log()` or debugger breakpoint inside your child — if it logs every time the *parent* re-renders, it's re-rendering because of the parent, not props.\n- Check React DevTools Profiler (highlight why components rendered) — it shows if props actually changed.\n\nWhich scenario matches your case?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c5f5afbe5a52518af3b7098260ce2781c139764a722dc1aa9d98d41ebb46edb0"
+}

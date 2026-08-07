@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 294,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 23760,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.07745389999999999,
+  "numTurns": 7,
+  "durationMs": 22140,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1333
+  },
+  "contextTraffic": 247045,
+  "apiCalls": 7,
+  "toolCalls": 6,
+  "toolResultChars": 34489,
+  "narrationWords": 0,
+  "finalWords": 44,
+  "finalText": "**Run summary:** 698 of 700 tests passed. 2 failures:\n\n1. **refreshToken silently accepts an already-revoked token** (auth/tokens.test.js:400)\n2. **sessionCleanup leaves orphaned rows after a rollback** (auth/tokens.test.js:650)\n\nBoth are in the auth token module — looks like issues with token revocation handling and transaction cleanup.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a8cfe2b5fa4a0d048f9511715435c32a63033e23bced6f10ad3c52a97f018ab9"
+}

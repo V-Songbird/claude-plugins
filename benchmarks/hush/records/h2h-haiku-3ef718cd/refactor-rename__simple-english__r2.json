@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__simple-english__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 65,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 34914,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0530965,
+  "numTurns": 18,
+  "durationMs": 33458,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2622
+  },
+  "contextTraffic": 172329,
+  "apiCalls": 7,
+  "toolCalls": 17,
+  "toolResultChars": 5547,
+  "narrationWords": 80,
+  "finalWords": 101,
+  "finalText": "Perfect! All tests pass. I have successfully updated the codebase to use `computeTotal` instead of `calcTotal`. Here's what was changed:\n\n**Updated files:**\n- `src/cart.js` — renamed function definition and export\n- `src/index.js` — updated import and re-export\n- `src/invoice.js` — updated import and function call\n- `src/report.js` — updated import and function call\n\n**Test results:** All 4 tests pass\n- ✓ computeTotal sums discounted lines\n- ✓ computeTotal is exported from cart\n- ✓ invoice uses the shared total\n- ✓ daily report grand total\n\nThe renaming is complete and the API is now fully migrated to use the new name.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a4d6a8736f17703d6fd04de096d9782d9e8663308165911e5f1e7c6c720f38f3"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__simple-english__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 69,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 32065,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2045981,
+  "numTurns": 14,
+  "durationMs": 30025,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2355
+  },
+  "contextTraffic": 315129,
+  "apiCalls": 10,
+  "toolCalls": 13,
+  "toolResultChars": 4368,
+  "narrationWords": 44,
+  "finalWords": 24,
+  "finalText": "All 4 tests pass. I renamed `calcTotal` to `computeTotal` in `src/cart.js`, `src/index.js`, `src/invoice.js`, and `src/report.js`, including the import/export sites and the comment referencing it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ce4d67a5a1cb5c4fe058c8d3b6f3ee4f48aba6ae3f8dd28cb58b01b126a385d0"
+}

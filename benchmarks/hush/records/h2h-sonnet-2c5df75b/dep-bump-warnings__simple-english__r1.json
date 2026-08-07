@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__simple-english__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 181,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 37883,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2343854,
+  "numTurns": 11,
+  "durationMs": 36376,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2115
+  },
+  "contextTraffic": 314860,
+  "apiCalls": 9,
+  "toolCalls": 10,
+  "toolResultChars": 16320,
+  "narrationWords": 60,
+  "finalWords": 91,
+  "finalText": "The build now completes with 0 errors. Two real bugs from the bump caused the link stage to fail:\n\n- `src/core/options.js:7` — read the old `options.retries` field, but the new bundler passes `retryCount`. Fixed to use `options.retryCount`.\n- `src/net/retryPolicy.js:8` — threw on `undefined`, but the new config loader leaves unset flags as `undefined` instead of `false`. Added a check so `undefined` resolves to disabled, matching the old default.\n\nThe remaining 8 warnings are deprecation noise (`DEP0142`, `DEP0198`, etc.) baked into the simulated build log, not real issues — safe to ignore.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e1d1ff72be269f5970091f0a0a0cd810a8a36e5a353e884f70b9638edd3abc4b"
+}

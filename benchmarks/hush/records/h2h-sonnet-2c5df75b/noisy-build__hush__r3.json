@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 85,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25640,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2794143,
+  "numTurns": 8,
+  "durationMs": 23771,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1011
+  },
+  "contextTraffic": 256013,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 38238,
+  "narrationWords": 0,
+  "finalWords": 75,
+  "finalText": "Found it and fixed it. `src/core/settings.js` had `maxRetries: retries` — `retries` was never defined, it should have read from `env.retries`. That's what was throwing and aborting the build.\n\nBuild now finishes clean: **0 errors, 3 warnings**, exit code 0.\n\nThe 3 warnings are just noise from the fake linter (deprecated `crypto.createCipher`, an unused export, a circular import) — none block the build, but worth a look if you want to actually clean those up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e4ad89f1bdc412306c6af9035c82ab62f39d1584d252994eb01c0fe0471bf692"
+}

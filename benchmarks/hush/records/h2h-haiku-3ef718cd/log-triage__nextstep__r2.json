@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__nextstep__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 243,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "nextstep",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 16059,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.031475199999999995,
+  "numTurns": 2,
+  "durationMs": 13839,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 874
+  },
+  "contextTraffic": 50592,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 4602,
+  "narrationWords": 0,
+  "finalWords": 111,
+  "finalText": "Redis fell over at 02:14:07, and the app didn't have a circuit breaker to handle it. Without cache, every request hit the store directly, causing it to choke. Requests started timing out and piling up in the queue—hit 568 when the max is 500. By 02:31, the backed-up requests had eaten all available heap memory, Node crashed with an OOM, and the supervisor killed everything.\n\nThe chain: Redis down → cache misses → store overload → timeouts → queue backlog → heap explosion → process death.\n\nRedis reconnect tried 12 times and kept failing, so the app never recovered. Check why 10.0.0.12:6379 wasn't responding and whether Redis is back up now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4a4f9a7d533bf34f2cc333f2a5d7e11a27edf9d56a41a4f82a1dac848bc29b2a"
+}

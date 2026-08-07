@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__nextstep__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 200,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "nextstep",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 20098,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.040344700000000004,
+  "numTurns": 8,
+  "durationMs": 17685,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1443
+  },
+  "contextTraffic": 100183,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4137,
+  "narrationWords": 0,
+  "finalWords": 204,
+  "finalText": "This is a lightweight Node.js HTTP server with user auth and an order-management API. Here's the shape:\n\n**server.js** is the entry point — it spins up the HTTP server, checks your auth token on every request, and hands off to the router. It's the thin front layer.\n\n**auth.js** handles bearer-token authentication using HMAC-SHA256. Tokens look like `userId.signature`, and it verifies them with a timing-safe comparison to guard against timing attacks.\n\n**routes.js** is the router. It has three endpoints:\n- `GET /users` and `GET /orders` read through the cache\n- `POST /orders` writes straight to the store and invalidates the cache\n\nThe cache and store are separate layers that work together:\n\n**cache.js** is a tiny LRU cache (256 entries max, no expiry). It sits in front of reads and deduplicates repeated requests — the store handles actual data freshness.\n\n**store.js** is an in-memory database standin. Every record expires 15 minutes after it's written. It stores users and order lists, with helper functions to get, list, and create orders.\n\nThe flow is simple: request comes in → auth check → router picks the handler → handler hits either cache (read) or store (write) → response. No middleware, no external dependencies. It's the minimal thing that works.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3683b3897b6daa624b8cdeed884e687c86309fce7c168b17d000309c67c53730"
+}

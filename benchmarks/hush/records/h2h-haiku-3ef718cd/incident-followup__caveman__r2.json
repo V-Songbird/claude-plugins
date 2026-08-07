@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__caveman__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 262,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 40279,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.1159004,
+  "numTurns": 8,
+  "durationMs": 33905,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2047
+  },
+  "contextTraffic": 373031,
+  "apiCalls": 8,
+  "toolCalls": 5,
+  "toolResultChars": 60651,
+  "narrationWords": 0,
+  "finalWords": 27,
+  "finalText": "Done. Saved to HANDOFF.md. Root cause is Redis ECONNREFUSED at 02:14:07, cascaded to OOM. Impact 17m 38s. ioredis ^5.4.1 but exact version needs `npm ls` to check.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bbb689301575d7229ea84725dfb272a144b421174f21b9c8fca30cd18bc236db"
+}

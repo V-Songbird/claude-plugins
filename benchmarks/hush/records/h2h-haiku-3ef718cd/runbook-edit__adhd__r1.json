@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__adhd__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 273,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "adhd",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 43099,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0637263,
+  "numTurns": 9,
+  "durationMs": 36913,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3056
+  },
+  "contextTraffic": 237559,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 6267,
+  "narrationWords": 0,
+  "finalWords": 25,
+  "finalText": "Done. Updated the admin port from 8081 to 9090 in three places: the health check command, the known issues note, and the environment reference table.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e69e5982fd45f39a84f0631b74cdc7b71076ced39aed07b6289e293b1eb0a132"
+}

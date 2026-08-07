@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__caveman__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 163,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 27421,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.1696995,
+  "numTurns": 9,
+  "durationMs": 26074,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1752
+  },
+  "contextTraffic": 198790,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 6776,
+  "narrationWords": 77,
+  "finalWords": 100,
+  "finalText": "All 40 pass now.\n\nRoot cause: `computeTotal` rounded to USD cents mid-calculation (after percent discount, and again after flat discount) instead of rounding once at the end in the target currency. That extra rounding step gets amplified by the conversion rate — GBP (0.78), CAD (1.35), JPY (149) — producing a cent (or yen) drift whenever a percent coupon was stacked. USD/EUR mostly masked it since their rates are near 1, making the bug look random (\"most look fine\"). Fixed by removing the two intermediate `round()` calls, leaving only the final round after conversion — matches finance's expected single-rounding-point behavior.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "65433e9734d75e899a100d7645d41d1611b433f007ac5d7855032e654fb1e19f"
+}

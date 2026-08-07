@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__adhd__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 24,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 15395,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.12260580000000001,
+  "numTurns": 6,
+  "durationMs": 13851,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 603
+  },
+  "contextTraffic": 156716,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2185,
+  "narrationWords": 17,
+  "finalWords": 26,
+  "finalText": "All 5 tests pass. Fixed off-by-one at `paginate.js:7` — it was using `page * perPage` instead of `(page - 1) * perPage` for the start offset.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "492f508662b3fad003e9157bbeeb0023b6c2df806752480670de25ff0bbf8f26"
+}

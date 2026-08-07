@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__caveman__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 298,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 12122,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.1766283,
+  "numTurns": 3,
+  "durationMs": 10707,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 524
+  },
+  "contextTraffic": 105500,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 24928,
+  "narrationWords": 0,
+  "finalWords": 37,
+  "finalText": "700 test run. 698 pass, 2 fail — both in `auth/tokens.test.js`:\n\n- `refreshToken silently accepts an already-revoked token` (auth/tokens.test.js:400)\n- `sessionCleanup leaves orphaned rows after a rollback` (auth/tokens.test.js:650)\n\nBoth token/session lifecycle bugs, same file. Worth look first.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bf83836c77e572a7c7967cd39cf614bebd3d3474bd7fcc8b246295bde20aeecb"
+}

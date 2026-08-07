@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__adhd__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 230,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 13375,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.1362321,
+  "numTurns": 3,
+  "durationMs": 11876,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 799
+  },
+  "contextTraffic": 98570,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 14041,
+  "narrationWords": 0,
+  "finalWords": 84,
+  "finalText": "**16 call sites** still pass the second arg. Worst offender: `src\\reports\\quarterly.js` with **5**.\n\nBreakdown by file:\n1. `src\\reports\\quarterly.js` — 5 (lines 16, 37, 58, 83, 104)\n2. `src\\admin\\exports.js` — 3 (lines 16, 37, 62)\n3. `src\\billing\\invoice.js` — 3 (lines 16, 45, 74)\n4. `src\\reports\\monthly.js` — 2 (lines 16, 57)\n5. `src\\checkout\\cart.js` — 2 (lines 16, 53)\n6. `src\\checkout\\receipt.js` — 1 (line 16)\n\nClean (0 legacy calls): `ledger.js`, `dashboard.js`, `statement.js`, `refunds.js`.\n\nNext: start with `src\\reports\\quarterly.js` — want me to strip the `true` arg there first?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7d796055e960c2f21a9b4fb4cd645736a5d8fb35de425de0f617e09f8699b011"
+}

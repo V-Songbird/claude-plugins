@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__nextstep__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 0,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "nextstep",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 37693,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.05403740000000001,
+  "numTurns": 9,
+  "durationMs": 35590,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1935
+  },
+  "contextTraffic": 184996,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 4662,
+  "narrationWords": 0,
+  "finalWords": 55,
+  "finalText": "The bug was in `isExpired()` on token.js:7 — it used `<` instead of `<=`. When a token's expiry time equals the current time, it should be expired, but the old comparison said false. Changed it to `<=` so tokens are correctly marked expired the moment their expiration time is reached.\n\nAll 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f924364aaffdbcc3a8b00cfc99886e3e793ba167d0a64a574ed096259bc12357"
+}

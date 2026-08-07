@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__nextstep__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 190,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "nextstep",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 37018,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0602173,
+  "numTurns": 11,
+  "durationMs": 35143,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1893
+  },
+  "contextTraffic": 216919,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 8565,
+  "narrationWords": 0,
+  "finalWords": 59,
+  "finalText": "Both bugs fixed. The bundler bump changed how options are passed — `retries` became `retryCount` in options.js, and the config loader now leaves unset flags as `undefined` instead of `false` in retryPolicy.js. Flipped the error throw to `return false` so undefined flags default to disabled. Build finishes clean now: 0 errors, just the deprecation noise from the dependency bump.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "47187f2bf4f7d17384128b687725cec9e4210d37668694a7a412bf335a099a3f"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__adhd__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 178,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 24618,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.1656162,
+  "numTurns": 9,
+  "durationMs": 23242,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1596
+  },
+  "contextTraffic": 198470,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 5476,
+  "narrationWords": 178,
+  "finalWords": 21,
+  "finalText": "All 40 tests pass now. Next: run your full test suite to confirm nothing else depended on the old rounding behavior.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "57d6cc0ee85a6dd2dc9b37cce0400b676e41f02fb9e85b5a40c109e46d40bd21"
+}

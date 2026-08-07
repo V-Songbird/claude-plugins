@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__caveman__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 104,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10364,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0194168,
+  "numTurns": 1,
+  "durationMs": 8389,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 568
+  },
+  "contextTraffic": 22741,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 143,
+  "finalText": "Parent re-renders, child re-renders by default — even if props *look* identical. Problem: props are new object references each render.\n\nCommon culprits:\n- Inline objects: `<Child config={{ color: 'red' }} />` — new object every parent render\n- Inline arrays: `<Child items={[1, 2, 3]} />`\n- Inline functions: `<Child onClick={() => handler()} />`\n\nReact sees \"new object reference\" = \"prop changed\" = re-render child.\n\nFixes:\n\n**Option 1 — memoize props:**\n```jsx\nconst config = useMemo(() => ({ color: 'red' }), []);\n<Child config={config} />\n```\n\n**Option 2 — memoize callback:**\n```jsx\nconst onClick = useCallback(() => handler(), []);\n<Child onClick={onClick} />\n```\n\n**Option 3 — memoize child component:**\n```jsx\nconst Child = React.memo(({ config }) => {...});\n```\n\n**Best: move inline values outside component or use `useMemo`/`useCallback`.** Prevents all three patterns.\n\nWhich pattern causing your re-renders? Show code and I'll pin exact fix.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b7824fb159a6797a040a92f6a604e2d74c1f4a265f1c6f17e0ac32891fe7c400"
+}

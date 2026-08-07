@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__simple-english__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 203,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 22318,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0334582,
+  "numTurns": 8,
+  "durationMs": 20260,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1334
+  },
+  "contextTraffic": 90257,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4137,
+  "narrationWords": 0,
+  "finalWords": 257,
+  "finalText": "Here's what you have: a lightweight Node.js HTTP server with auth, caching, and an in-memory data store.\n\n**The request flow:**\n\n1. **server.js** — Entry point. Creates an HTTP server that extracts and verifies a bearer token from each request. Rejects unauthenticated requests with 401. Hands authenticated requests to the router.\n\n2. **auth.js** — Token verification. Bearer tokens are signed user IDs (format: `<userId>.<hmac signature>`). Uses HMAC-SHA256 with a secret from the `AUTH_SECRET` env var to verify. Timing-safe comparison prevents timing attacks.\n\n3. **routes.js** — Request routing and business logic. Maps HTTP methods and paths to handlers. Three endpoints:\n   - `GET /users?id=X` — Fetches a user (cached)\n   - `GET /orders` — Lists orders for the authenticated user (cached)\n   - `POST /orders` — Adds an order to the user's list\n\n4. **cache.js** — LRU read cache (256 entries, no TTL). Wraps data store queries for reads. Invalidation is manual (routes.js doesn't call it for writes).\n\n5. **store.js** — In-memory data store. Records have a 15-minute TTL after the last write. Acts as a database stand-in. Stores user data and order lists by key.\n\n**The design:**\n- Reads go through cache → store (with 15-minute expiry).\n- Writes go straight to store and implicitly invalidate (though the cache isn't explicitly cleared).\n- Auth is required for every request; no public endpoints.\n- All errors return 500 with the error message (not ideal for production).\n\nThis is a demo/reference app, not production-ready — no real database, secrets in env vars, minimal error handling.\n\nWhat would you like to explore or change?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e66db651162e74fbe00057c51e237308b799c142862c528323da34a0d7d26367"
+}

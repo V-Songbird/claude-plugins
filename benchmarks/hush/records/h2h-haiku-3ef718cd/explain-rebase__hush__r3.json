@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 120,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11782,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0226792,
+  "numTurns": 1,
+  "durationMs": 9859,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 612
+  },
+  "contextTraffic": 23970,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 223,
+  "finalText": "**Merge** creates a new commit that ties two branches together. You keep all the history — every commit from both branches stays in the timeline, and it's clear that two lines of work happened in parallel and came together at a specific point. It's safe for shared branches because you're not rewriting anyone else's commits.\n\n**Rebase** takes your commits and replays them on top of the other branch, like they were written there all along. You get a clean, linear timeline, but you're rewriting history. Anyone else working on your branch will have a bad time — their copy of the branch becomes incompatible with yours.\n\nWhen to reach for each:\n\n**Use merge** when you're integrating work that others depend on, or when the parallel history matters (two teams working on different things that came back together). It's the safe default for shared branches.\n\n**Use rebase** on your own feature branch before you push it anywhere. It makes your commits cleaner and easier to review. The rule: rebase *before* you share, merge *after* you've shared.\n\nIf you're the only person working on a branch and haven't pushed it yet, rebase away — squash it down, clean it up, get it ready. Once it's out there and others might have based work on it, switch to merge to integrate it into the main line.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c1f6215f38103a496de73b8673bb8e06f11916e31484cd473b751beedf13b80b"
+}

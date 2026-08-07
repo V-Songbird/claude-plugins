@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__caveman__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 227,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 14584,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.037272400000000004,
+  "numTurns": 3,
+  "durationMs": 12810,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 929
+  },
+  "contextTraffic": 78622,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 14999,
+  "narrationWords": 0,
+  "finalWords": 53,
+  "finalText": "17 call sites pass legacy rounding flag. `src\\reports\\quarterly.js` has most with 5.\n\nBreakdown by file:\n- `src\\reports\\quarterly.js`: 5 (bundle, holdback, subtotal, surcharge, gross)\n- `src\\admin\\exports.js`: 3 (tip, commission, credit)\n- `src\\billing\\invoice.js`: 3 (tip, balance, payout)\n- `src\\checkout\\cart.js`: 2 (prepayment, writeOff)\n- `src\\reports\\monthly.js`: 2 (tip, settlement)\n- `src\\billing\\statement.js`: 1 (bundle)\n- `src\\checkout\\receipt.js`: 1 (tip)",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9bf355409b1ee9f9d8d6e47e7320f9a537171ce36ab0bfff12436f690530f97f"
+}

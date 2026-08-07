@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__simple-english__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 302,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 12674,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.045639799999999994,
+  "numTurns": 2,
+  "durationMs": 11280,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 765
+  },
+  "contextTraffic": 55785,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 24908,
+  "narrationWords": 0,
+  "finalWords": 59,
+  "finalText": "**Summary:** 698 of 700 tests passed. The run had two failures, both in the auth/tokens.test.js file:\n\n1. **refreshToken silently accepts an already-revoked token** (auth/tokens.test.js:400)\n2. **sessionCleanup leaves orphaned rows after a rollback** (auth/tokens.test.js:650)\n\nBoth failures are in the authentication token handling code. You may want to look at the refresh token logic and the session cleanup behavior during rollbacks.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d7071c547862c376f5160add294f16cd4998635253698c4f37d7f5a46775a817"
+}

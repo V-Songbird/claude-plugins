@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__caveman__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 73,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 21185,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.2225517,
+  "numTurns": 6,
+  "durationMs": 19686,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 696
+  },
+  "contextTraffic": 174436,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 33574,
+  "narrationWords": 10,
+  "finalWords": 49,
+  "finalText": "Build clean, exit 0.\n\nReal bug: `settings.js:17` reference undefined var `retries` instead of `env.retries`, crashing link stage every time. Fixed: `maxRetries: env.retries != null ? env.retries : 3`. 3 warnings remain (deprecated crypto API, unused export, circular import) — cosmetic, not build-breaking. Say word if want those cleared too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9435a120d36cfd94bbb6d94a9d7c91efc3f591806d3036e476f89112ef22b5a4"
+}

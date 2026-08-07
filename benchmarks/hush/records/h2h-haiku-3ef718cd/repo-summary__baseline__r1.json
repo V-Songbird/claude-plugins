@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 199,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 24255,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.034813500000000004,
+  "numTurns": 10,
+  "durationMs": 22619,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1691
+  },
+  "contextTraffic": 88848,
+  "apiCalls": 4,
+  "toolCalls": 9,
+  "toolResultChars": 4288,
+  "narrationWords": 15,
+  "finalWords": 290,
+  "finalText": "Here's the architecture of this repo:\n\n## Overview\nThis is a minimal Node.js HTTP server for order management with token-based auth, route handling, caching, and an in-memory data store.\n\n## The Five Pieces\n\n**server.js** — HTTP entry point\n- Creates an HTTP server on port 8080 (configurable via `PORT` env)\n- Intercepts all requests, verifies the Bearer token via `auth.js`\n- Rejects unauthorized requests with 401\n- Hands authorized requests to the route dispatcher\n\n**auth.js** — Token verification\n- Uses HMAC-SHA256 to sign/verify Bearer tokens\n- Token format: `Bearer <userId>.<signature>`\n- Reads shared secret from `AUTH_SECRET` env var (defaults to `dev-secret`)\n- Uses timing-safe comparison to prevent timing attacks\n\n**routes.js** — Route dispatcher\n- Hardcoded route table with three endpoints:\n  - `GET /users?id=...` — fetch user data\n  - `GET /orders` — list orders for the authenticated user\n  - `POST /orders` — create a new order\n- Reads go through an LRU cache (cache.js)\n- Writes go straight to the store (implicitly invalidating cache)\n- Parses query strings and handles promise-based handlers\n\n**store.js** — In-memory data layer\n- Stands in for a real database\n- Every record expires 15 minutes after it's written\n- Tracks users and orders keyed by user ID\n- No persistence — resets when the server restarts\n\n**cache.js** — Read-through LRU cache\n- 256-entry capacity, no TTL (store handles expiry)\n- Absorbs repeated reads\n- Bumps accessed keys to most-recent (standard LRU behavior)\n\n## Data Flow\n1. Request → `server.js` (auth check)\n2. `routes.js` (dispatch)\n3. **GET requests** → `cache.js` (hit?) → `store.js` (miss, fetch & cache)\n4. **POST requests** → `store.js` (write directly, cache invalidation implicit)\n\nThat's it — a clean, tiny monolith. No database, no dependencies, no complexity. Suitable for testing or a minimal backend.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "41db8d21b6467a56519c733a1896fcec7932525f302f62034f36ba55d88c35cc"
+}

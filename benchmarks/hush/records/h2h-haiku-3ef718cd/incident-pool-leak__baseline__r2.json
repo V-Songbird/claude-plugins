@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 151,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 44474,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.10057730000000001,
+  "numTurns": 11,
+  "durationMs": 42845,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2696
+  },
+  "contextTraffic": 269124,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 52220,
+  "narrationWords": 110,
+  "finalWords": 93,
+  "finalText": "Perfect! All tests pass. The issue was clear in the logs around 2am: invalid orders (lines 269, 272, 278 in worker.log) weren't releasing their connections, causing the pool to exhaust.\n\n**The bug:** `processOrder` directly called `pool.acquire()` without a try-finally block, so when `run(conn, order)` threw an error during validation, the connection was never released.\n\n**The fix:** Changed `processOrder` to use the safe `withConnection` wrapper (same pattern as `handleRequest`), which guarantees connections are always released even on failure.\n\nThe connection leak is now fixed—test suite passes, and future validation failures won't exhaust the pool.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "459bbc668e733347df0c78e3d6a83db4c4a9bcbb0059e9b6ba45c47f801b48ae"
+}

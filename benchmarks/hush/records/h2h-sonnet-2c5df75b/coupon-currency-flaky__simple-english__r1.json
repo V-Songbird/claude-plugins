@@ -1,0 +1,37 @@
+{
+  "key": "<redacted-secret>",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 164,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 35028,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1886536,
+  "numTurns": 9,
+  "durationMs": 33714,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2581
+  },
+  "contextTraffic": 197591,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 9919,
+  "narrationWords": 227,
+  "finalWords": 80,
+  "finalText": "All 40 tests pass now.\n\n**Summary for finance:** the bug was premature rounding. The engine rounded the discounted total to cents in USD after each coupon step, before converting to the customer's currency. That threw away fractions of a cent that mattered after conversion, so orders with a percent coupon in GBP, CAD, or JPY sometimes landed one cent (or yen) low. I removed the intermediate rounds; the code now rounds once, at the end, in the order's own currency.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "51ae44ab38d46972bd3f4fa58984af75bb082772821d75d22aa50a2a511568da"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__hush__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 34,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 28056,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.042512799999999996,
+  "numTurns": 7,
+  "durationMs": 25837,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1402
+  },
+  "contextTraffic": 127148,
+  "apiCalls": 5,
+  "toolCalls": 6,
+  "toolResultChars": 2432,
+  "narrationWords": 0,
+  "finalWords": 31,
+  "finalText": "Pages are 1-indexed, but the calculation was treating them as 0-indexed. Changed `start = page * perPage` to `start = (page - 1) * perPage`, and all 5 tests now pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e3a20660b79bc1bb0b5cd9ccd5d59597562588d92ec4a8a80ce3c0741b4bb6ae"
+}

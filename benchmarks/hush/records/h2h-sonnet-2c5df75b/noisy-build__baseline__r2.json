@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 82,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 27566,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.17778020000000003,
+  "numTurns": 8,
+  "durationMs": 25948,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1150
+  },
+  "contextTraffic": 226096,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 14255,
+  "narrationWords": 75,
+  "finalWords": 58,
+  "finalText": "Build now exits 0. The real bug was in `src/core/settings.js:17` — `maxRetries: retries` referenced an undefined variable (should've been `env.retries`), throwing a `ReferenceError` that aborted the link stage. The three `WARN` lines in the log (deprecated `crypto.createCipher`, an unused export, a circular import) were red herrings unrelated to the crash — worth cleaning up eventually but not build-breaking.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1be9d16a807eb67bf7eeba2eada80e4be81931edce803257c2e83a0428eeb800"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__caveman__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 124,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 8877,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0701895,
+  "numTurns": 1,
+  "durationMs": 6678,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 365
+  },
+  "contextTraffic": 30333,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 163,
+  "finalText": "Merge and rebase both combine branch work, differ in history.\n\n**Merge**\n- Make new merge commit, join two branch tip.\n- History keep exact record, both branch line visible.\n- Non-destructive, safe for shared/public branch.\n- Downside: history get messy, many merge bubble on busy branch.\n\n**Rebase**\n- Replay commit from one branch onto tip of other, one by one.\n- Result: linear history, no merge commit.\n- Rewrite commit hash — dangerous on branch others already pull from (force-push needed, break their history).\n- Good for clean up local feature branch before share (squash, reorder, tidy) or keep feature branch current with main without merge clutter.\n\nWhen reach for each:\n- Rebase: private/local branch, want clean linear log before opening PR, or updating feature branch with latest main.\n- Merge: combining into shared branch (main/develop), preserving true history, anything already pushed and shared with team.\n\nGolden rule: never rebase commit others already based work on. Rewrite shared history = pain for everyone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2d2ed9f85dfbd4fcf09e3a1a91550da68a62db6089ac9122c240c1f4055ed16a"
+}

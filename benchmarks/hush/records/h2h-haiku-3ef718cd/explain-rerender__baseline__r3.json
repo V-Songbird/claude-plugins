@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 107,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9862,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.017158800000000002,
+  "numTurns": 1,
+  "durationMs": 8293,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 604
+  },
+  "contextTraffic": 21216,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 182,
+  "finalText": "I'll need to see your code to diagnose the exact issue, but here are the most common causes:\n\n**1. Parent re-renders** — The parent is re-rendering, which triggers child re-renders regardless of props. Check what's causing the parent to re-render (state changes, context, etc.).\n\n**2. Props are recreated each render** — Objects or functions passed as props are created fresh each render:\n```jsx\n// ❌ Creates a new object/function every render\n<Child data={{foo: 'bar'}} onClick={() => {}} />\n\n// ✅ Memoize them\nconst data = useMemo(() => ({foo: 'bar'}), []);\nconst onClick = useCallback(() => {}, []);\n<Child data={data} onClick={onClick} />\n```\n\n**3. Missing React.memo** — If the child receives primitive props but still re-renders, wrap it:\n```jsx\nconst Child = React.memo(({name, age}) => <div>{name}</div>);\n```\n\n**4. Props comparison fails** — React.memo uses shallow comparison; if props contain objects/arrays, it sees them as \"changed\" even if content is the same.\n\nCan you share your parent and child component code? That'll help me pinpoint exactly what's causing the re-renders. You can also check with React DevTools Profiler to see what's triggering each re-render.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "03b5d6ded0ba17faa949a8d241abc09543feecb650e94e9d210e94f9e0d5b3f6"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__caveman__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 283,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 34890,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.21645,
+  "numTurns": 10,
+  "durationMs": 28661,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2094
+  },
+  "contextTraffic": 337035,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 6443,
+  "narrationWords": 0,
+  "finalWords": 17,
+  "finalText": "All three prod 8081 mentions → 9090 (health check curl, known-issue note, appendix table). Staging stays 8091.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4bce76875cb1973bb9bccf6a60926976e2e358931ec778973f2b83b622dcbd78"
+}

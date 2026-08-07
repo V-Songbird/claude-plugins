@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__caveman__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 197,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23012,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.16157159999999998,
+  "numTurns": 9,
+  "durationMs": 21576,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1570
+  },
+  "contextTraffic": 195522,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 5541,
+  "narrationWords": 9,
+  "finalWords": 68,
+  "finalText": "Build clean now, 0 errors. Two real bugs, both from bundler bump, deprecation spam was noise:\n\n- `src/core/options.js` — options shape changed to `retryCount`, code still read `options.retries` (undefined `.toFixed` crash). Fixed to read `retryCount`.\n- `src/net/retryPolicy.js` — new config loader leaves unset flag `undefined` instead of `false`; strict check threw on that. Now treats `undefined` same as `false`.\n\nRemaining 8 warnings = deprecation/lint noise, no action needed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cc04b53b329a36f087e895edba973481a985c8fb24f07eb4926a6201123d3c99"
+}

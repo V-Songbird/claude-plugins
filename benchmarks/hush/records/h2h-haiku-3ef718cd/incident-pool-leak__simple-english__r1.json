@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__simple-english__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 147,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 67493,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.15374230000000003,
+  "numTurns": 19,
+  "durationMs": 66045,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3952
+  },
+  "contextTraffic": 674797,
+  "apiCalls": 16,
+  "toolCalls": 18,
+  "toolResultChars": 55498,
+  "narrationWords": 229,
+  "finalWords": 199,
+  "finalText": "Perfect! All tests pass now. The fix is complete. Here's what was wrong and how I fixed it:\n\n**The Problem:**\n- `processOrder` in `src/jobs/processOrder.js` was acquiring a connection but not wrapping the operation in try-finally\n- When a job failed (invalid order payload), the `run()` call would reject, and the code never reached `pool.release(conn)`\n- This permanently leaked the connection from the pool (as shown in your 2am incident logs around line 269-279 of worker.log)\n- After 5 failed jobs, all 5 pool connections were exhausted, causing cascading 503 errors\n\n**The Fix:**\nI wrapped the `run()` call in try-finally to guarantee the connection is released even on failure — the same pattern the safe `withConnection` wrapper uses in the API handler path (which is why API requests didn't leak).\n\n**Result:**\n- Tests 2 and 3 now pass: `processOrder` properly recovers connections after failed orders\n- The pool stays healthy even with many concurrent failures\n- Your incident won't repeat — connections are now guaranteed to release\n\nThe logs showed pool utilization ramping from 2/5 to 5/5 exhaustion exactly as jobs with invalid payloads started failing without releasing their connections. This fix ensures failed jobs always give their connections back.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "26e9b2c93b0d36e53153e5ceef6d93d2841ca3f9d20caaf5df8f7a807ec6e3c3"
+}

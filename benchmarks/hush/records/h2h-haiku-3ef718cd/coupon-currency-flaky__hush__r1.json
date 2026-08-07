@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 165,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 46797,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0758299,
+  "numTurns": 9,
+  "durationMs": 45031,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3010
+  },
+  "contextTraffic": 259155,
+  "apiCalls": 9,
+  "toolCalls": 8,
+  "toolResultChars": 13525,
+  "narrationWords": 0,
+  "finalWords": 133,
+  "finalText": "All 40 tests pass now. The problem was **premature rounding** in the discount logic. \n\nThe engine was rounding to 2 decimals after each coupon was applied, but the test contract—and basic arithmetic—requires rounding only once at the very end after currency conversion. When stacking a percent and flat discount with currency conversion, rounding each intermediate step throws away cents that should carry forward. For example, a 10% discount on $19.98 gives 17.982, which the old code rounded to 17.98 (losing 0.002). When that loss hits a currency like GBP (0.78 rate), it flips the final result by a cent.\n\nThe fix: removed the `round(..., 2)` calls after each coupon application in `engine.js:16-28`. Now all discount math stays in full precision until the single final rounding after currency conversion, matching the test's reference implementation.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9a64842ac24202a29a68a5f2dcaf81712b4133b8b3a2c93428851f01b7cbdf7c"
+}

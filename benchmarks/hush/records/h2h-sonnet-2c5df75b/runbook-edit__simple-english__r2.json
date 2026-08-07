@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__simple-english__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 277,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 71586,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.26366049999999996,
+  "numTurns": 13,
+  "durationMs": 67258,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3142
+  },
+  "contextTraffic": 433395,
+  "apiCalls": 13,
+  "toolCalls": 10,
+  "toolResultChars": 8172,
+  "narrationWords": 11,
+  "finalWords": 44,
+  "finalText": "Updated all four production references from `8081` to `9090`: the two health-check `curl` commands, the known-issues note, and the appendix table (staging's `8091` is untouched). I also split a semicolon into two sentences on the line I was already editing, per the style rules.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4b84c3d4dcc1e3066acadf7e63d4b14088dbdfb6fb93d32f0860b2357baa4613"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__caveman__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 7,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16768,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.1208754,
+  "numTurns": 6,
+  "durationMs": 15070,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 605
+  },
+  "contextTraffic": 155560,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2109,
+  "narrationWords": 21,
+  "finalWords": 22,
+  "finalText": "All 5 pass. `isExpired` used `<`, missed exact-expiry case (`exp == now` slip through as valid). Changed to `<=`, matches doc comment.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e750f81c3c6df56f754365089f2a0e4d465f1a19a96d390d86cc094818b57779"
+}

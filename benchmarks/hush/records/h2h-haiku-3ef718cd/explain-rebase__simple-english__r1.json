@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__simple-english__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 112,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10630,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0179762,
+  "numTurns": 1,
+  "durationMs": 8420,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 546
+  },
+  "contextTraffic": 21786,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 224,
+  "finalText": "**Merge** combines two branches by creating a new commit that ties them together. The history stays intact—you see where both branches existed. Use merge when you are integrating work that others have seen or published.\n\n**Rebase** replays your commits on top of another branch, as if you had started from that point. The history becomes linear, but you rewrite it. Use rebase only on commits that you have not pushed, or on local feature branches that no one else tracks.\n\n**Core tradeoff:**\n\nMerge is safe for shared work. Rebase cleans up your history but rewrites commits—if someone else pulled your branch before the rebase, their work now conflicts with yours.\n\n**Practical rule:**\n\n- **Before you push:** rebase if you want a clean, linear history on your feature branch.\n- **To integrate into main:** merge, so the integration point is visible and your team's branch work is preserved.\n- **Never rebase commits that are published** or that others have based work on—it rewrites their foundation.\n\n**Example:**\n\nYou make three commits on a feature branch. Main gets one commit. A rebase replays your three commits on top of main (linear, clean). A merge creates one new commit that says \"these branches meet here\" (history shows the branch existed).\n\nFor most teams: rebase before pushing to clean up your own work, then merge to main to integrate.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "db683f46f5f1a77d20212e96d5053a968cba9a953e09832cc04f8a7749c37ec7"
+}

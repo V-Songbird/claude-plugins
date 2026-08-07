@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__caveman__r1",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 5,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 22063,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0371623,
+  "numTurns": 7,
+  "durationMs": 19881,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1355
+  },
+  "contextTraffic": 119081,
+  "apiCalls": 5,
+  "toolCalls": 6,
+  "toolResultChars": 2128,
+  "narrationWords": 47,
+  "finalWords": 43,
+  "finalText": "Done. Expired tokens now blocked. All 5 tests pass.\n\nProblem: `isExpired()` used `<` instead of `<=`. Token at expiry instant slipped through.\n\nSolution: Changed line 7 to `token.exp <= nowSeconds`.\n\nBoundary condition now correct — token expires AT the `exp` moment, not after.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f17f218d5019ec4b77a9d4f8e56a464309721cb4006da884cd016b11adbbca29"
+}

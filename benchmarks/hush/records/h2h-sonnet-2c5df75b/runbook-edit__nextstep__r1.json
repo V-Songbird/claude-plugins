@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__nextstep__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 272,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "nextstep",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 57092,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.3031914,
+  "numTurns": 12,
+  "durationMs": 51389,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3019
+  },
+  "contextTraffic": 432103,
+  "apiCalls": 12,
+  "toolCalls": 9,
+  "toolResultChars": 6491,
+  "narrationWords": 0,
+  "finalWords": 30,
+  "finalText": "All three production mentions of the admin port are now 9090 — the health-check curl, the known-issues note, and the environment table. Staging stayed at 8091 since only production moved.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "00e59ed714ab79f3192472df995cfa4e37ce428d4d08e91fcf9d7af093554c9d"
+}

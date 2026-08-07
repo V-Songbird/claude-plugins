@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__caveman__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 221,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11454,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.0973503,
+  "numTurns": 3,
+  "durationMs": 9600,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 583
+  },
+  "contextTraffic": 92225,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 1411,
+  "narrationWords": 0,
+  "finalWords": 61,
+  "finalText": "17 call sites still pass second arg (legacy rounding flag), across 7 files. `src\\reports\\quarterly.js` worst offender: 5 call sites (lines 16, 37, 58, 83, 104).\n\nBreakdown:\n- reports\\quarterly.js — 5\n- admin\\exports.js — 3\n- billing\\invoice.js — 3\n- reports\\monthly.js — 2\n- checkout\\cart.js — 2\n- billing\\statement.js — 1\n- checkout\\receipt.js — 1\n\n(`lib\\format.js:6` is definition, not call site, excluded.)",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4c6e6f96e43433c0e552d21e2a7dc9878f24d478c27c41f6fa156b6cb1e6dfca"
+}

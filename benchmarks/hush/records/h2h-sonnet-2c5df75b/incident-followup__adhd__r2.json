@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__adhd__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 261,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 53359,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.49204439999999994,
+  "numTurns": 13,
+  "durationMs": 49014,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2801
+  },
+  "contextTraffic": 656073,
+  "apiCalls": 12,
+  "toolCalls": 10,
+  "toolResultChars": 60752,
+  "narrationWords": 12,
+  "finalWords": 258,
+  "finalText": "## On-Call Handoff — incident-service outage, 2026-07-04\n\n**Status:** Service down, recovered via supervisor restart. Root cause is external (Redis), not yet fixed — will recur if Redis flakes again.\n\n### Root cause\nRedis at `10.0.0.12:6379` dropped at 02:14:07 UTC (`ECONNREFUSED`). App fell back to direct DB reads under full traffic load. No backpressure/circuit breaker on the request queue — it grew unbounded while every request timed out at 5000ms waiting on the overloaded store. 12 reconnect attempts to Redis over 17 minutes all failed. Queue depth blew past its documented max (500) at 02:29:06, hit 568 by the end, and a worker ran out of heap memory trying to hold the backlog.\n\n### Impact window\n- **02:14:07 UTC** — Redis connection lost, degraded mode begins (cache miss storms, rising timeouts)\n- **02:29:06 UTC** — request queue exceeds max capacity (500)\n- **02:31:44 UTC** — worker-2 OOM crash\n- **02:31:52 UTC** — supervisor kills the whole process group, **full outage starts**\n- Recovery time not in this log — check supervisor/deploy logs for when the process group came back up.\n- **Degraded ~17.5 min, hard down from 02:31:52 onward.**\n\n### ioredis version\n**Can't give an exact version — no `package-lock.json` in the repo.** `package.json` pins `\"ioredis\": \"^5.4.1\"`, which allows anything from 5.4.1 up to (but not including) 6.0.0. The actual resolved version depends on what was on disk/in the registry at install time.\n\nNext: run `npm ls ioredis` on the prod host (or wherever `node_modules` is present) to get the exact installed version before checking it against the changelog.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a508e7cc7d891335cfe8374fae3a34629815f4c121f19ee58bc38bbf9b02f8fa"
+}

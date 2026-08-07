@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__adhd__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 133,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 7804,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0194258,
+  "numTurns": 1,
+  "durationMs": 5942,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 461
+  },
+  "contextTraffic": 23013,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 103,
+  "finalText": "```python\nimport re\nfrom typing import bool\n\ndef validate_email(email: str) -> bool:\n    \"\"\"Validates email format using regex pattern.\"\"\"\n    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'\n    return re.match(pattern, email) is not None\n```\n\n**For production**, install `email-validator` instead:\n```bash\npip install email-validator\n```\n\n```python\nfrom email_validator import validate_email, EmailNotValidError\n\ndef validate_email(email: str) -> bool:\n    \"\"\"Validates email with DNS checks.\"\"\"\n    try:\n        validate_email(email, check_deliverability=True)\n        return True\n    except EmailNotValidError:\n        return False\n```\n\n**Tradeoff:** The regex is fast and has no dependencies. The library is slower but handles edge cases, DNS validation, and normalization. Use regex for speed, library for accuracy.\n\n**Next:** Drop either function into your code and test with `validate_email(\"<email>\")`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "058fd6bbd1ced8ffec06f69455ff2f7728254ef9af220d48b280c5154121f186"
+}

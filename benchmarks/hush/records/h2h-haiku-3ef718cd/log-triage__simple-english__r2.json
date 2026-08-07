@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__simple-english__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 240,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "simple-english",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 16434,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0747367,
+  "numTurns": 2,
+  "durationMs": 14839,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 986
+  },
+  "contextTraffic": 69759,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 60098,
+  "narrationWords": 0,
+  "finalWords": 221,
+  "finalText": "Looking at the logs, here's what happened:\n\n## Root Cause\nAt **02:14:07**, Redis cache at `10.0.0.12:6379` went down (`ECONNREFUSED`). This was the single point of failure that triggered a cascading outage.\n\n## The Cascade\n\n1. **Cache layer died** (line 182-183): When Redis connection was lost, the system fell back to direct database reads without cache protection.\n\n2. **Store got overwhelmed** (line 184+): Without the cache layer absorbing requests, every request hit the store directly, which couldn't handle the load. Requests started timing out after 5 seconds.\n\n3. **Queue depth exploded** (lines 186-717): As requests backed up, queue depths grew steadily:\n   - Started at 52 (line 186)\n   - Reached 500+ by line 353\n   - Hit 568 by line 711\n   - Max queue was 500, so requests were queuing uncontrollably\n\n4. **Memory exhaustion** (line 717): worker-2 process ran out of heap memory trying to hold all those queued requests in memory.\n\n5. **System crashed** (lines 717-719): The supervisor killed the worker and the entire service went down.\n\n## Timeline\n- **02:14:07**: Redis connection lost\n- **02:14:10-02:31:26**: ~17 minutes of degradation with 12 failed reconnection attempts\n- **02:31:44**: Memory exhaustion and service death\n\nThe system had no backpressure—it just kept accepting and queueing requests instead of rejecting them when the store couldn't keep up. Redis staying down for 17+ minutes was the real killer.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e88b29ab6257f0a342de07eb9d38513f3f387fed4678abcfbca4b6a93c68d97f"
+}

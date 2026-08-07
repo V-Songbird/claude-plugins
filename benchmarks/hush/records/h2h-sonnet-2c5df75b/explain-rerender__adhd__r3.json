@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__adhd__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 103,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 14611,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0773505,
+  "numTurns": 1,
+  "durationMs": 12909,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 760
+  },
+  "contextTraffic": 30539,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 284,
+  "finalText": "## The usual cause: new references on every render\n\nReact compares props with `Object.is` (reference equality) when deciding whether `React.memo` should skip a re-render. If you pass a **function, object, or array literal** as a prop, it's a brand-new reference every time the parent renders — even if the values inside look identical.\n\n```jsx\n// New function reference every render\n<Child onClick={() => doThing()} />\n\n// New object reference every render\n<Child style={{ color: 'red' }} />\n```\n\n`onClick !== onClick` from the previous render, so `memo` thinks the prop changed.\n\n## But check this first: is the child even memoized?\n\nWithout `React.memo`, a child **always** re-renders when its parent re-renders — regardless of whether props changed at all. This is the most common reason and has nothing to do with prop values.\n\n```jsx\nfunction Child({ name }) { ... }        // re-renders every time Parent renders\nexport default React.memo(Child)         // now props are compared\n```\n\n## Fix checklist, in order\n\n1. Wrap the child: `export default React.memo(Child)`\n2. Wrap functions passed as props: `const onClick = useCallback(() => doThing(), [deps])`\n3. Wrap objects/arrays passed as props: `const style = useMemo(() => ({ color: 'red' }), [])`\n4. If a prop is JSX/children built inline, that's also a new reference each time — lift it out or memoize it too\n\n## Quick way to confirm which one it is\n\nOpen React DevTools → Profiler → check \"Highlight updates when components render,\" then look at the child's render reason. It'll tell you if it's \"props changed\" (reference issue, steps 2-3) or the child isn't memoized at all (step 1).\n\nNext: run the app, open React DevTools Profiler, and check what the child's re-render reason says.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "af0f36e147ac40e96d7fca89d0b1d1f8f3f07a498184a47b0e037a544b297412"
+}

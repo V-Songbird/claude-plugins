@@ -1,0 +1,37 @@
+{
+  "key": "<redacted-secret>",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 164,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 56059,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.08678,
+  "numTurns": 13,
+  "durationMs": 54367,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4654
+  },
+  "contextTraffic": 220925,
+  "apiCalls": 8,
+  "toolCalls": 12,
+  "toolResultChars": 22709,
+  "narrationWords": 145,
+  "finalWords": 100,
+  "finalText": "All tests pass! The issue was **premature rounding of intermediate discount calculations**. The code was rounding the USD total after each discount step, which introduced small errors that compounded through currency conversions.\n\nThe pattern was:\n- Apply 10% discount → rounds USD result\n- This small loss gets magnified when converted to foreign currencies\n- Especially visible in GBP (0.78 rate), CAD (1.35 rate), and JPY (149 rate)\n\nThe rule for pricing: **round only the final result, never intermediate values**. Apply all discounts and conversions with full precision, then round once at the end to the target currency's decimal places.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2d3bcb7bb013194ab4828266ed66c663e0c21b9433daf5067c1ae8c805e4c6fe"
+}

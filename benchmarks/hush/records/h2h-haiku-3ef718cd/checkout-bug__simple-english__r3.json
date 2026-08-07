@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__simple-english__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 51,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "simple-english",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 36712,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.056645,
+  "numTurns": 9,
+  "durationMs": 34960,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2480
+  },
+  "contextTraffic": 220148,
+  "apiCalls": 9,
+  "toolCalls": 8,
+  "toolResultChars": 6062,
+  "narrationWords": 162,
+  "finalWords": 135,
+  "finalText": "Excellent! All tests pass. Here's what I fixed:\n\n**The bug:** When a flat-amount coupon was applied to a non-USD order, the coupon was subtracted from the already-converted amount, treating the USD coupon value as if it were in the target currency.\n\n**Example:** A $10 flat coupon on a $100 order in EUR gave `(100 × 0.9) - 10 = 80`, but should give `(100 - 10) × 0.9 = 81`.\n\n**The fix:** In `src/services/pricing.js:15-22`, I changed the flat coupon logic to subtract the coupon from the USD amount *before* converting to the target currency. This ensures the coupon (which is always in USD) is applied at the correct rate:\n\n```javascript\nconst subtotalAfterCoupon = subtotalUsd - coupon.amount;\nreturn round2(convert(subtotalAfterCoupon, order.currency));\n```\n\nAll five tests now pass, including the critical test for flat coupons with non-USD currencies.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2f546c81a6c51006a374947607a42fe89c10727ac16315655f5747d49da31812"
+}

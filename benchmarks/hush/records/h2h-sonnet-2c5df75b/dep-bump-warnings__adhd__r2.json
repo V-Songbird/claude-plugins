@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__adhd__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 191,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 27502,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.1816668,
+  "numTurns": 10,
+  "durationMs": 26160,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1562
+  },
+  "contextTraffic": 233685,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 7800,
+  "narrationWords": 28,
+  "finalWords": 55,
+  "finalText": "Build passes now: exit 0, 0 errors.\n\nFixed 2 real bugs (rest was deprecation noise):\n1. `options.js:7` — read `options.retries`, callers now pass `retryCount`\n2. `retryPolicy.js:8-10` — threw on `undefined` flag instead of treating it as disabled\n\nRemaining 8 warnings are deprecation noise (Buffer, punycode, etc.) — cosmetic, not blocking. Want those cleaned up too?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9ad6e8a835e113ec37782e597949d72c935833ca08cee18e4abb2eba373c788b"
+}

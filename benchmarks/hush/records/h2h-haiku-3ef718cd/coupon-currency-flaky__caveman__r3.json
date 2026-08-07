@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__caveman__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 177,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 43533,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "stearm:Ste",
+  "costUsd": 0.07179509999999999,
+  "numTurns": 10,
+  "durationMs": 41860,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2711
+  },
+  "contextTraffic": 265636,
+  "apiCalls": 10,
+  "toolCalls": 9,
+  "toolResultChars": 14479,
+  "narrationWords": 73,
+  "finalWords": 41,
+  "finalText": "All 40 tests pass. Root cause: intermediate rounding after each discount stacked errors when converting to other currencies. Reference implementation rounds only once at the end. Fixed by removing `round()` calls after discount math — keep full precision until final step.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d8b21ce5c16ea5e52bb8625588273604cc6a9f2f7383f1fae156ae9e569dc133"
+}

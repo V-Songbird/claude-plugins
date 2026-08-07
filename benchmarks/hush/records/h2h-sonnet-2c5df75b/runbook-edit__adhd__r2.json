@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__adhd__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 281,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 40353,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.24599910000000003,
+  "numTurns": 12,
+  "durationMs": 35639,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2336
+  },
+  "contextTraffic": 406847,
+  "apiCalls": 12,
+  "toolCalls": 9,
+  "toolResultChars": 7393,
+  "narrationWords": 0,
+  "finalWords": 29,
+  "finalText": "All 3 production mentions of port 8081 updated to 9090 (health check curl, known-issues note, appendix table). Staging port 8091 left unchanged since that wasn't part of the request.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1f89a510487e612bb709c89e5b66c11d15ac37f8ba2eb78f6914963adead5666"
+}

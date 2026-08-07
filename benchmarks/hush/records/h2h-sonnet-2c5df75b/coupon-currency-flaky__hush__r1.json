@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r1",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 165,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34495,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.19574020000000003,
+  "numTurns": 10,
+  "durationMs": 32485,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1568
+  },
+  "contextTraffic": 243554,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 7657,
+  "narrationWords": 0,
+  "finalWords": 109,
+  "finalText": "**Found it: double rounding.**\n\n`computeTotal` in `src/pricing/engine.js` rounded to 2 decimals after the percent discount, and again after the flat discount, both in USD, before converting to the order's currency. Those intermediate roundings threw away fractions of a cent that should have carried through to the final currency conversion — so any cart with a percent coupon (alone or stacked with a flat one) came out a cent low, and yen carts a full yen low.\n\nFixed it to only round once, at the very end, in the target currency's own decimal places — matching what finance expects.\n\nAll 40 pricing-matrix tests pass now (`node --test`, was 10 failing).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bf0b7517bf3f2d8d44df8d40353c6bea95d6c9340b03b934801ee508fa72ae10"
+}

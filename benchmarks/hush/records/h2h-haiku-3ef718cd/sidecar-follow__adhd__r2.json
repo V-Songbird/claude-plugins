@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__adhd__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 296,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 22375,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0508343,
+  "numTurns": 2,
+  "durationMs": 20910,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1411
+  },
+  "contextTraffic": 58258,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 24908,
+  "narrationWords": 0,
+  "finalWords": 36,
+  "finalText": "**698 passed, 2 failed.**\n\nFailures:\n1. `refreshToken silently accepts an already-revoked token` — auth/tokens.test.js:400\n2. `sessionCleanup leaves orphaned rows after a rollback` — auth/tokens.test.js:650\n\nBoth are in the auth/tokens module. Both involve token/session handling edge cases.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "73a2d398bc86b6f1fe00358590b5c276af8639068e84684752c5ed9affac5e19"
+}

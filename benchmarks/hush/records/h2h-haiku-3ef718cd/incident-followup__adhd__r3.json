@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__adhd__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 265,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 53572,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.1347872,
+  "numTurns": 10,
+  "durationMs": 47976,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3206
+  },
+  "contextTraffic": 480340,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 60695,
+  "narrationWords": 0,
+  "finalWords": 98,
+  "finalText": "Done. Handoff written to `INCIDENT_HANDOFF.md`. Key points:\n\n- **Root cause:** Redis down → fallback DB reads → unbounded queue → OOM crash\n- **Impact:** 17.5 minutes (02:14:07–02:31:44)\n- **ioredis:** ^5.4.1 specified, exact version unknown (missing lock file is a separate risk)\n\nThe doc flags that the missing lock file means prod could have any 5.x version — worth checking the ioredis changelog to see if there were reconnect backoff fixes between 5.4.1 and latest 5.x. The current behavior of retrying every ~20s for 12+ attempts without backing off looks like it could be solved by a library upgrade.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "85756fe3854851d7552de0ed49b19daac69d97cbf26e1dd0f867a8790dc1a9ba"
+}

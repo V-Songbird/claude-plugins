@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__adhd__r3",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 285,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "adhd",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 49108,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0657896,
+  "numTurns": 9,
+  "durationMs": 43691,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3325
+  },
+  "contextTraffic": 239137,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 6236,
+  "narrationWords": 13,
+  "finalWords": 21,
+  "finalText": "All three mentions updated: health check curl, known issues, and the environment reference table. Production admin port is now 9090 everywhere.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "47778394cd689b0ba153e0e3df00a0a74b71e247d54d18fb74fbed394818e88d"
+}

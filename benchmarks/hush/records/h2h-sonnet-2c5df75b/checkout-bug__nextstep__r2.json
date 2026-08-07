@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__nextstep__r2",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 43,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "nextstep",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31990,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.23104919999999998,
+  "numTurns": 11,
+  "durationMs": 29788,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1695
+  },
+  "contextTraffic": 373071,
+  "apiCalls": 11,
+  "toolCalls": 10,
+  "toolResultChars": 5095,
+  "narrationWords": 0,
+  "finalWords": 72,
+  "finalText": "Found it: `computeTotal` in `src/services/pricing.js` was subtracting the flat coupon amount from the total *after* converting to the target currency, even though coupons are stored in USD.\n\nThat meant $10 off a $100 EUR order gave 100×0.9 − 10 = 80 instead of the correct (100−10)×0.9 = 81. Percent coupons were fine since they're currency-agnostic.\n\nFixed by subtracting the flat amount from the USD subtotal before conversion. All 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9c6ee581e43f80c6506f97d0986566066bc0366cc1a50f4af2e148cb55f89fef"
+}

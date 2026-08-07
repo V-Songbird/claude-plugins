@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 106,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 17951,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.091809,
+  "numTurns": 1,
+  "durationMs": 16100,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1198
+  },
+  "contextTraffic": 31766,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 92,
+  "finalText": "Same values, but not the same box in memory — that's usually what's going on.\n\nTwo common causes:\n\n1. **No `React.memo`.** A plain function component re-renders whenever its parent renders, no matter what props it gets.\n2. **Fresh references each render.** If you pass an inline function, object, or array as a prop, React sees a new one every time. Even `React.memo` can't tell it's \"the same\" data.\n\nFix: wrap the child in `React.memo`, and in the parent, wrap any function props in `useCallback` and any object or array props in `useMemo`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "00d48d963503bc7915f30200e99669a855eae8c8b59ff0bc8fa544aa0cbe8c08"
+}

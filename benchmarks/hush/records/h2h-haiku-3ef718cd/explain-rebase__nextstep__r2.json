@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__nextstep__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 118,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10267,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.022236199999999998,
+  "numTurns": 1,
+  "durationMs": 8148,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 480
+  },
+  "contextTraffic": 24081,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 212,
+  "finalText": "**Merge** keeps the full history of both branches, then joins them with a merge commit. It's safe — your work stays exactly as it was.\n\n**Rebase** rewrites your branch's history by replaying your commits on top of the new base. It's cleaner — you get a straight line instead of branching paths.\n\nWhen to merge: You want to preserve what happened and when. Good for long-running branches where the history itself matters (release branches, important feature work). Safe when collaborating because you never rewrite.\n\nWhen to rebase: Before you merge to main, to clean up a messy branch. Makes the main line readable and makes `git log` tell a story. Also good for keeping your local branch up to date without cluttering the history.\n\n**The catch:** Never rebase commits that other people have pulled. Rewriting history that's already shared breaks their copy. Use it only on branches you own.\n\n**The pattern most teams use:** Rebase locally while you're working to keep things tidy. Merge to main with a merge commit (or squash-merge for small fixes) so main's history is clear. Then main stays clean and shared, and your workspace is nimble.\n\nIf your repo has a CLAUDE.md file, check it — your team might have a rule about which to use where.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ade671ebfbd9b9a8bcff9ea65049ed9f2fc2c860997f905ce655855dad2ea76d"
+}

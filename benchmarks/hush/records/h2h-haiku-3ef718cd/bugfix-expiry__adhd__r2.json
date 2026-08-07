@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__adhd__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 11,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 21935,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0399785,
+  "numTurns": 7,
+  "durationMs": 20305,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1262
+  },
+  "contextTraffic": 144905,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 2635,
+  "narrationWords": 56,
+  "finalWords": 36,
+  "finalText": "Done. All 5 tests passing. The bug was the comparison operator: tokens should be expired when `exp <= now`, not just when `exp < now`. This ensures tokens are rejected the moment they expire, not after.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5135e79d7e59e0a014a747e0452622d058cebf94f65c140062b86dab5145173a"
+}

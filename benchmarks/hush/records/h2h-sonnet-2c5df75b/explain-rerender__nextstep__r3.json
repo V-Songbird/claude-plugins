@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__nextstep__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 102,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "nextstep",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 8370,
+  "check": {
+    "pass": false,
+    "score": 0.3333333333333333,
+    "detail": "1/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.080417,
+  "numTurns": 1,
+  "durationMs": 6213,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 385
+  },
+  "contextTraffic": 31899,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 111,
+  "finalText": "That's normal React behavior, not a bug. When a parent re-renders, every child re-renders too by default — React doesn't check if the props actually changed.\n\nTwo fixes work together:\n\n1. Wrap the child in `React.memo()`. This tells React to skip the re-render if props look the same.\n2. Watch out for new objects or functions. If you write `onClick={() => doThing()}` or `style={{color: 'red'}}` inline, you make a brand new one every render. Even with `React.memo`, that counts as a \"different\" prop, so the child re-renders anyway.\n\nFor functions, wrap them in `useCallback`. For objects, wrap them in `useMemo`. Then `React.memo` on the child can actually catch that nothing changed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9e3a95c7f2c89ec863c81c29add5ec4f88b1367364f57c0a4470327bc5bd46e7"
+}

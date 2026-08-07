@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__adhd__r2",
+  "batchId": "h2h-haiku-3ef718cd",
+  "seed": "1786061500000",
+  "orderIndex": 191,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "adhd",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 40696,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hushnext:Hushnext",
+  "costUsd": 0.0742946,
+  "numTurns": 12,
+  "durationMs": 39014,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2352
+  },
+  "contextTraffic": 304538,
+  "apiCalls": 11,
+  "toolCalls": 11,
+  "toolResultChars": 17437,
+  "narrationWords": 103,
+  "finalWords": 39,
+  "finalText": "Done. Build is now passing with zero errors. The remaining 8 warnings are deprecation noise from the bumped packages (`DEP0142`, `DEP0198`, `DEP0233`, `DEP0250`, `DEP0267`) plus tooling warnings about unused exports and circular imports — those are safe to ignore.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c4bac6df9d0f58660d6127264d8aa2405292f1a3cdb9d4b809289049781f252d"
+}

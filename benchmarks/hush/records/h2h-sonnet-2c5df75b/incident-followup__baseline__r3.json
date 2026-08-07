@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r3",
+  "batchId": "h2h-sonnet-2c5df75b",
+  "seed": "1786061500000",
+  "orderIndex": 268,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 53061,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.44515859999999996,
+  "numTurns": 9,
+  "durationMs": 48201,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3500
+  },
+  "contextTraffic": 510189,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 60702,
+  "narrationWords": 0,
+  "finalWords": 326,
+  "finalText": "Here's the handoff writeup:\n\n---\n\n## On-Call Handoff — Prod Outage 2026-07-04\n\n**Status:** Service down as of last log entry (02:31:52 UTC). Log file ends at the crash — no recovery timestamp is recorded, so confirm current status before handing off.\n\n### Impact Window\n- **02:14:07** — Degradation begins (Redis connection lost, cache fallback kicks in)\n- **02:31:52** — Full outage (`api unresponsive, killing process group — service down`)\n- **Total time to full outage: ~17m 45s**\n\n### Root Cause\nRedis at `10.0.0.12:6379` became unreachable (`ECONNREFUSED`) at 02:14:07. The app fell back to direct store reads on cache miss, which the store couldn't absorb — timeouts (5000ms) and cache-miss-storm warnings recurred every few seconds across api/worker-1/worker-2/scheduler for the full window. 13 automatic Redis reconnect attempts (02:15:26–02:31:26, roughly every 2 min) all failed against the same host/port — Redis never came back on its own. Request queue depth climbed linearly and unbounded, blowing past the configured max of 500 by 02:25:48. This eventually OOM'd worker-2 (02:31:44), and the api process became unresponsive shortly after, triggering a full process-group kill by the supervisor.\n\n**Contributing factor:** no circuit breaker or load-shedding on the direct-store fallback path — the app kept accepting and queuing requests instead of failing fast once Redis was confirmed down.\n\n### ioredis Version\nNot confirmed. `package.json` pins `ioredis: \"^5.4.1\"` (a semver range, `>=5.4.1 <6.0.0`), and there's no `package-lock.json` in this directory to resolve the exact installed version. Before matching against the changelog, pull the exact version from the deployed environment — `node_modules/ioredis/package.json` or `npm ls ioredis` on the prod host — since anything from 5.4.1 up to (but not including) 6.0.0 is possible.\n\n### Suggested follow-ups for next on-call\n1. Confirm Redis at `10.0.0.12:6379` is actually back up and stable.\n2. Get the exact ioredis version from prod and diff against changelog for reconnect-backoff fixes.\n3. Investigate why the fallback path has no backpressure — this is what turned a Redis blip into a full outage.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5b5266b3503c59fe781a6a2a07f48a286262462337071cd50d741f948e4c8dae"
+}
