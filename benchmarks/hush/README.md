@@ -2,7 +2,7 @@
 
 Curious whether the numbers on hush's front page hold up? This is the actual harness — run it yourself.
 
-It drives **real headless Claude Code sessions** (`claude -p`) on the same fixed tasks, once with no plugin and once with hush, and reads the true cost and token counts straight out of the API's own usage blocks. No tokenizer estimates, no hand-waving, and no single-shot prompts — a canned reply can't tell you what a plugin costs across a real multi-turn session, so we don't measure it that way. Correctness is checked mechanically, so compression that mangles the answer scores as a *failure*, not a win.
+It drives **real headless Claude Code sessions** (`claude -p`) on the same fixed tasks, once with no plugin and once with hush. Cost and token counts come straight out of the API's own usage blocks. No tokenizer estimates, no hand-waving, and no single-shot prompts — a canned reply can't tell you what a plugin costs across a real multi-turn session. Correctness is checked mechanically, so compression that mangles the answer scores as a *failure*, not a win.
 
 ## Before you start
 
@@ -18,7 +18,7 @@ It drives **real headless Claude Code sessions** (`claude -p`) on the same fixed
 > [!NOTE]
 > The numbers move between runs — a handful of reps against a live model, not a powered experiment. Expect single-digit-percent swings on any given task, and more on the noisy ones. `noisy-build` is genuinely bimodal on the bigger model, sometimes running clean and sometimes triggering extra verification turns — judge it by the *per-rep spread*, not just the mean.
 
-**What you should see:** the same *shape* as our published charts — hush **below baseline on the log-heavy tasks** (`log-triage`, `incident-followup`, `incident-pool-leak`), **above baseline on the no-tools ones**, and **far less mid-turn narration** with leaner tool output throughout. You will **not** reproduce our exact figures, and that's expected. The claim holds if the noisy rows win by more than the quiet rows lose, with every task still passing — a run where hush is cheaper on every single task would be the surprising result, not the target.
+**What you should see:** the same *shape* as our published charts — hush **below baseline on the log-heavy tasks** (`log-triage`, `incident-followup`, `incident-pool-leak`), **above baseline on the no-tools ones**, and **far less mid-turn narration** with leaner tool output throughout. You will **not** reproduce our exact figures, and that's expected. The claim holds if the noisy rows win by more than the quiet rows lose, with every task still passing. A run where hush is cheaper on every single task would be the surprising result, not the target.
 
 ## Run it
 

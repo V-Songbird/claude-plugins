@@ -5,8 +5,9 @@
 
   THE GOLDEN RULE: short, and it should sound like a person wrote it, not a pitch deck.
   If a reader sees a wall of text or marketing hype, they won't read it.
-  Write for a regular user / "vibe coder", not an engineer. Aim for ~60-110 lines total —
-  a little longer than the old bar, because personality needs room to land a line.
+  Write for a regular user / "vibe coder", not an engineer. Aim for ~60-110 lines of prose;
+  worked proof (diffs, honest tables, charts) is exempt from the count — trim the words
+  around the proof, never the proof.
   razor/, hush/, and foreman/ are the reference implementations — all three share one
   section order: header → badges → TL;DR → What is this? → Why you'd want it → How it works →
   Install → What you can do → <one feature section> → Benchmarks → Under the hood → Settings →
@@ -16,23 +17,28 @@
   under ~50 words: the pain, what the plugin does about it, and one defensible number if you
   have one. Many readers stop there. Write it last, place it first.
 
-  VOICE: warm, plain-spoken, and lightly funny — a friendly expert showing a smart friend
-  their favorite tool, not a marketing brief. Four habits carry it:
-    1. Plain language first. Say the simplest true thing. If a technical term is unavoidable,
-       explain it in plain words in the same sentence. Assume the reader is smart but brand-new
-       to this exact topic.
-    2. Answer first. Put the takeaway in the first sentence of a section — never make the reader
-       hunt for the point. Arrange ideas in logical order; don't jump ahead and double back.
-    3. Easy to skim. Short sentences (aim under ~25 words). Paragraphs of 2-3 sentences around
-       one idea. Bold lead-ins on bullets, one idea per bullet. Name the thing instead of a
-       vague "it"/"this" when the reader might lose track of what you mean.
+  VOICE: a warm, patient friend showing a tired developer their favorite tool at the end of
+  a long day. The reader is smart but running on empty — short sentences, everyday words,
+  benefit first. Five habits carry it:
+    1. Short sentences. Aim under ~15 words each, one idea per sentence. A sentence that
+       needs a semicolon or a parenthesis is two sentences — split it.
+    2. Everyday words. When a plain word is just as true as the technical one, use the plain
+       one ("the file that lists your dependencies", not "the manifest"). Swapping a word is
+       free; explaining one costs a line. Gloss an unavoidable term in a few plain words, in
+       the same sentence.
+    3. Benefit first. Open every section with what the reader gets, never with mechanism.
+       The takeaway is the first sentence — the reader should be able to stop anywhere and
+       leave with the point.
     4. Concrete, not abstract. Give the real number ("$0.159 an average session") over "much
-       cheaper." State the why or how alongside the point. The reader should never have to
-       re-read a sentence or look up a word to follow it.
+       cheaper." And never write a line that implies the reader should already have known
+       something.
+    5. Easy to skim. Paragraphs of 2-3 short sentences around one idea. Bold lead-ins on
+       bullets, one idea per bullet. Name the thing instead of a vague "it"/"this" when the
+       reader might lose track.
   Still reach for the vivid, memorable comparison over the safe abstract one ("every session
   forgets everything the moment it ends," not "state isn't persisted between sessions"). A light
-  joke, a wink, a little warmth is welcome — the goal is friendly and clear, never goofy and
-  never at the reader's expense. House rules, first two non-negotiable:
+  joke, a wink, a little warmth is welcome — but clarity wins every tie, and the joke is never
+  at the reader's expense. House rules, first two non-negotiable:
     - No profanity, ever. Crude isn't a substitute for funny — if a line only lands because of
       a swear word, cut the word and find the cleaner, sharper version of the same joke.
     - Never make the joke at a real project's or a real person's expense. You MAY name a
@@ -83,13 +89,12 @@
   ## What is this?
 
   Every AI coding tool ships the same demo: flawless code, first try, confetti. Then you
-  use one for a week and meet its favorite sentence: "This should work now." Should. The
+  use one for a week. You meet its favorite sentence: "This should work now." Should. The
   most load-bearing word in modern software.
 
-  gutter is a small set of hooks — little scripts that run at the right moment — that turn
-  "should work" into "ran it, exit code 0, here's the line that proves it." No dashboard,
-  no subscription, no whitepaper about synergy. It just sits quietly and catches what
-  rolls past.
+  gutter is a few small hooks — scripts that run at the right moment. They turn "should
+  work" into "ran it, exit code 0, here's the line that proves it." No dashboard, no
+  subscription, no whitepaper about synergy. It sits quietly and catches what rolls past.
 
   ## How it works
 
@@ -104,12 +109,12 @@
 
   ## Good to know
 
-  gutter reads what happened — it can't read minds. A test suite that passes for the wrong
-  reasons will sail right through, and catching that one is still on you. And if you'd
-  rather it stayed quiet, it will: one setting, documented below, no hard feelings.
+  gutter reads what happened — it can't read minds. A test that passes for the wrong reason
+  sails right through. Catching that one is still on you. And if you'd rather gutter stayed
+  quiet, it will: one setting, documented below, no hard feelings.
 
-  Does it actually work, or is this just vibes? We keep the receipts in the repo — every
-  claim above maps to a test you can run in about two seconds.
+  Does it actually work, or is this just vibes? The receipts are in the repo — every claim
+  above maps to a test you can run in about two seconds.
 -->
 
 <div align="center">
