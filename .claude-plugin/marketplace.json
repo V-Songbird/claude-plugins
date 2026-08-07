@@ -12,10 +12,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/foreman.git",
-        "sha": "536cc3967c5426576217d8ae644048994db1fa32"
+        "sha": "f6d7aba456d46aa195dabbef699fbca0b206d303"
       },
       "description": "Project continuity and roadmap trust: keeps a correctable roadmap in your repo, recommends the next task and says why it came first, and hands it off with the paths and symbols checked. Say what you want in plain language — one entrance routes it.",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
@@ -49,10 +49,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/hush.git",
-        "sha": "9363d50c8ad5ee166854594f63cda4bb9333f5bb"
+        "sha": "0ee9a78c2392c33563ae3283d22007f6f98101fe"
       },
       "description": "Trims command output, logs, and Claude's play-by-play before they reach your context, so long, noisy sessions cost less. Install and forget — nothing to configure. Short, no-tool questions cost a little more.",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
@@ -86,10 +86,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/razor.git",
-        "sha": "6de8b1f774a09fdd252ad12758a2ce1521190bcd"
+        "sha": "ecff7a34d0e4497382d245f4b8fb8c6b4ecab4c8"
       },
       "description": "YAGNI checkpoints at the harness level for real engineering work — nudges toward the simplest solution and asks one evidence-backed \"do we need this?\" before new dependencies, file sprawl, and unchecked build growth.",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
