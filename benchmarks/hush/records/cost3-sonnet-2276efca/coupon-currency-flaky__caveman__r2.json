@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__caveman__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 84,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 33185,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2011365,
+  "numTurns": 10,
+  "durationMs": 31903,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2046
+  },
+  "contextTraffic": 267089,
+  "apiCalls": 8,
+  "toolCalls": 9,
+  "toolResultChars": 7918,
+  "narrationWords": 117,
+  "finalWords": 100,
+  "finalText": "All 40 pass now.\n\nRoot cause: `computeTotal` rounded to 2 decimals after each coupon step (percent, then flat), while still in USD, then converted and rounded again — double rounding. Cents got clipped before currency multiply, so drift only surfaces on non-USD orders (rate ≠ 1) where pre-rounded cents don't survive the multiply cleanly. USD orders never failed since rate=1 makes the extra round a no-op. Explains \"most look fine, hard to spot pattern\" — only non-USD + percent-coupon stacks tripped it.\n\nFix: round only once, at the end, after currency conversion — matches contract already stated in code comment.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0ce1a022957284fee8a288109c7bc5a952fe6b3385650be3c5b35264a47b54c0"
+}

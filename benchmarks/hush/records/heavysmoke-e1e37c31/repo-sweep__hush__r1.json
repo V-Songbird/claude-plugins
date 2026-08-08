@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__hush__r1",
+  "batchId": "heavysmoke-e1e37c31",
+  "seed": "1786150253947",
+  "orderIndex": 5,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 85470,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6090838,
+  "numTurns": 42,
+  "durationMs": 83897,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10612
+  },
+  "contextTraffic": 332321,
+  "apiCalls": 8,
+  "toolCalls": 41,
+  "toolResultChars": 24036,
+  "narrationWords": 8,
+  "finalWords": 56,
+  "finalText": "Migration's done. All 12 stragglers — one repo file each in analytics, orders, billing, support, catalog, and accounts — now call `db.execute({ sql, params })` instead of `db.query`. The `cache.query` calls and `vendor/legacy-orm/adapter.js` were left alone since they're not part of this. `node verify.js` confirms it: every call site moved, and the modules still run correctly.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c2d0a675cc02b9119d43e0d26cf2bec611d83391f988c3df196704afb4a58f02"
+}

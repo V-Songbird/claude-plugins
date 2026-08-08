@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__hush__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 17,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 38965,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2208768,
+  "numTurns": 10,
+  "durationMs": 37403,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2730
+  },
+  "contextTraffic": 219238,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 10654,
+  "narrationWords": 0,
+  "finalWords": 123,
+  "finalText": "Found it. The bundle stage was failing after the lint pass, past all that noisy typecheck and dedup output.\n\nThe bug was in `packages/shared/config.js:15`. `resolveRelease` merged config layers with a plain `Object.assign`, which is shallow — a package overriding just `output.format` was wiping out `output.dir` and `output.entry` from the layer below it entirely. Since `@acme/api` overrides `output.format` and `sourcemap.mode`, it lost `output.dir`, which is what the bundle stage checks for and aborts on.\n\nFixed it with a proper layered merge that merges one level into nested objects like `output` and `sourcemap`, instead of replacing them outright.\n\n`node build.js` now exits 0 with 5 warnings, 0 errors, and `node verify.js` passes too — confirming the layering rule itself holds, not just this one fixture.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "30ec29f6d5dd1e794f09e32273e2ac338617cfcf8b8a7344bef30a1d81eeb094"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__baseline__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 43,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 104248,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.7023374,
+  "numTurns": 18,
+  "durationMs": 98864,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 6339
+  },
+  "contextTraffic": 1075004,
+  "apiCalls": 18,
+  "toolCalls": 14,
+  "toolResultChars": 65069,
+  "narrationWords": 124,
+  "finalWords": 262,
+  "finalText": "## On-Call Handoff — Gateway 503s\n\n**Status:** Ongoing / unresolved at end of available logs (not self-recovering)\n\n**Impact window:** 2026-03-14 02:14:14Z → still failing at 03:59:27Z (end of log coverage), gateway node-3\n- First symptom: `02:14:14.920Z WARN pool req-07400 acquire slow: waited 100ms for a connection`\n- First 503: `02:14:18.972Z ERROR access req-07401 /v1/cart -> billing-svc 503 659ms`\n- Trend: not stabilizing — `waiting` queue grew from 13 → 74, acquire waits grew from ~100ms → ~890ms over the log window. Treat as still active.\n\n**Root cause:** `dep-4471` (gateway, a.novak, 02:12:00Z–02:14:00Z) — *\"config: connection-per-request for pool isolation\"*. It shipped a config reload (generation 118→119) applied at `02:13:41.234Z`, flipping `gateway.pool.perRequest: false -> true` (also bumped `upstreamMs` timeout 2000→2500, unrelated). ~33s after that took effect, the pool saturated: every `ERR_POOL_EXHAUSTED` shows `size 20, in_use 20` — pool pinned at capacity with a growing backlog. Deploy timing and error onset line up almost to the second; no other deploy in the window is a plausible fit.\n\n**Rollback target:** `dep-4471` — revert `gateway.pool.perRequest` to `false` (or roll back the full deploy). No other service deploy in `deploys.csv` (catalog-svc, accounts-svc, worker, billing-svc) lines up with the onset.\n\n**Blast radius:** Gateway only. Checked `worker.log` for the same window — no errors, no `POOL_EXHAUSTED`, worker's own pool stayed healthy (`in_use=1/size=8`), and job-duration drift is a smooth pre-existing trend with no discontinuity at 02:14. Workers don't appear to share the pool dep-4471 touched.\n\n**Next step for on-call:** roll back dep-4471 (or flip `gateway.pool.perRequest` back to `false` via config), then confirm `in_use` drops below pool size and `waiting` drains to 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "449f4169f308545e8a4c83d621f67d54afab4c9959560c1796a57ce4255d1a3e"
+}

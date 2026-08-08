@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 58,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 134128,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.7937075,
+  "numTurns": 49,
+  "durationMs": 129386,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10870
+  },
+  "contextTraffic": 864867,
+  "apiCalls": 19,
+  "toolCalls": 45,
+  "toolResultChars": 42898,
+  "narrationWords": 11,
+  "finalWords": 111,
+  "finalText": "Dependency check confirmed: `package.json` still pins `fast-parse` at `1.4.2`, the version `NOTES.md` says was yanked for a prototype-pollution report (fix is `1.4.3`).\n\n`AUDIT.md` is written with all four findings, ordered by severity, each naming its file:\n\n1. **Critical** — `src/routes/internal.js`: no auth on `/internal/metrics` and `/internal/flush-cache`, exposed since the 4.0 VPN removal.\n2. **High** — `src/repo/report.js`: SQL built by concatenation in `runSavedReport`, filter/orderBy unvalidated.\n3. **Medium** — `config/staging.js`: hardcoded staging DB password committed in plaintext.\n4. **Medium** — `package.json`: `fast-parse` still pinned to the yanked `1.4.2`, fix is `1.4.3`.\n\nRan `verify.js` — it passes, confirming all four findings are present with the right details and that no service file was touched.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0119b954f08ec7d250cd8586ef9bc98e8a4972e9ac3085b8a776de99c2ca4345"
+}

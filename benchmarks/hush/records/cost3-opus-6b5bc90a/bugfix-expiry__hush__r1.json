@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__hush__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 0,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 30494,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.25164,
+  "numTurns": 9,
+  "durationMs": 28653,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1117
+  },
+  "contextTraffic": 216914,
+  "apiCalls": 8,
+  "toolCalls": 8,
+  "toolResultChars": 2630,
+  "narrationWords": 0,
+  "finalWords": 64,
+  "finalText": "**Fixed.** `isExpired` used `<`, so a token whose `exp` matched the current second still counted as valid. That one instant of slack is what let expired tokens through. It now uses `<=`, matching the comment at the top of `token.js`.\n\n`secondsLeft` needed no change — it asks `isExpired` first, so it returns 0 at that instant now too.\n\nAll 5 tests pass in 0.07s.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5c36c667fb95350aaf02150a6bfa21caa38e453f91a344171cf5800ee5099469"
+}

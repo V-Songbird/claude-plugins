@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 131,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 59086,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.46116270000000004,
+  "numTurns": 11,
+  "durationMs": 55440,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4215
+  },
+  "contextTraffic": 509870,
+  "apiCalls": 10,
+  "toolCalls": 8,
+  "toolResultChars": 60705,
+  "narrationWords": 38,
+  "finalWords": 387,
+  "finalText": "## On-Call Handoff — Prod Outage, 2026-07-04\n\n**Status:** Resolved (service restarted by supervisor); root cause identified, not yet remediated.\n\n### Root Cause\nRedis (`10.0.0.12:6379`) became unreachable (`ECONNREFUSED`) and stayed down for the entire incident. The app's cache-miss fallback path had no circuit breaker or backpressure: once Redis dropped, every request fell through to direct store reads, overloading the store and causing widespread request timeouts. The request queue grew unbounded — blowing past its own configured max of 500 with no shedding — which eventually exhausted heap memory on `worker-2` and cascaded into the supervisor killing the full process group.\n\n### Impact Window\n- **02:14:07 UTC** — Redis connection lost, cache layer degrades, fallback to direct store reads begins.\n- **02:14:07 – 02:31:26 UTC** — Sustained cache-miss storms, store timeouts, and growing queue depth across `api`, `worker-1`, `worker-2`, `scheduler`. 13 Redis reconnect attempts (0–12, ~100s apart), **all failed** — Redis never recovered on its own during this window.\n- **02:31:44 UTC** — `worker-2` OOM (`JavaScript heap out of memory`, request backlog).\n- **02:31:45 UTC** — Supervisor restarts `worker-2`.\n- **02:31:52 UTC** — Supervisor kills the process group: **`api` unresponsive — service down.**\n- **Total degraded/down time:** ~17.75 minutes from first Redis failure to full service kill.\n\n*Note: log ends at the kill event — no log line confirms full recovery/restart timestamp. Confirm with deploy/supervisor records when actual service-back-up time is needed.*\n\n### ioredis Version\n**Not confirmed.** `package.json` pins `\"ioredis\": \"^5.4.1\"` (range: ≥5.4.1, <6.0.0), but there's no lockfile (`package-lock.json`, `yarn.lock`, etc.) in this directory to resolve the exact installed version, and I don't have access to the deployed instance's `node_modules`.\n\n**Action needed before changelog comparison:** run `npm ls ioredis` (or inspect `node_modules/ioredis/package.json`) on the actual prod host/deploy artifact to get the resolved version.\n\n### Follow-ups (not yet actioned)\n1. Confirm exact ioredis version on prod, check changelog for reconnect/backoff fixes ≥ that version.\n2. No circuit breaker around store fallback when cache is degraded — store gets hammered instead of shedding load.\n3. Queue depth cap (500) is logged but not enforced — queue grew to 568+ before OOM.\n4. Investigate why Redis itself was down for 17+ min on the infra side — not visible in this app log.\n\nWant me to save this as a file, or is this ready to paste into your handoff doc/ticket as-is?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2c107ee7df37c7aabca401922025967aea5275e3d879bc205895ecd0fb0e3da1"
+}

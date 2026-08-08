@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 43,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 38493,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.250324,
+  "numTurns": 9,
+  "durationMs": 37162,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1926
+  },
+  "contextTraffic": 184591,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 5234,
+  "narrationWords": 62,
+  "finalWords": 119,
+  "finalText": "Build green. Exit 0, `retries 3` picked up from caller.\n\nFix:\n```js\nconst DEFAULT_MAX_RETRIES = 2;\n...\nmaxRetries: env.retries ?? DEFAULT_MAX_RETRIES,\n```\nUsed `??` not `||` — `retries: 0` stays 0, not silently bumped to 2.\n\nRemaining 3 warnings — all pre-existing, none block build. Not touched:\n- `W1042` — `crypto.createCipher` in `src/legacy/adapter.js`. Real one. Deprecated, insecure key derivation, drops before v4. Worth a fix.\n- `W2213` — dead export `formatLegacyDate` in `src/utils/format.js`. Cosmetic.\n- `W3307` — circular import `src/core/graph.js` <-> `src/state/tracker.js`, undefined resolution order. Latent bug risk.\n\nNote: those three files do not exist on disk — `build.js` is a fake bundler, warnings are hardcoded strings (`build.js:33-35`). Nothing to fix there unless you want the warning lines removed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "58a6f90853e2c56bb31a33448758a0d805bb013c0d5bfda31d2c316ca5e81bd3"
+}

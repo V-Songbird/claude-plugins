@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r2",
+  "batchId": "turnstep-661d0ca5",
+  "seed": "1786172329502",
+  "orderIndex": 22,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 132522,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.5382168,
+  "numTurns": 33,
+  "durationMs": 126241,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10610
+  },
+  "contextTraffic": 627583,
+  "apiCalls": 16,
+  "toolCalls": 29,
+  "toolResultChars": 24899,
+  "narrationWords": 285,
+  "finalWords": 120,
+  "finalText": "Wrote `AUDIT.md` with four findings, ordered by severity:\n\n1. **Critical** — unauthenticated `/internal/metrics` and `/internal/flush-cache` (`src/routes/internal.js`), live now, allows data dump and destructive delete with no auth.\n2. **High** — SQL injection via string concatenation in `runSavedReport` (`src/repo/report.js`), not yet wired to a route so not currently reachable, but the flaw itself is fully exploitable once it is.\n3. **High** — hardcoded plaintext staging DB password (`config/staging.js:11`), inconsistent with dev/prod which both use `PGPASSWORD`.\n4. **Medium** — `fast-parse` pinned at the yanked, prototype-pollution-vulnerable `1.4.2` in `package.json`; not currently imported by any source file, so no active exploit path today.\n\nAll three cross-checked cleanly against `NOTES.md`, which independently confirms each one. No service code was touched — only `AUDIT.md` was added.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a4250c788c4489fadb5a85e966bbcc850b36f5e0eb8bb904b83b9bcb34e66d76"
+}

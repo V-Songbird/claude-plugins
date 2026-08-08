@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__hush__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 20,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 40208,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.32701500000000006,
+  "numTurns": 13,
+  "durationMs": 38413,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1996
+  },
+  "contextTraffic": 258718,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 7213,
+  "narrationWords": 0,
+  "finalWords": 71,
+  "finalText": "**Fixed the flat-coupon bug.**\n\n`computeTotal` in `src/services/pricing.js` changed the currency first, then took the flat coupon off the converted total. But flat coupon amounts are stored in USD, so `$10 off` was being treated as `€10 off`.\n\nNow the flat amount comes off while the subtotal is still USD, and the conversion happens after. Percent coupons still apply after conversion, which is correct either way.\n\nAll 5 tests pass in 0.07s.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d6a502a68a036ee7a6ec541482ce5f72ddae442207fed603c431475dd046d3f0"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__baseline__r2",
+  "batchId": "turnstep-661d0ca5",
+  "seed": "1786172329502",
+  "orderIndex": 7,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 32988,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.18689999999999998,
+  "numTurns": 9,
+  "durationMs": 31627,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2706
+  },
+  "contextTraffic": 194487,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 10404,
+  "narrationWords": 73,
+  "finalWords": 119,
+  "finalText": "Build is green and verify passes.\n\nRoot cause: `resolveRelease` in `packages/shared/config.js:13-16` did a shallow `Object.assign` across the defaults → package override → CLI flags layers. Since `output` and `sourcemap` are nested objects, a partial override like `@acme/api`'s `{ output: { format: 'esm' } }` replaced the whole `output` object instead of merging into it, silently dropping `output.dir` — which is what `build.js`'s bundle stage checks and fails on.\n\nFix: added a `mergeLayer` helper that does a one-level-deep merge, so nested `output`/`sourcemap` overrides only touch the keys they name while preserving the rest. All 6 packages now build clean (0 errors, 5 pre-existing lint warnings unchanged), and `verify.js` confirms the layering rule holds for cases beyond the shipped fixtures too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1085b10afb008be95d860a9cecc9c2f53485c3f25c51c13755a0526b6530e9f2"
+}

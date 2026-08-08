@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__firstcall__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 31,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 33073,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.1648415,
+  "numTurns": 3,
+  "durationMs": 31167,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2004
+  },
+  "contextTraffic": 51551,
+  "apiCalls": 2,
+  "toolCalls": 2,
+  "toolResultChars": 51,
+  "narrationWords": 0,
+  "finalWords": 105,
+  "finalText": "**A child re-renders whenever its parent does, whatever the props are.** That is the default. `React.memo` is what turns it off.\n\nThen `memo` compares props by identity. Objects, arrays and arrow functions built during render are brand new each time. So they never match, and `memo` gives you nothing.\n\n```jsx\nconst Child = memo(function Child({ data, onClick }) { /* ... */ })\n\nconst data = useMemo(() => ({ id }), [id])\nconst onClick = useCallback(() => save(id), [id])\n```\n\nTwo more traps. JSX passed as `children` is a new element every render. And any context the child reads will re-render it regardless of props.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c0fbb948e8897f2af81a2273f3dff9fd9953892cb2b1e7173a9c77a13c85a706"
+}

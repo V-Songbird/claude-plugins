@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__firstcall__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 50,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 73958,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.4819265,
+  "numTurns": 16,
+  "durationMs": 72270,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3028
+  },
+  "contextTraffic": 346665,
+  "apiCalls": 10,
+  "toolCalls": 15,
+  "toolResultChars": 22474,
+  "narrationWords": 10,
+  "finalWords": 136,
+  "finalText": "**Found the leak in `src/jobs/processOrder.js` and fixed it.**\n\nIt called `pool.acquire()`, then `await run(...)`, then `pool.release(conn)`. When an order rejected, the release line never ran. A comment said it acquired directly because the connection had to be held across a retry loop, but that loop was already gone. It now uses `withConnection`, which releases in a `finally`.\n\nThe logs match exactly. `worker.log` has 125 job starts and 120 releases, and 5 of the 7 failures were real leaks — the other two already hit an empty pool. The pool holds 5, so the 5th bad order at `02:06:30` filled it, and `worker-1` died three seconds later.\n\nThe app process leaked the same way through `POST /orders`, which is why 503s and the supervisor restart follow at `02:11`. `handleRequest` was already safe.\n\nAll 4 tests pass, 68ms.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "452fe5bf07a8aac6acfa1454f8fb66f4fd1239d1c53e1ca587ba28f71f8e40e7"
+}

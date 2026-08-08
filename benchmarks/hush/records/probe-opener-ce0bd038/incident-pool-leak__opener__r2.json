@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__opener__r2",
+  "batchId": "probe-opener-ce0bd038",
+  "seed": "1786135293353",
+  "orderIndex": 7,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "opener",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 55149,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "opener:Opener",
+  "costUsd": 0.4507055,
+  "numTurns": 16,
+  "durationMs": 53622,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2716
+  },
+  "contextTraffic": 330508,
+  "apiCalls": 10,
+  "toolCalls": 15,
+  "toolResultChars": 19630,
+  "narrationWords": 0,
+  "finalWords": 127,
+  "finalText": "**Found the leak — it's in `processOrder.js`.**\n\nThat path grabbed a connection, ran the order, then released it. When an order failed, the throw jumped straight past `pool.release(conn)`, so that connection was gone for good.\n\nThe logs match exactly. Every `invalid order payload` line is followed by in-use ticking up a notch, never back down. Five bad orders, five connections, dead pool.\n\nFix: `processOrder` now goes through `withConnection`, same as the request path. That releases in a `finally`, so a failed order gives its connection back. The comment about holding a connection across a retry loop was stale — that loop is gone.\n\nAll 4 tests pass, 70ms.\n\nOne thing worth a look: the logs you pulled are dated `2026-07-06`, about a month back, not last night.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7ba7774cdbbfdd03623f1b2921ccac0bed5377ca57164507e303c19bfda8c04a"
+}

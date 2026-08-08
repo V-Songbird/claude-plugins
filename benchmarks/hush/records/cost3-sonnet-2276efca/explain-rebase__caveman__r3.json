@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__caveman__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 60,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10805,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0707625,
+  "numTurns": 1,
+  "durationMs": 9016,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 338
+  },
+  "contextTraffic": 30496,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 141,
+  "finalText": "Rebase and merge both combine branch histories, differ in HOW.\n\n**Merge**\n- Create new commit joining two branch tips (merge commit).\n- Original commits untouched, history stay as-is (branchy, non-linear).\n- Safe: no history rewrite, safe for shared/public branches.\n\n**Rebase**\n- Replay your branch commits on top of another branch's tip.\n- Rewrite commit hashes (new commits, same content).\n- Result: linear history, look like work happen sequentially.\n- Danger: rewrite history. Never rebase commits already pushed/shared with others (force-push break collaborators' clones).\n\nWhen to use each:\n\n- **Merge**: integrate feature branch into main/shared branch. Preserve true history, safe for team work.\n- **Rebase**: clean up local/private branch before push (squash, reorder, drop WIP commits). Or keep feature branch updated with main without merge-commit clutter.\n\nRule of thumb: rebase what you own and haven't shared. Merge what's shared or already public.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8bfdb54c47bcac9450444ce9ac03877e312dc90a0eacbb5065defd62a80712a4"
+}

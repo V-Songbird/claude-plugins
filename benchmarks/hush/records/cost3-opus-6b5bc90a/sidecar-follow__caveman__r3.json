@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 152,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 19827,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.29657900000000004,
+  "numTurns": 4,
+  "durationMs": 18559,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 923
+  },
+  "contextTraffic": 125573,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 24962,
+  "narrationWords": 5,
+  "finalWords": 95,
+  "finalText": "**700 tests, 698 passed, 2 failed.** Both in same file, `auth/tokens.test.js`:\n\n1. `refreshToken silently accepts an already-revoked token` — `auth/tokens.test.js:400`\n2. `sessionCleanup leaves orphaned rows after a rollback` — `auth/tokens.test.js:650`\n\nRest of log is uniform `ok` lines, no skips, no timeouts, no stack traces.\n\nTwo flags:\n- Both failures cluster in token/session lifecycle. First one is security-relevant — revoked token still accepted means revocation not enforced on refresh path. Treat as priority.\n- Log has no trailing summary line or exit code. Ends right after `test_699`. Counts above from my own tally, not runner's self-report.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "32d3c94b073119e0a7538062f99bac623995ce845ad2bf96b9334bcfd00f08dd"
+}

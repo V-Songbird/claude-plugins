@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__hush__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 31,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 110648,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 2.3582655999999997,
+  "numTurns": 27,
+  "durationMs": 102296,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5886
+  },
+  "contextTraffic": 2399555,
+  "apiCalls": 26,
+  "toolCalls": 22,
+  "toolResultChars": 318622,
+  "narrationWords": 0,
+  "finalWords": 61,
+  "finalText": "Dedup is in. Repeats with the same key inside a 5-minute window now get dropped — the log shows it kicking in right away, like `evt-0288` (quota-warning) dropped 2 minutes after `evt-0287`. That layers on top of quiet hours and the pager rules from before. 99 notifications were dropped this way, and the run still finished clean with 0 route errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c93181f830150c098c4a31011158d8c33a3dd8bbdd548e5621beea7ef01ddb79"
+}

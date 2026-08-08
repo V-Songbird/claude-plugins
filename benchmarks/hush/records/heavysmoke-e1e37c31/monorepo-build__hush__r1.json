@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__hush__r1",
+  "batchId": "heavysmoke-e1e37c31",
+  "seed": "1786150253947",
+  "orderIndex": 3,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31384,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.22606740000000003,
+  "numTurns": 10,
+  "durationMs": 29718,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2062
+  },
+  "contextTraffic": 262075,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 12615,
+  "narrationWords": 11,
+  "finalWords": 109,
+  "finalText": "**Fixed. Build's clean now.**\n\nThe lint pass was fine — the real break was one step later, in the bundle stage. `resolveRelease` in `packages/shared/config.js` merged config layers with `Object.assign`, which is shallow. So when a package only overrode `output.format`, the whole `output` object got replaced and lost `dir` and `entry`. The build then aborted because it couldn't find `output.dir`.\n\nI swapped that for a proper deep merge, so each layer only overrides the specific nested key it names, and defaults for everything else survive. `build.js` now exits 0 with 5 warnings and 0 errors, and `verify.js` confirms the merge layers correctly for cases the original fixture never even tested.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9f53b557bf5cbab5f66661a17bcbcb4e7b1cf5a934ac9fd037621d94037a820b"
+}

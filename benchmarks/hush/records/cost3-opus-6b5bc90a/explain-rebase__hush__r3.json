@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 61,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 21579,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.135189,
+  "numTurns": 1,
+  "durationMs": 20078,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1534
+  },
+  "contextTraffic": 25514,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 118,
+  "finalText": "**Merge keeps the history, rebase rewrites it.**\n\nA merge ties the two branches together with a new commit. Everything that happened stays as it happened.\n\nA rebase lifts your commits off and replays them on the new base. You get a straight line, but every commit gets a new ID.\n\n```mermaid\nflowchart LR\n  subgraph merge\n    A1[main] --> M((merge commit))\n    B1[your branch] --> M\n  end\n  subgraph rebase\n    A2[main] --> C1[your commits, replayed on top]\n  end\n```\n\nReach for rebase on your own branch, before anyone else has it. Reach for merge when the branch is shared with others.\n\nThe one rule: never rebase commits someone else has already pulled. Their copy and yours stop matching, and the cleanup hurts.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b9c014012695dfcaf05abaa1dbc08594d60987444b733b5157570d2c5f225892"
+}

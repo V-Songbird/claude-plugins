@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__caveman__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 121,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 15921,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2936442,
+  "numTurns": 3,
+  "durationMs": 14373,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 774
+  },
+  "contextTraffic": 145575,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 60177,
+  "narrationWords": 0,
+  "finalWords": 181,
+  "finalText": "Root cause: Redis dead.\n\n**02:14:07** — `[api] redis connection lost: connect ECONNREFUSED 10.0.0.12:6379`. Cache layer fall back to direct store reads.\n\n**02:14:07 onward** — cache miss storm hit store direct, no caching buffer. Store overload, timeout errors (5000ms) every ~2sec across api/worker-1/worker-2/scheduler, nonstop.\n\n**02:14–02:31** — request queue depth climb steady 52 to 568+ (max 500, breached ~02:25). Redis reconnect attempts fail every ~2min (attempts 0 through 12, all ECONNREFUSED same host 10.0.0.12:6379). Redis never come back whole incident.\n\n**02:31:44** — `[worker-2] JavaScript heap out of memory (request backlog)`. Queue backlog ate memory, crash.\n\n**02:31:45** — supervisor restart worker-2 (exit code 134).\n\n**02:31:52** — `[supervisor] api unresponsive, killing process group — service down`. Full outage.\n\nChain: Redis at 10.0.0.12:6379 die → no auto-reconnect success (12 tries, all fail, same target) → direct store reads overload store → queue backlog grow unbounded past max → worker-2 OOM crash → api unresponsive → supervisor kill whole process group.\n\nFix priorities: restore/redeploy Redis at 10.0.0.12, add backpressure/circuit breaker so queue don't grow past 500 silently (log warn but no shed), bound backlog memory on worker.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b0a51421ff6a402a2e321167636fe7f9e1acdd665f235c068e1a3b2c5e5ba798"
+}

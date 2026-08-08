@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__lookfurther__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 86,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 165927,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.799573,
+  "numTurns": 14,
+  "durationMs": 161382,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 9604
+  },
+  "contextTraffic": 445832,
+  "apiCalls": 14,
+  "toolCalls": 11,
+  "toolResultChars": 10062,
+  "narrationWords": 6,
+  "finalWords": 107,
+  "finalText": "Wrote `HANDOFF.md` with all three sections.\n\nRoot cause and impact window are solid, straight from the log. Redis refused connections at `02:14:07Z`, the uncached fallback drowned the store, and the queue grew for 17 minutes until a worker ran out of memory.\n\nThe ioredis version I could not give you. There's no lockfile in this tree, and `^5.4.1` doesn't pin anything. The doc says that plainly and lists the two commands to get it off the prod host.\n\nTwo gaps the next shift should know about. Nothing in this log says why Redis died. And the log ends at the kill, so recovery time isn't in it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ed39ab6abfe1be967a9730745112b72db5e927f741d09e2c2506ed8719cc4764"
+}

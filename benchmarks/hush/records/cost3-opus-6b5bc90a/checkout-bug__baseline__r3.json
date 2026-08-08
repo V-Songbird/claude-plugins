@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__baseline__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 24,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 39559,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.27827199999999996,
+  "numTurns": 13,
+  "durationMs": 38252,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2383
+  },
+  "contextTraffic": 225043,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 7809,
+  "narrationWords": 20,
+  "finalWords": 167,
+  "finalText": "All 5 tests pass.\n\n**Cause:** `computeTotal` in `src/services/pricing.js:22` subtracted the coupon's `amount` from the *already-converted* total. But flat coupon amounts are denominated in USD (`src/models/coupon.js:3-5`, `src/config.js:3-5`), so a $10 coupon was being applied as €10 / £10 / ¥10 — the discount silently changed value with the exchange rate. A $100 order in EUR came out at `100*0.9 - 10 = 80` instead of `(100-10)*0.9 = 81`; in JPY the error is far larger (¥10 off instead of ~¥1,495).\n\nPercent coupons were unaffected, since scaling commutes with conversion — which is why only the flat-coupon case failed.\n\n**Fix** (`src/services/pricing.js:9-23`): apply the flat discount while the subtotal is still in USD, then convert the discounted amount. The no-coupon and percent paths are behaviorally unchanged.\n\nOne thing I left alone since it's outside the reported bug and has no test covering it: a flat coupon larger than the subtotal still yields a negative total (before and after this change). If you want that clamped to zero, say the word.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1284d08702ea657363380b430d6a5acaace816a05fac1763f9f469d887ac6018"
+}

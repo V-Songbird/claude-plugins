@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__baseline__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 2,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23522,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.18531170000000002,
+  "numTurns": 11,
+  "durationMs": 22173,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1467
+  },
+  "contextTraffic": 231048,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 14816,
+  "narrationWords": 44,
+  "finalWords": 57,
+  "finalText": "Both the test runner and the independent verifier are green.\n\nThe bug: in `orderTotal` (`src/pricing.js`), tax was calculated on the pre-discount amount instead of the discounted amount, even though the order was supposed to be discount-then-tax. Fixed by taxing `discounted` instead of `cents`. No other files were touched — `cases.js`, `run-tests.js`, and `tiers.js` were all already correct.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0eaadfcd95c7d94c7e58bca8764fcb5936a1ba22d7a6c9fc53be2a8ea27c3f96"
+}

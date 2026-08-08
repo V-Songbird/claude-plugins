@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 57,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 23016,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0906565,
+  "numTurns": 1,
+  "durationMs": 21704,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1193
+  },
+  "contextTraffic": 21899,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 548,
+  "finalText": "## The mechanical difference\n\n**Merge** creates a new commit with two parents. Your branch's history stays exactly as it happened — the merge commit just ties the two lines together.\n\n```\nmain:    A---B---C-------M\n                  \\     /\nfeature:           D---E\n```\n\n`D` and `E` keep their original hashes, their original parent, their original timestamps. The merge commit `M` records \"these two histories joined here.\"\n\n**Rebase** replays your commits onto a new base. It takes the diff each of your commits introduced and applies them one at a time on top of the target.\n\n```\nmain:    A---B---C\n                  \\\nfeature:           D'---E'\n```\n\n`D'` and `E'` are *new commits* — different hashes, different parent, same authored date but new committer date. The originals are orphaned (recoverable via reflog for a while, then garbage collected). History reads as if you started work from `C` all along.\n\nThat's the whole thing: merge preserves history and adds a node; rebase rewrites history into a straight line.\n\n## What that costs you\n\nMerge gives you an honest record — you can see that a feature was developed in parallel over three days while main moved. The price is that `git log --graph` on a busy repo turns into a braid, and `git bisect` has to walk through merge commits.\n\nRebase gives you a linear log where every commit's parent is the code it was actually meant to sit on top of. The price: you resolve conflicts *per commit* instead of once, and if the branch is shared, everyone else's copy diverges from yours.\n\n## When to reach for each\n\n**Rebase when:**\n- Pulling upstream changes into your unpushed local feature branch. `git pull --rebase` instead of `git pull` avoids the \"Merge branch 'main' into main\" noise commits that mean nothing.\n- Cleaning up before you open a PR — squashing \"wip\", \"fix typo\", \"actually fix typo\" into coherent commits with `git rebase -i`.\n- Your team keeps a linear main branch (common with trunk-based development).\n\n**Merge when:**\n- Bringing a finished feature branch into main, especially if you want the merge commit as a record of \"this PR landed here.\"\n- The branch is shared — anyone else has it checked out or has built on it.\n- The branch is already pushed and reviewed. Rebasing after review invalidates the diffs reviewers looked at.\n- You hit a rebase with conflicts in every commit. Bail out (`git rebase --abort`), merge instead, resolve once.\n\n## The one hard rule\n\n**Don't rebase commits that others have pulled.** Since rebase creates new commits, anyone who has the old ones gets a divergent history, and the fix involves `--force` pushes and confused teammates. The safe version is `git push --force-with-lease`, which refuses if someone pushed since you last fetched — but that only protects *you*, it doesn't un-break their local branch.\n\nYour own unpushed work, or a branch only you touch: rebase freely.\n\n## The common hybrid\n\nMost teams land on: rebase locally to keep your branch current and tidy, then merge (often `--no-ff`, or via a PR merge button) to integrate. You get clean individual commits *and* a visible record of where each feature entered main.\n\nIf you want to see what a rebase would do before committing to it, `git log --oneline main..HEAD` shows exactly which commits will be replayed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b0d534f7be7963b2d3ac1c11ba0a438c0a4bf4d4756c86f99a8bb9726ae58dca"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r1",
+  "batchId": "probe-opener-ce0bd038",
+  "seed": "1786135293353",
+  "orderIndex": 13,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 21535,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.197662,
+  "numTurns": 8,
+  "durationMs": 19545,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1114
+  },
+  "contextTraffic": 106397,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4674,
+  "narrationWords": 9,
+  "finalWords": 106,
+  "finalText": "**It's a small JSON API in five files.** No `package.json`, no tests, no git.\n\n```mermaid\ngraph LR\n  server[server.js] --> auth[auth.js]\n  server --> routes[routes.js]\n  routes --> cache[cache.js]\n  routes --> store[store.js]\n  cache --> store\n```\n\n`server.js` checks the token, then hands off. `auth.js` signs and checks bearer tokens with a shared secret. `routes.js` holds a three-entry table for users and orders. `cache.js` is a 256-entry read cache, `store.js` an in-memory map where records die after 15 minutes.\n\nOne thing to know: the comment in `routes.js` says writes clear the cache, but nothing does. `POST /orders` writes to the store while `GET /orders` keeps serving the old cached list.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fa14a42c68a965ec80dea5395b342594a7af2518befbb08e7cba49ea9053ceaa"
+}

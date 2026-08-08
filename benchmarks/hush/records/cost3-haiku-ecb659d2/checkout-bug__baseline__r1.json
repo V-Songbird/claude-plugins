@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__baseline__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 18,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 42697,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0633403,
+  "numTurns": 13,
+  "durationMs": 41441,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3181
+  },
+  "contextTraffic": 241389,
+  "apiCalls": 10,
+  "toolCalls": 12,
+  "toolResultChars": 7116,
+  "narrationWords": 147,
+  "finalWords": 123,
+  "finalText": "Perfect! All tests pass now. The bug was in the `computeTotal` function in `pricing.js`. \n\n**The Issue:**\nWhen applying a flat-amount coupon to a non-USD currency, the code was subtracting the coupon amount (stored in USD) directly from the already-converted total (in the target currency). This mixed currencies.\n\n**Example with EUR (rate 0.9):**\n- Before fix: 100 USD × 0.9 = 90 EUR, then 90 - 10 (USD) = **80 EUR** ❌\n- After fix: (100 - 10 USD) × 0.9 = 90 × 0.9 = **81 EUR** ✓\n\n**The Fix:**\nConvert the flat coupon amount to the target currency using the same `convert()` function before subtracting it from the converted total. This ensures both amounts are in the same currency before the subtraction.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6bd5bfa33248775de0c11248b5792aa152bfaaaed3858bb31ec54b40fa503e39"
+}

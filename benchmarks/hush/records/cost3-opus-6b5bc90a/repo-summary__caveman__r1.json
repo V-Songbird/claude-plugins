@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__caveman__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 101,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 30551,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1945945,
+  "numTurns": 9,
+  "durationMs": 29302,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1882
+  },
+  "contextTraffic": 100001,
+  "apiCalls": 4,
+  "toolCalls": 8,
+  "toolResultChars": 4528,
+  "narrationWords": 0,
+  "finalWords": 360,
+  "finalText": "Five files, no package.json, no tests, no README. Plain Node, zero dependencies.\n\n## Layers\n\n```\nserver.js   HTTP front + auth gate\n   ↓\nroutes.js   route table, query parse, JSON response\n   ↓\ncache.js    LRU read-through (reads only)\n   ↓\nstore.js    in-memory Map with TTL\nauth.js     HMAC token verify (used by server.js)\n```\n\n**`server.js:7`** — `createServer()` makes raw `node:http` server. Every request: `verifyToken` on `Authorization` header first. No user = 401, no route dispatch. Auth is global, not per-route. Self-starts on `PORT` or 8080 when run direct.\n\n**`auth.js`** — bearer token format `<userId>.<hexSignature>`. Signature = HMAC-SHA256 of userId, secret from `AUTH_SECRET` env. `verifyToken` returns `{id: userId}` or null. Length check before `timingSafeEqual` (needed — that function throws on length mismatch).\n\n**`routes.js:7`** — `TABLE` maps `\"METHOD /path\"` strings to handlers. Three routes: `GET /users`, `GET /orders`, `POST /orders`. Handlers get `(query, user)`. Miss = 404. Result wrapped in `Promise.resolve`, so sync and async handlers both work; resolve = 200 JSON, reject = 500 with error message.\n\n**`cache.js`** — LRU, 256 entries, no TTL. Hit = delete + re-set to bump recency (Map preserves insertion order). Overflow evicts `lru.keys().next().value` (oldest). Reads only.\n\n**`store.js`** — `Map` of `{value, expiresAt}`, 15-minute TTL from last write. Lazy expiry — checked on `get`, not swept. `listOrders` returns `[]` on miss; `putOrder` reads, pushes, writes back whole array.\n\n## Gaps I'd flag\n\n**Cache never invalidated.** `routes.js:5` comment claims writes \"invalidate the affected keys\" — no code does that. `POST /orders` writes to store; `orders:${user.id}` stays in LRU forever (no TTL there). Reads serve stale list until eviction by capacity pressure. Store TTL is also invisible to callers — cache returns a value the store already expired.\n\n**`POST /orders` body never read.** `q.body` at `routes.js:10` comes from `parseQuery`, which only reads `u.searchParams`. Request stream never consumed. So every POST pushes `undefined` into the order array.\n\n**No dev tooling.** No `package.json`, so no `npm start`, no deps pinned, no test runner. Run with `node src/server.js`.\n\n**`AUTH_SECRET` defaults to `'dev-secret'`.** Ships silently in production if env unset — tokens forgeable by anyone who read this file.\n\nWant me to fix the cache invalidation and body parsing, or write up a package.json + tests first?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c30883b4a08b186eef393badfa8b80ec2c1634099ba000d08e10830225f2b115"
+}

@@ -41,9 +41,9 @@ function rmTree(dir) {
 // ---------------------------------------------------------------- segments
 
 describe('segments: every task is placed, every segment is populated', () => {
-  test('config declares the five segments the suite is evaluated over', () => {
+  test('config declares the six segments the suite is evaluated over', () => {
     assert.deepStrictEqual(Object.keys(CONFIG.segments).sort(), [
-      'coding', 'debugging', 'doc-editing', 'noisy-output', 'search-heavy',
+      'coding', 'debugging', 'doc-editing', 'long-session', 'noisy-output', 'search-heavy',
     ]);
   });
 

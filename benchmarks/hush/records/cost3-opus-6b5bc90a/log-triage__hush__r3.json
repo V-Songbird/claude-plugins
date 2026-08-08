@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 125,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 76799,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.444662,
+  "numTurns": 12,
+  "durationMs": 75265,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4681
+  },
+  "contextTraffic": 276465,
+  "apiCalls": 9,
+  "toolCalls": 11,
+  "toolResultChars": 12672,
+  "narrationWords": 0,
+  "finalWords": 103,
+  "finalText": "**Redis went down and took the service with it.**\n\n1. `02:14:07` — Redis at `10.0.0.12:6379` refused connections.\n2. The cache fell back to reading the store directly, and the store buckled.\n3. Requests started timing out after 5 seconds, and the queue grew.\n4. `02:29:12` — queue depth passed its 500 limit, then climbed to 568.\n5. All 13 reconnect tries over 17 minutes were refused.\n6. `02:31:44` — worker-2 ran out of heap memory, exit code 134.\n7. `02:31:52` — the supervisor killed the api process group.\n\nRedis is the only thing that broke on its own. Everything else followed from it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "104be17f2a56624dae9244fbb11ef597ccea543d4f11a1914589f15a21fc529f"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__lookfurther__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 45,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 5435,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.078024,
+  "numTurns": 1,
+  "durationMs": 3769,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 206
+  },
+  "contextTraffic": 31952,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 57,
+  "finalText": "```python\nimport re\n\ndef is_valid_email(email: str) -> bool:\n    pattern = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'\n    return bool(re.match(pattern, email))\n```\n\nIt checks for one `@`, a name part before it, a domain with a dot after it, and a letters-only ending like `.com`. Good for catching typos, not a full RFC check — real proof an address works is sending it mail.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9db01424d947c39aefe4315702e4a72e291bbe5f740ed71d70e95a0eebb49780"
+}

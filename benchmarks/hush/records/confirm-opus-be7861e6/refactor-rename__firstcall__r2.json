@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__firstcall__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 21,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 51324,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.4002,
+  "numTurns": 21,
+  "durationMs": 49744,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3040
+  },
+  "contextTraffic": 308557,
+  "apiCalls": 10,
+  "toolCalls": 20,
+  "toolResultChars": 7625,
+  "narrationWords": 0,
+  "finalWords": 46,
+  "finalText": "**Renamed `calcTotal` to `computeTotal` everywhere.** All 4 tests pass in 70ms.\n\nChanged `src/cart.js`, `src/index.js`, `src/invoice.js`, and `src/report.js` — the function, its export, and each import.\n\nI left one mention of the old name alone. `tests/total.test.js:18` checks that `cart.calcTotal` is gone, so it should stay as written.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b4d02a95f201f086aba6dd024880d506acebcb0e52c487ae8f81848c30db9436"
+}

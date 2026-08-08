@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__baseline__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 24,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 21456,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1474156,
+  "numTurns": 9,
+  "durationMs": 20187,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1582
+  },
+  "contextTraffic": 182015,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 5585,
+  "narrationWords": 0,
+  "finalWords": 65,
+  "finalText": "All 5 tests pass. The bug was in `computeTotal` in `src/services/pricing.js:9` — flat coupons are stored in USD, but the code was subtracting the raw USD amount from the *already-converted* total (e.g. subtracting $10 from a €90 total). I fixed it to subtract the flat coupon in USD before converting to the target currency, so a $10 discount correctly becomes €9 off, not €10 off.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "586d515b5d1800544bb9de34f775ba4790892ba3f465d1a91cbf8f2f5f5c9bc8"
+}

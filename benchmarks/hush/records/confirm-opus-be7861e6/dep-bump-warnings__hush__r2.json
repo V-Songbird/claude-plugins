@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 63,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 44756,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.30117150000000004,
+  "numTurns": 10,
+  "durationMs": 43176,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2384
+  },
+  "contextTraffic": 200815,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6250,
+  "narrationWords": 8,
+  "finalWords": 105,
+  "finalText": "**The build was actually failing, not just noisy.** It passes now, exit 0.\n\nTwo things the bump broke:\n1. `src/core/options.js` read `options.retries`, but the new bundler sends `retryCount`. It now takes either.\n2. `src/net/retryPolicy.js` threw on an unset `backoffEnabled` flag. The new config loader leaves it `undefined` instead of `false`, so unset now means off, same as before.\n\nThe 8 warnings that remain are fixed text inside `build.js`. It prints them every run, and the files they blame like `src/legacy/adapter.js` don't exist here. Nothing in your source to fix. If you want a truly silent build, that list in `build.js` is the place to trim.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "404d6a769fb8819b93752d94facd0e953bded1aa40e2315cc4ed1c3fbe5abb86"
+}

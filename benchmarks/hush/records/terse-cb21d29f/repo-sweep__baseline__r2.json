@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__baseline__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 20,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 113230,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.7701007999999999,
+  "numTurns": 34,
+  "durationMs": 111695,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10131
+  },
+  "contextTraffic": 1469604,
+  "apiCalls": 34,
+  "toolCalls": 33,
+  "toolResultChars": 28259,
+  "narrationWords": 77,
+  "finalWords": 39,
+  "finalText": "Verification passes. Migrated the 12 remaining `db.query` call sites (in `analytics/cohort`, `orders/returnService`, `orders/shipment`, `billing/refund`, `billing/couponService`, `support/macroAdmin`, `support/sla`, `catalog/variantAdmin`, `catalog/supplier`, `accounts/teamService`, `accounts/apiKeyAdmin`, `accounts/session`) to `db.execute({ sql, params })`, left `cache.query` and the vendored `legacy-orm/adapter.js` untouched, and confirmed with `node verify.js`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a34a94dd789e3505c9960d0116e648214a3590879c78816fe679db86f90e66bf"
+}

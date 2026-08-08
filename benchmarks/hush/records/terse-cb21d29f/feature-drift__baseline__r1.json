@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__baseline__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 26,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 89981,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.33468400000000004,
+  "numTurns": 13,
+  "durationMs": 82494,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 7586
+  },
+  "contextTraffic": 331730,
+  "apiCalls": 9,
+  "toolCalls": 8,
+  "toolResultChars": 12408,
+  "narrationWords": 0,
+  "finalWords": 38,
+  "finalText": "That's already in place too — `route()` tracks each key's last delivery time in `state.lastDelivery`, and drops the event (`[]`) if it's within `REPEAT_WINDOW_MINUTES` (5) of the last one, matching `verify.js`'s dedup probes (`dup`/`crit` keys). No changes needed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4df87c2e5fe3cf900ac580671327fdcba7a4e3a5c94934306d2f51b1cc68e02e"
+}

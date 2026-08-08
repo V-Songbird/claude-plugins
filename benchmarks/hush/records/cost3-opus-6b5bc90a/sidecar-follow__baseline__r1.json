@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 145,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 29139,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2741215,
+  "numTurns": 4,
+  "durationMs": 27825,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1012
+  },
+  "contextTraffic": 117108,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 25229,
+  "narrationWords": 8,
+  "finalWords": 171,
+  "finalText": "Read the whole file (700 lines). Here's the rundown:\n\n## Overall\n- **700 tests total — 698 passed, 2 failed.** No skipped/todo tests, and the log has no trailing summary line, so the counts come from the per-test lines themselves.\n- Both failures are recorded as bare `FAIL` blocks that break the numbering: the run jumps from `ok 299` → FAIL → `ok 301`, and `ok 549` → FAIL → `ok 551`. So the failing tests are the ones that would have been **#300** and **#550**.\n\n## The two failures — both in `auth/tokens.test.js`\n1. **`refreshToken silently accepts an already-revoked token`** — `auth/tokens.test.js:400` (log line 302)\n2. **`sessionCleanup leaves orphaned rows after a rollback`** — `auth/tokens.test.js:650` (log line 553)\n\nWorth noting: both live in the same file, and the first one is a security-relevant behavior (a revoked refresh token still being honored), so I'd triage that one first. Nothing else in the log — no errors, warnings, or stack traces; every other line is a plain `ok` with a 5–44ms timing.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2ff626eeba50f56f4024aa1ee2cf16b414e46ecbf8d7588ba6d599f3aa861f72"
+}

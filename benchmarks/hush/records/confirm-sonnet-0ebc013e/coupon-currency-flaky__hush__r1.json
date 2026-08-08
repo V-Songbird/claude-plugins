@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 54,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 63821,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2771293,
+  "numTurns": 14,
+  "durationMs": 62193,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2340
+  },
+  "contextTraffic": 407228,
+  "apiCalls": 11,
+  "toolCalls": 13,
+  "toolResultChars": 11159,
+  "narrationWords": 0,
+  "finalWords": 133,
+  "finalText": "Found it. `computeTotal` in `engine.js` was rounding the running total to 2 decimals after the percent cut and again after the flat cut, before converting to the order's currency. That extra rounding happened in USD, ahead of the currency conversion, so any leftover fraction of a cent got locked in early instead of carrying through to the final round.\n\nIt only showed up on carts where a percent coupon left a fraction that mattered after conversion — 10 of the 40 test cases failed, all involving `SAVE10PCT`, mostly in GBP. That's why it looked patchy to Finance instead of a clean pattern.\n\nFixed by letting the percent and flat discounts happen in full precision and rounding only once, at the end, in the target currency's own decimal places. All 40 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "06a1362f38d960fe03695ccdfdad818d7402039925d9079e553dd6799c00410e"
+}

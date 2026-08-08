@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__caveman__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 121,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 13248,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.075486,
+  "numTurns": 2,
+  "durationMs": 12017,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 812
+  },
+  "contextTraffic": 71879,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 60098,
+  "narrationWords": 0,
+  "finalWords": 148,
+  "finalText": "**Root cause:** Redis went down at 02:14:07. Cache layer lost, requests flooded database directly.\n\n**Timeline:**\n1. **02:14:07** — Redis connection lost (`ECONNREFUSED 10.0.0.12:6379`)\n2. **02:14:07-02:14:12** — Cache fallback started, but database couldn't handle direct traffic\n3. **02:14:10+** — Requests timing out after 5000ms, queue depth climbing (52 → 100 → 200...)\n4. **02:14:26 onwards** — 12 failed reconnect attempts (all `ECONNREFUSED`)\n5. **02:31:44** — Queue hit 568+ pending requests, JavaScript heap exhausted\n6. **02:31:44** — worker-2 OOMed and crashed (exit code 134)\n7. **02:31:45** — Supervisor killed entire API process group — service down\n\n**Why it cascaded:** Without cache, every request hit the overloaded store. Backlogged requests piled up in memory faster than they cleared, eventually consuming all heap. No circuit breaker to fail fast.\n\nFix: Redis is down. Restore it or implement queue limits + circuit breaker to reject requests when queue hits threshold, stopping OOM cascade.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e4528ed3a31ba98e5dfef54d935785ce1922b6bc125932d774c7dc482036f92b"
+}

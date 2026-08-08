@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__baseline__r1",
+  "batchId": "confirmfix-3484fd7a",
+  "seed": "1786153613114",
+  "orderIndex": 17,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 89378,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6718145999999999,
+  "numTurns": 15,
+  "durationMs": 84720,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4853
+  },
+  "contextTraffic": 953817,
+  "apiCalls": 15,
+  "toolCalls": 11,
+  "toolResultChars": 77664,
+  "narrationWords": 0,
+  "finalWords": 337,
+  "finalText": "## Gateway 503 Incident — On-Call Handoff\n\n**Status:** Ongoing / unresolved as of last available log data (03:59:27Z). Errors are still occurring and the connection-wait backlog is still climbing, not draining.\n\n### Root Cause\nDeploy **dep-4471** (gateway, author a.novak, \"config: connection-per-request for pool isolation\") shipped a config change flipping `gateway.pool.perRequest: false -> true` (plus a minor timeout bump, `upstreamMs: 2000 -> 2500`). This was applied as config generation 119 at 02:13:41.234Z. Roughly 33 seconds later, the gateway's fixed-size 20-connection pool began saturating (`in_use 20/20`) with a monotonically growing `waiting` queue (13 → 74+ and rising), producing `ERR_POOL_EXHAUSTED` on every request that couldn't get a connection.\n\nThe `perRequest` semantics appear to make each request claim its own dedicated connection instead of sharing from the pool efficiently, so the fixed pool can no longer keep up with normal traffic volume.\n\n### Impact Window\n- **Start:** 2026-03-14T02:14:18.972Z (first `503`/`ERR_POOL_EXHAUSTED` pair, req-07401). A single precursor `WARN acquire slow` appeared 4s earlier (02:14:14.920Z).\n- **End:** Not yet — still failing at 03:59:27.974Z, the last line in the current log excerpt. Treat as **still active**.\n- **Duration so far:** ~1h 45m and counting.\n- **Blast radius:** Gateway only. Checked `logs/worker.log` for the same window — worker's DB pool stayed flat (`size=8 in_use=1 idle=7 waiting=0`) the entire time, no errors correlated with the incident. This is isolated to the gateway's connection pool, not a shared downstream resource.\n\n### Deploy to Roll Back\n- **dep-4471** — gateway, 2026-03-14T02:12:00Z–02:14:00Z, a.novak, \"config: connection-per-request for pool isolation.\"\n- Specifically revert `gateway.pool.perRequest` back to `false` (and optionally the `upstreamMs` timeout back to 2000 — lower priority, not the likely cause).\n- Other deploys in the window (dep-4472 billing-svc 02:41, dep-4473 catalog-svc 03:20) landed *after* the outage was already underway and don't correlate with the pattern — no action needed on those for this incident.\n\n### Suggested Next Step\nRoll back dep-4471's config change (or set `gateway.pool.perRequest` back to `false` via the next config generation) and watch for `in_use` to drop back under 20 and `waiting` to return to 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3ac640dc487aeb108aa7886af252024667f607ae34f4ddf896a3a55f9f95260f"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__caveman__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 140,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 32023,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "tests exit 1"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2014323,
+  "numTurns": 9,
+  "durationMs": 27449,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1839
+  },
+  "contextTraffic": 302784,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 6274,
+  "narrationWords": 0,
+  "finalWords": 17,
+  "finalText": "Staging admin port stays 8091 — only prod changed, right? Confirming before I touch the appendix table.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f29fc3f13ba6458a0904a51a03491c6a24d766587a1dd58e74c7fcc3494542a4"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__terse__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 5,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "terse",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 26285,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2295883,
+  "numTurns": 13,
+  "durationMs": 24627,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1443
+  },
+  "contextTraffic": 292561,
+  "apiCalls": 8,
+  "toolCalls": 12,
+  "toolResultChars": 15358,
+  "narrationWords": 0,
+  "finalWords": 32,
+  "finalText": "**Fixed.** In `src/pricing.js`, `orderTotal` was taxing the original price instead of the discounted one.\n\nTax now applies to what the customer actually pays, not the pre-discount amount. 625 tests pass, 0 failing.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "140ccc89afed02fb2da4362b9d4bd56ce63d565cd41f258af73e61b57e023811"
+}

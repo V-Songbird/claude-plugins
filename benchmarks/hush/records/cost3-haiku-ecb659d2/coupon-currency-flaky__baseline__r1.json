@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 82,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 80897,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.10744360000000001,
+  "numTurns": 19,
+  "durationMs": 79358,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 6730
+  },
+  "contextTraffic": 327484,
+  "apiCalls": 12,
+  "toolCalls": 18,
+  "toolResultChars": 18968,
+  "narrationWords": 167,
+  "finalWords": 161,
+  "finalText": "Perfect! All 40 tests pass now. **The root cause was premature rounding**: the engine was rounding to 2 USD decimals after each discount, which lost precision before converting to the final currency. \n\nHere's what was happening:\n\nWhen `SAVE10PCT` was applied to $19.98:\n- $19.98 × 0.9 = $17.982\n- **Buggy code rounded this immediately**: round($17.982, 2) = $17.98 ← **lost $0.002**\n- Then converted: $17.98 × 0.78 = £14.0244\n- Final round: £14.02 ❌\n\nThe correct approach applies all discounts without intermediate rounding, then rounds once at the very end:\n- $19.98 × 0.9 = $17.982 (exact)\n- Then converted: $17.982 × 0.78 = £14.03036\n- Final round: £14.03 ✓\n\nThis only showed up in non-USD currencies because USD doesn't need conversion—the single rounding in USD was sufficient. But once converted to GBP/CAD/JPY, that earlier precision loss manifested as off-by-a-cent errors. The fix removes the intermediate `round()` calls and relies on the single final rounding to ensure precision throughout the calculation.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "63432c9125c05fd507dcb28e95c72824b23f3339f9d8f7ea2e12324991252d28"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__hush__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 138,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 49423,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0825109,
+  "numTurns": 10,
+  "durationMs": 44448,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3562
+  },
+  "contextTraffic": 279490,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 6386,
+  "narrationWords": 0,
+  "finalWords": 29,
+  "finalText": "Updated all three mentions of the production admin port: the health check command, the security note, and the environment reference table. Production is now 9090; staging stays at 8091.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bf26ff1b3b03d8ec556a05a34f40508263e48799a9247ffca2936a7c175c8bc4"
+}

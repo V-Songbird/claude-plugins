@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__caveman__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 121,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 90027,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.4651815,
+  "numTurns": 10,
+  "durationMs": 88748,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5300
+  },
+  "contextTraffic": 298625,
+  "apiCalls": 10,
+  "toolCalls": 9,
+  "toolResultChars": 17042,
+  "narrationWords": 5,
+  "finalWords": 450,
+  "finalText": "Redis died. Everything else downstream of that.\n\n## What happened\n\n**02:00:00–02:14:03** — healthy. 170 requests, all `200`. Cache hit ratio 0.90–0.98. No leading indicator.\n\n**02:14:07.113** — trigger:\n```\nERROR [api] redis connection lost: connect ECONNREFUSED 10.0.0.12:6379\nWARN  [api] cache layer degraded — falling back to direct store reads\n```\n`ECONNREFUSED`, not timeout — nothing listening on 10.0.0.12:6379. Redis process down or port closed, not a network partition.\n\n**02:14:07 onward** — total outage, not degradation. Zero `200` responses logged after 02:14:03. 173× `TimeoutError: request timed out after 5000ms (store overloaded)`, 174× cache miss storm (all distinct keys, no repeats).\n\nCache was carrying ~95% of reads. Fallback dumped ~20x read load straight on primary store. Store folded immediately.\n\n**02:14:12–02:31:24** — queue depth grew linear, +3 per 6s (~0.5/s), 52 to 568. Crossed `max 500` at **02:29:12** (`depth 502`) and kept climbing. Cap never enforced.\n\n**02:15:26–02:31:26** — 13 reconnect attempts (0–12), fixed ~80.3s interval, all `ECONNREFUSED`. Redis never returned.\n\n**02:31:44–02:31:52** — death:\n```\nERROR [worker-2] JavaScript heap out of memory (request backlog)\nFATAL [supervisor] worker-2 exited with code 134, restarting\nFATAL [supervisor] api unresponsive, killing process group — service down\n```\nExit 134 = SIGABRT, V8 OOM abort. In-memory backlog ate heap.\n\n## Chain\n\nRedis down → 95% miss rate → store saturated → 5s timeouts on everything → unbounded queue growth → heap exhaustion → worker OOM → supervisor killed process group.\n\n## Real problems beyond Redis\n\n1. **`max 500` is advisory, not enforced.** Depth passed 500 and app kept accepting to 568. No load shedding, no 503s. Should reject at cap.\n2. **Backlog held unbounded in memory** — direct cause of the OOM. Bounded queue would have shed load and kept the process alive.\n3. **No circuit breaker on the store.** After the first wave of 5000ms timeouts, it kept sending. Every request paid full 5s before failing.\n4. **No single-flight / request coalescing** on cache miss. 174 distinct keys went straight through to the store concurrently.\n5. **Reconnect has no exponential backoff** — flat 80s, 13 tries, 17 minutes. Minor here since Redis never came back, but it's wrong.\n6. **17m45s from first ERROR to service death with no intervention.** Alerting gap is the biggest operational finding — the failure was visible and slow.\n\n## Fix order\n\nBounded queue + shed at cap (stops OOM) → circuit breaker on store → single-flight on miss → alert on `redis connection lost` and on queue depth >50% of max.\n\n## One flag\n\nLog is dated **2026-07-04**, file last written 2026-07-07. Today is 2026-08-07 — this is a month old, not last night. Either wrong file, or you have a second incident I haven't seen. Worth confirming before you action any of this.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cf69cd528699d835d8482ecb5828b12b6d9d09ec3a26558f6522a58999089cce"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 37,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 27761,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0451653,
+  "numTurns": 8,
+  "durationMs": 26554,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1770
+  },
+  "contextTraffic": 164405,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 5909,
+  "narrationWords": 81,
+  "finalWords": 95,
+  "finalText": "Perfect! Build is now clean. The real error was on **settings.js:17**: `maxRetries: retries,` was referencing an undefined variable. \n\nThe fix: Changed it to `maxRetries: env.retries || 3,` so it properly reads the `retries` parameter from the environment object (passed as `{ cacheSize: 512, retries: 3 }` by the build script), with a fallback to 3.\n\nThe build now finishes with **0 errors and 3 warnings** (the warnings were just noise in the logs, not actual problems):\n- W1042: deprecated-api in legacy adapter\n- W2213: unused-export in utils format  \n- W3307: circular-import between core/graph and state/tracker",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "47eb49dd71403fe3270e5e1e2da24684168fbe70f5a46f5c3858898cc94e626c"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__hush__r2",
+  "batchId": "confirmfix-3484fd7a",
+  "seed": "1786153613114",
+  "orderIndex": 22,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 110279,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.787947,
+  "numTurns": 48,
+  "durationMs": 104194,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 7990
+  },
+  "contextTraffic": 862317,
+  "apiCalls": 19,
+  "toolCalls": 44,
+  "toolResultChars": 34085,
+  "narrationWords": 8,
+  "finalWords": 90,
+  "finalText": "All four match `NOTES.md` and package.json — nothing extra to chase down there.\n\n**AUDIT.md is written**, four findings ranked by severity:\n1. `src/routes/internal.js` — internal routes ship with no auth, and the VPN they used to hide behind was retired.\n2. `src/repo/report.js` — saved-report filters and ordering are pasted into SQL instead of parameterized.\n3. `config/staging.js` — a real database password sits in committed source.\n4. `package.json` — `fast-parse` is still pinned to 1.4.2, the version yanked for prototype pollution; 1.4.3 fixes it.\n\nService code wasn't touched, per your instruction.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7f6b26682daca84e124481dc99fcc0be88ed3226ff8d5cc68b30c04c1c585db1"
+}

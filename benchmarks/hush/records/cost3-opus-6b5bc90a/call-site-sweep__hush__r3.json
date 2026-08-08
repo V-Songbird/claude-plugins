@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 115,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 37896,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.45308650000000006,
+  "numTurns": 16,
+  "durationMs": 36247,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2229
+  },
+  "contextTraffic": 272179,
+  "apiCalls": 8,
+  "toolCalls": 15,
+  "toolResultChars": 31915,
+  "narrationWords": 0,
+  "finalWords": 96,
+  "finalText": "**17 call sites still pass the rounding flag**, spread over 8 files. `src/reports/quarterly.js` has the most, with 5.\n\n| File | Two-arg calls |\n| --- | --- |\n| `src/reports/quarterly.js` | 5 |\n| `src/admin/exports.js` | 3 |\n| `src/billing/invoice.js` | 3 |\n| `src/reports/monthly.js` | 2 |\n| `src/checkout/cart.js` | 2 |\n| `src/billing/statement.js` | 1 |\n| `src/checkout/receipt.js` | 1 |\n\nEvery one passes the literal `true`, and each carries the same `// TODO: drop the legacy rounding flag` comment. Three files already import `formatAmount` but never pass the flag: `ledger.js`, `refunds.js`, `dashboard.js`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "39d2287caf1a57dcd3ac53bf1de5fdd55dd69f73a0eabc9c70eb2ad2de9425ba"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 39,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25341,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.16601709999999997,
+  "numTurns": 7,
+  "durationMs": 23628,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 944
+  },
+  "contextTraffic": 205148,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 6244,
+  "narrationWords": 0,
+  "finalWords": 89,
+  "finalText": "Found it. `src/core/settings.js` had `maxRetries: retries` — `retries` isn't defined anywhere, it should read from `env.retries`. That threw and killed the build every time, and it was hiding under all the compile noise.\n\nFixed that one line, and the build now finishes clean: exit 0, 3 warnings, 0 errors.\n\nThe 3 warnings that remain are just notices, not blockers: a deprecated `crypto.createCipher` call in `src/legacy/adapter.js`, an unused export `formatLegacyDate` in `src/utils/format.js`, and a circular import between `src/core/graph.js` and `src/state/tracker.js`. Worth cleaning up sometime, but they don't stop the build.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7a4a6b46807b1efa5d7719edaf9cf8e7695c6e343b734a45849efac09d0a1be5"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__hush__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 23,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 85570,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6091549,
+  "numTurns": 35,
+  "durationMs": 83876,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10808
+  },
+  "contextTraffic": 335678,
+  "apiCalls": 8,
+  "toolCalls": 34,
+  "toolResultChars": 25524,
+  "narrationWords": 12,
+  "finalWords": 29,
+  "finalText": "Done. Found 36 leftover `db.query` calls across 12 files and switched them all to `db.execute({ sql, params })`. Left `vendor/legacy-orm/adapter.js` and the unrelated `cache.query` calls untouched. Verifier passes clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "26ae2c194183713a44f214920aa9d83f109fff8a79459b6e6e7b458aa3570834"
+}

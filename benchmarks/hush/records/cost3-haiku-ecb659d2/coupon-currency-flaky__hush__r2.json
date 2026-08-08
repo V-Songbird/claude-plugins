@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 85,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 47446,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0838335,
+  "numTurns": 11,
+  "durationMs": 45936,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3110
+  },
+  "contextTraffic": 311640,
+  "apiCalls": 11,
+  "toolCalls": 10,
+  "toolResultChars": 15226,
+  "narrationWords": 12,
+  "finalWords": 104,
+  "finalText": "The bug was premature rounding. The code was rounding after each discount (percent, then flat) before converting to the target currency. This lost precision that mattered when multiplying by conversion rates.\n\nWhen you apply a 10% discount to $19.98, you get $17.982. The code rounded it to $17.98 before converting to GBP (×0.78), giving 14.0244 which rounds to 14.02. But the correct path is to keep the full $17.982, convert it to 14.02636, then round once at the end to 14.03.\n\nThe fix was to remove the intermediate `round()` calls and only round the final result after currency conversion. All 40 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8bb840359a50df85c300ed35f53738120628022e6f6cc37b4883680ab0d4e78e"
+}

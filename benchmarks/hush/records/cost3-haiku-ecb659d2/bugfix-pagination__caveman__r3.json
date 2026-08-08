@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__caveman__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 16,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 21437,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.040827800000000004,
+  "numTurns": 8,
+  "durationMs": 20059,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1378
+  },
+  "contextTraffic": 144995,
+  "apiCalls": 6,
+  "toolCalls": 7,
+  "toolResultChars": 2757,
+  "narrationWords": 20,
+  "finalWords": 23,
+  "finalText": "Tests pass. Changed line 7 from `page * perPage` to `(page - 1) * perPage`. Pages 1-indexed, but slice needs 0-indexed start position.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a2ad33a31bd371d039a4339c0ead25ca9fb4056a538763eec3e263d77b1e424a"
+}

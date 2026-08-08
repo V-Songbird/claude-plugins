@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__baseline__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 139,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 64689,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.36622750000000004,
+  "numTurns": 12,
+  "durationMs": 60789,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4091
+  },
+  "contextTraffic": 270203,
+  "apiCalls": 10,
+  "toolCalls": 9,
+  "toolResultChars": 9818,
+  "narrationWords": 19,
+  "finalWords": 59,
+  "finalText": "All three production mentions updated:\n\n- `docs/runbook.md:29` — health-check `curl` now hits `:9090`\n- `docs/runbook.md:107` — SEC-233 known issue\n- `docs/runbook.md:117` — appendix table\n\nI left staging at 8091, since you said the *production* port moved. If staging moved too, that's a one-line follow-up.\n\n`node verify.js` passes: all three edits landed and the rest of the document is intact.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a0d66c0db1224678293363251c82f7a99d5689fa8571148a9bab032ca480af99"
+}

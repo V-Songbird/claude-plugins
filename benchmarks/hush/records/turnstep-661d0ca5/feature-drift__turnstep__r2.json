@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__turnstep__r2",
+  "batchId": "turnstep-661d0ca5",
+  "seed": "1786172329502",
+  "orderIndex": 14,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "turnstep",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 164291,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5735795,
+  "numTurns": 20,
+  "durationMs": 155695,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 11684
+  },
+  "contextTraffic": 736346,
+  "apiCalls": 17,
+  "toolCalls": 15,
+  "toolResultChars": 14065,
+  "narrationWords": 18,
+  "finalWords": 39,
+  "finalText": "That's already in there — it's been dropping same-key repeats within 5 minutes since the first version. Ran both checks again just now to be sure: `verify.js` still passes, and the replay still drops 99 the same as before.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1a32af86db482441d89683973b35772df64b036b48dbe2af461fd17adfa3032d"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 104,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 37771,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2386045,
+  "numTurns": 9,
+  "durationMs": 36186,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2677
+  },
+  "contextTraffic": 106922,
+  "apiCalls": 4,
+  "toolCalls": 8,
+  "toolResultChars": 4618,
+  "narrationWords": 7,
+  "finalWords": 120,
+  "finalText": "**It's a small JSON API in plain Node, five files and no dependencies.**\n\n```mermaid\nflowchart LR\n  A[server.js] --> B[auth.js]\n  A --> C[routes.js]\n  C --> D[cache.js]\n  C --> E[store.js]\n```\n\n- `server.js` — starts the HTTP server, checks the token, passes the request on.\n- `auth.js` — reads the `Bearer` token and returns the user, or nothing.\n- `routes.js` — a table of three endpoints, and the query parsing.\n- `cache.js` — keeps the last 256 reads, dropping the oldest.\n- `store.js` — a `Map` standing in for a database, records expire after 15 minutes.\n\nTwo things to know: there is no `package.json`, no tests, no README. And nothing clears `cache.js` on a write, so `POST /orders` leaves a stale read.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fedd67495ee4b1cde8723a01339c287302eb4a61eca34885826a1e651e0d9f03"
+}

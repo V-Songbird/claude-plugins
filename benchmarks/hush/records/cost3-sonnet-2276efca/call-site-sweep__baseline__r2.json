@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__baseline__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 111,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10603,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1225414,
+  "numTurns": 3,
+  "durationMs": 8902,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 618
+  },
+  "contextTraffic": 92806,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 15066,
+  "narrationWords": 0,
+  "finalWords": 79,
+  "finalText": "Counting the two-argument call sites: `src\\reports\\quarterly.js` has 5 (lines 16, 37, 58, 83, 104) — the most of any file. Total across the repo is 17 call sites still passing the legacy second argument, spread across 8 files:\n\n- `src\\reports\\quarterly.js` — 5\n- `src\\billing\\invoice.js` — 3\n- `src\\admin\\exports.js` — 3\n- `src\\reports\\monthly.js` — 2\n- `src\\checkout\\cart.js` — 2\n- `src\\checkout\\receipt.js` — 1\n- `src\\billing\\statement.js` — 1\n\n`src\\reports\\ledger.js`, `src\\admin\\dashboard.js`, and `src\\billing\\refunds.js` have none — all already call the single-arg form.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e307e486d14bba7d0bfa5c078315dfaeba7fa584978e5f572e860fc50be8baa6"
+}

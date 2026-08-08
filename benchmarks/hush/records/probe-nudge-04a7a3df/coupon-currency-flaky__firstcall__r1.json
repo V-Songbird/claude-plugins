@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__firstcall__r1",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 19,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 49801,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "tests exit 1"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.33592150000000004,
+  "numTurns": 10,
+  "durationMs": 48151,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2806
+  },
+  "contextTraffic": 207215,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 9110,
+  "narrationWords": 0,
+  "finalWords": 139,
+  "finalText": "**Found it — `engine.js` rounds too early.**\n\n`computeTotal` rounds the dollar total to cents right after the percent coupon, at line 24. Then it multiplies by the exchange rate. That tiny rounding gap gets scaled up, and sometimes it tips a cent.\n\nTwo clues match Finance's report:\n\n1. Every failing cart has a percent coupon. Flat-only carts are always fine.\n2. It only shows up on bigger rates like `GBP`, `CAD` and `JPY`. `USD` and `EUR` happen to land on the same cent.\n\nA real one: 2 × $9.99 with `SAVE10PCT` in `GBP` gives `14.02`, but should be `14.03`.\n\nThe fix is to drop the rounding on lines 24 and 27 and round once at the end, which is what the test's own reference does. Say the word and I'll make the change.\n\n10 of 40 tests fail, 86ms.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3d750a913824f31baab92aee4ba0910be193f4118d510193f4126233cc957c01"
+}

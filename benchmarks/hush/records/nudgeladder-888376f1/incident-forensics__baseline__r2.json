@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__baseline__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 46,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 85820,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.45939319999999995,
+  "numTurns": 18,
+  "durationMs": 80614,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5432
+  },
+  "contextTraffic": 723277,
+  "apiCalls": 18,
+  "toolCalls": 14,
+  "toolResultChars": 26741,
+  "narrationWords": 0,
+  "finalWords": 238,
+  "finalText": "## On-Call Handoff — Gateway 503s\n\n**Status:** Ongoing at time of log cutoff (03:59:44Z) — not yet self-resolved.\n\n**Root cause:**\nDeploy `dep-4471` (gateway, a.novak, \"config: connection-per-request for pool isolation\", 02:12–02:14Z) flipped `gateway.pool.perRequest: false -> true` via config reload (generation 118→119, applied 02:13:41Z). The gateway's connection pool is fixed at size 20 and wasn't resized for per-request acquisition, so it saturated almost immediately under normal traffic (`in_use=20`, queue growing).\n\n**Impact window:**\n- **Start:** 2026-03-14T02:14:18.972Z — first `503` / `ERR_POOL_EXHAUSTED` (req-07401, /v1/cart → billing-svc), ~33s after the config change applied.\n- **End:** none observed — still failing at the last log line (03:59:27Z), with the `waiting` queue climbing throughout (13 → 74), i.e. worsening, not stabilizing.\n- **Scope:** gateway only. All backend routes/upstreams affected roughly evenly (billing-svc, orders-svc, catalog-svc, accounts-svc). `/health` checks kept returning 200 the whole time (bypass the pool), so standard health-check alerting wouldn't have caught this.\n- **Workers unaffected:** `worker.log` shows zero errors and a flat, healthy pool (`size=8 in_use=1 idle=7 waiting=0`) the entire window — workers use a separate pool and never showed any pressure. (Separate, unrelated note: worker job latency drifts up gradually across the whole 3-hour window, tied to known issue OPS-2210, not this incident.)\n\n**Rollback target:**\n**`dep-4471`** (gateway, a.novak) — revert `gateway.pool.perRequest` to `false`, or if per-request isolation is needed, increase pool size before re-enabling. No other deploy in the window (`dep-4470` worker, `dep-4472` billing-svc, `dep-4473` catalog-svc) lines up in time or service.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "591f70fc5727fa80527390d394f250ff95cccc07d066d1b37c872cbc583901b9"
+}

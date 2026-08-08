@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__caveman__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 74,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 58230,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.367132,
+  "numTurns": 14,
+  "durationMs": 56682,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3333
+  },
+  "contextTraffic": 238380,
+  "apiCalls": 8,
+  "toolCalls": 13,
+  "toolResultChars": 15237,
+  "narrationWords": 15,
+  "finalWords": 287,
+  "finalText": "Fixed. 4/4 tests pass.\n\n## Leak\n\n`src/jobs/processOrder.js` acquired connection, `await`ed `run()`, released on line after. `run()` rejects for bad order — reject propagates, `pool.release(conn)` never runs. Pool has no reclaim (`src/db/pool.js:3-5`), so each failed order burns a connection permanently.\n\nRequest path was never guilty — `src/handlers/api.js` uses `withConnection`, which releases in `finally`.\n\n## Logs match exactly\n\nworker.log, in-use climbs only on failures, never on success:\n```\n02:06:20.440Z ERROR [worker-1] job order-4123 failed: invalid order payload\n02:06:20.445Z WARN  [db] pool in-use: 4/5\n02:06:25.240Z INFO  [worker-1] job order-4124 completed, connection released\n02:06:25.245Z WARN  [db] pool in-use: 4/5      <- success, no growth\n02:06:30.040Z ERROR [worker-1] job order-4125 failed: invalid order payload\n02:06:30.045Z WARN  [db] pool in-use: 5/5      <- failure, +1, pool dead\n```\n5 bad orders = 5 connections gone. First bad order 01:56:11 (order-4013), pool dead 02:06:33. app.log utilization steps 2/5 → 5/5 over 01:09:59–02:11:14, then `api` 503s and supervisor restart at 02:13:36 — collateral, not cause. API starved by worker's leaked connections since they share one pool.\n\n## Fix\n\n```js\nconst { withConnection } = require('../db/pool.js');\n\nasync function processOrder(pool, order, run) {\n  return withConnection(pool, (conn) => run(conn, order));\n}\n```\nReuse existing helper instead of hand-rolled try/finally — comment claimed manual acquire was for a retry loop \"since removed\", so reason is gone.\n\n## Notes\n\n- `node --test tests/` fails with `MODULE_NOT_FOUND` — no `package.json` in repo, so Node treats dir arg as module. Use `node --test tests/pool.test.js`, or add `package.json`. Not a code bug.\n- Real hardening left undone (out of scope, your call): pool has no acquire timeout or leak reclaim. app.log logs `acquire timeout: no connections available after 5000ms` but `Pool.acquire()` throws instantly — production pool and this code disagree, worth checking which is deployed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a202ee3d253db5be0db976618f7944230499ab671e102e81f3ff826c85cc4906"
+}

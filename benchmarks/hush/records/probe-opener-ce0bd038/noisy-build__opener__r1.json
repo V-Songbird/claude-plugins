@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__opener__r1",
+  "batchId": "probe-opener-ce0bd038",
+  "seed": "1786135293353",
+  "orderIndex": 0,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "opener",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 38775,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "opener:Opener",
+  "costUsd": 0.26638950000000006,
+  "numTurns": 9,
+  "durationMs": 37013,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1587
+  },
+  "contextTraffic": 196892,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 5243,
+  "narrationWords": 0,
+  "finalWords": 76,
+  "finalText": "**Build passes now.** Exit code `0`, `dist/bundle.js` emitted.\n\nOne real bug, in `src/core/settings.js`: the line `maxRetries: retries` used a name that was never defined. It now reads `env.retries`, with a fallback of `2` when the caller passes nothing.\n\nThe 3 warnings are still there, and they are noise. `build.js` prints them as fixed text at set points in the loop. The files they blame do not exist. Clearing them means editing `build.js`, not fixing any code.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fbbd1546b64118783df0b119fc11367d9b238cb1937b4e780d8a853ae9b26dde"
+}

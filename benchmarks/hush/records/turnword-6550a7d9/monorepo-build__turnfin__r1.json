@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__turnfin__r1",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 10,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "turnfin",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23159,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1767105,
+  "numTurns": 8,
+  "durationMs": 20759,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1449
+  },
+  "contextTraffic": 177353,
+  "apiCalls": 5,
+  "toolCalls": 7,
+  "toolResultChars": 10457,
+  "narrationWords": 0,
+  "finalWords": 97,
+  "finalText": "Found it: `resolveRelease` in `packages/shared/config.js` used `Object.assign`, which is a shallow merge. Any package overriding one key inside `output` or `sourcemap` was wiping out the rest of that nested object instead of layering on top of it — that's what aborted the bundle stage with `EBUNDLE07`.\n\nFixed it with a proper deep merge so nested keys layer correctly (defaults → package overrides → CLI flags) without mutating the shared defaults object.\n\nBuild and verify both pass now: `build finished in 74.3s with 5 warnings, 0 errors`, and `verify.js` confirms the merge layers correctly, not just papered over.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e419522d4b546d067e1af1c1f83ecfca3488f4360d4558e38ed8b5f2f9f39887"
+}

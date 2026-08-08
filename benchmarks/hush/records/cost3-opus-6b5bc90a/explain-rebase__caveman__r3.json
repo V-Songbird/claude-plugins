@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 60,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 14814,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1011005,
+  "numTurns": 1,
+  "durationMs": 13385,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 769
+  },
+  "contextTraffic": 24064,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 315,
+  "finalText": "**Core difference: merge preserve history, rebase rewrite it.**\n\n**Merge**\n```\ngit checkout main\ngit merge feature\n```\nCreates merge commit with two parents. Feature commits keep original hashes, original timestamps, original parent. History shows what really happened — branch existed, branch joined. Graph get diamond shapes.\n\n**Rebase**\n```\ngit checkout feature\ngit rebase main\n```\nTakes your commits, replays them one-by-one on top of new base. New commits, new hashes — old ones orphaned. History becomes straight line. Looks like you wrote feature after main's latest commit, even though you didn't.\n\n**Conflict handling differ too.** Merge: one conflict resolution, all at once. Rebase: conflict per replayed commit, possibly same conflict many times. Long branch + big divergence = rebase pain. `git rerere` help repeat cases.\n\n**When rebase**\n- Your local branch, not pushed. Sync with main before PR: `git rebase main`.\n- Cleanup before sharing: `git rebase -i` to squash \"wip\", \"fix typo\", \"fix fix\".\n- Team wants linear history — bisect and blame read easier on straight line.\n- Pulling: `git pull --rebase` avoid junk merge commits from trivial sync.\n\n**When merge**\n- Branch shared with others. Rebase rewrite hashes; their clones diverge, force-push needed, teammates get mess.\n- Long-lived branches (release, develop).\n- You want record that feature was separate unit of work. Merge commit is that record.\n- Conflicts big and messy — resolve once, not per-commit.\n\n**Rule that matter most:** never rebase commits others pulled. Public history rewrite = force-push = everyone's local history broken. Rebase private work, merge public work.\n\n**Common hybrid:** rebase your feature onto main to clean up, then merge with `--no-ff` into main. Linear feature commits plus explicit merge point marking feature boundary. GitHub \"Rebase and merge\" and \"Squash and merge\" buttons are variants of this.\n\n**Safety net:** rebase gone wrong recoverable. `git reflog` shows pre-rebase state, `git reset --hard HEAD@{n}` restore. Nothing lost for ~90 days.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "03964f10ef5210c576dec09042567ef9fc7259fb2eb81b30298519cce7eae878"
+}

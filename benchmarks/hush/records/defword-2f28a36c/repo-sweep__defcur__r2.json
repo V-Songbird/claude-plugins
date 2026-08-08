@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__defcur__r2",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 17,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "defcur",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 82200,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6732685999999999,
+  "numTurns": 37,
+  "durationMs": 80577,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10058
+  },
+  "contextTraffic": 426423,
+  "apiCalls": 10,
+  "toolCalls": 36,
+  "toolResultChars": 29440,
+  "narrationWords": 9,
+  "finalWords": 48,
+  "finalText": "Migration's done. 12 files still had the old `db.query(sql, params)` calls — moved all of them to `db.execute({ sql, params })`, leaving `vendor/legacy-orm/adapter.js` and the `cache.query` calls untouched since those aren't part of this migration. The verify script confirms it: every call site moved and nothing else did.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e4708658ffdbf769324abed86cf873a539783e0821817b8d015e5dc441ce6d1a"
+}

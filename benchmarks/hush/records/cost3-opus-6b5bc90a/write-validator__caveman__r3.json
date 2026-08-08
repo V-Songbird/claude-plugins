@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 69,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 13169,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.10223549999999999,
+  "numTurns": 1,
+  "durationMs": 11939,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 820
+  },
+  "contextTraffic": 24050,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 212,
+  "finalText": "Regex validation. Practical rules, no full RFC 5322 (that grammar allow quoted strings, comments — near-useless in practice).\n\n```python\nimport re\n\n_EMAIL_RE = re.compile(\n    r\"^(?![.])\"                 # no leading dot\n    r\"[A-Za-z0-9._%+-]+\"        # local part\n    r\"(?<![.])\"                 # no trailing dot\n    r\"@\"\n    r\"(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+\"  # labels\n    r\"[A-Za-z]{2,63}$\"          # TLD\n)\n\n\ndef is_valid_email(address):\n    \"\"\"Return True if `address` looks like a valid email address.\n\n    Applies practical syntax rules rather than the full RFC 5322 grammar:\n    quoted local parts, comments, and IP-literal domains are rejected.\n    \"\"\"\n    if not isinstance(address, str):\n        return False\n    if len(address) > 254:          # SMTP path limit, RFC 5321\n        return False\n    local, _, _domain = address.partition(\"@\")\n    if len(local) > 64:             # local part limit, RFC 5321\n        return False\n    if \"..\" in address:             # no consecutive dots\n        return False\n    return _EMAIL_RE.match(address) is not None\n```\n\nChecks:\n- local part: letters, digits, `._%+-`; no leading/trailing/double dot\n- domain: dot-separated labels, each 1–63 chars, no leading/trailing hyphen\n- TLD: 2–63 letters (blocks `user@localhost`, `user@1.2.3.4`)\n- length caps: 254 total, 64 local\n\nCases:\n```python\nis_valid_email(\"<email>\")   # True\nis_valid_email(\"<email>\")    # True\nis_valid_email(\"no@tld\")                     # False\nis_valid_email(\"<email>\")             # False\nis_valid_email(\"@x.com\")                     # False\n```\n\nLimit: syntax only. No proof mailbox exist. Real signup flow — send confirmation mail. That the only real check.\n\nWant deliverability check too (MX record lookup, disposable-domain blocklist)? Say so.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1833de95b92d3a115d1c688074e43534a14f6a3a3491d61844128ac5ab21a725"
+}

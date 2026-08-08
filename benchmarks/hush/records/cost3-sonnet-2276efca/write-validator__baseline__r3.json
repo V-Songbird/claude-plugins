@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 71,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 9474,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0725284,
+  "numTurns": 2,
+  "durationMs": 8037,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 645
+  },
+  "contextTraffic": 56795,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 123,
+  "narrationWords": 0,
+  "finalWords": 136,
+  "finalText": "No prior memory on this — here's a straightforward email validator using Python's standard library (regex-based, following the general shape of the HTML5 spec):\n\n```python\nimport re\n\nEMAIL_REGEX = re.compile(\n    r\"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+\"\n    r\"@\"\n    r\"[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\"\n    r\"(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$\"\n)\n\n\ndef is_valid_email(email: str) -> bool:\n    if not isinstance(email, str) or len(email) > 254:\n        return False\n    return bool(EMAIL_REGEX.match(email))\n```\n\nNotes:\n- Local part allows the common unquoted-atom characters; it doesn't support quoted strings or comments (rare in practice).\n- Domain part requires at least one dot and valid label lengths (no leading/trailing hyphens).\n- The 254-character cap follows RFC 5321's max email length.\n\nIf you need stricter RFC 5322 compliance or DNS/MX verification, the `email-validator` package (`pip install email-validator`) is a solid choice — regex alone can't fully validate email syntax or deliverability. Let me know if you'd like that version instead.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "56255e695f98a9265dcf9c4ea858c141a9bccdcf8474a9e82932b0717a1d6d0b"
+}

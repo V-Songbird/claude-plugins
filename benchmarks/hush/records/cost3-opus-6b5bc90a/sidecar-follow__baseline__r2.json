@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 147,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 20896,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.27754650000000003,
+  "numTurns": 4,
+  "durationMs": 19623,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1126
+  },
+  "contextTraffic": 117165,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 25224,
+  "narrationWords": 6,
+  "finalWords": 167,
+  "finalText": "**700 tests, 698 passed, 2 failed.** Both failures are in the same file: `auth/tokens.test.js`.\n\n**Failures:**\n\n1. `refreshToken silently accepts an already-revoked token` — `auth/tokens.test.js:400` (in the slot where test_300 would have been)\n2. `sessionCleanup leaves orphaned rows after a rollback` — `auth/tokens.test.js:650` (slot for test_550)\n\n**Notes:**\n- Everything else is a clean `ok`, no skips, no todos, and no error/stack-trace output beyond the two `FAIL` lines — the log carries no detail past the test name and location.\n- The log has no trailing summary/plan line; it just ends after test_699. The numbering runs 0–699 with no gaps other than the two failed slots, so nothing was truncated.\n- The first one reads like a real security issue rather than flake — a revoked token being accepted on refresh is an auth bypass. Worth looking at `auth/tokens.js` before the two are dismissed as unrelated; both live in the same module and the second (rollback leaving orphaned session rows) could plausibly share a root cause around transaction handling.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3cc0e0eb33d3de513ee646970cc5416717c2d38fec9c4a9c37f67fa6807b7ddc"
+}

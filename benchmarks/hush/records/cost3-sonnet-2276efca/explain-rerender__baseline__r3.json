@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 51,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 8833,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.06165150000000001,
+  "numTurns": 1,
+  "durationMs": 7296,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 569
+  },
+  "contextTraffic": 28298,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 201,
+  "finalText": "A few common causes:\n\n1. **New reference every render** — even if values look \"the same,\" if you're passing objects, arrays, or functions created inline (`onClick={() => ...}`, `style={{...}}`, `data={[1,2,3]}`), React sees a new reference each time and re-renders the child (unless the child is memoized and does a shallow compare — see #2).\n\n2. **Child isn't memoized** — by default, a component re-renders whenever its parent re-renders, regardless of whether props changed. Wrap the child in `React.memo()` to opt into a shallow prop comparison.\n\n3. **Context changes** — if the child consumes a Context, it re-renders whenever that context's value changes, even if its own props are identical.\n\n4. **Inline object/array literals defeating `memo`** — even with `React.memo`, `{foo: 1}` or `[1,2,3]` created fresh each render will fail the shallow equality check. Fix with `useMemo`/`useCallback` in the parent, or move the literal outside the component if it's static.\n\nQuick fix pattern:\n```jsx\nconst MemoChild = React.memo(Child);\n\nfunction Parent() {\n  const data = useMemo(() => ({ foo: 1 }), []);\n  const onClick = useCallback(() => {}, []);\n  return <MemoChild data={data} onClick={onClick} />;\n}\n```\n\nIf you want, paste the parent/child code and I can point at the exact prop causing it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "607f312a8c5c51967006e824fddc8fa37db92b8d268a36bd3d0c7e4a37bfe3d1"
+}

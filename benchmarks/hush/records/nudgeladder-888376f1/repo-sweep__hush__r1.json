@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__hush__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 22,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 81535,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6632948,
+  "numTurns": 37,
+  "durationMs": 80109,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10241
+  },
+  "contextTraffic": 387275,
+  "apiCalls": 9,
+  "toolCalls": 36,
+  "toolResultChars": 29466,
+  "narrationWords": 5,
+  "finalWords": 57,
+  "finalText": "Done. 12 files had leftover `db.query` calls — all admin/repo/service modules in support, accounts, billing, analytics, orders, and catalog — and each now uses `db.execute({ sql, params })`. `cache.query` calls were left alone since that's a different thing, and `vendor/legacy-orm/adapter.js` wasn't touched since it's vendored code. The verifier confirms it: every call site moved, nothing else did.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6fb16911a2f75c14f234adb76398ca80fdd3da3248b7d0bb4ede3028dcfa3e37"
+}

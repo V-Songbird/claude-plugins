@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__lookfurther__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 56,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 91170,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.512786,
+  "numTurns": 14,
+  "durationMs": 89436,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5484
+  },
+  "contextTraffic": 347761,
+  "apiCalls": 11,
+  "toolCalls": 13,
+  "toolResultChars": 10691,
+  "narrationWords": 7,
+  "finalWords": 140,
+  "finalText": "**Found it — `engine.js` was rounding the price to cents too early.**\n\nIt rounded the USD subtotal right after the percent coupon, before changing currency. A 10% cut off `$19.98` leaves `$17.982`. That got cut to `$17.98`, and the exchange rate then blew the missing fraction up past a half-cent.\n\nThat's why most carts looked fine. It only shows when the dropped fraction happens to cross a rounding line, so USD and EUR passed while GBP, CAD and JPY failed. Every bad total was low, never high, so the store was eating the cent.\n\nI moved the rounding to the end, once, in the cart's own currency. All 40 tests pass, 0.09s.\n\nOne thing I left alone: a `FLAT15` coupon on a small cart still gives a negative total. It's not what Finance flagged, and nothing clamps it at zero.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "072286a3926858adcf9a111e2d093934331a683896ecb93c35d855f18036ca8e"
+}

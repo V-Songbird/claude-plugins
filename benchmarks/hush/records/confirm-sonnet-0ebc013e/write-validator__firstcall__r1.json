@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__firstcall__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 42,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 12275,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.08006500000000001,
+  "numTurns": 1,
+  "durationMs": 10722,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 352
+  },
+  "contextTraffic": 31928,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 49,
+  "finalText": "```python\nimport re\n\ndef is_valid_email(email: str) -> bool:\n    pattern = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'\n    return bool(re.match(pattern, email))\n```\n\nHere's a simple checker. It calls something a valid email if it has a name part, an `@`, a domain, and an ending like `.com`. Just drop it in your code and call `is_valid_email(\"<email>\")`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c7c87795b2e046252f4f8d2c20aef212d9bd48c5c3b006a6e23287051419fdd2"
+}

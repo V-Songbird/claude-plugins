@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 129,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 44677,
+  "check": {
+    "pass": false,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.07009470000000001,
+  "numTurns": 9,
+  "durationMs": 40053,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2671
+  },
+  "contextTraffic": 220168,
+  "apiCalls": 8,
+  "toolCalls": 6,
+  "toolResultChars": 5195,
+  "narrationWords": 0,
+  "finalWords": 38,
+  "finalText": "Wrote the handoff to `ONCALL_HANDOFF.md`. It covers the cascade (Redis down → cache bypass → queue overflow → OOM → crash), the 17-minute impact window, and notes that ioredis version is unconstrained due to a missing lock file.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "193c11b6055d4e51f7dba2916ae5ccc2db3c9215e80a1771a30676c065899549"
+}

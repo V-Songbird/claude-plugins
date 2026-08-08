@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__baseline__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 7,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 19230,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1716095,
+  "numTurns": 10,
+  "durationMs": 17741,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1335
+  },
+  "contextTraffic": 194082,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 14830,
+  "narrationWords": 23,
+  "finalWords": 57,
+  "finalText": "All 625 cases pass and `verify.js` confirms the fix. The bug: `orderTotal` in `src/pricing.js` was applying tax to the pre-discount amount instead of the discounted amount, so any row with both a discount and a tax came out wrong. Fixed by computing tax on `discounted` instead of `cents` — one-line change, no touching the tests or spec.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2467c616a80bd3b1b829f745d79983870bd1a86673b41090b9adeb920d75e07a"
+}

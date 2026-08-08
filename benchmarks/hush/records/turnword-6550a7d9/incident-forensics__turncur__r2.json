@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__turncur__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 39,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "turncur",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 61950,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5364644999999999,
+  "numTurns": 13,
+  "durationMs": 55282,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2961
+  },
+  "contextTraffic": 561604,
+  "apiCalls": 13,
+  "toolCalls": 9,
+  "toolResultChars": 65116,
+  "narrationWords": 0,
+  "finalWords": 198,
+  "finalText": "Ongoing — the log ends at `03:59:27Z` still throwing 503s, no recovery in the data.\n\n**On-call handoff — gateway 503s**\n\n**Root cause:** Deploy `dep-4471` (a.novak, gateway, `02:12–02:14Z`) — \"config: connection-per-request for pool isolation\" — flipped `gateway.pool.perRequest` from `false` to `true` and applied as config generation 119 at `02:13:41Z`. Within seconds the connection pool pinned at 20/20 in use, and every request now queues for a free connection. The `waiting` count climbs steadily through the whole log (13 at the first error, over 130 by `02:53Z`), so this is a slow leak, not a spike — the pool never recovers on its own.\n\n**Impact window:** Started `02:14:18Z`, still active at `03:59:27Z`, the last line in the log. Not resolved as of this data — treat it as ongoing.\n\n**Errors:** Every failure is the same pair: an `access` 503 followed by a `pool` line:\n```\nERROR access  req-17907 /v1/checkout -> accounts-svc 503 850ms\nERROR pool    req-17907 ERR_POOL_EXHAUSTED acquiring connection from pool (size 20, in_use 20, waiting 74)\n```\n\n**Rollback:** Revert `dep-4471` on the gateway — set `gateway.pool.perRequest` back to `false` (config generation 119 → 118). No other service or deploy touches this path; workers on the same window are clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9c4585556aae166cb95518d767f3ab9c0fb9557c8eeb9d86b8a6e917d52b132d"
+}

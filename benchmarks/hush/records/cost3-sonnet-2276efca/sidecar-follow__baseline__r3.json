@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 151,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 12865,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.16526939999999998,
+  "numTurns": 3,
+  "durationMs": 11693,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 616
+  },
+  "contextTraffic": 99408,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 24928,
+  "narrationWords": 0,
+  "finalWords": 70,
+  "finalText": "Went through the full log — 700 tests total, 698 passed, 2 failed.\n\n**Failures:**\n1. `refreshToken silently accepts an already-revoked token` — auth/tokens.test.js:400\n2. `sessionCleanup leaves orphaned rows after a rollback` — auth/tokens.test.js:650\n\nBoth failures are in the same file (`auth/tokens.test.js`), and both point at token/session lifecycle handling — worth a look together since they may share a root cause in how revoked tokens or rolled-back sessions get cleaned up.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "88681095f8a9759ebc2c730f4a5a6e815c5f6a05fec7b4f7c84c72f42f42f862"
+}

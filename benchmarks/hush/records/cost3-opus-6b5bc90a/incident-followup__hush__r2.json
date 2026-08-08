@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 129,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 144483,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.817653,
+  "numTurns": 15,
+  "durationMs": 139516,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 8604
+  },
+  "contextTraffic": 467944,
+  "apiCalls": 14,
+  "toolCalls": 12,
+  "toolResultChars": 14734,
+  "narrationWords": 0,
+  "finalWords": 115,
+  "finalText": "Wrote `HANDOFF.md`. It covers the root cause, the failure chain, the impact window with exact timestamps, and error counts.\n\nTwo things in it worth knowing before you pass it on:\n\n- The ioredis version is filed as **open, not answered**. There's no lockfile, so `^5.4.1` is all we have. The doc says not to assume `5.4.1` and lists commands to get the real number off the running box.\n- Impact is written as `02:14:03Z → 02:31:52Z`, 17m49s, still open at the end of the log. Nothing shows recovery, so I didn't claim one.\n\nThe doc also flags that these logs are dated July 4, in case the handoff is meant to cover a different night.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a97f47af47909cf0b95ce30fbc96b571966537b3d4c986d3e6e0885b167f53bb"
+}

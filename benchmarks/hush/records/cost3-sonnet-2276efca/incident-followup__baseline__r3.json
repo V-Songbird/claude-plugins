@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 133,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 63928,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.47373410000000005,
+  "numTurns": 11,
+  "durationMs": 59795,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3592
+  },
+  "contextTraffic": 574586,
+  "apiCalls": 10,
+  "toolCalls": 8,
+  "toolResultChars": 60831,
+  "narrationWords": 23,
+  "finalWords": 109,
+  "finalText": "Wrote the handoff to `ONCALL_HANDOFF.md`. Key points:\n\n- **Impact window:** 02:14:07–02:31:52 UTC (~17m45s), Redis drop → cascading timeouts → OOM → full outage.\n- **Root cause:** Redis at `10.0.0.12:6379` went unreachable and never recovered (12 failed reconnects); contributing factor is the app's request-queue cap (500) not actually being enforced, letting the backlog grow unbounded until `worker-2` OOM'd and `api` was killed.\n- **ioredis version:** flagged as unconfirmed — `package.json` only has the range `^5.4.1`, no lockfile exists in this checkout, so I couldn't state an exact resolved version. I noted that whoever's checking the changelog needs to pull the real version from the prod deploy artifact or running container.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4d2f7a6bd01a9becb3a507e36a9ea3f4973fff1ab42daaa2ddd8c11b8bb1232d"
+}

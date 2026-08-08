@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 45,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 50510,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.27269750000000004,
+  "numTurns": 5,
+  "durationMs": 48676,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3285
+  },
+  "contextTraffic": 137595,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 960,
+  "narrationWords": 0,
+  "finalWords": 93,
+  "finalText": "**Wrote `email_validator.py` with tests.** All 4 tests pass, under a second.\n\n`is_valid_email(address)` checks the shape only. There's a bonus `normalize_email` that lowercases a good address for storing, and gives back `None` for a bad one.\n\nTwo calls I made that you may want to change:\n\n- `user@localhost` is rejected. I require a real ending like `.com`.\n- Quoted names like `\"john doe\"@example.com` are rejected. They're legal but almost nothing accepts them.\n\nOne honest caveat: no pattern can tell you a mailbox actually exists. Sending a confirmation link is still the only real test.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f437ab95efe385125352adde029502fb9cd77d7a4a308f820ca341e8da02c432"
+}

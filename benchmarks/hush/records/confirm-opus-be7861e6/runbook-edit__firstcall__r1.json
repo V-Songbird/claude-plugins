@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__firstcall__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 90,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 95900,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.5757265,
+  "numTurns": 12,
+  "durationMs": 90873,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5436
+  },
+  "contextTraffic": 352722,
+  "apiCalls": 11,
+  "toolCalls": 9,
+  "toolResultChars": 9671,
+  "narrationWords": 0,
+  "finalWords": 47,
+  "finalText": "**All four mentions of the admin port are now `9090`.** The staging port `8091` in the appendix is untouched.\n\nThe checker passes:\n\n```\nOK runbook edits landed and the document survived\n```\n\nThat is all three changes done — the drain step, Priya's row, and the port.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b3a7023e040c7ac19ac326bf1f9884651813729a8c13008e6dd4ada46942fa0f"
+}

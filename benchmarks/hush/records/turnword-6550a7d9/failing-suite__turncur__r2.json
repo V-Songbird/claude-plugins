@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__turncur__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 4,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "turncur",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31340,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1967188,
+  "numTurns": 11,
+  "durationMs": 29745,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1120
+  },
+  "contextTraffic": 216259,
+  "apiCalls": 6,
+  "toolCalls": 10,
+  "toolResultChars": 14855,
+  "narrationWords": 0,
+  "finalWords": 29,
+  "finalText": "Found it: `orderTotal` was taxing the pre-discount amount instead of the discounted one. Fixed it to tax the discounted total.\n\nAll 625 tests pass, and `verify.js` confirms it's clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "34f4d0083883e7027d9868f9658ceae3fd9863dbd740a5d458213fb9073dbd6d"
+}

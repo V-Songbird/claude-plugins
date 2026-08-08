@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__hush__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 94,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 40851,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2645788,
+  "numTurns": 10,
+  "durationMs": 35681,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2408
+  },
+  "contextTraffic": 358355,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 6448,
+  "narrationWords": 0,
+  "finalWords": 29,
+  "finalText": "All three production mentions are updated to `9090` — the health check curl, the known-issues note, and the environment table. Staging stays on `8091`, since that one didn't move.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e659ff62af7136e7c852c9713a248e7cbf46ca378fc72f91c126769e3e1c3565"
+}

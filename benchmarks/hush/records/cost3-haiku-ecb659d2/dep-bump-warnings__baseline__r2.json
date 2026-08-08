@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 94,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 42153,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.06714360000000001,
+  "numTurns": 15,
+  "durationMs": 40875,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2754
+  },
+  "contextTraffic": 234522,
+  "apiCalls": 9,
+  "toolCalls": 14,
+  "toolResultChars": 16845,
+  "narrationWords": 136,
+  "finalWords": 77,
+  "finalText": "Perfect! Build is now clean. The two real bugs exposed by the dependency bump are fixed:\n\n1. **options.js** — Changed `options.retries` to `options.retryCount` to match the new bundler's interface\n2. **retryPolicy.js** — Changed to return `false` instead of throwing when `backoffEnabled` is undefined, matching the new config loader's behavior\n\nThe remaining \"warnings\" in the output are just deprecation noise from the build system itself—not actual errors in your code. The build completes successfully with exit code 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2808e11e86172be3954470b171524c37477cbc6fb8a28005b6af2f484c464874"
+}

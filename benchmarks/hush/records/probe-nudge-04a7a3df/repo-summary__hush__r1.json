@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r1",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 28,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 20698,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.194499,
+  "numTurns": 8,
+  "durationMs": 19126,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1004
+  },
+  "contextTraffic": 106303,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4618,
+  "narrationWords": 0,
+  "finalWords": 122,
+  "finalText": "**It's a small JSON API in five files, no package.json and no tests.**\n\n```mermaid\ngraph LR\n  server.js -->|auth.js checks token| routes.js\n  routes.js -->|reads| cache.js --> store.js\n  routes.js -->|writes| store.js\n```\n\n`server.js` takes the request and rejects it unless `auth.js` accepts the bearer token. `routes.js` looks up a small table of three routes and returns JSON. Reads go through `cache.js`, a 256-entry LRU with no expiry. `store.js` is a `Map` standing in for a database, where each record dies 15 minutes after its last write.\n\nOne thing to know before you touch it: the comment in `routes.js` says writes invalidate the cache, but `POST /orders` never does. A new order stays invisible to `GET /orders` until the cache entry falls off the end.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "40e77d227264d2c44709ff3d8fa28a34fa5f565f8ba1c60fc0eae62001eb007d"
+}

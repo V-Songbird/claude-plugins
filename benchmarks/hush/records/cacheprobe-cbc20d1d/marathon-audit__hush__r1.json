@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__hush__r1",
+  "batchId": "cacheprobe-cbc20d1d",
+  "seed": "1786151075446",
+  "orderIndex": 6,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 202066,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 1.0891464,
+  "numTurns": 52,
+  "durationMs": 195854,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 16846
+  },
+  "contextTraffic": 962874,
+  "apiCalls": 18,
+  "toolCalls": 48,
+  "toolResultChars": 42478,
+  "narrationWords": 0,
+  "finalWords": 117,
+  "finalText": "`fast-parse` is the one out of date. `NOTES.md` says 1.4.2 was yanked over a prototype-pollution report and 1.4.3 is the fix, and `package.json` still pins 1.4.2. The others check out: `tiny-router`, `pg-lite`, and `redis-min` are current, and `date-fmt` is flagged unmaintained but harmless.\n\n`AUDIT.md` is written, four findings ranked by severity:\n\n1. **SQL injection** in `src/repo/report.js` — critical\n2. **Unauthenticated internal routes** in `src/routes/internal.js` — high\n3. **Hardcoded staging password** in `config/staging.js` — medium\n4. **Yanked `fast-parse` dependency** in `package.json` — medium\n\nI also noted the broken import paths from our first conversation as a separate non-security item, since it means the service can't start at all as written.\n\nNo service files were touched, just `AUDIT.md` added.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6eb7e6bc345e598d967a131c7a485c3bef5d1e93388a6cbf2533292f6f1c314b"
+}

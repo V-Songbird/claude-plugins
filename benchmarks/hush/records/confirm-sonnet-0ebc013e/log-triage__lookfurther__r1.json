@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__lookfurther__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 80,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16047,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.18526189999999998,
+  "numTurns": 3,
+  "durationMs": 14550,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 919
+  },
+  "contextTraffic": 111550,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 23455,
+  "narrationWords": 0,
+  "finalWords": 176,
+  "finalText": "Redis died at 02:14:07 (`ECONNREFUSED 10.0.0.12:6379`), and everything downstream fell apart from there.\n\n**Timeline:**\n- 02:00–02:14: normal, fast responses, healthy cache hits.\n- 02:14:07: Redis connection lost. The app fell back to hitting the store directly.\n- From there: constant cache-miss storms, 5-second timeouts on every request, and the request queue climbing without end — from 52 up to 568 by the time it died.\n- Every ~80 seconds the app tried to reconnect to Redis and failed (12 attempts logged, all `ECONNREFUSED`). Redis never came back.\n- 02:31:44: worker-2 ran out of memory holding the backlog of stuck requests.\n- 02:31:52: the api process stopped responding and the supervisor killed it. Service down.\n\nSo the root cause is Redis going unreachable at 10.0.0.12:6379 and never recovering. Once that happened, direct-store reads couldn't keep up, requests piled up in memory, and that pileup is what finally killed the process. Fixing this means finding out why Redis dropped and adding a queue cap or backpressure so a dead cache can't take the whole service down with it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2e0e61a106f16891972fa4d62e94413c01d32a9caad8ee4418b0f643c1498fa5"
+}

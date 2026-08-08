@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 44,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 24941,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1811558,
+  "numTurns": 8,
+  "durationMs": 23423,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1277
+  },
+  "contextTraffic": 227407,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 14256,
+  "narrationWords": 60,
+  "finalWords": 106,
+  "finalText": "Build now passes with exit code 0, 3 warnings / 0 errors.\n\nThe real bug was in `src/core/settings.js:17`: `resolveConfig` referenced a bare `retries` variable that was never defined (it should have used the `env.retries` argument passed in), throwing a `ReferenceError` during the link stage and aborting the build. Everything else — the hundreds of \"compile ok\", tree-shaking notes, and dedupe lines — was just noise. Fixed it to `env.retries || 3`, matching the fallback-to-constant behavior the comment already described.\n\nThe 3 warnings (deprecated `crypto.createCipher`, an unused export, a circular import) are still there but non-blocking — let me know if you want those cleaned up too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1263f565fffafb6b503262006338c12f0d6598ab2a3f7e3c9cfd77b43e7fbb3c"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__baseline__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 110,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 12802,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.024501,
+  "numTurns": 3,
+  "durationMs": 11453,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 800
+  },
+  "contextTraffic": 65201,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 1465,
+  "narrationWords": 0,
+  "finalWords": 66,
+  "finalText": "Found **17 call sites** still passing the legacy rounding flag across the repo.\n\n**By file:**\n- `src\\reports\\quarterly.js` — **5 call sites** (most)\n- `src\\admin\\exports.js` — 3 call sites\n- `src\\billing\\invoice.js` — 3 call sites\n- `src\\reports\\monthly.js` — 2 call sites\n- `src\\checkout\\cart.js` — 2 call sites\n- `src\\checkout\\receipt.js` — 1 call site\n- `src\\billing\\statement.js` — 1 call site\n\n`src\\reports\\quarterly.js` has the most with 5 call sites.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5699df209bcf00893ad273ccaa176533bf4e75b809aeeeebf62721b930b8e1b8"
+}

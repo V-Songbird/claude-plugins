@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 57,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11403,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0179418,
+  "numTurns": 1,
+  "durationMs": 10234,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 716
+  },
+  "contextTraffic": 21328,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 239,
+  "finalText": "**Merge** creates a commit that ties two branches together—it preserves the history exactly as it happened, showing the point where branches diverged and came back. **Rebase** replays your commits on top of another branch, rewriting history to make it look linear, as if your work was always built on top of the target branch.\n\n**Core tradeoff**: Merge is safe and transparent; rebase is clean but destructive to history.\n\n**Use merge** (the default for shared code):\n- On any branch that's been pushed and others might build on\n- When you want a clear record that integration happened (helps with blame, bisect, and understanding the project timeline)\n- For integrating feature branches back to main in most workflows\n\n**Use rebase** (only on local, unpublished work):\n- Before pushing, to clean up your local commit history (\"I made 8 commits but they're really one logical change\")\n- To bring a feature branch up to date with main while keeping a linear history, *before* you merge it\n- To replay your work on top of someone else's changes when you're still iterating\n\n**The golden rule**: Never rebase commits that are already pushed to a shared branch (main, develop, etc.) or that others might have pulled. Rewriting their history breaks their local copies. If you accidentally pushed a rebase, a force-push will break their workflow.\n\n**Practical rule of thumb**: Rebase while you're alone with your work; merge when you're sharing it with others.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fbc9538add11817147bc5301707b41b5f66a345a8cb8fd621b4baeb5e37b1f4f"
+}

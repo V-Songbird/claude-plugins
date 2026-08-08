@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__baseline__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 110,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 26740,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2334395,
+  "numTurns": 7,
+  "durationMs": 25546,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1621
+  },
+  "contextTraffic": 111354,
+  "apiCalls": 4,
+  "toolCalls": 6,
+  "toolResultChars": 17549,
+  "narrationWords": 22,
+  "finalWords": 182,
+  "finalText": "**17 call sites** still pass the legacy rounding flag, across **7 files**. (The 18th match is the definition itself in `src/lib/format.js:6`.)\n\n| File | Two-arg calls |\n|---|---|\n| `src/reports/quarterly.js` | **5** |\n| `src/admin/exports.js` | 3 |\n| `src/billing/invoice.js` | 3 |\n| `src/checkout/cart.js` | 2 |\n| `src/reports/monthly.js` | 2 |\n| `src/billing/statement.js` | 1 |\n| `src/checkout/receipt.js` | 1 |\n\n`src/reports/quarterly.js` has the most, with 5 (lines 16, 37, 58, 83, 104).\n\nNotes from the sweep:\n\n- Every one of the 17 passes the literal `true` — there are no `false` or variable-valued second args, so no call site is silently a no-op that you could delete for free. All 17 are behavior-carrying.\n- Four other files use `formatAmount` but are already fully migrated to the one-arg form: `src/admin/dashboard.js`, `src/reports/ledger.js`, `src/billing/refunds.js`, and `src/checkout/receipt.js` (1 remaining call there).\n- Dropping the flag isn't purely mechanical: per `src/lib/format.js:3-16`, `true` rounds half away from zero while the default rounds half to even. The two differ only on exact `.005` midpoints, but for money that's a real output change at those 17 sites.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "848a579cedcf2659dd41323da92388af68c476fc1beb68565760462f5de61f4c"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__firstcall__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 96,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 27019,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.23484750000000004,
+  "numTurns": 7,
+  "durationMs": 25484,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1259
+  },
+  "contextTraffic": 165339,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 3745,
+  "narrationWords": 0,
+  "finalWords": 46,
+  "finalText": "**698 of 700 tests passed. Two failed, both in `auth/tokens.test.js`.**\n\n1. `refreshToken silently accepts an already-revoked token` — `auth/tokens.test.js:400`\n2. `sessionCleanup leaves orphaned rows after a rollback` — `auth/tokens.test.js:650`\n\nThe log has no summary line at the end, so those counts come from the lines themselves.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bf4c66cf77e6a9c4e23c2ab34df6b070b7059a4dedd20e1d39c6730ab76ec2cb"
+}

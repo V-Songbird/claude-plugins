@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__caveman__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 108,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11214,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.147453,
+  "numTurns": 4,
+  "durationMs": 9973,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 631
+  },
+  "contextTraffic": 130599,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 15259,
+  "narrationWords": 0,
+  "finalWords": 34,
+  "finalText": "17 call site pass second arg (legacy rounding flag). Top file: `src\\reports\\quarterly.js` — 5 sites (lines 16, 37, 58, 83, 104).\n\nRest: exports.js 3, invoice.js 3, monthly.js 2, cart.js 2, receipt.js 1, statement.js 1.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2201c84e148f9663e05c49d85b50d2ae1ea2220772c4e98d803668b08c9ba4d1"
+}

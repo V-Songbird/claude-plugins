@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 99,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 60928,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2605545,
+  "numTurns": 11,
+  "durationMs": 59665,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4160
+  },
+  "contextTraffic": 118035,
+  "apiCalls": 5,
+  "toolCalls": 10,
+  "toolResultChars": 4329,
+  "narrationWords": 33,
+  "finalWords": 588,
+  "finalText": "Both confirmed. Here's the walkthrough.\n\n## The shape of it\n\nA tiny Node HTTP service — no `package.json`, no deps, no tests, no config. Five files in `src/`, layered strictly top-down:\n\n```\nserver.js   HTTP front door + auth gate\n   ↓\nroutes.js   method+path → handler table\n   ↓\ncache.js    LRU read-through (reads only)\n   ↓\nstore.js    in-memory map with TTL (the \"database\")\n\nauth.js     HMAC token verify — used only by server.js\n```\n\nDependencies flow one way; nothing lower reaches back up. Both `cache.js` and `store.js` hold module-level `Map`s, so **all state is per-process and dies on restart** — this is a single-instance toy, not something that horizontally scales.\n\n## The pieces\n\n**`server.js:7`** — `createServer()` authenticates *before* routing. Every request needs a valid bearer token; there's no public path, not even a health check. Doubles as an entrypoint (`require.main` guard, `PORT` env) and a module export, so it's testable in-process.\n\n**`auth.js`** — tokens are `<userId>.<hmac-sha256(userId)>`, secret from `AUTH_SECRET`. Note the signature is over the user id *only*: no expiry, no nonce, no revocation. A token is a permanent password equivalent.\n\n**`routes.js:7`** — the core abstraction. `TABLE` maps `\"GET /users\"`-style keys to `(query, user) => result`. Handlers just return a value (or promise); `route()` handles the JSON serialization, 404, and 500 uniformly. Adding an endpoint is one line. Reads are wrapped in `cached(...)`, writes call the store directly.\n\n**`cache.js`** — 256-entry LRU using `Map` insertion order: on hit, delete-and-reinsert to bump recency; on overflow, evict `keys().next()` (the oldest). Deliberately no TTL.\n\n**`store.js`** — `Map` of `{value, expiresAt}`, 15-minute TTL refreshed on each write, lazily evicted on read.\n\n## Sharp edges worth knowing before you touch it\n\nA few of these are load-bearing misunderstandings baked into the comments, so I'd flag them early:\n\n1. **The cache is never invalidated, despite the comment saying it is.** `routes.js:5-6` claims writes \"invalidate the affected keys\" — there is no invalidation function in `cache.js` at all, and `POST /orders` doesn't call one. I confirmed it: cache `GET /orders` on an empty list, POST an order, GET again → still `[]`. It sometimes *appears* to work because `listOrders` returns the store's actual array and `putOrder` mutates it in place, so the cached reference sees the change — but that aliasing breaks exactly when the list started empty (`listOrders` returns a fresh `[]`) or when a new array gets `put`. Fragile-by-accident.\n\n2. **The cache also defeats the store's TTL.** `cache.js:3-4` says \"freshness is the store's job\" — but a cached key never re-consults the store, so the 15-minute expiry never applies to anything hot. These two comments together describe a coherent design that isn't the one implemented.\n\n3. **`auth.js:16` — the length guard doesn't prevent the throw.** It compares *string* length; `timingSafeEqual` needs equal *byte* length. A 64-character signature containing a multibyte char passes the guard and throws `RangeError` (verified). That throw is synchronous inside the `createServer` callback, so it's an uncaught exception — one malformed header takes the process down.\n\n4. **`POST /orders` never reads the request body.** `parseQuery` (`routes.js:25`) only parses URL search params, so `q.body` is `?body=...`. The request stream is never consumed.\n\n5. **`GET /users` ignores the authenticated user.** The handler takes `user` but keys on `q.id`, so any valid token can read any user record.\n\nWant me to fix any of these? I'd suggest #3 and #1 first — #3 is a trivial remote crash, and #1 is the one most likely to burn you while making changes, since the behavior depends on array aliasing rather than on the caching logic you'd naturally reason about.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "19bdff2a493314fa742078e313ef06bc1582fd9fcfcb459623bea17e403daf7b"
+}

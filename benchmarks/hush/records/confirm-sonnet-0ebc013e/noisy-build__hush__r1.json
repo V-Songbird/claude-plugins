@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 26,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25791,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.17828700000000003,
+  "numTurns": 8,
+  "durationMs": 24272,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 988
+  },
+  "contextTraffic": 240051,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 6297,
+  "narrationWords": 0,
+  "finalWords": 82,
+  "finalText": "It builds clean now, with exit code 0.\n\nThe real error was in `src/core/settings.js`: `resolveConfig` referenced a variable named `retries` that never existed, instead of `env.retries`. That threw `ReferenceError: retries is not defined` during the link stage, which aborted the build. I changed it to `env.retries`.\n\nThe other three lines are just warnings, not the failure: a deprecated `crypto.createCipher` call, an unused export `formatLegacyDate`, and a circular import between `graph.js` and `tracker.js`. Build now finishes with those 3 warnings and 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0aeaf3d604220f6da8c0663c5b283582f5e938b4d28eb13d1fcc5997cc099e98"
+}

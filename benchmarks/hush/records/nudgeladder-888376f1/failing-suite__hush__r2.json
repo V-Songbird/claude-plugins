@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__hush__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 7,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25169,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.21588410000000002,
+  "numTurns": 12,
+  "durationMs": 23617,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1272
+  },
+  "contextTraffic": 255135,
+  "apiCalls": 7,
+  "toolCalls": 11,
+  "toolResultChars": 14869,
+  "narrationWords": 15,
+  "finalWords": 58,
+  "finalText": "Found it: `orderTotal` in `src/pricing.js` was charging tax on the original price instead of the discounted one, even though the comment right above it said to tax the discounted amount.\n\nChanged one line so tax is computed on `discounted` instead of `cents`. All 625 cases pass now, and the ground-truth checker confirms it's green for the right reason.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c04cfa3ab95012f584e0da2e17c5e2f073177ef8f7b0baf5fb32feca45cb716a"
+}

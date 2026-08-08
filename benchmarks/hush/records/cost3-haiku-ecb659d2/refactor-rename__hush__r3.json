@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__hush__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 34,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 34399,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0668041,
+  "numTurns": 17,
+  "durationMs": 32771,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2525
+  },
+  "contextTraffic": 163517,
+  "apiCalls": 6,
+  "toolCalls": 16,
+  "toolResultChars": 4924,
+  "narrationWords": 0,
+  "finalWords": 28,
+  "finalText": "All renamed and tests are passing. Changed the function definition in `cart.js`, updated imports across `index.js`, `invoice.js`, and `report.js`, updated all calls, and verified with 4 passing tests.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5add022d8ca1dda6a01aca7480ea306280ce985f3e8e8b88a965b8717db437d7"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 62,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 24533,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0941865,
+  "numTurns": 1,
+  "durationMs": 23068,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1334
+  },
+  "contextTraffic": 21899,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 604,
+  "finalText": "## The mechanical difference\n\n**Merge** creates a new commit with two parents. Nothing that already exists is altered — your branch's commits keep their hashes, their dates, their parentage. The history becomes a graph that literally records \"these two lines of development came together here.\"\n\n```\nmain:    A---B---C---F   (F = merge commit, parents C and E)\n              \\     /\nfeature:       D---E\n```\n\n**Rebase** replays your commits onto a new base. Git takes the diff of each of your commits and applies it, one at a time, on top of the target — producing *new commits with new hashes*. The originals are orphaned (recoverable via reflog for a while, then garbage collected).\n\n```\nmain:    A---B---C\n                  \\\nfeature:           D'---E'   (D'/E' are copies, not D/E)\n```\n\nThe key consequence: rebase rewrites history. Merge never does.\n\n## What that means in practice\n\n**Conflicts.** A merge resolves conflicts once, at the merge point, with full knowledge of both final states. A rebase resolves them per-commit — if five of your commits touch the same conflicting region, you may resolve the same conflict five times, each in a context that's only partially built. `git rerere` helps; so does `--continue` discipline. This is the main day-to-day cost of rebasing.\n\n**Bisect and blame.** Rebased history is linear, so `git bisect` walks a clean sequence and every commit was (in theory) built on the current tip. Merge-heavy history bisects fine too, but you land on merge commits and intermediate states that nobody ever ran.\n\n**Truthfulness vs. readability.** Merge history is what actually happened. Rebased history is a story about what happened, edited for the reader. Both are legitimate; they optimize for different things.\n\n**The one hard rule.** Never rebase commits that others have pulled. Their history and yours diverge irreconcilably, and the fix is a `--force-with-lease` push plus everyone else doing surgery on their local clones. Rebase is for commits that only you have.\n\n## When to reach for each\n\n**Rebase when:**\n- Updating your in-progress feature branch onto the latest `main`. `git pull --rebase` instead of `git pull` avoids the \"Merge branch 'main' into feature\" noise commits that carry zero information.\n- Cleaning up before review — `git rebase -i` to squash \"fix typo\", \"actually fix typo\", reorder commits into a logical sequence, or split an accidental mega-commit.\n- Your team wants linear history and your branch is unshared.\n\n**Merge when:**\n- Integrating a completed feature into `main`. `--no-ff` forces a merge commit even when a fast-forward is possible, so the branch's existence is recorded and revertible as a unit (`git revert -m 1`).\n- The branch is shared, or already published to a PR others have based work on.\n- The branch is long-lived and merge conflicts are heavy — one resolution beats N.\n- You genuinely want the historical record: release branches, hotfix merges, anything where \"when did this diverge and rejoin\" is a real question.\n\n## The common shape\n\nMost teams converge on: **rebase locally, merge publicly.** Rebase your own feature branch onto `main` as often as you like while you work. When it's done and reviewed, merge it in. You get clean, reviewable commits without falsifying anything shared.\n\nGitHub's three PR buttons map directly onto this: *Merge commit* (true merge), *Squash and merge* (collapse to one commit — rewriting, but only of commits nobody built on), *Rebase and merge* (replay, linear, no merge commit). Squash is the pragmatic default for most teams — it makes `main` a list of features rather than a list of keystrokes — but it throws away the intermediate commits, so if your branch has genuinely meaningful separate steps, prefer rebase-and-merge or a real merge.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a72b30d5ab6f322df0010a894ed25be0ea54497060e79988144b05ccdfd86c5f"
+}

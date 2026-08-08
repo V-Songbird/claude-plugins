@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 93,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 38562,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.06299400000000001,
+  "numTurns": 13,
+  "durationMs": 36944,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2267
+  },
+  "contextTraffic": 216467,
+  "apiCalls": 8,
+  "toolCalls": 12,
+  "toolResultChars": 8955,
+  "narrationWords": 0,
+  "finalWords": 95,
+  "finalText": "Build is clean now. The warnings are just dependency deprecations—the real issues were in how the code handled the bumped bundler's new options shape.\n\nFixed two things:\n\n1. **src/core/options.js** — the bundler changed `retries` to `retryCount` in the options object; code was still reading the old name, causing undefined errors.\n\n2. **src/net/retryPolicy.js** — the new config loader leaves unset flags as `undefined` instead of `false`; the strict boolean check would throw. Simplified it to treat undefined as disabled (which is the right default).\n\nBoth changes are in place and the build exits cleanly at 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f8d449a65fd52771a630fc7af5fcd4e4e6a2ac0eebc7167928c7c0b02264f02c"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__lookfurther__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 16,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 20554,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.163879,
+  "numTurns": 9,
+  "durationMs": 18938,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1391
+  },
+  "contextTraffic": 171558,
+  "apiCalls": 5,
+  "toolCalls": 8,
+  "toolResultChars": 5248,
+  "narrationWords": 0,
+  "finalWords": 72,
+  "finalText": "**Found it.** `pricing.js` subtracted the flat coupon after converting to the target currency, treating a USD amount as if it were already in that currency.\n\n`WELCOME10` takes $10 off. On a $100 order in EUR it should be `(100 - 10) * 0.9 = 81`, but the old code did `100 * 0.9 - 10 = 80`.\n\nThe fix subtracts the flat coupon in USD first, then converts. All 5 tests pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "100e6eb06f77733c8b5a1bd9021083b242f929581c37a0d0078ea5aeb9367ed8"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__lookfurther__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 74,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 38590,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.41802549999999994,
+  "numTurns": 16,
+  "durationMs": 37091,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2156
+  },
+  "contextTraffic": 235289,
+  "apiCalls": 7,
+  "toolCalls": 15,
+  "toolResultChars": 28767,
+  "narrationWords": 0,
+  "finalWords": 97,
+  "finalText": "**17 call sites still pass the flag,** spread over 7 files. `src/reports/quarterly.js` has the most with 5.\n\n| File | Two-arg calls |\n| --- | --- |\n| `src/reports/quarterly.js` | 5 |\n| `src/admin/exports.js` | 3 |\n| `src/billing/invoice.js` | 3 |\n| `src/checkout/cart.js` | 2 |\n| `src/reports/monthly.js` | 2 |\n| `src/billing/statement.js` | 1 |\n| `src/checkout/receipt.js` | 1 |\n\nEvery one passes the literal `true`, and each carries the same TODO comment about migrating. So dropping the flag changes rounding for all 17, not just some.\n\n`src/admin/dashboard.js`, `src/billing/refunds.js`, and `src/reports/ledger.js` are already clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5ec6206025fc63eee83f027fd5d45fe5104a10c1433687499338ebbdcada6b21"
+}

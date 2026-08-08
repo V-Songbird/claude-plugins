@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__nudge0__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 50,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "nudge0",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 113162,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.4851479999999999,
+  "numTurns": 27,
+  "durationMs": 106345,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 7777
+  },
+  "contextTraffic": 691594,
+  "apiCalls": 17,
+  "toolCalls": 23,
+  "toolResultChars": 18916,
+  "narrationWords": 0,
+  "finalWords": 51,
+  "finalText": "`fast-parse` is still pinned at the yanked `1.4.2` — `NOTES.md` says 1.4.3 fixed a prototype-pollution issue, and that fix never landed.\n\n`AUDIT.md` is written with all four findings, worst first: the open internal routes, the SQL injection in `report.js`, the committed staging password, then this dependency. No service code was touched.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6232b1d50bd881f434ec73b72e1977af14037a6f48aced283ea63e794f4f962d"
+}

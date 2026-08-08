@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 102,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 22202,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1212219,
+  "numTurns": 8,
+  "durationMs": 20778,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1651
+  },
+  "contextTraffic": 116891,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4538,
+  "narrationWords": 26,
+  "finalWords": 303,
+  "finalText": "It's a small Node.js HTTP service — no framework, no build step, just 5 files in `src/` wired together directly. Here's the flow:\n\n**Request lifecycle**\n1. **`server.js`** — thin HTTP entrypoint (`node:http`). Every request first goes through `verifyToken`; unauthenticated requests get a `401` immediately, everything else is handed to `route()`.\n2. **`auth.js`** — bearer-token auth using HMAC-SHA256. Tokens are `<userId>.<hexSignature>`, signed with a shared secret (`AUTH_SECRET` env var, defaults to `'dev-secret'`). Verification uses `crypto.timingSafeEqual` to avoid timing attacks. No real user database — the \"user\" is just `{ id: userId }` trusted from the signed token.\n3. **`routes.js`** — a flat lookup table keyed by `\"METHOD /path\"` (e.g. `GET /orders`) mapping to handler functions. It parses query params, dispatches, and serializes the handler's return value as JSON (or 404/500 on failure).\n4. **`cache.js`** — a tiny 256-entry LRU (`Map`-based, no TTL) that sits in front of reads. `GET /users` and `GET /orders` go through `cached(key, loader)`.\n5. **`store.js`** — the actual data layer: an in-memory `Map` standing in for a database, where every record expires 15 minutes after its last write (`TTL_MS`).\n\n**How the pieces fit together**\n\n```\nrequest → server.js (auth) → routes.js (dispatch)\n                                  ├─ GET routes  → cache.js → store.js\n                                  └─ POST routes → store.js directly\n```\n\nOne thing worth flagging: the comment in `routes.js` says writes \"invalidate the affected keys,\" but `putOrder` never actually evicts the `orders:${userId}` cache entry — so after a `POST /orders`, a subsequent `GET /orders` could serve a stale cached list until it falls out of the LRU. Worth confirming whether that's intentional (relying on the 15-min store TTL isn't the same as cache invalidation, since the cache has no TTL of its own).\n\nLet me know if you'd like me to dig into that cache-invalidation gap, add tests, or explain any piece in more depth.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f758d75f613874c796d8084ef4c952fcadfddf39e15aea57a56c4c8b39dc4f9a"
+}

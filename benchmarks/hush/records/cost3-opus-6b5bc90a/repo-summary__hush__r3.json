@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 107,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 23350,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.19866100000000003,
+  "numTurns": 8,
+  "durationMs": 21811,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1165
+  },
+  "contextTraffic": 106339,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4604,
+  "narrationWords": 7,
+  "finalWords": 105,
+  "finalText": "**It's a small Node JSON API — five files, no package.json, no tests.**\n\n```mermaid\ngraph LR\n  server[server.js] --> auth[auth.js]\n  server --> routes[routes.js]\n  routes --> cache[cache.js]\n  routes --> store[store.js]\n  cache --> store\n```\n\n`server.js` checks the token, then hands off. `auth.js` verifies signed bearer tokens against a shared secret. `routes.js` holds a three-entry table of paths. `cache.js` is a 256-entry read cache. `store.js` keeps records in a `Map` that expire after 15 minutes.\n\nOne thing to know: the comment in `routes.js` says writes clear the cache, but nothing does. After `POST /orders`, a `GET /orders` still returns the old list until the cache entry falls out.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d0903fcf7288a1dad24eca26e786db8adf271b788f469ef5c151fb31dc5ab382"
+}

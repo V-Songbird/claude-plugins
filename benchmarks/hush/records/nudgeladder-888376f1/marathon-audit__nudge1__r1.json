@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__nudge1__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 53,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "nudge1",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 126019,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.801084,
+  "numTurns": 47,
+  "durationMs": 119896,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10251
+  },
+  "contextTraffic": 794127,
+  "apiCalls": 17,
+  "toolCalls": 43,
+  "toolResultChars": 32823,
+  "narrationWords": 0,
+  "finalWords": 129,
+  "finalText": "`package.json` pins `fast-parse` at `1.4.2` — the exact release `NOTES.md` says was yanked for a prototype-pollution report, with `1.4.3` as the fix. The other watched dependencies are clean.\n\nI've written it all up in `AUDIT.md`, four findings ranked most severe first:\n\n1. **`src/repo/report.js`** — `runSavedReport` builds SQL by pasting `filter.field`, `filter.value`, `orderBy`, and `direction` straight into the query string. Only the column list is allowlisted, matching what `NOTES.md` warned about. No route calls it yet, so it's a landmine, not a live hole.\n2. **`src/routes/internal.js`** — the unauthenticated `/internal/metrics` and `/internal/flush-cache` routes from our first check, live right now.\n3. **`config/staging.js:11`** — the hardcoded staging DB password from our second check.\n4. **`package.json`** — `fast-parse` stuck on the yanked `1.4.2`.\n\nNo code was touched — just the new `AUDIT.md`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "dd009ec64ab3e486041f970577e701738ddc0aee04311918892ed25670a245c0"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__prenudge__r2",
+  "batchId": "pre2-756b4e9f",
+  "seed": "1786174006947",
+  "orderIndex": 10,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "prenudge",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 72851,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5378206999999999,
+  "numTurns": 42,
+  "durationMs": 71222,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 9921
+  },
+  "contextTraffic": 264325,
+  "apiCalls": 6,
+  "toolCalls": 41,
+  "toolResultChars": 22282,
+  "narrationWords": 9,
+  "finalWords": 35,
+  "finalText": "Migrated all 12 stragglers to `db.execute({ sql, params })`, across analytics, orders, billing, support, catalog, and accounts. Left `vendor/legacy-orm/adapter.js` and the `cache.query` calls alone since those aren't part of the swap.\n\n`node verify.js` passes clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9900e252d943cc2c5a944a4d8bf0af153dd33bd2a20590e7eb0dc089efd5f7f4"
+}

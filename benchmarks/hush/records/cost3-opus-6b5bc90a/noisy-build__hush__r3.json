@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 42,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 38332,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.27798849999999997,
+  "numTurns": 9,
+  "durationMs": 36745,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1935
+  },
+  "contextTraffic": 197675,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 5184,
+  "narrationWords": 8,
+  "finalWords": 137,
+  "finalText": "**The build passes now.** One real error, in `src/core/settings.js`:\n\n```\nERROR EBUILD01 link-failed: src/core/settings.js — ReferenceError: retries is not defined\n```\n\n`resolveConfig` read a bare `retries` that was never declared. It meant to read `env.retries`. I changed it to use `env.retries`, with a new `DEFAULT_MAX_RETRIES = 3` when the caller leaves it out. That 3 is my guess — nothing in the repo said what it should be.\n\n`build finished in 41.7s with 3 warnings, 0 errors`, exit 0.\n\nThe 3 warnings are all still there and none of them break anything:\n\n| Code | Where |\n| --- | --- |\n| `W1042` deprecated `crypto.createCipher` | `src/legacy/adapter.js` |\n| `W2213` unused export `formatLegacyDate` | `src/utils/format.js` |\n| `W3307` circular import | `src/core/graph.js` ↔ `src/state/tracker.js` |\n\nThose files aren't in the repo, so I left them alone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1e1e432e5b749d81dcc4fc7050484bd7ac41078634260b4b87117aeb30734a51"
+}

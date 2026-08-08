@@ -270,7 +270,16 @@ function claimsComeFromRecords(ctx) {
       + ' — run the segmented suite, retain its records, and regenerate the claim set with runner/publish.js');
   }
 
-  const segments = Object.keys(JSON.parse(ctx.readHarness('config.json')).segments);
+  // A batch is complete against the suite IT ran, not against a suite defined
+  // afterwards: adding a segment to config.json does not retroactively make
+  // every earlier batch incomplete. The plan a batch was run under is the only
+  // fair yardstick, so the segments it promised come from its own batch.json.
+  const configSegments = Object.keys(JSON.parse(ctx.readHarness('config.json')).segments);
+  const plannedSegments = (batchId) => {
+    const plan = batches.find((b) => b.batchId === batchId);
+    const planned = [...new Set((plan?.tasks || []).map((t) => t.segment).filter(Boolean))];
+    return planned.length ? planned : configSegments;
+  };
 
   // Costs are only comparable inside one batch (publish.js refuses a mix),
   // so the claim set is built per batch — a cross-model check is its own
@@ -291,7 +300,7 @@ function claimsComeFromRecords(ctx) {
     evidence.push(`runner/publish.js — regenerated ${claims.segments.length} segment tables from batch ${claims.batchId}`);
 
     const covered = new Set(batchRuns.map((r) => r.segment).filter(Boolean));
-    const uncovered = segments.filter((s) => !covered.has(s));
+    const uncovered = plannedSegments(batchId).filter((s) => !covered.has(s));
     if (uncovered.length) gaps.push(`no records for segment(s) ${uncovered.join(', ')} in batch ${batchId}`);
 
     const claimsFile = publishedClaimsPath(batchId);

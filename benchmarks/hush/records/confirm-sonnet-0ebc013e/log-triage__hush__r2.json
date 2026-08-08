@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 81,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 18615,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.19565,
+  "numTurns": 4,
+  "durationMs": 17128,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 874
+  },
+  "contextTraffic": 143963,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 23467,
+  "narrationWords": 0,
+  "finalWords": 125,
+  "finalText": "Redis died at 02:14:07 and never came back — the app tried to reconnect 12 times over the next 17 minutes, all refused.\n\nThat knocked out the cache, so every request fell through to the store directly. Requests started timing out, the queue backed up past its limit of 500, and worker-2 finally ran out of memory trying to hold the backlog. The supervisor restarted worker-2, but the api process was too far gone and got killed outright at 02:31:52, taking the service down.\n\nRoot cause: Redis at 10.0.0.12:6379 went unreachable and nothing broke the retry loop before the queue overflowed. Worth checking why Redis dropped and adding a queue cap or circuit breaker so one dead dependency can't sink the whole service next time.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "653792c197564c5c09bf5225cdf17b74920f205453f433b52183a28d02ad27f7"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__caveman__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 106,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 24701,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.12805260000000002,
+  "numTurns": 8,
+  "durationMs": 23348,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1278
+  },
+  "contextTraffic": 124971,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4160,
+  "narrationWords": 8,
+  "finalWords": 211,
+  "finalText": "5 file Node HTTP service, no deps.\n\n**Flow:** request → `server.js` → `auth.js` verify → `routes.js` dispatch → `store.js`/`cache.js`.\n\n- **server.js** — raw `http.createServer`. Pull `Authorization` header, verify token, 401 if bad, else hand to router.\n- **auth.js** — HMAC bearer token, format `<userId>.<sig>`. Sig = HMAC-SHA256(userId, `AUTH_SECRET` env, default `dev-secret`). `timingSafeEqual` compare, guard length mismatch first (else `timingSafeEqual` throws). No expiry, no real user lookup — trust userId in token blind.\n- **routes.js** — table keyed `\"METHOD /path\"`. 3 routes: `GET /users`, `GET /orders`, `POST /orders`. Reads go through cache, writes hit store direct. 404 unknown route, 500 on handler throw (raw `err.message` leak to client — worth noting).\n- **cache.js** — LRU, 256 entries, no TTL, in-memory Map. Bump-to-recent on hit, evict oldest on overflow.\n- **store.js** — in-memory Map, per-key TTL 15 min from last write. Fake DB. Everything lost on restart.\n\n**Bug spot:** routes.js comment claim writes \"invalidate affected keys\" — code don't do that. `POST /orders` write skip cache entirely, so cached `orders:<id>` entry stay stale up to next natural eviction. Want fix?\n\nAlso: no persistence (restart = data gone), no TTL on cache (stale data possible even past store's 15 min expiry — cache can outlive store TTL), error messages leak internals via 500 response.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "68c25f5f06a0aec3e1ac1429b8f8189c4ec5df8bd52d3c90c567a6c623bb7299"
+}

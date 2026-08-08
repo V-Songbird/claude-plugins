@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__nudge1__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 10,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "nudge1",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 24029,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.18920389999999998,
+  "numTurns": 9,
+  "durationMs": 22556,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1473
+  },
+  "contextTraffic": 214571,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 10334,
+  "narrationWords": 36,
+  "finalWords": 63,
+  "finalText": "Found it. `resolveRelease` in `packages/shared/config.js` merged layers with a shallow `Object.assign`, so any override touching `output` or `sourcemap` wiped out the sibling keys instead of layering over them — that's what tripped the build's own completeness check.\n\nI swapped it for a real deep merge that only overwrites the specific nested key each layer names. Build and verify both pass now, 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1fdc32077508b93d4afa8bb468201b62d3997c0f1cedf2756c194d2d11470ad1"
+}

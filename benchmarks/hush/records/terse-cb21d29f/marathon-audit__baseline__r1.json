@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 41,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 121233,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6647048999999999,
+  "numTurns": 35,
+  "durationMs": 115757,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 9450
+  },
+  "contextTraffic": 840797,
+  "apiCalls": 21,
+  "toolCalls": 31,
+  "toolResultChars": 27933,
+  "narrationWords": 34,
+  "finalWords": 79,
+  "finalText": "`fast-parse` is still pinned at `1.4.2` in `package.json`, matching the version `NOTES.md` flags as yanked for a prototype-pollution report (fixed in 1.4.3). The other flagged deps (`date-fmt`, `redis-min`) are marked \"no action\" in the notes, so they're not findings.\n\n`AUDIT.md` is written with all four findings, ordered by severity: SQL injection (`src/repo/report.js`) → unauthenticated internal routes (`src/routes/internal.js`) → committed staging password (`config/staging.js`) → yanked `fast-parse` dependency (`package.json`). No service files were touched — verified with `node verify.js`, which passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a16ef0ff5c27814580605cc8ce1aafc7606c1f421e37ebc45a1ff5614200363a"
+}

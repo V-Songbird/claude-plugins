@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 92,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 29846,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.196655,
+  "numTurns": 10,
+  "durationMs": 28627,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2134
+  },
+  "contextTraffic": 201838,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 16205,
+  "narrationWords": 85,
+  "finalWords": 102,
+  "finalText": "Build now completes cleanly (exit 0). The screen of warnings was almost entirely harmless deprecation noise from the dependency bump (unchanged `Buffer()`, `fs.exists`, punycode, etc.), but buried in it were two real breakages caused by shape changes in the new bundler version:\n\n- `resolveRetries` was still reading `options.retries` instead of the new `options.retryCount`, so it crashed on `undefined.toFixed()`.\n- `isBackoffEnabled` only accepted explicit `true`/`false`, but the new config loader leaves unset flags as `undefined`, so it threw instead of defaulting to disabled.\n\nFixed both call sites; the link stage now succeeds and the build finishes with 8 (cosmetic) deprecation warnings, 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5af4f0beb1825dcf759417fb1cbfedb5b31acd3d2957667276def5e74c3d5d28"
+}

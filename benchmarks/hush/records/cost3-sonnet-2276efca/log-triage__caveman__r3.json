@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__caveman__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 124,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 15227,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2947542,
+  "numTurns": 3,
+  "durationMs": 13938,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 838
+  },
+  "contextTraffic": 145600,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 60172,
+  "narrationWords": 0,
+  "finalWords": 191,
+  "finalText": "Root cause found. Timeline:\n\n**02:14:07** — Redis at `10.0.0.12:6379` dropped: `ECONNREFUSED`. API fell back to direct store reads (cache layer degraded).\n\n**02:14:08 onward** — Cache miss storm hits store directly, no cache buffer. Store overload, requests timing out at 5000ms across api/worker-1/worker-2/scheduler, repeating every ~2s for 17 min straight.\n\n**02:14–02:31** — Queue depth climbs steady, no drain: 52 → 568 (max configured 500, breached ~02:25:48 at depth 400, kept climbing past limit unchecked).\n\n**02:14–02:31, every ~2min** — 12 redis reconnect attempts (0 through 12), all `ECONNREFUSED` — redis never came back.\n\n**02:31:44** — worker-2 `JavaScript heap out of memory` — unbounded backlog ate memory.\n\n**02:31:45** — supervisor restart worker-2 (exit code 134).\n\n**02:31:52** — api unresponsive too, supervisor kill whole process group. Service down. Log end here — no recovery event logged.\n\nRoot cause: Redis at 10.0.0.12:6379 died, app had no circuit breaker/backpressure on cache-miss fallback, queue depth cap (500) not enforced (kept growing to 568), backlog exhausted heap, crashed workers, killed service.\n\nFix directions: add backpressure/reject when queue depth hits cap instead of just warning, circuit-break store reads on cache-miss storm, alert on first redis ECONNREFUSED not wait for crash.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5e3b4ef00ae8964aa0eb2acb815c3a3c8a2bedb291f7057ee493b692d09fbe27"
+}

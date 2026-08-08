@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 16,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 57248,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.380612,
+  "numTurns": 18,
+  "durationMs": 55598,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2847
+  },
+  "contextTraffic": 276326,
+  "apiCalls": 9,
+  "toolCalls": 17,
+  "toolResultChars": 9211,
+  "narrationWords": 0,
+  "finalWords": 65,
+  "finalText": "**Fixed the flat-coupon bug.**\n\n`pricing.js` changed the money into the checkout currency first, then took off the coupon. But flat coupons are stored in dollars, so $10 off became €10 off. Now the coupon comes off while the total is still in dollars, then the whole thing converts.\n\nA €100 order with `WELCOME10` now comes to 81, not 80.\n\nAll 5 tests pass in 0.07s.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b12ec633eec20882ce23e9310a0c50d1767b895197cdb77965d3ac0a844c850c"
+}

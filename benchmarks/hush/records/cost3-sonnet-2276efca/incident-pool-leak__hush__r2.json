@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 76,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 37597,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.26436919999999997,
+  "numTurns": 13,
+  "durationMs": 36048,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2081
+  },
+  "contextTraffic": 341255,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 16953,
+  "narrationWords": 9,
+  "finalWords": 108,
+  "finalText": "Found it: `processOrder.js` acquired a connection but only released it on the success path — no `try/finally`. Every failed order (bad payload, etc.) leaked a connection permanently.\n\nThe logs match exactly: starting 02:06 UTC on 2026-07-06, a run of `invalid order payload` failures steadily drove the worker pool from 2/5 to 5/5 in use, then both the API and worker hit `pool exhausted`, and the supervisor restarted both processes at 02:13.\n\nFix: wrapped the `run(conn, order)` call in `try/finally` so the connection releases whether or not the order is valid, matching how `handleRequest` already does it via `withConnection`.\n\nAll 4 tests in `tests/pool.test.js` pass now (previously 2 failing).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "487db000c7e478438733a47e8d4738adeed9922e993fa52c0379a9237e56f1f8"
+}

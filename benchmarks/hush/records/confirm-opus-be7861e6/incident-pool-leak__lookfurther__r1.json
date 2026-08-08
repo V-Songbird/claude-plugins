@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__lookfurther__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 49,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 195402,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.96956,
+  "numTurns": 22,
+  "durationMs": 193661,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 12230
+  },
+  "contextTraffic": 567192,
+  "apiCalls": 14,
+  "toolCalls": 21,
+  "toolResultChars": 34994,
+  "narrationWords": 6,
+  "finalWords": 140,
+  "finalText": "**Fixed the worker leak. The app outage is a second, separate one.**\n\n`processOrder` released its connection only after `run` succeeded. A failed order dropped one for good. It now goes through `withConnection`, which releases in a `finally`.\n\nThe worker log lines up exactly: 125 jobs started, 120 released, 5 failed on bad payloads. Five leaks against a pool of five, then `worker-1` gave up at 02:06:35.\n\nThe app kept dying until 02:13, minutes after `worker-1` was already gone. Every request in that window returned 200. The pool still climbed one connection per 25 seconds. Nothing failed there, so the fix above does not explain it, and that route code is not in this repo.\n\nWorth grepping the API handlers for `pool.acquire()` not wrapped in `withConnection`. That is the same shape as the bug I just fixed.\n\n4 tests pass, 0.07s.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1ce49cdafd3f5c7ac7989080baa894c2312fd22fab52714dd118f6c28d856e9b"
+}

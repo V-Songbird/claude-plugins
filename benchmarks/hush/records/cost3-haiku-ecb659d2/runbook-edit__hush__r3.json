@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__hush__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 143,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 40239,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0650359,
+  "numTurns": 7,
+  "durationMs": 35235,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2662
+  },
+  "contextTraffic": 188581,
+  "apiCalls": 7,
+  "toolCalls": 4,
+  "toolResultChars": 5927,
+  "narrationWords": 0,
+  "finalWords": 26,
+  "finalText": "Updated the production admin port from 8081 to 9090 in the health check command, the known issue about the unauthenticated endpoint, and the environment reference table.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "aeed8d3fb715e2f73eb855c4f70845ad0d3bc402e8c4cf10ae314a940df58ad0"
+}

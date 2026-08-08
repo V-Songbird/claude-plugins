@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__lookfurther__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 92,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 90060,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.654247,
+  "numTurns": 17,
+  "durationMs": 85257,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5081
+  },
+  "contextTraffic": 525628,
+  "apiCalls": 16,
+  "toolCalls": 14,
+  "toolResultChars": 10640,
+  "narrationWords": 0,
+  "finalWords": 43,
+  "finalText": "**All four mentions of `8081` are now `9090`.** The health check, the rollback step, the security note, and the appendix table.\n\nI left staging on `8091`, since you said only production moved.\n\n`verify.js` passes now: `OK runbook edits landed and the document survived`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b188b5d3efc9f15e86c8342454a60b1d4bb4f1034ef6196b765773a9ad4a7be0"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 131,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 138886,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.5488770000000001,
+  "numTurns": 14,
+  "durationMs": 135110,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 9391
+  },
+  "contextTraffic": 281867,
+  "apiCalls": 10,
+  "toolCalls": 11,
+  "toolResultChars": 10866,
+  "narrationWords": 6,
+  "finalWords": 781,
+  "finalText": "Here's the handoff. One thing up front: I can't give you the ioredis version — there's no lockfile or `node_modules` in this directory, only `package.json` and the log. I've left it as an explicit open item rather than guessing, since a wrong version number is worse than a blank in a handoff.\n\n---\n\n# On-Call Handoff — incident-service outage\n\n**Service:** `incident-service` v2.4.0\n**Prepared from:** `logs/app.log` (719 lines, sole source)\n**Status at end of log:** DOWN — no recovery recorded\n\n## Impact window\n\n| | |\n|---|---|\n| **Start** | `2026-07-04T02:14:07.113Z` — Redis connection lost |\n| **Hard down** | `2026-07-04T02:31:52.318Z` — `FATAL [supervisor] api unresponsive, killing process group` |\n| **Duration (logged)** | **17m 45s**, end time unknown |\n\n**Severity: total outage from the first second, not a degradation.** There are **zero successful requests logged after 02:14:07** — 173 INFO/`200` lines before the trigger, none after. Full user-facing impact for the entire window.\n\nThe log ends at the process-group kill, so **actual recovery time is not established.** Get it from the deploy/restart record or upstream LB metrics before publishing a duration externally.\n\n## Root cause\n\n**Trigger:** Redis at `10.0.0.12:6379` became unavailable at 02:14:07. All 14 connection events returned `ECONNREFUSED` — something was actively refusing, meaning the process was down or not listening (a partition or hang would give `ETIMEDOUT`/`EHOSTUNREACH`). Redis stayed down through the final reconnect attempt at 02:31:26.\n\n**Why Redis died is NOT in this log** — nothing in `app.log` explains it. Needs the Redis host's own logs / systemd journal / OOM-killer output for ~02:14 UTC. **This is the top open item.**\n\n**Actual cause of the outage** — in our code, not in Redis. The cache-miss path falls through to the datastore with no protection:\n\n1. **No circuit breaker.** `cache layer degraded — falling back to direct store reads` fires 1ms after connection loss, then every miss hits the store directly. First `TimeoutError` 3 seconds later.\n2. **No load shedding.** Queue depth grew perfectly linearly — 52 → 568, ~+0.5/s, constant for 17 minutes. It crossed the stated max of 500 at 02:29:12 and the service *kept accepting*. A bounded queue would plateau; linear growth means nothing was rejecting.\n3. **No request coalescing.** 174 `cache miss storm` warnings on sequential `orders:*` keys — each miss became its own store query instead of being single-flighted.\n\n**Failure sequence:** backlog → heap exhaustion in worker-2 (`JavaScript heap out of memory`, exit 134) → 7s later api killed for unresponsiveness (event-loop starvation — a *different* failure than OOM; worker-1 and scheduler never logged either).\n\nBottom line: **a cache outage should be elevated latency plus some errors, not an 18-minute total outage.** Redis dying was the trigger; the unprotected fallback path is what made it an outage.\n\n## Open items for next on-call\n\n1. **Why did Redis die?** Not answerable from `app.log`. Pull Redis host logs for 02:14 UTC. — *blocking for RCA closure*\n2. **ioredis version — UNRESOLVED.** `package.json` pins `^5.4.1`, so anything `>=5.4.1 <6.0.0`. No lockfile or `node_modules` present to resolve it. Get it via `npm ls ioredis` on the prod host or the lockfile from the deploy artifact.\n3. **Check the reconnect config before the ioredis changelog.** Reconnect spacing was a flat ~80s across all 13 attempts (02:15:26 → 02:31:26). ioredis's default `retryStrategy` is `Math.min(times * 50, 2000)` ms — it ramps and caps at 2s. A constant 80s doesn't match that under any 5.x, so this is very likely a **custom `retryStrategy` in our own connection setup**, not ioredis behavior. Grep the repo for `retryStrategy` / `reconnectOnError` first.\n4. **When did service actually recover?** Not in this log.\n5. **⚠️ Date discrepancy — verify before circulating.** These timestamps are `2026-07-04`; today is `2026-08-07`. This log is **five weeks old**, not from last night. Either this is a rotated/stale file and last night's incident is elsewhere, or a container clock is badly wrong. If there was a second outage last night with this same shape, *the recurrence* is the headline, not this analysis.\n\n## Recommended fixes (priority order)\n\n1. Circuit breaker on the cache→store fallback path — fail fast instead of queueing\n2. Shed requests when queue depth exceeds max; the code already knows the limit is 500 and ignores it\n3. Single-flight / coalesce concurrent misses on the same key\n4. Fix the reconnect strategy — 80s fixed interval is too slow to catch a Redis restart\n5. Alert on `cache layer degraded`, not just on FATAL — there were 17 minutes of warning before anything paged\n\n---\n\nItems 1, 2, and 4 in the fix list are the ones that would have prevented an outage regardless of what happened to Redis — worth prioritizing those over the Redis post-mortem.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6d60b60e8c64dfc7469a676c0b6c82e08374a7e7ce8e57614161f5ec876509f2"
+}

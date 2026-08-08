@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__baseline__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 20,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 78391,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.538162,
+  "numTurns": 42,
+  "durationMs": 76649,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10269
+  },
+  "contextTraffic": 294629,
+  "apiCalls": 8,
+  "toolCalls": 41,
+  "toolResultChars": 24932,
+  "narrationWords": 77,
+  "finalWords": 45,
+  "finalText": "All 12 stale call sites (in `analytics/cohort.js`, `orders/returnService.js`, `orders/shipment.js`, `billing/refund.js`, `billing/couponService.js`, `support/macroAdmin.js`, `support/sla.js`, `catalog/variantAdmin.js`, `catalog/supplier.js`, `accounts/teamService.js`, `accounts/apiKeyAdmin.js`, `accounts/session.js`) are now migrated to `db.execute({ sql, params })`. Left `cache.query` calls and the vendored `vendor/legacy-orm/adapter.js` untouched, and `verify.js` confirms the migration is complete and nothing else broke.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9463dae79aa43a5d826c3f220e8bec40c6454654d6974f1cb00a49d4cee7218b"
+}

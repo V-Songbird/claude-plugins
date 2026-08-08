@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__baseline__r1",
+  "batchId": "confirmfix-3484fd7a",
+  "seed": "1786153613114",
+  "orderIndex": 8,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 75577,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.5427169,
+  "numTurns": 42,
+  "durationMs": 74093,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 9974
+  },
+  "contextTraffic": 327071,
+  "apiCalls": 9,
+  "toolCalls": 41,
+  "toolResultChars": 24979,
+  "narrationWords": 121,
+  "finalWords": 37,
+  "finalText": "Migration complete and verified. All 12 remaining `db.query` call sites in `packages/` (analytics, orders, billing, support, catalog, accounts) were converted to `db.execute({ sql, params })`, preserving `cache.query` calls and leaving the vendored `vendor/legacy-orm/adapter.js` untouched. `node verify.js` passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cffe821a5ec698aa962a7303e7f685aa6dab585d3afb8c03d7943bbfb4030306"
+}

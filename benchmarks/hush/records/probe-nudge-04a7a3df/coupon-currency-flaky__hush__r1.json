@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r1",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 20,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 40985,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "tests exit 1"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.3135505,
+  "numTurns": 10,
+  "durationMs": 39365,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2112
+  },
+  "contextTraffic": 206569,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 9132,
+  "narrationWords": 6,
+  "finalWords": 142,
+  "finalText": "**Found it — one bug, in `src/pricing/engine.js`.**\n\nThe percent coupon rounds the running total to 2 cents *before* the currency change. That dropped fraction then gets multiplied by the rate, which is enough to push the final total across a cent boundary.\n\nAll 10 failures involve `SAVE10PCT`. `FLAT5` alone always passes, because `19.98 - 5` needs no rounding.\n\nWhy \"most look fine\": the loss only shows when the rate magnifies it. `GBP` and `CAD` fail; `USD` and `EUR` land on the same cent by luck.\n\nThe fix is to drop the two `round(..., 2)` calls on lines 24 and 27 and keep the single round at the end, which is what the test's reference already does.\n\n`node --test tests/pricing-matrix.test.js` — 30 pass, 10 fail, 85ms.\n\n```\n2692 !== 2693\n```\n\nI have not changed any files. Want me to apply the fix?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9d3ad77d8eb48f901339a005510320aa92767a0eacba7aba4b153fd13a88ba59"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__lookfurther__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 13,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 48723,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.362114,
+  "numTurns": 15,
+  "durationMs": 46862,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2548
+  },
+  "contextTraffic": 267721,
+  "apiCalls": 9,
+  "toolCalls": 14,
+  "toolResultChars": 9290,
+  "narrationWords": 0,
+  "finalWords": 85,
+  "finalText": "**Fixed.** `pricing.js` took money off after changing the currency.\n\nFlat coupons are stored in dollars, so `$10 off` was being treated as `€10 off`. A $100 order in euros came out at 80 instead of 81.\n\nNow the coupon comes off the dollar subtotal first, and the rest is converted. The percent path moved too, for consistency. It gives the same number either way.\n\nAll 5 tests pass, 0.07s.\n\nOne thing I left alone: a coupon bigger than the order still gives a negative total.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "72bfeb064c9efdfee203518120ab37eb8a215fe83e974d7de8e162a4e17f1560"
+}

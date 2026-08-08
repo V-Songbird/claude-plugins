@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 84,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 40522,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.36809520000000007,
+  "numTurns": 9,
+  "durationMs": 35566,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2116
+  },
+  "contextTraffic": 385629,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 23972,
+  "narrationWords": 0,
+  "finalWords": 186,
+  "finalText": "## On-Call Handoff — Prod Outage, 2026-07-04\n\n**Root cause:** Redis became unreachable (`ECONNREFUSED 10.0.0.12:6379`). The app fell back to hitting the store directly, which couldn't handle the load. That triggered a timeout and queue-backup spiral that ended in an out-of-memory crash and the API going down.\n\n**Impact window:** 02:14:07 UTC – 02:31:52 UTC (~18 minutes).\n- 02:14:07 — Redis connection lost, cache fallback begins\n- 02:14–02:31 — Escalating timeouts, cache miss storms, request queue climbing past its own 500 cap; 12 failed Redis reconnect attempts, roughly every 90 seconds, never recovered\n- 02:31:44 — `worker-2` crashes: JavaScript heap out of memory\n- 02:31:45 — Supervisor restarts `worker-2`\n- 02:31:52 — `api` unresponsive, supervisor kills the process group — **service down**\n\n**ioredis version:** `package.json` pins `^5.4.1`, so anything `5.4.1` up to `<6.0.0` is allowed. There's no `package-lock.json` in this repo, so I can't give you the exact installed version — check the deploy artifact or `npm ls ioredis` on the box that was running.\n\n**Follow-ups worth raising:** why `10.0.0.12:6379` was down for 18 minutes, and why the request queue kept growing past its documented cap of 500.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2e53b8a9d05b5aaabc445553487221169331909ae6ce31470c3dddac4342f66e"
+}

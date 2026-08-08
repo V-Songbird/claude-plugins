@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__caveman__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 88,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 30141,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1878087,
+  "numTurns": 11,
+  "durationMs": 28871,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1734
+  },
+  "contextTraffic": 263267,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 5513,
+  "narrationWords": 96,
+  "finalWords": 86,
+  "finalText": "All 40 pass now.\n\n**Bug:** `computeTotal` in `src/pricing/engine.js` rounded to 2 decimals *after* percent discount and *again after* flat discount, before currency conversion. Rounding mid-pipeline then multiplying by a non-integer exchange rate (GBP 0.78, CAD 1.35, JPY 149) drifts final cent — classic double-rounding. Only bit rows with `SAVE10PCT` (percent discount) on non-USD currencies, matching finance's \"some carts, hard to spot pattern\" report.\n\n**Fix:** dropped both intermediate `round()` calls, rounding only once at the very end in target currency's decimals — matches contract test's reference calc.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7ea0a1c7fc2390ae72ff49f740f8120b167ce75933398e9b079553ef9e0d4297"
+}

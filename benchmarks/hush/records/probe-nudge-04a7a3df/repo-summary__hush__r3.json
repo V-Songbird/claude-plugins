@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r3",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 33,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 21553,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.196612,
+  "numTurns": 8,
+  "durationMs": 19804,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1094
+  },
+  "contextTraffic": 106276,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4617,
+  "narrationWords": 0,
+  "finalWords": 139,
+  "finalText": "**It's a small Node HTTP service, five files, no dependencies.**\n\n```mermaid\ngraph LR\n  server.js -->|checks token| auth.js\n  server.js --> routes.js\n  routes.js --> cache.js\n  routes.js --> store.js\n  cache.js --> store.js\n```\n\n`server.js` takes the request and rejects anyone without a valid token. `auth.js` checks bearer tokens of the form `<userId>.<signature>`, signed with `AUTH_SECRET`. `routes.js` holds a three-entry table: read a user, list your orders, add an order. `cache.js` is a 256-entry read cache in front of `store.js`, which is a `Map` where records die 15 minutes after a write.\n\nTwo things to know before you touch it:\n\n- `routes.js` says writes invalidate the cache, but `POST /orders` never does — a new order stays hidden until the cache entry is pushed out.\n- `GET /users` reads whatever `id` the caller passes, so any signed-in user can fetch any other user.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "202f03d26f16a4eef79bfad9611e13c7b3db253ac01ec1b2f46fae8c873e1df7"
+}

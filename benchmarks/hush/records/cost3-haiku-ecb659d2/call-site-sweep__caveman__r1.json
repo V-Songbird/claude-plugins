@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__caveman__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 108,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 11990,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0266698,
+  "numTurns": 3,
+  "durationMs": 10608,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 684
+  },
+  "contextTraffic": 69852,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 1411,
+  "narrationWords": 5,
+  "finalWords": 44,
+  "finalText": "**17 call sites** use two-argument form. Breakdown:\n\n- `src\\reports\\quarterly.js` — **5** (most)\n- `src\\billing\\invoice.js` — 3\n- `src\\admin\\exports.js` — 3  \n- `src\\reports\\monthly.js` — 2\n- `src\\checkout\\cart.js` — 2\n- `src\\checkout\\receipt.js` — 1\n- `src\\billing\\statement.js` — 1\n\n`src\\reports\\quarterly.js` has the most with 5 call sites.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bd47a2aba5c12bb4ee8268adbfb89e8eb9fcb3ed41b02b7ac77866b7351224f2"
+}

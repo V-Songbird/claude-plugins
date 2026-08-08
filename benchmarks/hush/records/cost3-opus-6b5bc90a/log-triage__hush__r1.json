@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 118,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 59001,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.4690405000000001,
+  "numTurns": 10,
+  "durationMs": 57503,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3813
+  },
+  "contextTraffic": 208573,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 31273,
+  "narrationWords": 0,
+  "finalWords": 114,
+  "finalText": "**Redis went down at `02:14:07` and took the whole service with it.**\n\n1. The cache lost `10.0.0.12:6379` and fell back to reading the store directly.\n2. The store could not keep up. Every request timed out after 5 seconds.\n3. The waiting queue grew from 52 to 568, past its own 500 limit.\n4. `worker-2` ran out of memory and died with code 134.\n5. At `02:31:52` the supervisor killed `api`. Service down.\n\nRedis never came back. All 13 reconnect tries failed, the last at `02:31:26`.\n\nNothing else broke first. Traffic was clean and fast right up to `02:14:03`.\n\nWorth a look: that 500 queue limit was never enforced, so memory just filled up.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cc7817f60092f4955ff5799ecdcd9a7d9941c2550c9913df31e713147c666ba8"
+}

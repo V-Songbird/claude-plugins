@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 8,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 29777,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.226857,
+  "numTurns": 9,
+  "durationMs": 28410,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1227
+  },
+  "contextTraffic": 202419,
+  "apiCalls": 8,
+  "toolCalls": 8,
+  "toolResultChars": 2834,
+  "narrationWords": 25,
+  "finalWords": 96,
+  "finalText": " Green. 5/5 pass.\n\n**Bug:** `token.js:7` used `<` — token with `exp === now` reported valid, so tokens slipped through for one full second past expiry. Spec in file comment says expired *the moment* `exp` is reached.\n\n**Fix:**\n```js\nfunction isExpired(token, nowSeconds) {\n  return token.exp <= nowSeconds;\n}\n```\n\n`secondsLeft` needed no change — it delegates to `isExpired`, so expiry instant now returns 0.\n\nNote: my first run used `node --test tests/` (directory arg), which reported a failure. Direct file run and plain `node --test` both pass 5/5 — directory-arg form was the anomaly, not the code.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ada0a4f4b9d546f0474ada4723d7a8b2e196654d8267d575679d9ec4f3e400fe"
+}

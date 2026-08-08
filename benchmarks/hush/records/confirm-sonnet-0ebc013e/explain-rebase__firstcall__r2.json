@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__firstcall__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 41,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16745,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.088844,
+  "numTurns": 1,
+  "durationMs": 15207,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 930
+  },
+  "contextTraffic": 31942,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 176,
+  "finalText": "**Merge** takes two branch histories and joins them with a new commit that has two parents. Your original commits stay exactly as they were, and you get a true record of when the branches diverged and came back together.\n\n**Rebase** takes your commits and replays them one by one on top of a different starting point. It rewrites each commit with a new parent, so the result looks like you built your work straight on the latest code, in a straight line, with no branching at all.\n\nReach for **merge** when combining work into a shared branch like `main`, or any branch other people are also pulling from. It's safe because it never rewrites commits anyone else already has.\n\nReach for **rebase** to clean up your own local or feature branch before sharing it — folding in the latest `main`, tidying messy commits, keeping history readable. The one hard rule: never rebase commits you've already pushed and that someone else might have pulled. Doing that rewrites history out from under them and causes a real mess.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "69093e73bdc6351c57a9cf28504cfc68ff422f6a6b18e918236942e06ca573a0"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__firstcall__r3",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 35,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "firstcall",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 20158,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.19591199999999998,
+  "numTurns": 8,
+  "durationMs": 18597,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1044
+  },
+  "contextTraffic": 106397,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4653,
+  "narrationWords": 0,
+  "finalWords": 114,
+  "finalText": "**It's a small Node service in five files, no dependencies and no tests.**\n\n```mermaid\ngraph LR\n  server.js --> auth.js\n  server.js --> routes.js\n  routes.js --> cache.js\n  routes.js --> store.js\n```\n\n`server.js` checks the token on every request, then hands off. `auth.js` reads a bearer token shaped `userId.signature` and checks the signature. `routes.js` maps `GET /users`, `GET /orders`, and `POST /orders` to handlers. Reads go through `cache.js`, a 256-entry cache with no expiry. `store.js` is an in-memory map where records die 15 minutes after a write.\n\nOne thing to know: `routes.js` says writes clear the cached keys, but nothing does. A new order won't show up in `GET /orders` until the cache entry is pushed out.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "06236e147751f03fa45f3cd17ea9a91fc17dba6bca17b22ca51a73266ad73307"
+}

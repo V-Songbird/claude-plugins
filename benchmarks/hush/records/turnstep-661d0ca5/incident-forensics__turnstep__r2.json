@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__turnstep__r2",
+  "batchId": "turnstep-661d0ca5",
+  "seed": "1786172329502",
+  "orderIndex": 19,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "turnstep",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 69906,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6004316,
+  "numTurns": 13,
+  "durationMs": 63339,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2938
+  },
+  "contextTraffic": 666103,
+  "apiCalls": 13,
+  "toolCalls": 9,
+  "toolResultChars": 44830,
+  "narrationWords": 32,
+  "finalWords": 119,
+  "finalText": "**On-call handoff — gateway 503s**\n\n**Root cause:** `dep-4471` (gateway, a.novak, \"config: connection-per-request for pool isolation\") shipped at 02:14:00Z. The connection pool went from healthy (3-11 of 20 in use) to pinned at `in_use=20 idle=0` within two minutes and never recovered. Every failing request logs the same pair:\n```\nERROR access  <req-id> <path> -> <svc> 503 <latency>ms\nERROR pool    <req-id> ERR_POOL_EXHAUSTED acquiring connection from pool (size 20, in_use 20, waiting N)\n```\n\n**Impact window:** started 2026-03-14 02:14:14Z, still ongoing at the end of the log (03:59:27Z) with the wait queue climbing steadily (up to 232). Gateway-only — `worker.log` shows all jobs finishing normally the whole time, so downstream services and job processing were unaffected.\n\n**Rollback:** revert `dep-4471` on the gateway.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8479e32444bd36ea10e00ce03eaf919cc67781c01c8e89c4b97d3bc9aac2f6c5"
+}

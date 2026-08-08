@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 81,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 46534,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.493205,
+  "numTurns": 10,
+  "durationMs": 45101,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2053
+  },
+  "contextTraffic": 251822,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 42075,
+  "narrationWords": 0,
+  "finalWords": 139,
+  "finalText": "**Redis went down and took the service with it.** It never recovered.\n\nHere is the chain:\n\n1. `02:14:07` — Redis at `10.0.0.12:6379` refused the connection. Cache off.\n2. Every read went straight to the store, which started timing out at 5s.\n3. The request queue grew steadily, about 3 more every 2 seconds.\n4. `02:29:12` — the queue passed its own limit of 500.\n5. `02:31:44` — `worker-2` ran out of memory holding the backlog.\n6. `02:31:52` — the supervisor killed the whole process group. Service down.\n\nRedis never came back. All 13 reconnect tries got `ECONNREFUSED`, one every 80 seconds, no backoff. The last request that worked was at `02:14:03`.\n\nTwo things worth fixing: the queue kept accepting past its stated max of 500, and losing the cache put full load on the store with nothing in between.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5e4a79bd5c355de1b2af3b650f639c71ca94968f12bf8b4c44e89843bfdb5520"
+}

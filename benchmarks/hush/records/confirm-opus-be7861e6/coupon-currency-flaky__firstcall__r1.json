@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__firstcall__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 55,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 66099,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "tests exit 1"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.376421,
+  "numTurns": 11,
+  "durationMs": 64492,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3600
+  },
+  "contextTraffic": 243215,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 7987,
+  "narrationWords": 0,
+  "finalWords": 138,
+  "finalText": "**Found it.** 10 of the 40 pricing tests fail, and they all involve the percent coupon.\n\n`engine.js` rounds the running USD total to cents right after the percent discount. That discount makes a third decimal, like `18.072`. The rounding throws it away, then `convert` multiplies by the rate and blows the gap up to a whole cent or yen.\n\nThat is why it looks random. Only `GBP`, `CAD` and `JPY` fail, because their rates are big enough to cross a boundary. Flat-only carts never fail, since subtracting `$5` keeps the cents exact.\n\nThe fix is to drop both `round(..., 2)` calls in `computeTotal` and round once at the end, which is what the file's own comment promises. I tried it in a throwaway copy: 40 pass, 0 fail, 0.09s.\n\nYour files are untouched. Want me to apply it?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d1d265b243a52c7a5d9087a8bc7c01255308404673631490dae15656617d2700"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__hush__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 135,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 43818,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.247477,
+  "numTurns": 9,
+  "durationMs": 38727,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2248
+  },
+  "contextTraffic": 320121,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 6251,
+  "narrationWords": 0,
+  "finalWords": 28,
+  "finalText": "Updated all three mentions of the production admin port to 9090 — the health check command, the known-issues note, and the environment table. Staging's 8091 stayed as is.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8c8e6a2fb148afed408272884aa09228ad44e4309bef218d29b9e6effc4fe0f2"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__turncur__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 47,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "turncur",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 118581,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5302250000000001,
+  "numTurns": 29,
+  "durationMs": 112074,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 8245
+  },
+  "contextTraffic": 719062,
+  "apiCalls": 17,
+  "toolCalls": 25,
+  "toolResultChars": 23635,
+  "narrationWords": 0,
+  "finalWords": 77,
+  "finalText": "`fast-parse` is pinned at `1.4.2` in `package.json`, and `NOTES.md` says that exact version was yanked by its publisher over a prototype-pollution bug — 1.4.3 is the fix. `date-fmt`, `pg-lite`, and `redis-min` are all fine as-is.\n\n`AUDIT.md` is written with all four findings, worst first: the SQL injection in `report.js`, the unauthenticated internal routes, the committed staging password, then the stale `fast-parse` pin. The check script confirms it's complete and that nothing in the service itself was touched.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fc91fab7a311dd5477f5184acb69a038077e9d44464a5fbe178cf5bec15ecb06"
+}

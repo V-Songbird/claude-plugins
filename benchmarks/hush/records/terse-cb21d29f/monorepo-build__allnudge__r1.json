@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__allnudge__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 10,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "allnudge",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 48519,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2782404,
+  "numTurns": 13,
+  "durationMs": 47021,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2446
+  },
+  "contextTraffic": 402976,
+  "apiCalls": 11,
+  "toolCalls": 12,
+  "toolResultChars": 12806,
+  "narrationWords": 0,
+  "finalWords": 102,
+  "finalText": "The build is green now. It was failing in the bundle stage, after lint — `resolveRelease` in `packages/shared/config.js` used a shallow `Object.assign` to layer package overrides onto the defaults, so any package overriding part of `output` or `sourcemap` (like `@acme/api` setting just `output.format`) wiped out the sibling keys (`output.dir`, `sourcemap.include`), and the build's own completeness check caught the gap and aborted.\n\nI swapped that for a proper deep merge so partial overrides only touch the key they name. `node build.js` now finishes clean: `5 warnings, 0 errors`, and `node verify.js` confirms the layering rule holds even for overrides the fixture never shipped.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "516f39fc07ec8669eca574bb737753806a6704bef2ab1d794fa84c04db7e02ee"
+}

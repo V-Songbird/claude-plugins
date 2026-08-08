@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__baseline__r2",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 23,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 104865,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.41180199999999995,
+  "numTurns": 17,
+  "durationMs": 97361,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 8471
+  },
+  "contextTraffic": 505974,
+  "apiCalls": 13,
+  "toolCalls": 12,
+  "toolResultChars": 14943,
+  "narrationWords": 117,
+  "finalWords": 36,
+  "finalText": "Still passes — no change needed. All three rules you've asked about (high → sms+email, quiet-hours queuing with critical still paging, and 5-minute repeat dedup) were already in place from the first implementation and match `verify.js`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b4de34281968dd0f1964075103cd371c79c5d7261ca43ed5a5c20731c3fe74f6"
+}

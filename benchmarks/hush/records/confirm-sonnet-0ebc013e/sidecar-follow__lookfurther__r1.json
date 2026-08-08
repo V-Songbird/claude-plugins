@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__lookfurther__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 98,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 15593,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.1427537,
+  "numTurns": 5,
+  "durationMs": 14051,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 769
+  },
+  "contextTraffic": 166696,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 3144,
+  "narrationWords": 0,
+  "finalWords": 34,
+  "finalText": "700 tests ran, 698 passed. Two failed, both in `auth/tokens.test.js`:\n\n- `refreshToken silently accepts an already-revoked token` (line 400)\n- `sessionCleanup leaves orphaned rows after a rollback` (line 650)\n\nEverything else came back clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "373620f165096be5d6f518802d329f17c6131eaf905bf84fec121c535af69b2e"
+}

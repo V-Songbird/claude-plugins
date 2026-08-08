@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__baseline__r1",
+  "batchId": "confirmfix-3484fd7a",
+  "seed": "1786153613114",
+  "orderIndex": 5,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 27299,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.16840650000000001,
+  "numTurns": 9,
+  "durationMs": 26122,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1821
+  },
+  "contextTraffic": 193337,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 10418,
+  "narrationWords": 43,
+  "finalWords": 115,
+  "finalText": "Build is green. The bug: `resolveRelease` in `packages/shared/config.js` used a shallow `Object.assign` to layer defaults → package overrides → CLI flags. Since `output` and `sourcemap` are nested objects, any layer that touched one key (e.g. `@acme/api`'s `output: { format: 'esm' }`) replaced the whole nested object, wiping out sibling keys like `output.dir` — that's what `build.js`'s bundle stage caught and failed on.\n\nFixed it with a recursive `deepMerge` that merges nested plain objects key-by-key instead of replacing them wholesale, so partial overrides at any layer (defaults, package, or CLI) only touch the keys they name. `verify.js` now passes, confirming the layering rule holds even for CLI overrides the fixtures never shipped, and `build.js` exits 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "32f37752933f3e327c84591c2272d15d7ae27ac7923309e8c8d788f6ef8acac0"
+}

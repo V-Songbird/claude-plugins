@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r2",
+  "batchId": "confirmfix-3484fd7a",
+  "seed": "1786153613114",
+  "orderIndex": 23,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 171709,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.8904708,
+  "numTurns": 49,
+  "durationMs": 166927,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 13598
+  },
+  "contextTraffic": 831132,
+  "apiCalls": 18,
+  "toolCalls": 45,
+  "toolResultChars": 38757,
+  "narrationWords": 12,
+  "finalWords": 118,
+  "finalText": "Wrote `AUDIT.md` at the repo root with all four findings, ordered by severity, and left the service untouched (verified — no source files or `package.json` were edited):\n\n1. **Critical** — `src/routes/internal.js`: no `requireAuth`, so `/internal/metrics` and `/internal/flush-cache` are open to the internet since the VPN was retired.\n2. **Critical** — `src/repo/report.js`: `runSavedReport` builds SQL by string concatenation from unvalidated `filter`/`orderBy` fields — real injection.\n3. **High** — `config/staging.js`: live staging Postgres password hardcoded in the repo.\n4. **Medium** — `package.json`: `fast-parse` pinned to `1.4.2`, the version NOTES.md says was yanked for prototype pollution (fix is `1.4.3`).\n\nEach entry names the file, quotes the relevant code/notes, and gives a one-line fix — nothing was changed in the actual service.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c2819c0974abbdeb46465912bb6aabe7c5495022d5aa3dfa25d586e541e1841c"
+}

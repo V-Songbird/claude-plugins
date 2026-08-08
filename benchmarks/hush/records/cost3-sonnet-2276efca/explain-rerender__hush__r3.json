@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 53,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 7566,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.080202,
+  "numTurns": 1,
+  "durationMs": 5810,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 359
+  },
+  "contextTraffic": 31929,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 140,
+  "finalText": "The usual cause is that \"same\" isn't really the same in React's eyes.\n\nReact checks props by reference, not by value. So if you pass a new object, array, or function each render — like `onClick={() => doThing()}` or `style={{color: 'red'}}` — that's a brand new value every time, even though it looks identical.\n\nA few things to check:\n\n1. **Wrap the child in `React.memo`.** Without it, the child re-renders whenever the parent does, no matter what props it gets.\n2. **Look for inline functions or objects** in the props you pass down. Wrap them in `useCallback` or `useMemo` in the parent so the reference stays stable.\n3. **Check context.** If the child reads from a context provider, any change to that context re-renders it, props aside.\n\nStart with `React.memo` on the child — that alone stops most of this.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bfec67078d281571dae43a1ac72fe9e67d94444da013146add929bd4d42fa09c"
+}

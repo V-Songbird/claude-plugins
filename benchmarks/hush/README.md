@@ -89,13 +89,14 @@ Each run records, per session: cost, output tokens, **context traffic** (the sum
 
 Reports group all of that **by segment**, because a plugin that saves you money on a log-triage session and costs you a little on a one-line question is two different results, not one average. Each segment gets its own median, mean, quartiles, confidence interval, win rate against baseline, and the single worst task regression, named. Correctness is a keyword rubric or a `node` exit code, hand-ground-truthed per task — a degenerate one-word answer fails.
 
-The tasks: **17** in all, across five segments:
+The tasks: **23** in all, across six segments:
 
-- **noisy build and test output** (4) — a build drowning in warnings, a dependency bump that buried a real error, a long CI log, a production log to triage.
+- **noisy build and test output** (6) — a build drowning in warnings, a dependency bump that buried a real error, a long CI log, a production log to triage, a 625-case suite hiding three real failures, and a six-package monorepo build that aborts on a config bug.
 - **ordinary coding** (4) — a rename across a small codebase, plus three no-tools questions that measure how much Claude *says* when there is nothing to compress.
 - **debugging failures** (6) — red test suites with a real bug underneath, including a multi-turn incident that carries one conversation across three prompts, the only way to see what a plugin costs once history has accumulated.
-- **search-heavy work** (2) — orienting in an unfamiliar repo, and sweeping hundreds of call sites for the ones that still use a deprecated argument.
+- **search-heavy work** (3) — orienting in an unfamiliar repo, sweeping hundreds of call sites for the ones that still use a deprecated argument, and finishing a half-done API migration across 76 modules without touching the vendored copy.
 - **durable-document editing** (1) — three rounds of edits to a real on-call runbook, checked for both the edits *and* the document surviving intact.
+- **long sessions that drift** (3) — a feature whose requirements change under it across five prompts, a four-prompt incident investigation over 300KB of logs, and a four-prompt audit of a 61-file service. These are the shapes where history piles up, and the only ones that push a session anywhere near a compaction.
 
 Every repo the tool tasks run in is a purpose-built fixture — a small seeded project with the bug, the noisy log, or the document already in place, not an open-source checkout. That keeps runs comparable and cheap; it also means the suite measures those shapes of work, not the shape of your repo.
 

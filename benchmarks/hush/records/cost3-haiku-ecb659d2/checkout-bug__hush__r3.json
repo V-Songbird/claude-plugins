@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__hush__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 26,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 53080,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.07630310000000001,
+  "numTurns": 13,
+  "durationMs": 51384,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3122
+  },
+  "contextTraffic": 302408,
+  "apiCalls": 11,
+  "toolCalls": 12,
+  "toolResultChars": 7621,
+  "narrationWords": 0,
+  "finalWords": 152,
+  "finalText": "**Fixed the coupon bug.**\n\nThree things were wrong:\n\n1. **Flat coupons subtracted at the wrong time.** The code converted the order total to the target currency, then subtracted the coupon amount. Since coupon amounts are stored in USD, this treated them as if they were already in the customer's currency — making a $10 coupon worth €10 in EUR, which is wrong.\n\n2. **The logic flow made this easy to miss.** Converting first, then deciding whether to subtract, buried the timing bug in two separate branches.\n\n3. **Percentage coupons were fine.** Those apply to a currency-agnostic ratio, so they work the same regardless of when they're applied.\n\nI restructured the function to apply flat coupons to the USD subtotal *before* conversion, and let percentage coupons apply after. Now a $10 coupon on a $100 order in EUR correctly yields (100 - 10) × 0.9 = 81, not 80.\n\nAll 5 tests pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3849759bdb759a60a7cf54613191ec73accef81cf14a56cc83f636b6d66137f7"
+}

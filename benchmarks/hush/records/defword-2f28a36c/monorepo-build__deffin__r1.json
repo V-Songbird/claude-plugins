@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__deffin__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 6,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "deffin",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28165,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.19847009999999998,
+  "numTurns": 9,
+  "durationMs": 26392,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1760
+  },
+  "contextTraffic": 216628,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 10209,
+  "narrationWords": 0,
+  "finalWords": 75,
+  "finalText": "Found it. `packages/shared/config.js` was merging layers with a plain `Object.assign`, so any package that overrode one key inside `output` or `sourcemap` — like `@acme/api` setting `output.format` — lost every sibling key in that object, including `output.dir`. That's what the bundle stage in `build.js` was tripping on after the lint pass.\n\nFixed `resolveRelease` to merge `output` and `sourcemap` one level deep instead of replacing them outright. Build and the full verify suite both pass clean now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b41d7a68e148e984f817df195b5706b39f12f6eaa24cbdf9654c07cc7608eb23"
+}

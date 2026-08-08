@@ -1,0 +1,91 @@
+{
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "model": "sonnet",
+  "reps": 2,
+  "tag": "terse",
+  "arms": [
+    "baseline",
+    "hush",
+    "allnudge",
+    "terse"
+  ],
+  "tasks": [
+    {
+      "id": "failing-suite",
+      "segment": "noisy-output"
+    },
+    {
+      "id": "monorepo-build",
+      "segment": "noisy-output"
+    },
+    {
+      "id": "repo-sweep",
+      "segment": "search-heavy"
+    },
+    {
+      "id": "feature-drift",
+      "segment": "long-session"
+    },
+    {
+      "id": "incident-forensics",
+      "segment": "long-session"
+    },
+    {
+      "id": "marathon-audit",
+      "segment": "long-session"
+    }
+  ],
+  "order": [
+    "failing-suite__terse__r1",
+    "failing-suite__hush__r1",
+    "failing-suite__baseline__r1",
+    "failing-suite__allnudge__r1",
+    "failing-suite__allnudge__r2",
+    "failing-suite__terse__r2",
+    "failing-suite__hush__r2",
+    "failing-suite__baseline__r2",
+    "monorepo-build__baseline__r1",
+    "monorepo-build__hush__r1",
+    "monorepo-build__allnudge__r1",
+    "monorepo-build__terse__r1",
+    "monorepo-build__baseline__r2",
+    "monorepo-build__terse__r2",
+    "monorepo-build__hush__r2",
+    "monorepo-build__allnudge__r2",
+    "repo-sweep__baseline__r1",
+    "repo-sweep__allnudge__r1",
+    "repo-sweep__hush__r1",
+    "repo-sweep__terse__r1",
+    "repo-sweep__baseline__r2",
+    "repo-sweep__allnudge__r2",
+    "repo-sweep__terse__r2",
+    "repo-sweep__hush__r2",
+    "feature-drift__allnudge__r1",
+    "feature-drift__terse__r1",
+    "feature-drift__baseline__r1",
+    "feature-drift__hush__r1",
+    "feature-drift__baseline__r2",
+    "feature-drift__hush__r2",
+    "feature-drift__allnudge__r2",
+    "feature-drift__terse__r2",
+    "incident-forensics__allnudge__r1",
+    "incident-forensics__baseline__r1",
+    "incident-forensics__terse__r1",
+    "incident-forensics__hush__r1",
+    "incident-forensics__hush__r2",
+    "incident-forensics__baseline__r2",
+    "incident-forensics__allnudge__r2",
+    "incident-forensics__terse__r2",
+    "marathon-audit__allnudge__r1",
+    "marathon-audit__baseline__r1",
+    "marathon-audit__terse__r1",
+    "marathon-audit__hush__r1",
+    "marathon-audit__baseline__r2",
+    "marathon-audit__hush__r2",
+    "marathon-audit__terse__r2",
+    "marathon-audit__allnudge__r2"
+  ],
+  "startedAt": "2026-08-08T05:43:41.767Z",
+  "contentSha256": "d3600f42e71c8fec93b9ff70005ea75e70da3537238fab51d403a31dc077d332"
+}

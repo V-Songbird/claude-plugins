@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__lookfurther__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 59,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28908,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.19380910000000004,
+  "numTurns": 9,
+  "durationMs": 27289,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1753
+  },
+  "contextTraffic": 242478,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 5436,
+  "narrationWords": 0,
+  "finalWords": 139,
+  "finalText": "**Found it and fixed it.**\n\n`computeTotal` in `src/pricing/engine.js` rounded to 2 decimal places twice — once right after the percent coupon and again after the flat coupon — before ever converting to the customer's currency. Real pricing should round only once, at the very end, in the target currency's own decimals.\n\nThat double rounding only showed up as pennies off when three things lined up: a percent coupon was in play, the currency wasn't USD, and the exchange rate happened to push the rounded number over a cent boundary. That's why it looked random — GBP, CAD, and JPY carts with `SAVE10PCT` were the ones failing, 10 out of 40 tests.\n\nRemoved the two early `round()` calls so the amount stays exact in USD through both coupon steps, and only rounds once after conversion. All 40 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0290dce54842904711473a991535ed7f192d4bb5c34431e9b95d4b4bf89ed6a9"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 62,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 8477,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0166068,
+  "numTurns": 1,
+  "durationMs": 7017,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 449
+  },
+  "contextTraffic": 21328,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 197,
+  "finalText": "**Merge** combines two branches by creating a new commit that ties them together. Your history stays intact—you see exactly when branches diverged and came back together. Use merge for long-lived branches (main, develop) where history matters for auditing and understanding decisions.\n\n**Rebase** replays your commits on top of another branch, rewriting history so it's linear. It cleans up history but rewrites commits, so anything already pushed gets messy. Use rebase on feature branches before merging to main—keeps the main branch history clean and linear.\n\n**The tradeoff:**\n- **Merge**: Safe, preserves history, but history gets cluttered with lots of merge commits if you sync frequently.\n- **Rebase**: Clean linear history, but you're rewriting commits (which breaks if others have pulled your branch).\n\n**Practical workflow:**\n- On your feature branch: rebase on main frequently to keep up, then do a squash or regular merge into main.\n- On shared long-lived branches (main, develop): never rebase. Always merge or accept a linear pull model.\n\n**Red flag:** Don't rebase after pushing unless you're the only one on that branch, or you'll cause problems for anyone who pulled it. If you've already pushed and need to update, use `git merge main` instead.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5f3a7f54e2c0b566808376233d4e46404e9aa754f48ddfe43c81d75e6bd92386"
+}

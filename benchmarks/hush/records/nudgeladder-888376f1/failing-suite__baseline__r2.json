@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__baseline__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 9,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 24064,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1821938,
+  "numTurns": 11,
+  "durationMs": 22897,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1304
+  },
+  "contextTraffic": 230933,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 14780,
+  "narrationWords": 43,
+  "finalWords": 42,
+  "finalText": "The bug: `orderTotal` in `src/pricing.js` was computing tax on the pre-discount amount instead of the discounted amount — contradicting its own doc comment. Fixed by taxing `discounted` instead of `cents`. Suite is now 625/625 passing, and `verify.js` confirms the fix is legitimate.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5adba10bf6c1d7c390ced8827c8b4bbe6a2d17b2a5342cd2867198f01f69970f"
+}

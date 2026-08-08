@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__turncur__r1",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 18,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "turncur",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 134744,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.8653207,
+  "numTurns": 39,
+  "durationMs": 133207,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10407
+  },
+  "contextTraffic": 1721182,
+  "apiCalls": 39,
+  "toolCalls": 38,
+  "toolResultChars": 24990,
+  "narrationWords": 79,
+  "finalWords": 48,
+  "finalText": "Migration's done — 12 files moved from `db.query` to `db.execute({ sql, params })`, matching the pattern already used across the rest of the codebase. `verify.js` confirms it: no stale call sites, every `execute` call carries both fields, `vendor/legacy-orm/adapter.js` untouched, and every repo function still works end to end.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c2935cc08d5699ef455935c565d28ec1e86eca082387c71566a57fd5d5774e45"
+}

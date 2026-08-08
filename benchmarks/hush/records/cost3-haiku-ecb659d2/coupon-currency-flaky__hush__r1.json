@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 83,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 52381,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0875888,
+  "numTurns": 13,
+  "durationMs": 50894,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3736
+  },
+  "contextTraffic": 288560,
+  "apiCalls": 10,
+  "toolCalls": 12,
+  "toolResultChars": 16388,
+  "narrationWords": 0,
+  "finalWords": 74,
+  "finalText": "Root cause: the code was rounding intermediate values after applying each coupon in USD, before converting to the target currency. This lost precision before the currency conversion and exchange rate multiplication happened, causing 1-2 unit discrepancies in non-USD currencies.\n\nThe fix removes those intermediate rounds. Now it only rounds once at the very end in the target currency's decimal places — which is mathematically correct and matches your reference implementation. All 40 tests pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a5e51b325808338a7d1d6f0205f448a85b8eb6d9712a69bc235fd2cba94cfdbd"
+}

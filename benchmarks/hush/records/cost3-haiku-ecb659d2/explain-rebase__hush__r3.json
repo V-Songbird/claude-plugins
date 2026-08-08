@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 61,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9209,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0224152,
+  "numTurns": 1,
+  "durationMs": 7449,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 514
+  },
+  "contextTraffic": 24083,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 154,
+  "finalText": "**Merge** ties two branches together with a merge commit. You get a full history of both paths. The timeline branches and joins again — you can see that work happened in parallel.\n\n**Rebase** replays your commits on top of the other branch. You get a straight line of changes, as if you'd written them one after the other. History is rewritten, not added to.\n\n**When to merge:** When the branch is shared or already public. When you want to see that two things happened side by side. When you're pulling someone else's work into your own.\n\n**When to rebase:** On your own local branch, before pushing. When you want a clean, readable log. When your commits were based on an older version and you want them on the latest.\n\nThe rule: never rebase what's shared. Once other people have pulled your commits, rewriting them breaks their history. Rebase feels cleaner, but merge is safer.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6ac9060e183ace534f95ab2c79ca8a203fc20a45bbf40dc4feed3c110d183a46"
+}

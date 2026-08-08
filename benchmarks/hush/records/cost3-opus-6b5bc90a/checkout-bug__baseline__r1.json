@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__baseline__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 18,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 46949,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.30903,
+  "numTurns": 15,
+  "durationMs": 45563,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3178
+  },
+  "contextTraffic": 226991,
+  "apiCalls": 9,
+  "toolCalls": 14,
+  "toolResultChars": 8782,
+  "narrationWords": 64,
+  "finalWords": 306,
+  "finalText": "The route just delegates, so the fix is contained to `pricing.js`.\n\n## Root cause\n\n`computeTotal` mixed two currencies in one subtraction. Item prices and flat coupon amounts are both stored in USD (`config.js:3-6`, `coupon.js:3-5`), but the old code converted the subtotal to the checkout currency *first* and then subtracted the raw USD coupon amount from it:\n\n```js\nconst converted = convert(subtotalUsd, order.currency);   // 100 → €90\nreturn round2(converted - coupon.amount);                 // 90 − 10 = €80  ✗\n```\n\nSo a `$10 off` coupon became a `€10 off` / `¥10 off` coupon — the discount silently scaled with the exchange rate. In EUR it over-discounted (a $10 coupon gave $11.11 of value); in JPY it would have been catastrophic (¥10 off ≈ $0.07). Percent coupons were unaffected because scalar multiplication commutes with conversion, which is why only the flat + non-USD combination failed.\n\n## Fix\n\n`src/services/pricing.js` now does all coupon math in the base currency and converts exactly once, at the end:\n\n```js\nconst subtotalUsd = sumItems(order.items);\nconst discountedUsd = applyCoupon(subtotalUsd, coupon);\nreturn round2(convert(discountedUsd, order.currency));\n```\n\nThe coupon-type branching moved into a small `applyCoupon(amountUsd, coupon)` helper that takes and returns USD, which makes the currency contract explicit rather than something you have to infer from where the call sits. Percent coupons keep their existing results (`100 × 0.8 × 0.9 = 72`, same as before), and the flat case is now `(100 − 10) × 0.9 = €81`.\n\nAll 5 tests pass. `computeTotal`'s signature and exports are unchanged, so `routes/checkout.js` and `index.js` needed no updates.\n\nOne thing I noticed but left alone, since it's outside what you asked for: nothing clamps the total at zero, so a flat coupon larger than the subtotal yields a negative total. That was true before this change too — worth a follow-up if coupon amounts aren't validated against order value upstream.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "09bc479ea17560d7504ef90d6c35817b6007379e95c216b270dbaa3991b2ad81"
+}

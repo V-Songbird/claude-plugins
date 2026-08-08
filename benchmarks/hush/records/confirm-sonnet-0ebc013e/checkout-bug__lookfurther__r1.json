@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__lookfurther__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 13,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 21924,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.1626825,
+  "numTurns": 9,
+  "durationMs": 20296,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1322
+  },
+  "contextTraffic": 171476,
+  "apiCalls": 5,
+  "toolCalls": 8,
+  "toolResultChars": 5247,
+  "narrationWords": 0,
+  "finalWords": 48,
+  "finalText": "Found it. `pricing.js` was subtracting the flat coupon after converting to the target currency, but flat coupons are stored in USD. That order swap made `$10 off` act like `10 EUR off`.\n\nFixed it to subtract the coupon in USD first, then convert. All 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ed293cad711858d3376503d6876d1dc52ec45c708f38233ec19537c93e566ecb"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__baseline__r1",
+  "batchId": "pre2-756b4e9f",
+  "seed": "1786174006947",
+  "orderIndex": 9,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 108664,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6819827000000002,
+  "numTurns": 35,
+  "durationMs": 107238,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10692
+  },
+  "contextTraffic": 1153729,
+  "apiCalls": 27,
+  "toolCalls": 34,
+  "toolResultChars": 25563,
+  "narrationWords": 135,
+  "finalWords": 42,
+  "finalText": "Migration complete and verified. All 12 `db.query` call sites across `packages/` (in `sla.js`, `apiKeyAdmin.js`, `teamService.js`, `macroAdmin.js`, `couponService.js`, `session.js`, `returnService.js`, `variantAdmin.js`, `refund.js`, `cohort.js`, `supplier.js`, `shipment.js`) are now `db.execute({ sql, params })`. Left `cache.query` and `vendor/legacy-orm/adapter.js` untouched, as they're unrelated/vendored code. `node verify.js` passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d7ad2baf6d1faa6f673f51f8e346e945b366aa56b657abaec4957a82800cae43"
+}

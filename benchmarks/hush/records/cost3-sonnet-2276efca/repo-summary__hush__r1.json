@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 100,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 24250,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1478292,
+  "numTurns": 8,
+  "durationMs": 22643,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1537
+  },
+  "contextTraffic": 132166,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4680,
+  "narrationWords": 0,
+  "finalWords": 175,
+  "finalText": "This is a small Node HTTP API — five files, no framework, no dependencies.\n\n1. `server.js` — the entry point. Opens an HTTP server, checks the `Authorization` header, then hands the request off.\n2. `auth.js` — checks bearer tokens. Each token is `<userId>.<signature>`, signed with HMAC and a shared secret from `AUTH_SECRET`.\n3. `routes.js` — a small table mapping `METHOD /path` to a handler: list orders, get a user, or add an order.\n4. `cache.js` — a 256-entry LRU cache that sits in front of reads, so repeat lookups skip the store.\n5. `store.js` — the actual data, just an in-memory map. Every record expires 15 minutes after its last write.\n\n```mermaid\nflowchart LR\n  server -->|checks token| auth\n  server --> routes\n  routes -->|reads| cache --> store\n  routes -->|writes| store\n```\n\nOne thing worth knowing before you touch orders: the comment in `routes.js` says writes invalidate the cache, but `putOrder` never actually clears the cached entry. So after adding an order, `GET /orders` can keep serving a stale list until it ages out of the LRU.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c7beb55e2b0ae9debd94947206b3315978204b6f1939ff638a7d70132ffdbd38"
+}

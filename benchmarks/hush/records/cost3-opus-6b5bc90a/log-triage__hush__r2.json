@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 122,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 56454,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.34585599999999994,
+  "numTurns": 9,
+  "durationMs": 54779,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2498
+  },
+  "contextTraffic": 261011,
+  "apiCalls": 9,
+  "toolCalls": 8,
+  "toolResultChars": 8314,
+  "narrationWords": 0,
+  "finalWords": 128,
+  "finalText": "**Redis went down, and the rest fell over behind it.**\n\nThe chain, over 18 minutes:\n\n```mermaid\ngraph LR\n  A[\"Redis refuses<br/>connections 02:14:07\"] --> B[\"Cache off, reads<br/>go straight to store\"]\n  B --> C[\"Store overloads,<br/>5s timeouts\"]\n  C --> D[\"Queue 52 → 568,<br/>cap is 500\"]\n  D --> E[\"worker-2 out of<br/>memory 02:31:44\"]\n  E --> F[\"api killed,<br/>service down 02:31:52\"]\n```\n\nRedis at `10.0.0.12:6379` never came back. All 13 reconnect tries got `ECONNREFUSED`, about 80 seconds apart, and the log ends before a 14th.\n\nEverything after 02:14 is noise from that one cause. The 188 errors are 173 store timeouts plus the 14 Redis ones and one out-of-memory.\n\nOne thing worth a look: these logs are dated **2026-07-04**, not last night. Either the file is stale or you have an older incident on your hands.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "937df7a84347d5dd4cfe0ec5f4a7c22b30af56adff1ae8da134f4696264315f4"
+}

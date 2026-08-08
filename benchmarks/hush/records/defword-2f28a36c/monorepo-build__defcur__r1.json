@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__defcur__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 7,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "defcur",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 30571,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.21898259999999997,
+  "numTurns": 10,
+  "durationMs": 29006,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2198
+  },
+  "contextTraffic": 250374,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 10529,
+  "narrationWords": 0,
+  "finalWords": 84,
+  "finalText": "Found it: `packages/shared/config.js` merged config layers with `Object.assign`, a shallow merge. Any package that only overrode one key inside `output` or `sourcemap` (like `@acme/api` overriding just `format`) lost the rest of that object, including `output.dir` — which is what the bundle stage checks and fails on.\n\nFixed it with a proper deep merge that layers nested objects (defaults → package overrides → CLI flags) without mutating the originals. Build and verify both pass clean now, still with the same 5 lint warnings as before.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b7b9de2a25cef592fcba7ce57d4449d41963e98ee204672d956c95a8e73e3e72"
+}

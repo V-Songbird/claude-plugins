@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 118,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 15316,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0314924,
+  "numTurns": 2,
+  "durationMs": 13867,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 854
+  },
+  "contextTraffic": 50650,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 4602,
+  "narrationWords": 0,
+  "finalWords": 93,
+  "finalText": "Redis went down at 02:14:07 and never came back. When the cache died, every request hit the database directly. The database got slammed and started timing out. Requests piled up in the queue instead of finishing. By 02:31, the backlog was so big the app ran out of memory. worker-2 crashed, and then the supervisor shut down the whole thing.\n\nThe chain: Redis lost → cache bypassed → database overloaded → queue backs up → memory explodes → crash.\n\nCheck if Redis is running and healthy on 10.0.0.12:6379. That's where it all broke.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "18048a7e26411b2fc03922b36849cea60df0cbafff34b1e8eb23eadb5b01129b"
+}

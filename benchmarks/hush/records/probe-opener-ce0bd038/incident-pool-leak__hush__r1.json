@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r1",
+  "batchId": "probe-opener-ce0bd038",
+  "seed": "1786135293353",
+  "orderIndex": 5,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 47236,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.362928,
+  "numTurns": 14,
+  "durationMs": 45615,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2297
+  },
+  "contextTraffic": 271662,
+  "apiCalls": 9,
+  "toolCalls": 13,
+  "toolResultChars": 11286,
+  "narrationWords": 7,
+  "finalWords": 132,
+  "finalText": "**Found the leak: `processOrder` never released a connection when an order failed.**\n\nIt called `pool.acquire()`, then `await run(...)`, then `pool.release(conn)`. A bad order made `run` throw, so the release line never ran. The pool has no reclaim, so each bad order burned a connection for good.\n\nThe worker log shows it plainly. In-use only climbed on the failed jobs:\n\n```\n02:06:15.640 ERROR [worker-1] job order-4122 failed: invalid order payload\n02:06:15.645 WARN  [db] pool in-use: 3/5\n```\n\nAt 5/5 the worker died, and the API followed a few minutes later.\n\nThe request path was already fine. It used `withConnection`, which releases in a `finally`. I made `processOrder` use the same helper. The comment about holding a connection across a retry loop was stale — that loop is gone.\n\nAll 4 tests pass, 0.07s.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bd18188f1160fc16e9358f300258ff3edbaff6f9257a3ea3bdc6153581084197"
+}

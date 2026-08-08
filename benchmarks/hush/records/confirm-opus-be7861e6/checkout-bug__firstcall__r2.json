@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__firstcall__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 15,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 34086,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.28747350000000005,
+  "numTurns": 11,
+  "durationMs": 32158,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1818
+  },
+  "contextTraffic": 201976,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 6449,
+  "narrationWords": 0,
+  "finalWords": 95,
+  "finalText": "**Fixed the flat-coupon bug.** All 5 tests pass in 64ms.\n\n`computeTotal` in `src/services/pricing.js` changed the money into the customer's currency first, then took off the coupon. But flat coupon amounts are stored in USD, so €10 was being taken off instead of $10.\n\nNow it takes the coupon off the USD subtotal, then converts. A $10 coupon on a $100 EUR order gives 81, not 80. Percent coupons are unchanged.\n\nOne thing to watch: a coupon larger than the order still gives a negative total. That was true before too, so I left it alone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "68eaf70d9206c9450e4de5496b93fca2100eab3544861a177e1386103fc13cc4"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__caveman__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 11,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 12755,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.12308729999999998,
+  "numTurns": 6,
+  "durationMs": 11505,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 640
+  },
+  "contextTraffic": 156566,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2190,
+  "narrationWords": 20,
+  "finalWords": 25,
+  "finalText": "All 5 tests pass. Off-by-one bug: `start` used `page * perPage` instead of `(page - 1) * perPage`, shift page 1 into page 2's slot.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0a556ac5af7951030ed4a2dd8fb6993799957a9328400bc6b70c5c9c44427b00"
+}

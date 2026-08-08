@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r2",
+  "batchId": "probe-opener-ce0bd038",
+  "seed": "1786135293353",
+  "orderIndex": 14,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 20845,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.19352350000000001,
+  "numTurns": 8,
+  "durationMs": 18918,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 970
+  },
+  "contextTraffic": 106280,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4625,
+  "narrationWords": 0,
+  "finalWords": 107,
+  "finalText": "**A small Node HTTP service, five files, no package.json and no tests.**\n\n```mermaid\ngraph LR\n  A[server.js] -->|checks token| B[auth.js]\n  A --> C[routes.js]\n  C --> D[cache.js]\n  C --> E[store.js]\n  D --> E\n```\n\n`server.js` opens the port and rejects anyone without a good token. `auth.js` checks bearer tokens signed with a shared secret. `routes.js` holds three routes and turns the result into JSON. Reads go through `cache.js`, a 256-entry cache. `store.js` is a fake database in memory, records expire after 15 minutes.\n\nOne thing to know: the comment says writes clear the cache, but `putOrder` never does. So `GET /orders` keeps serving the old list after a `POST`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "262666684c49829f098ad1780b71119257318f214422bd2306285ff00e385a06"
+}

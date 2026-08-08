@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__defcur__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 19,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "defcur",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 132342,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6093793000000001,
+  "numTurns": 17,
+  "durationMs": 123956,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10098
+  },
+  "contextTraffic": 607342,
+  "apiCalls": 14,
+  "toolCalls": 12,
+  "toolResultChars": 12725,
+  "narrationWords": 0,
+  "finalWords": 28,
+  "finalText": "That's already in there from the start — repeats within 5 minutes of the same `key` return `[]`, no matter the priority. `verify.js` still passes, so nothing changed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c8979cd8940e3ff51b553793dfac0ef8aa22ae7c1d1cdbbcf340a118c813f369"
+}

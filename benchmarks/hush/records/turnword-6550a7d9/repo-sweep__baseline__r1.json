@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__baseline__r1",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 19,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 119096,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.8387098000000001,
+  "numTurns": 42,
+  "durationMs": 117203,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 11130
+  },
+  "contextTraffic": 1421940,
+  "apiCalls": 32,
+  "toolCalls": 41,
+  "toolResultChars": 28404,
+  "narrationWords": 95,
+  "finalWords": 44,
+  "finalText": "Migration complete. All 12 remaining `db.query` call sites in `packages/` (session, cohort, returnService, shipment, refund, couponService, macroAdmin, sla, variantAdmin, supplier, teamService, apiKeyAdmin) now use `db.execute({ sql, params })`. `vendor/legacy-orm/adapter.js` was left untouched (vendored code) and `cache.query` calls were left alone (unrelated API). `verify.js` passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "43e45427d58afac2d074b521ff9a2c67e304e7e33da90e75f368d59544d85388"
+}

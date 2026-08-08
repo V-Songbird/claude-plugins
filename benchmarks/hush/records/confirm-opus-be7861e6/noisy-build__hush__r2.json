@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 27,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 41360,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.24708050000000004,
+  "numTurns": 9,
+  "durationMs": 39603,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1477
+  },
+  "contextTraffic": 167193,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 4795,
+  "narrationWords": 0,
+  "finalWords": 130,
+  "finalText": "**The build passes now.** One real error, and it was hiding at the very end.\n\n`src/core/settings.js` used a bare name `retries` that was never declared, so the link step crashed with `ReferenceError: retries is not defined`. It now reads `env.retries` and falls back to a new `DEFAULT_RETRIES` of 2.\n\n`node build.js` exits 0: cache 512, parallelism 4, retries 3.\n\nThe 3 warnings are still there and none of them break the build:\n\n| Code | Where |\n| --- | --- |\n| `W1042` deprecated `crypto.createCipher` | `src/legacy/adapter.js` |\n| `W2213` unused export `formatLegacyDate` | `src/utils/format.js` |\n| `W3307` circular import | `src/core/graph.js` ↔ `src/state/tracker.js` |\n\nThose files don't exist in this tree, so the warnings are baked into `build.js` text. Happy to clear them if you want quiet output.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2372b3f02aa54787d5f592f8f1653c95df1d54ea8b55e5943f7de68ec318f276"
+}

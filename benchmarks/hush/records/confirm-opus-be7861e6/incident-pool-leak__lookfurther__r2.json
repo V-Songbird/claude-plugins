@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 53,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 219764,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 1.111816,
+  "numTurns": 25,
+  "durationMs": 218166,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 12693
+  },
+  "contextTraffic": 736826,
+  "apiCalls": 17,
+  "toolCalls": 24,
+  "toolResultChars": 40573,
+  "narrationWords": 9,
+  "finalWords": 151,
+  "finalText": "**Found the leak — it's in `processOrder`.**\n\nIt acquired a connection, then only released after `run` succeeded. A rejected order jumped straight past the release, so that connection was gone for good.\n\nThe worker log matches exactly: 125 jobs started, 120 released, 5 failed on `invalid order payload`. Five lost connections in a pool of five, then `giving up after repeated pool exhaustion, exiting`.\n\nFix: `processOrder` now goes through `withConnection`, which releases in a `finally`. All 4 tests pass, 88ms.\n\nOne thing I could not pin on this code. The api process climbed to `5/5 in use` at 02:11 while every request was still returning 200 — no failure to leak on. `handleRequest` is clean and its test passed. Whatever drains the api pool lives outside this tree.\n\nWorth a follow-up: `pool.js` has no reclaim, so one missed release is permanent until restart. That is why both processes needed the supervisor.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "886e329dcb80f2b848adc51a4098ef77c08ca3467cee0f7c712d629f8eeb24fe"
+}

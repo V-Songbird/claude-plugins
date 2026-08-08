@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__caveman__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 137,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 41406,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.061075500000000005,
+  "numTurns": 9,
+  "durationMs": 36357,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2755
+  },
+  "contextTraffic": 233891,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 6261,
+  "narrationWords": 0,
+  "finalWords": 28,
+  "finalText": "Done. Updated all three mentions of admin port 8081 to 9090 for production:\n- Health check command\n- Security issue note\n- Environment reference table (staging stays 8091)",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a14f3360f48a3583b8a69282197afef82120b6b3a889a979da2b120bf8cbceb2"
+}

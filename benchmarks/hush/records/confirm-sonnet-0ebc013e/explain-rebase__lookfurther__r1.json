@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__lookfurther__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 38,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 6174,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.078318,
+  "numTurns": 1,
+  "durationMs": 4549,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 219
+  },
+  "contextTraffic": 31966,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 128,
+  "finalText": "Rebase and merge both bring one branch's changes into another, but they do it differently.\n\nMerge keeps both branches' history as it happened, and adds one new commit that ties them together. Rebase rewrites your branch's commits so they look like they were built on top of the latest main line, with no tie-together commit at all.\n\nReach for merge on shared branches, like when you're bringing a feature into main. It's safe because it never changes commits other people already have.\n\nReach for rebase on your own branch, before you share it, to clean up your commits or catch your branch up with main. Avoid rebasing commits that others have already pulled, since it rewrites them and can cause a mess for anyone else using that branch.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "64827732c1c3fa24a2bcdffabe81ca6d6b907a6e31216555e7cd8c1d8ad2069d"
+}

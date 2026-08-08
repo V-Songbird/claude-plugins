@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__baseline__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 37,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 41761,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.24075549999999998,
+  "numTurns": 10,
+  "durationMs": 40417,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2485
+  },
+  "contextTraffic": 170777,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 4949,
+  "narrationWords": 73,
+  "finalWords": 232,
+  "finalText": "The build passes now — exit 0, both artifacts emitted.\n\n**The actual break:** `src\\core\\settings.js:17` had `maxRetries: retries` — a bare identifier that was never declared or imported. Under `'use strict'` that's a `ReferenceError` at call time, which aborted the link stage. It's now `env.retries ?? DEFAULT_MAX_RETRIES`, reading from the function's `env` argument with a new module-level constant as the fallback the comment described. I used `??` rather than `||` so an explicit `retries: 0` is honored instead of silently becoming 3.\n\n**On \"building clean\":** the 3 warnings are still there. They're genuine code issues, but all in files that don't exist in this tree (`src/legacy/adapter.js`, `src/utils/format.js`, `src/core/graph.js`, `src/state/tracker.js`) — `src\\core\\settings.js` is the only source file present, so the warnings are emitted unconditionally by `build.js` and can't be fixed from here. The build reports them as warnings, not errors, so they don't affect the exit code. If you want them gone, I'd need the rest of the source tree:\n\n- **W1042** — `crypto.createCipher` is deprecated and insecure (derives the key/IV from a password with a single unsalted MD5 pass); the fix is `crypto.createCipheriv` with an explicit key and random IV.\n- **W2213** — unused export, safe to delete once you confirm nothing external consumes it.\n- **W3307** — the circular import is the one worth real attention; undefined resolution order between `graph.js` and `tracker.js` can surface as an intermittent `undefined` at import time.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ff599cf93012fce25fc750dd4a37ca8cc665ae07524e692c87c9529af608fdf8"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__baseline__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 28,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 119200,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.38015969999999993,
+  "numTurns": 13,
+  "durationMs": 111678,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 9772
+  },
+  "contextTraffic": 341844,
+  "apiCalls": 9,
+  "toolCalls": 8,
+  "toolResultChars": 11199,
+  "narrationWords": 71,
+  "finalWords": 41,
+  "finalText": "That's already in place too — `route()` tracks `lastSeen` per `key` in `state`, and drops (`[]`) any event whose `key` last fired fewer than 5 minutes ago. `verify.js`'s repeat-suppression probes (`dup`, `crit` keys) already confirm this and pass. No change needed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "224bbd92a648dcc1805b93d201f4df8879c382d25584cfa556a800629b525bfe"
+}

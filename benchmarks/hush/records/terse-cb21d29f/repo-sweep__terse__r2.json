@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__terse__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 22,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "terse",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 87037,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6892009,
+  "numTurns": 55,
+  "durationMs": 85063,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 11100
+  },
+  "contextTraffic": 392351,
+  "apiCalls": 9,
+  "toolCalls": 54,
+  "toolResultChars": 32827,
+  "narrationWords": 15,
+  "finalWords": 63,
+  "finalText": "Done. Found 12 stragglers still calling `db.query` and moved them all to `db.execute({ sql, params })`, matching the pattern already used across the rest of the codebase.\n\nThe vendored `vendor/legacy-orm/adapter.js` was left untouched, since that's third-party code that gets overwritten on upgrade anyway. `verify.js` confirms it: no stale call sites, no accidental edits to `cache.query`, and every module still runs correctly against `db.execute`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "86ead49a465f6ae5a8757aed784e1e59fdb1d9ab4615e51fc9efee8193ce0eee"
+}

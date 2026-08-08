@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__baseline__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 151,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 24886,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.301302,
+  "numTurns": 5,
+  "durationMs": 23471,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1168
+  },
+  "contextTraffic": 154388,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 25725,
+  "narrationWords": 5,
+  "finalWords": 162,
+  "finalText": "**700 tests, 698 passed, 2 failed.** Both failures are in the same file, `auth/tokens.test.js`:\n\n1. **`refreshToken silently accepts an already-revoked token`** — `auth/tokens.test.js:400` (log line 302, at test index 300)\n2. **`sessionCleanup leaves orphaned rows after a rollback`** — `auth/tokens.test.js:650` (log line 553, at test index 550)\n\nEverything else passed cleanly; no skips, errors, or timeouts anywhere in the file.\n\nTwo notes worth flagging:\n\n- Both failures cluster in the auth/token lifecycle, and the first one is security-relevant — a revoked token still being accepted on refresh is an auth bypass, not just a flaky test. I'd treat that as the priority.\n- The log has no trailing summary line (it just ends after test 699), and the failing entries carry no stack traces or assertion diffs — only the test name and source line. So there's nothing in this file explaining *why* they failed; you'd need the raw CI job output or a local re-run of those two tests for that.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "acd63f72d77f23025424efa5ba8a45786006f587a10d940d075990464c1cb2d8"
+}

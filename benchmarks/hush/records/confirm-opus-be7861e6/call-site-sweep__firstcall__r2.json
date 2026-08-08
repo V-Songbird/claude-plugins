@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__firstcall__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 75,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 46638,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.2881925,
+  "numTurns": 10,
+  "durationMs": 45108,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2595
+  },
+  "contextTraffic": 168895,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 5340,
+  "narrationWords": 0,
+  "finalWords": 76,
+  "finalText": "**17 call sites still pass the flag.** `src/reports/quarterly.js` has the most, with 5.\n\nAll of them pass `true`, so every one is asking for the old rounding. The rest by file:\n\n| File | Calls |\n| --- | --- |\n| `src/reports/quarterly.js` | 5 |\n| `src/admin/exports.js` | 3 |\n| `src/billing/invoice.js` | 3 |\n| `src/checkout/cart.js` | 2 |\n| `src/reports/monthly.js` | 2 |\n| `src/billing/statement.js` | 1 |\n| `src/checkout/receipt.js` | 1 |",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6e2c1855667da75b3946968632453d3a836ec21e62178e1fb22d92afd5a81222"
+}

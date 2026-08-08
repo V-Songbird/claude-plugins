@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 46,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9499,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0172348,
+  "numTurns": 1,
+  "durationMs": 7993,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 574
+  },
+  "contextTraffic": 21329,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 190,
+  "finalText": "The most common cause is **props are being recreated on each render** even though their values are the same. Objects and functions have different reference identity each time, so React treats them as \"new\" props:\n\n```jsx\n// ❌ Creates a new object every render\n<Child data={{name: \"John\"}} />\n\n// ❌ Creates a new function every render  \n<Child onClick={() => handleClick()} />\n\n// ✅ Stable reference\nconst data = {name: \"John\"};\n<Child data={data} />\n```\n\nOther common causes:\n\n**Parent re-renders** — Even with stable props, if the parent re-renders, the child re-renders by default. Fix with `React.memo()`:\n\n```jsx\nconst Child = React.memo(({prop1, prop2}) => {\n  return <div>{prop1}</div>;\n});\n```\n\n**Context updates** — If the child consumes a context that updates, it re-renders even if the context value isn't used in props.\n\n**useCallback for function props** — Wrap functions passed as props:\n\n```jsx\nconst handleClick = useCallback(() => {\n  // handler\n}, [dependencies]);\n\n<Child onClick={handleClick} />\n```\n\nTo debug what's causing the re-render, add a log in the child:\n\n```jsx\nconsole.log('Child rendered');\nreturn <div>...</div>;\n```\n\nDo you have code you're working with? I can identify the exact cause and suggest the fix.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a344acb53cc0b3a03d27f221a10fd840fdab175483d4682804db15a6cae41366"
+}

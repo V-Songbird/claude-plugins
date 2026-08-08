@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__baseline__r2",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 27,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 73900,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.4291599,
+  "numTurns": 18,
+  "durationMs": 68364,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4430
+  },
+  "contextTraffic": 711554,
+  "apiCalls": 18,
+  "toolCalls": 14,
+  "toolResultChars": 23512,
+  "narrationWords": 25,
+  "finalWords": 237,
+  "finalText": "## On-Call Handoff — Gateway 503s\n\n**Status:** Ongoing at end of available logs (03:59:27Z) — not yet resolved.\n\n**Impact window:** 2026-03-14 02:14:18Z → at least 03:59:27Z (~1h45m and counting). First failure: `req-07401 /v1/cart -> billing-svc 503`. Backlog has climbed the entire time — pool `waiting` count grew from 13 to 74 — so it's actively getting worse, not stabilizing.\n\n**Scope:** Gateway only. Affects pool-gated routes (`/v1/cart`, `/v1/session`, `/v1/checkout`, `/v1/orders`, `/v1/catalog/search`) across all upstreams (billing-svc, orders-svc, catalog-svc, accounts-svc). `/health` unaffected (200s throughout, doesn't touch the pool). Workers (`logs/worker.log`) are clean — jobs finishing ok with normal db_wait times, no related errors. This is isolated to the gateway's connection pool.\n\n**Root cause:** `dep-4471` (gateway, a.novak, 02:12:00–02:14:00Z) — *\"config: connection-per-request for pool isolation.\"* Applied as config generation 119 at 02:13:41Z, flipping `gateway.pool.perRequest: false -> true` (also bumped `upstreamMs` timeout 2000→2500). Pool size stayed fixed at 20. First slow-acquire warning at 02:14:14Z, first 503 four seconds later at 02:14:18Z — the per-request connection change is what drove the pool to exhaust (`ERROR pool ... ERR_POOL_EXHAUSTED acquiring connection from pool (size 20, in_use 20, waiting N)`).\n\n**Action: roll back `dep-4471`** (gateway config generation 119 → 118, specifically revert `gateway.pool.perRequest` to `false`). No other deploy in `deploys.csv` is near the incident window (next one, `dep-4472`, doesn't start until 02:41Z, well after onset).\n\n**Not related:** one `WARN` in worker.log at 02:36:22Z (slow unindexed query) — pre-flagged as known issue OPS-2210, unrelated to this incident.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "be38b2509823ef8536ee3626180169b55b7ecb449b385daf5fcf8464565c723f"
+}

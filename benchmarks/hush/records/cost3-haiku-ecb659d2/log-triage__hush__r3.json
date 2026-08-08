@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 125,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 15392,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.031984399999999996,
+  "numTurns": 2,
+  "durationMs": 13847,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 962
+  },
+  "contextTraffic": 50626,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 4602,
+  "narrationWords": 0,
+  "finalWords": 201,
+  "finalText": "Redis crashed at 02:14:07 (connection refused to 10.0.0.12:6379), and your app didn't survive losing it.\n\nWithout caching, every request hit the database directly. The store couldn't keep up — requests timed out after 5 seconds, and new ones piled into the queue faster than they drained. Queue depth climbed past your 500-item limit, hitting 562–568 by 02:31.\n\nThe backlog consumed memory steadily. At 02:31:44, a worker process exhausted the JavaScript heap and crashed. A minute later, the API was unresponsive, so the supervisor killed everything.\n\n**The core issue:** When Redis went down, there was no circuit breaker or load shedding to keep the store from drowning. Every incoming request tried the database, amplifying the problem.\n\nQuick wins: (1) Add a cache circuit breaker that returns an error or cached stale data if Redis is down, instead of hammering the store. (2) Implement request queue backpressure — once the queue hits a threshold, reject new requests rather than letting it grow. (3) Monitor Redis health separately so you catch the outage before the cascade.\n\nRedis also never reconnected during those 17 minutes of retries — worth checking if the Redis instance is actually back, or if the network route is still broken.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6eb81df0ab441bd05e10e118f5a3d055d2a20e3e8318e067c03687af364fc2f4"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__hush__r1",
+  "batchId": "confirmfix-3484fd7a",
+  "seed": "1786153613114",
+  "orderIndex": 12,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 100109,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5966182,
+  "numTurns": 25,
+  "durationMs": 92696,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5224
+  },
+  "contextTraffic": 967279,
+  "apiCalls": 24,
+  "toolCalls": 20,
+  "toolResultChars": 17879,
+  "narrationWords": 6,
+  "finalWords": 31,
+  "finalText": "Repeats within 5 minutes of the same key now get dropped instead of resent — the replay shows 99 drops that weren't there before, with everything else routing as it did.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "590cd51061ebbdd186ad1834cfe1662810ff2808144239c1fdf02e9b720d73e0"
+}

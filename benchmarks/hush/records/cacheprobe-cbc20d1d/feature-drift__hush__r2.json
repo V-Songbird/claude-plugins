@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__hush__r2",
+  "batchId": "cacheprobe-cbc20d1d",
+  "seed": "1786151075446",
+  "orderIndex": 5,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 149570,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.7232839999999999,
+  "numTurns": 22,
+  "durationMs": 141660,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10699
+  },
+  "contextTraffic": 879952,
+  "apiCalls": 20,
+  "toolCalls": 17,
+  "toolResultChars": 14604,
+  "narrationWords": 0,
+  "finalWords": 31,
+  "finalText": "That's already how it works — a repeat of the same `key` within 5 minutes of the last delivery gets dropped, at every priority. No change needed, and `verify.js` still passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "80896cccd046065824f22b369bb6ac7fa6409b568236964d564bcd148d634545"
+}

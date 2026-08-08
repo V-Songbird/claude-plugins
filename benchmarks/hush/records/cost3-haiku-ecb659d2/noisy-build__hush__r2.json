@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 39,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 38690,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.08607950000000002,
+  "numTurns": 9,
+  "durationMs": 37103,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2045
+  },
+  "contextTraffic": 252205,
+  "apiCalls": 8,
+  "toolCalls": 8,
+  "toolResultChars": 38332,
+  "narrationWords": 0,
+  "finalWords": 58,
+  "finalText": "Build is clean. The real error was hiding in `src/core/settings.js:17` — the `resolveConfig` function referenced an undefined variable `retries` instead of accessing it from the environment parameter. Changed it to `env.retries || 3`, and now it picks up the value passed by the build script. The three warnings remain, but those are legitimate code quality notes, not blockers.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "23cfe35047908994633f48fd7a806a1edc6b41f0ec1e438f2a1d45da7cb8e0f5"
+}

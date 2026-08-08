@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__hush__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 9,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 25438,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0443298,
+  "numTurns": 7,
+  "durationMs": 22650,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1609
+  },
+  "contextTraffic": 128432,
+  "apiCalls": 5,
+  "toolCalls": 6,
+  "toolResultChars": 2432,
+  "narrationWords": 0,
+  "finalWords": 25,
+  "finalText": "Pages are 1-indexed, but the start calculation wasn't subtracting 1. Changed `page * perPage` to `(page - 1) * perPage`. All 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ed4a171a482d9c601e6b0e35af9c0625d722fc3bbbc72c092ddaf4ed8352a176"
+}

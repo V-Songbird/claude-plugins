@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 28,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 43112,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.28443950000000007,
+  "numTurns": 9,
+  "durationMs": 40970,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2082
+  },
+  "contextTraffic": 198590,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 5118,
+  "narrationWords": 0,
+  "finalWords": 111,
+  "finalText": "**The build is green again.**\n\nOne real error was hiding in the noise. `src/core/settings.js` used a bare `retries` that was never declared, so the link step threw `ReferenceError: retries is not defined`. It now reads `env.retries` and falls back to a new `DEFAULT_RETRIES` constant of `3`.\n\nBuild exits 0 with 3 warnings, 0 errors. Those three warnings are separate, smaller issues:\n\n| Code | What it says |\n| --- | --- |\n| `W1042` | `src/legacy/adapter.js` uses the retired `crypto.createCipher` |\n| `W2213` | `formatLegacyDate` in `src/utils/format.js` is exported but unused |\n| `W3307` | `src/core/graph.js` and `src/state/tracker.js` import each other |\n\nSay the word and I'll clear those too.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9124a7d91881d40b7825e2e70c7a5e9cb6eefa0fc109d88184cdfd33f3efc1f7"
+}

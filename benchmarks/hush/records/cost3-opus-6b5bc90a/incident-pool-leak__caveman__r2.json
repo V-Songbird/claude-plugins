@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__caveman__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 75,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 52602,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.7075654999999998,
+  "numTurns": 15,
+  "durationMs": 51331,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3079
+  },
+  "contextTraffic": 446788,
+  "apiCalls": 10,
+  "toolCalls": 14,
+  "toolResultChars": 53259,
+  "narrationWords": 11,
+  "finalWords": 318,
+  "finalText": "Fixed. Tests 4/4 green.\n\n## Leak\n\n`src/jobs/processOrder.js:9` — release after `await`, no `try/finally`:\n\n```js\nconst conn = pool.acquire();\nconst result = await run(conn, order); // rejects for a bad order\npool.release(conn);                    // never runs on reject\n```\n\nBad order rejects, `release` skipped, connection stuck in `inUse` forever. `Pool` has no reaper (`src/db/pool.js:3-5`), so leak permanent.\n\nRequest path never leaked — `handlers/api.js` goes through `withConnection`, which has `finally`.\n\n## Logs match\n\nworker.log — failed jobs miss `connection released`, in-use ratchets one per failure, never back down:\n```\n02:06:15.640 ERROR [worker-1] job order-4122 failed: invalid order payload\n02:06:15.645 WARN  [db] pool in-use: 3/5\n02:06:20.440 ERROR [worker-1] job order-4123 failed: invalid order payload\n02:06:20.445 WARN  [db] pool in-use: 4/5\n```\nNote `02:06:25.245 WARN [db] pool in-use: 4/5` — order-4124 succeeded, released, stayed 4/5. Only failures ratchet. Then 5/5 at `02:06:30.045`, exhaustion at `02:06:33.000`, worker-1 `FATAL` exit `02:06:35.100`.\n\napp.log lagged behind worker — leak was worker-side, but pool shared, so API starved too: high-utilization climb 2/5 at `02:09:59.200` up to 5/5 at `02:11:14.800`, then sustained `acquire timeout` / `503 (pool exhausted)` until supervisor restarts at `02:13:36.800`. `cron tick: reap-idle-connections ok` lines are misleading — that reaper does not touch this pool.\n\n## Fix\n\n`processOrder` now delegates to `withConnection`, same as request path. Comment updated — it claimed a retry loop needed manual hold, but that loop is gone.\n\n```js\nasync function processOrder(pool, order, run) {\n  return withConnection(pool, (conn) => run(conn, order));\n}\n```\n\n## Note on test command\n\n`node --test tests/` fails with `MODULE_NOT_FOUND` on this Node (v22.22.2) — path arg treated as module, not test glob. Not a code bug. Use `node --test` or `node --test tests/pool.test.js`. Both green.\n\n## Worth doing next\n\nPool has no defense in depth — a future missed release is again permanent. Consider acquire timeout + in-use age reaper, or making `acquire` private so `withConnection` is the only entry point. Say word if you want it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8521349ffc6d6837f6dcb87eeb7e9a98f9d4d463f61b06eedd786551881cf3b8"
+}

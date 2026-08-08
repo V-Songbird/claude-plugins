@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__hush__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 20,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 38198,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.0634967,
+  "numTurns": 9,
+  "durationMs": 36543,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2604
+  },
+  "contextTraffic": 237274,
+  "apiCalls": 9,
+  "toolCalls": 8,
+  "toolResultChars": 4794,
+  "narrationWords": 0,
+  "finalWords": 74,
+  "finalText": "Fixed. The issue was that flat coupons are stored in USD but were being subtracted directly from the currency-converted total — comparing dollars to euros, say. I converted the coupon amount to the target currency first.\n\nFor a $100 order in EUR with a $10 coupon: the old code gave 90 - 10 = 80 EUR, but the right answer is (100 - 10) × 0.9 = 81 EUR. All 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "51dcd75fb39da1d1beee766fa0a4b596e85557f0a6eae77c20f6850f9c1e3145"
+}

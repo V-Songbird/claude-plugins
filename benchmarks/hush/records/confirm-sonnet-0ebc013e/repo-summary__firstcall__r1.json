@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__firstcall__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 67,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34276,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.1607409,
+  "numTurns": 8,
+  "durationMs": 32616,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2381
+  },
+  "contextTraffic": 132264,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4531,
+  "narrationWords": 0,
+  "finalWords": 145,
+  "finalText": "**Five small files, no outside dependencies — a plain Node HTTP app.**\n\n```mermaid\ngraph LR\n  Request --> server.js --> auth.js\n  server.js --> routes.js --> cache.js --> store.js\n```\n\n- `server.js` — the front door. Checks the token, then hands the request to the route table.\n- `auth.js` — checks bearer tokens signed with a shared secret, set by `AUTH_SECRET`.\n- `routes.js` — matches method and path to a handler. Reads go through the cache, writes go straight to storage.\n- `cache.js` — holds the last 256 reads in memory, no expiry of its own.\n- `store.js` — the actual data, kept in memory, each record expiring 15 minutes after it's last written.\n\nOne thing to flag: posting a new order doesn't clear that order list from the cache. A read right after a write can come back stale until that cache slot gets pushed out.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "73e96a4b597f5e95664ba1ee63b29ea57249025775baedddbf94ec5cf18e946a"
+}

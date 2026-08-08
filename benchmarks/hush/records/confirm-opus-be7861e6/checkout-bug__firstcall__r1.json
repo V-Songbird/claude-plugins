@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__firstcall__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 12,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 36452,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.308228,
+  "numTurns": 12,
+  "durationMs": 34647,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1782
+  },
+  "contextTraffic": 234274,
+  "apiCalls": 8,
+  "toolCalls": 11,
+  "toolResultChars": 7278,
+  "narrationWords": 6,
+  "finalWords": 60,
+  "finalText": "**Fixed the coupon bug.**\n\n`pricing.js` changed money into the checkout currency first, then took off the flat coupon. But flat coupon amounts are kept in USD. So a $10 coupon became €10 off. Now the coupon comes off the USD subtotal, and the result is converted. I also stop the total going below zero.\n\nAll 5 tests pass in 0.07s.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "30995be78adf9f52b236e156f66266a16e4b4d60477530e50e719526202701cb"
+}

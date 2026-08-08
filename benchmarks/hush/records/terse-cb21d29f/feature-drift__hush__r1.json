@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__hush__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 27,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 136567,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5857962999999999,
+  "numTurns": 17,
+  "durationMs": 127733,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10357
+  },
+  "contextTraffic": 597197,
+  "apiCalls": 14,
+  "toolCalls": 12,
+  "toolResultChars": 12111,
+  "narrationWords": 0,
+  "finalWords": 26,
+  "finalText": "That's already how it works — a repeat within 5 minutes of the same key's last delivery gets dropped, no matter the priority. `verify.js` still passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6336f1b37547dc5bb2195d8531eaa6818e8acd875e8ef818b4583cf56bb46c46"
+}

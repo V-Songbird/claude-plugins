@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__deffin__r2",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 3,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "deffin",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 19377,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.20067379999999999,
+  "numTurns": 11,
+  "durationMs": 17667,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1107
+  },
+  "contextTraffic": 218630,
+  "apiCalls": 6,
+  "toolCalls": 10,
+  "toolResultChars": 14840,
+  "narrationWords": 0,
+  "finalWords": 50,
+  "finalText": "Found it. `orderTotal` was taxing the original price instead of the discounted one, so any order with both a discount and tax came out wrong. In `src/pricing.js:41`, `roundCents(cents * taxRate)` now reads `roundCents(discounted * taxRate)`.\n\nAll 625 cases pass and `verify.js` confirms it's a real fix, not a rewritten test.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "42042e3ab4fabb0ebccb9015203252b19f70e29115585b2a4df1fc1c3caa15bd"
+}

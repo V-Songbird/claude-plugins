@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 80,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 48795,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1233439,
+  "numTurns": 18,
+  "durationMs": 47507,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3031
+  },
+  "contextTraffic": 452981,
+  "apiCalls": 11,
+  "toolCalls": 17,
+  "toolResultChars": 53899,
+  "narrationWords": 175,
+  "finalWords": 113,
+  "finalText": "Excellent! Found and fixed the connection leak. \n\n**The Problem:** In `processOrder.js`, when an order failed validation, the connection was never released back to the pool. If the `run(conn, order)` call rejected (for invalid payload), execution would jump to the catch/error handler without executing `pool.release(conn)`.\n\n**The Solution:** Wrapped the connection handling in a try/finally block, ensuring the connection is always released even when validation fails. This matches the safe pattern already used in the API handler's `withConnection` wrapper.\n\n**Evidence from logs:** Starting at 2:06am, jobs with \"invalid order payload\" were accumulating and holding connections. By 2:10am, all 5 pool connections were exhausted and the service crashed with 503 errors.\n\nAll tests now pass ✓",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "07e2b8e1388d531e681ba84404a77070661283deab6361be00fc7f801f4e7772"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__caveman__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 48,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10313,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0194578,
+  "numTurns": 1,
+  "durationMs": 8818,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 531
+  },
+  "contextTraffic": 22854,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 162,
+  "finalText": "Parent re-renders, so child re-renders. React re-renders child component whenever parent re-renders, regardless of prop changes—that's default behavior.\n\n**Most common culprit:** Inline objects or functions passed as props.\n\n```jsx\n// Bad — new object ref each render\n<Child data={{ name: 'John' }} />\n\n// Bad — new function each render  \n<Child onClick={() => handleClick()} />\n```\n\nEach render creates new object/function reference. Child sees \"different\" prop, re-renders.\n\n**Fix:**\n\n```jsx\n// Move outside component\nconst DATA = { name: 'John' };\n<Child data={DATA} />\n\n// Or use useMemo\n<Child data={useMemo(() => ({ name: 'John' }), [])} />\n<Child onClick={useCallback(() => handleClick(), [])} />\n```\n\n**Verify it's actually unnecessary:** Add `React.memo` to child. If re-renders stop, props were changing. If they continue, parent re-rendering without prop change.\n\n```jsx\nconst Child = React.memo(({ data }) => {\n  console.log('Child rendered');\n  return <div>{data.name}</div>;\n});\n```\n\nCheck console — if \"Child rendered\" logs every time even with memo, parent is re-rendering unnecessarily (look for state updates in parent).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f5ccb7b12e437b4eaf16c01b20278eb7429426fbd9d476878b0fb609cc5e5bab"
+}

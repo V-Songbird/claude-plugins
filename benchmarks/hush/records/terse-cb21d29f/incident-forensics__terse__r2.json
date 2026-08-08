@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__terse__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 39,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "terse",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 67564,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.4264932,
+  "numTurns": 14,
+  "durationMs": 60449,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3707
+  },
+  "contextTraffic": 565721,
+  "apiCalls": 14,
+  "toolCalls": 10,
+  "toolResultChars": 15323,
+  "narrationWords": 0,
+  "finalWords": 122,
+  "finalText": "```\nON-CALL HANDOFF — gateway 503s\n\nROOT CAUSE\ndep-4471 (gateway, a.novak): \"config: connection-per-request\nfor pool isolation.\" Deployed 02:12-02:14 UTC. Config reload\n(generation 119) applied at 02:13:41 flipped\ngateway.pool.perRequest from false to true. All 20 pool\nconnections stayed checked out, new requests queued and timed\nout around 660-850ms, returning 503 with\nERR_POOL_EXHAUSTED (size 20, in_use 20, waiting N).\n\nIMPACT WINDOW\n2026-03-14 02:14:18 UTC to at least 03:59:27 UTC (end of\ncurrent log — still active, queue depth growing from 13 to\n74+ waiters). Gateway only. worker.log shows no related\nerrors in the same window; workers ran clean.\n\nROLLBACK\nRevert dep-4471 — set gateway.pool.perRequest back to false.\n```\n\nThat's the whole story: one config flag, still ongoing as of the last log line, gateway-only.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5e3f0a23b6cbd8e093e5bfccc4212829d142646f58532501767ff338fb1f4fc3"
+}

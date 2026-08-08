@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__lookfurther__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 0,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 30887,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.387251,
+  "numTurns": 8,
+  "durationMs": 29047,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 939
+  },
+  "contextTraffic": 188266,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 2237,
+  "narrationWords": 7,
+  "finalWords": 65,
+  "finalText": "**Fixed the expiry check.**\n\n`isExpired` used `token.exp < nowSeconds`, so a token whose expiry time had just arrived still counted as valid. The comment right above it says a token is expired the moment `exp` is reached, so the check is now `<=`.\n\nAll 5 tests pass in 0.06s.\n\nOne note: `node --test tests/` fails with `MODULE_NOT_FOUND` from that folder. Run `node --test tests/token.test.js` instead.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5658a35c5e9119f28ba45eb15a62faf8cb8aeedf35e1e613a9914bd31fa5355f"
+}

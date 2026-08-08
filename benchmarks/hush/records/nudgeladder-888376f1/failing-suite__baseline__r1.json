@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__baseline__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 0,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 20528,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1594937,
+  "numTurns": 9,
+  "durationMs": 19215,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1119
+  },
+  "contextTraffic": 166376,
+  "apiCalls": 5,
+  "toolCalls": 8,
+  "toolResultChars": 15309,
+  "narrationWords": 26,
+  "finalWords": 45,
+  "finalText": "All 625 cases pass and `verify.js` confirms it. The bug: `orderTotal` in `src/pricing.js` was computing tax on the pre-discount amount instead of the discounted amount, contradicting the rule that tax applies to what the customer actually pays. Fixed by applying tax to the discounted total.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "930f4e806f38b4e7c7b3f91c04eb42cda2483212542ff03d2934e59a36f7f21a"
+}

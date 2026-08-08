@@ -1,0 +1,41 @@
+{
+  "batchId": "pre2-756b4e9f",
+  "seed": "1786174006947",
+  "model": "sonnet",
+  "reps": 2,
+  "tag": "pre2",
+  "arms": [
+    "baseline",
+    "prenudge"
+  ],
+  "tasks": [
+    {
+      "id": "failing-suite",
+      "segment": "noisy-output"
+    },
+    {
+      "id": "monorepo-build",
+      "segment": "noisy-output"
+    },
+    {
+      "id": "repo-sweep",
+      "segment": "search-heavy"
+    }
+  ],
+  "order": [
+    "failing-suite__baseline__r1",
+    "failing-suite__prenudge__r1",
+    "failing-suite__prenudge__r2",
+    "failing-suite__baseline__r2",
+    "monorepo-build__prenudge__r1",
+    "monorepo-build__baseline__r1",
+    "monorepo-build__baseline__r2",
+    "monorepo-build__prenudge__r2",
+    "repo-sweep__prenudge__r1",
+    "repo-sweep__baseline__r1",
+    "repo-sweep__prenudge__r2",
+    "repo-sweep__baseline__r2"
+  ],
+  "startedAt": "2026-08-08T07:26:46.949Z",
+  "contentSha256": "4e175fb760b8cd85a7949690f5e5f4df604638d0a771f0d07676d4e49f624300"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 98,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 47116,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.30177000000000004,
+  "numTurns": 10,
+  "durationMs": 45642,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2404
+  },
+  "contextTraffic": 201060,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6368,
+  "narrationWords": 0,
+  "finalWords": 101,
+  "finalText": "**The build passes now.** Exit 0, no errors.\n\nTwo real bugs were hiding in the warning wall, and the first one masked the second:\n\n1. `src/core/options.js` read `options.retries`, but the bump renamed that field to `retryCount`. It now reads the new name and falls back to the old one.\n2. `src/net/retryPolicy.js` threw on an unset `backoffEnabled` flag. The old config loader gave back `false`, the new one gives back `undefined`. Unset now means off, same as before.\n\nThe 8 remaining warnings are noise. They point at files like `src/legacy/adapter.js` that aren't in this repo, so there is nothing here to change.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e5936b77f2a3455010aad988e2077933c5c3db8d4b1cf3af3ea5d15b4d486d89"
+}

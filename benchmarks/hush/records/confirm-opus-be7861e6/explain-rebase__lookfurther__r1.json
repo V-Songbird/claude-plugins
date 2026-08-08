@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__lookfurther__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 38,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 20229,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.132224,
+  "numTurns": 1,
+  "durationMs": 18709,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1401
+  },
+  "contextTraffic": 25550,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 136,
+  "finalText": "**Merge keeps both paths. Rebase makes one straight path.**\n\nMerge ties the two branches together with one new commit. Your old commits stay exactly as they were.\n\nRebase copies your commits onto the tip of the other branch. Same changes, new commits, new IDs.\n\n```mermaid\nflowchart LR\n  subgraph after_merge\n    A1[main] --> M[merge commit]\n    B1[your branch] --> M\n  end\n  subgraph after_rebase\n    A2[main] --> C1[your commit, copied] --> C2[your commit, copied]\n  end\n```\n\nReach for rebase on work only you have. It tidies messy commits before you share them.\n\nReach for merge when the branch is shared, or when you land a finished branch. The merge commit records when it joined.\n\nOne rule: never rebase commits someone else already pulled. Their copy and yours stop matching.\n\nBecause rebase writes new commits, pushing after one needs `git push --force-with-lease`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4c0497d1f744066ae35f8a44aba430f51bde1ef6941cb43414c674c213943b30"
+}

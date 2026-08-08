@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__baseline__r1",
+  "batchId": "cacheprobe-cbc20d1d",
+  "seed": "1786151075446",
+  "orderIndex": 0,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 192189,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6232795,
+  "numTurns": 26,
+  "durationMs": 185741,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 12686
+  },
+  "contextTraffic": 910193,
+  "apiCalls": 22,
+  "toolCalls": 21,
+  "toolResultChars": 15545,
+  "narrationWords": 33,
+  "finalWords": 42,
+  "finalText": "That's already in place — `route()` tracks the last time each `key` was seen and drops the notification if another with the same key arrives within 5 minutes (`REPEAT_WINDOW_MINUTES = 5`). `verify.js`'s dedup probes already cover this and pass. No change needed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0cd56127d2cab55625929c90a0c8e7aa5c5856ba53754ee748b4bf786fb297cd"
+}

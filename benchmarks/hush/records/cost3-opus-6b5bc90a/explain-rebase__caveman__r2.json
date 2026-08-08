@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__caveman__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 59,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 14248,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0989505,
+  "numTurns": 1,
+  "durationMs": 12751,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 683
+  },
+  "contextTraffic": 24064,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 266,
+  "finalText": "**Core difference: what history look like after.**\n\nMerge — makes new commit with two parents. Both branch histories stay intact. Nothing rewritten.\n\n```\nmain:    A---B---C---M\n                    /\nfeature:   D---E---F\n```\n\nRebase — replays your commits on top of new base. Old commits discarded, new ones created with new hashes. Linear history, no merge commit.\n\n```\nmain:    A---B---C---D'---E'---F'\n```\n\nKey: rebase does **not** move commits. Copies them. `D'` different commit than `D` — different hash, different parent, same diff.\n\n**Conflicts differ too.** Merge resolves once, at merge commit. Rebase replays commit-by-commit — same conflict can reappear at each commit. Painful for long branches.\n\n## When rebase\n\n- Update your local feature branch onto latest `main` before opening PR. `git rebase main`\n- Clean up your own messy WIP commits before sharing. `git rebase -i HEAD~5`\n- Team wants linear history, bisect-friendly.\n\n## When merge\n\n- Merging feature into shared branch (`main`, `develop`).\n- Branch already pushed and others pulled it.\n- Long-lived branch with many conflicts — merge once beats replay ten times.\n- Want to preserve real record of when work happened.\n\n## Hard rule\n\n**Never rebase commits others already pulled.** Rewritten hashes force everyone else to fix their history — recovery is manual and error-prone. Rebase only commits that live solely on your machine or on a branch only you use.\n\nPractical setup: rebase locally to stay current, merge to integrate.\n\n```bash\ngit config --global pull.rebase true   # pull rebases instead of merging\ngit merge --no-ff feature              # integration keeps merge commit\n```\n\n`--no-ff` forces merge commit even when fast-forward possible — keeps branch boundary visible.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "540dee22772fc5da82ce96f174f7a2fe60967b8b8c3d999ecb5a9ba609b40cca"
+}

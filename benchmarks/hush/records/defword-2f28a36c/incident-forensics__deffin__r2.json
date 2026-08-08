@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__deffin__r2",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 29,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "deffin",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 71372,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6732764999999999,
+  "numTurns": 15,
+  "durationMs": 64625,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3911
+  },
+  "contextTraffic": 737642,
+  "apiCalls": 14,
+  "toolCalls": 11,
+  "toolResultChars": 47271,
+  "narrationWords": 0,
+  "finalWords": 130,
+  "finalText": "**Gateway 503 incident — on-call handoff**\n\n**Root cause**\nDeploy `dep-4471` (gateway, a.novak, \"config: connection-per-request for pool isolation\") applied config generation 119 at 02:13:41 UTC, flipping `gateway.pool.perRequest` from `false` to `true`. About 30 seconds later the connection pool (fixed at 20) filled and stayed full. Every request since has failed with `ERR_POOL_EXHAUSTED acquiring connection from pool (size 20, in_use 20, waiting N)`, and the waiting queue has climbed without recovering.\n\n**Impact window**\nStarted 2026-03-14 02:14:18 UTC. Still ongoing as of the last log line, 03:59:27 UTC — over 90 minutes with no self-recovery. Gateway-only: `worker.log` shows all job types finishing normally through the same window, no pool errors.\n\n**Rollback**\nRevert `dep-4471` on gateway — specifically undo `gateway.pool.perRequest` back to `false`. That's the one change that lines up with the first error.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c6d99ff24aedef22c1374d809e7b214829d8e122136b86b0383035952ef11922"
+}

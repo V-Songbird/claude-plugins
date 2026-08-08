@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r2",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 23,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 67130,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.41777250000000005,
+  "numTurns": 12,
+  "durationMs": 65493,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3989
+  },
+  "contextTraffic": 278035,
+  "apiCalls": 9,
+  "toolCalls": 11,
+  "toolResultChars": 9411,
+  "narrationWords": 6,
+  "finalWords": 125,
+  "finalText": "**Found it — it's the percent coupon, not the stacking.**\n\n`engine.js` rounded the running total to US cents right after taking the percent off, then converted. That threw away a fraction of a cent, and the exchange rate blew it up past the next rounding step. The flat coupon alone never triggered it, so stacked carts looked like the culprit.\n\nIt only shows on some rates, which is why most carts looked fine. USD and EUR happen to land on the same cent either way. GBP, CAD, and JPY don't.\n\nI moved the rounding to one step at the very end, in the cart's own currency. That is the contract the test file already spells out.\n\nAll 40 tests pass in 0.08s. Only `src/pricing/engine.js` changed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "93e2064e656ec8a2d0ba284d5d23c0796fd6c62511bf7b5ad38174fe0a098df6"
+}

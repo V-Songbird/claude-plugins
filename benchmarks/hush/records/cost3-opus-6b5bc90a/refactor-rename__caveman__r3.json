@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 33,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 39008,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.275967,
+  "numTurns": 18,
+  "durationMs": 37681,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2714
+  },
+  "contextTraffic": 164480,
+  "apiCalls": 6,
+  "toolCalls": 17,
+  "toolResultChars": 6115,
+  "narrationWords": 6,
+  "finalWords": 71,
+  "finalText": "Done. Rename applied in all 4 source files (`cart.js`, `index.js`, `invoice.js`, `report.js`), including doc comment. No alias kept — test asserts `cart.calcTotal === undefined`.\n\n```\nnode --test tests/total.test.js\n# tests 4  # pass 4  # fail 0\n```\n\nNote: `node --test tests/` (directory form) fails with `MODULE_NOT_FOUND` on this setup — pre-existing arg-resolution quirk, unrelated to rename. Pass the file path. No `package.json` in repo, so no `npm test` script exists.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "93e6e959af6c9a94e1a3ca1982e5111cee6bd2b07d14b7b97b76545853af4446"
+}

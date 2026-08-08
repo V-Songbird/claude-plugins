@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__prenudge__r1",
+  "batchId": "prenudge-5d07dcbc",
+  "seed": "1786171915528",
+  "orderIndex": 4,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "prenudge",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 129117,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6411184,
+  "numTurns": 28,
+  "durationMs": 122386,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 8332
+  },
+  "contextTraffic": 802503,
+  "apiCalls": 19,
+  "toolCalls": 24,
+  "toolResultChars": 21060,
+  "narrationWords": 0,
+  "finalWords": 77,
+  "finalText": "`fast-parse` is pinned at `1.4.2` in `package.json`, and `NOTES.md` says that exact version was yanked over a prototype-pollution report — `1.4.3` is the fix, and it was never applied.\n\n`AUDIT.md` is written with all four findings, worst first:\n\n1. `src/routes/internal.js` — unauthenticated internal routes\n2. `src/repo/report.js` — SQL injection via string-built query\n3. `config/staging.js` — committed database password\n4. `package.json` — yanked, vulnerable `fast-parse` 1.4.2\n\nNo service code was touched — verified by running `verify.js`, which passed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fb3cbb0818e18065d1ce4aace12ae11489ac17218b22219f355ae6af657f5410"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 33,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 32726,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.15226350000000002,
+  "numTurns": 2,
+  "durationMs": 31093,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1555
+  },
+  "contextTraffic": 51439,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 37,
+  "narrationWords": 0,
+  "finalWords": 103,
+  "finalText": "**React re-renders every child when the parent renders.** It never checks props first.\n\n`React.memo` makes it check. Then it compares each prop with `===`.\n\nMost memoized children still re-render, because these are brand new every time:\n- inline objects and arrays like `style={{ color: 'red' }}`\n- inline functions like `onClick={() => save(id)}`\n- anything built fresh in the parent, like a `.map` result\n\nWrap those in `useMemo` or `useCallback` in the parent. Both need `React.memo` on the child to help.\n\nOne comfort: a re-render is not a repaint, and it is usually cheap. Chase it only after you measure a real slowdown.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4a3ccf500c6cfa47140241d6394bc1726fb18df1ad072b49f03539592587d5e7"
+}

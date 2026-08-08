@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__turnfin__r1",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 16,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "turnfin",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 105315,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.7416651999999999,
+  "numTurns": 43,
+  "durationMs": 103727,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 12162
+  },
+  "contextTraffic": 507561,
+  "apiCalls": 12,
+  "toolCalls": 42,
+  "toolResultChars": 30671,
+  "narrationWords": 59,
+  "finalWords": 51,
+  "finalText": "Migration's done. Twelve files were still calling `db.query` — one in `packages/support`, one in `packages/orders`, one in `packages/billing` × 3, `packages/catalog` × 2, `packages/accounts` × 3, and `packages/analytics`. All now use `db.execute({ sql, params })`. The vendored `vendor/legacy-orm/adapter.js` and the unrelated `cache.query` calls were left alone, and `node verify.js` passes clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8b535569d995c168b0488d6b58bbb83a53ae9e3bab3517f2e63fb1945d25c0d2"
+}

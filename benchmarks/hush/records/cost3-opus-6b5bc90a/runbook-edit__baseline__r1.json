@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__baseline__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 136,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 80684,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.4375755,
+  "numTurns": 14,
+  "durationMs": 76810,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4663
+  },
+  "contextTraffic": 362263,
+  "apiCalls": 13,
+  "toolCalls": 11,
+  "toolResultChars": 11228,
+  "narrationWords": 6,
+  "finalWords": 97,
+  "finalText": "All three 8081 mentions are now 9090 — the health-check `curl`, the SEC-233 known issue, and the appendix table. Staging's 8091 is untouched, since you said the production port moved.\n\n`verify.js` passes: all three edits landed and the rest of the document is intact.\n\nOne flag on the SEC-233 note: moving the port doesn't change the finding — 9090 is just as reachable from any pod as 8081 was. The known issue still reads correctly, but if the move *was* the mitigation, that ticket needs a real fix (auth or a network policy), not a renumbered port.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a68515e2f1d16795130ed2fe3a5d246d2f22460ad05f5e0c1f2f3d09a0dc154d"
+}

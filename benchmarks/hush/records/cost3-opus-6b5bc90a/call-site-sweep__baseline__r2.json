@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__baseline__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 111,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 43653,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.30587000000000003,
+  "numTurns": 8,
+  "durationMs": 42361,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3026
+  },
+  "contextTraffic": 161534,
+  "apiCalls": 6,
+  "toolCalls": 7,
+  "toolResultChars": 18532,
+  "narrationWords": 8,
+  "finalWords": 257,
+  "finalText": "**17 call sites** still pass the legacy rounding flag, out of 221 total `formatAmount` calls across the 10 caller files.\n\n**`src/reports/quarterly.js` has the most, with 5.**\n\nFull breakdown:\n\n| File | 2-arg calls | Lines |\n|---|---|---|\n| `src/reports/quarterly.js` | 5 | 16, 37, 58, 83, 104 |\n| `src/billing/invoice.js` | 3 | 16, 45, 74 |\n| `src/admin/exports.js` | 3 | 16, 37, 62 |\n| `src/reports/monthly.js` | 2 | 16, 57 |\n| `src/checkout/cart.js` | 2 | 16, 53 |\n| `src/billing/statement.js` | 1 | 16 |\n| `src/checkout/receipt.js` | 1 | 16 |\n| `src/reports/ledger.js` | 0 | — |\n| `src/billing/refunds.js` | 0 | — |\n| `src/admin/dashboard.js` | 0 | — |\n\nNotes for the migration:\n\n- Every one passes the literal `true` — no variables, no `false`, no computed flags — and each is preceded by the same `// TODO: drop the legacy rounding flag once every caller is migrated` comment. So the mechanical edit is uniform: strip `, true` and the TODO line.\n- All calls are single-line, so a regex sweep on `formatAmount\\(([^,)]+), true\\)` catches all 17 with no multi-line cases to miss.\n- Not purely cosmetic: `format.js:6` gives half-away-from-zero for the flagged calls vs. half-to-even otherwise, so those 17 sites will change output on exact-half cents (e.g. `0.125` → `0.13` today, `0.12` after). Worth checking whether any of them are load-bearing for reconciliation before you drop the flag.\n- Repo is 11 `.js` files total, all under `src/`; no tests, no other languages, so this sweep is complete.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2e91ab32ab6cc2e4391f6da34a3ff309a898577006c71b095852e1f545e46691"
+}

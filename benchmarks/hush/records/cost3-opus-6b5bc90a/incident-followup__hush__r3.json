@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 134,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 106780,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6379589999999999,
+  "numTurns": 12,
+  "durationMs": 101680,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 6015
+  },
+  "contextTraffic": 373910,
+  "apiCalls": 12,
+  "toolCalls": 9,
+  "toolResultChars": 9697,
+  "narrationWords": 0,
+  "finalWords": 101,
+  "finalText": "Wrote `HANDOFF.md` with the root cause, the timeline, and the open items.\n\nOne gap you should know about before you send it: the ioredis version is not in there as a fact. There's no lockfile and no `node_modules` here, so all I could record is the range `^5.4.1`. The doc says \"NOT CONFIRMED\" and lists the commands to run on the host.\n\nThe impact window is `02:14:03Z` to `02:31:52Z`, about 18 minutes. The log stops at the fatal line, so real downtime may be longer.\n\nI also flagged the date gap in the doc. Worth resolving before this goes to anyone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "144887ab3ffd435280afeab3aedc1c0709a4ca9122761b9275a16a0c18fcd8b8"
+}

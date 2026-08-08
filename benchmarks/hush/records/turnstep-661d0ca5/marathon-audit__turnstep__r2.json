@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__turnstep__r2",
+  "batchId": "turnstep-661d0ca5",
+  "seed": "1786172329502",
+  "orderIndex": 23,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "turnstep",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 125813,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5809327,
+  "numTurns": 28,
+  "durationMs": 119138,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 7538
+  },
+  "contextTraffic": 730588,
+  "apiCalls": 17,
+  "toolCalls": 24,
+  "toolResultChars": 28920,
+  "narrationWords": 0,
+  "finalWords": 89,
+  "finalText": "**Confirmed: `fast-parse` is pinned at `1.4.2`, and `NOTES.md` flags that exact version as yanked for a prototype-pollution bug, fixed in `1.4.3`.** Everything else in `package.json` matches what `NOTES.md` says is fine.\n\n`AUDIT.md` is written with all four findings, ranked by severity:\n\n1. **Critical** — `src/routes/internal.js`: no auth on `/internal/metrics` and `/internal/flush-cache`.\n2. **Critical** — `src/repo/report.js`: SQL injection via string-concatenated filter/order values.\n3. **High** — `config/staging.js`: plaintext staging DB password committed.\n4. **Medium** — `package.json`: `fast-parse` stuck on the yanked `1.4.2`.\n\nService code is untouched — I only wrote `AUDIT.md`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "916c2469bc545370d8a89e0d3094eb6c2483792a405c5307582d91540794ebad"
+}

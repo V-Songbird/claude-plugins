@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__baseline__r1",
+  "batchId": "heavysmoke-e1e37c31",
+  "seed": "1786150253947",
+  "orderIndex": 4,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 75539,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.5936986000000001,
+  "numTurns": 43,
+  "durationMs": 74233,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10206
+  },
+  "contextTraffic": 315131,
+  "apiCalls": 8,
+  "toolCalls": 42,
+  "toolResultChars": 30697,
+  "narrationWords": 32,
+  "finalWords": 33,
+  "finalText": "All 12 remaining call sites (across support, billing, orders, analytics, catalog, and accounts packages) are migrated from `db.query(sql, params)` to `db.execute({ sql, params })`. Left `vendor/legacy-orm/adapter.js` and `cache.query` untouched, as intended. `verify.js` passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "279916fb7b75b90c391351a7f949dc6d91a1d15eea4c477eed2dc474d03fc4e0"
+}

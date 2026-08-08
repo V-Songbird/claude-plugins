@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__hush__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 14,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 35577,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.22306379999999998,
+  "numTurns": 10,
+  "durationMs": 34014,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2577
+  },
+  "contextTraffic": 249284,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 10895,
+  "narrationWords": 0,
+  "finalWords": 100,
+  "finalText": "Found it: `packages/shared/config.js` merged config layers with a plain `Object.assign`, so any override touching `output` or `sourcemap` wiped out the sibling keys instead of just changing the one named. That's what threw `EBUNDLE07 config-incomplete` past the lint warnings.\n\nFixed by merging `output` and `sourcemap` one level deep, so a partial override like `@acme/api`'s `sourcemap: { mode: 'inline' }` keeps `include: true` from the defaults, and a CLI flag like `output: { dir: 'build' }` no longer wipes the package's own `entry`/`format`.\n\nBuild now finishes clean (`0 errors`) and `verify.js` passes, confirming the layering rule itself, not just this one fixture.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c4f4477c7ac471c0cc38716a0e1e9c05934e17008845171337f00c290d8f5fcb"
+}

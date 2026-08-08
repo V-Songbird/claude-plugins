@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 83,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 39637,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1889728,
+  "numTurns": 9,
+  "durationMs": 38155,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1640
+  },
+  "contextTraffic": 212360,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 7804,
+  "narrationWords": 0,
+  "finalWords": 112,
+  "finalText": "**Found it.** `computeTotal` in `src/pricing/engine.js` rounded to 2 decimals right after the percent discount, and again right after the flat discount, before converting to the order's currency.\n\nThat's an extra rounding step the spec doesn't call for. Rounding twice on the way, instead of once at the end, occasionally shaved a cent off the final total. It only showed up when a percent coupon was involved, and only in currencies like GBP, CAD, and JPY, which is why it looked scattered.\n\nFix: let the discount math run at full precision and round only once, after converting to the target currency. All 40 tests pass now, in about a tenth of a second.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f083ce4982f70c92af37c27e9a83e8ea9029649eec5029227a01c8561f247021"
+}

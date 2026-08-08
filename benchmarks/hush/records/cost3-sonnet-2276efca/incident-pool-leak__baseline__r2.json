@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 77,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 32831,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.3378251,
+  "numTurns": 11,
+  "durationMs": 31520,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1848
+  },
+  "contextTraffic": 316423,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 53872,
+  "narrationWords": 105,
+  "finalWords": 124,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js` acquired a pool connection but only called `pool.release(conn)` after `run()` succeeded — no `try/finally`. `src/handlers/api.js` already used the safe `withConnection` wrapper (which does use try/finally), so the API path was fine; the worker job path wasn't.\n\nThe worker.log timeline matches exactly: each `job orderNNNN failed: invalid order payload` lines up with the `[db] pool in-use` count ratcheting up one-by-one (2/5 → 3/5 → 4/5 → 5/5) and never coming back down, until the pool hit 5/5 at 02:06:30, then cascading `pool exhausted` errors, 503s in app.log, and finally the supervisor restarting api and worker-1 at 02:13:36.\n\nFix: wrapped the `run()` call in `processOrder` with `try { ... } finally { pool.release(conn) }`, same pattern as `withConnection`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ee55eb6eb5d9f40b46ace7afc26acb5e668fd0f278af9c5de3bfb85bc4776d58"
+}

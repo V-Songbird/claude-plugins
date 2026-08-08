@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 52,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 158261,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6903431999999999,
+  "numTurns": 34,
+  "durationMs": 153179,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 11032
+  },
+  "contextTraffic": 937025,
+  "apiCalls": 22,
+  "toolCalls": 30,
+  "toolResultChars": 37382,
+  "narrationWords": 12,
+  "finalWords": 110,
+  "finalText": "Dependency check confirms `fast-parse` is still pinned to the yanked `1.4.2` (NOTES.md says 1.4.3 fixes it); `date-fmt`, `pg-lite`, and `redis-min` all match what NOTES.md says is fine.\n\n`AUDIT.md` is written with all four findings, ordered by severity:\n\n1. **Critical** — `src/routes/internal.js`: unauthenticated metrics dump + delete, live and exploitable now\n2. **Critical** — `src/repo/report.js`: SQL injection via concatenation (not yet wired to a route, but a landmine)\n3. **High** — `config/staging.js`: committed staging DB password\n4. **Medium** — `package.json`: yanked `fast-parse@1.4.2`, needs bump to `1.4.3`\n\nService code is untouched — only `AUDIT.md` was added, and I ran `verify.js` to confirm it passes and nothing else in the tree was edited.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "53ca2d5e4cfdeffca4c759f1fdfbd93d811f7521b25c756bec543fb4febe7d11"
+}

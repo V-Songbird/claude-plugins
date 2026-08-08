@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 88,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 130263,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.780807,
+  "numTurns": 15,
+  "durationMs": 125632,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 7909
+  },
+  "contextTraffic": 462270,
+  "apiCalls": 14,
+  "toolCalls": 12,
+  "toolResultChars": 12833,
+  "narrationWords": 0,
+  "finalWords": 101,
+  "finalText": "Written to `HANDOFF-2026-07-04.md` — root cause, minute-by-minute timeline, and the two things that turned a Redis outage into a dead service.\n\nImpact window is `02:14:07Z` to `02:31:52Z`, 17 minutes 45 seconds. The log stops at the kill, so recovery time isn't in there.\n\nI could not give you the ioredis version. This repo has no lockfile and no `node_modules`, so all that exists is the range `^5.4.1`. That could be several releases off what ran in prod, so the doc says not to read the changelog against 5.4.1. Run `npm ls ioredis` on the prod host and I'll fill it in.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d853261c3fee9be507e7bd925aeb1d895606a90f4b01c83cebc51a7dc553dfaa"
+}

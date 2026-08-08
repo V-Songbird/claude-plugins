@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__allnudge__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 17,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "allnudge",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 78304,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6001621,
+  "numTurns": 42,
+  "durationMs": 76639,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10327
+  },
+  "contextTraffic": 330588,
+  "apiCalls": 8,
+  "toolCalls": 41,
+  "toolResultChars": 23892,
+  "narrationWords": 5,
+  "finalWords": 57,
+  "finalText": "Migrated the last 12 stragglers to `db.execute({ sql, params })`: cohort, returnService, shipment, refund, couponService, macroAdmin, sla, variantAdmin, supplier, teamService, apiKeyAdmin, and session.\n\nI left `vendor/legacy-orm/adapter.js` alone since it's vendored code, and didn't touch any `cache.query` calls — that's a different thing entirely, not the database.\n\n`verify.js` passes clean now: every call site moved, nothing else did.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a3436bac81f80ba44d6378ef6c40679abb970966a92f3ae36b55103148420132"
+}

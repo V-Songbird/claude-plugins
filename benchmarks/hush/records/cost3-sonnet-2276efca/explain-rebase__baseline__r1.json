@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__baseline__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 55,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11030,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.062461499999999996,
+  "numTurns": 1,
+  "durationMs": 9748,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 623
+  },
+  "contextTraffic": 28299,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 286,
+  "finalText": "Both combine changes from one branch into another, but they do it differently and leave different history.\n\n**Merge** creates a new commit that ties two branch histories together, preserving both branches' commits exactly as they happened. History becomes non-linear — you can see when and where branches diverged and rejoined.\n\n**Rebase** replays your commits one by one on top of another branch's tip, producing new commits (new hashes) and a linear history. It rewrites history rather than recording it.\n\nPractical implications:\n\n- **Merge is non-destructive.** Existing commits are untouched, so it's safe on shared/public branches and with collaborators.\n- **Rebase rewrites commit hashes.** If you rebase commits others have already pulled, their history diverges from yours — the classic \"never rebase a public branch\" rule.\n- **Merge preserves context** (what commit came from where, when a feature branch merged in). Useful for auditing releases or understanding parallel work.\n- **Rebase gives a clean, linear log** — easier to read with `git log`, easier to bisect, no merge-commit noise.\n\nWhen to reach for each:\n\n- **Use rebase** for your own local feature branch before opening a PR, to clean up commits and bring it up to date with `main` without a merge-commit. Also good for keeping a long-lived personal branch current.\n- **Use merge** when integrating a finished feature branch into `main`/`develop`, especially if others have based work on it, or when you want to preserve the historical record of how work actually happened.\n- **Avoid rebase** once a branch is pushed and shared, unless the whole team knows and force-pushes are coordinated.\n\nA common workflow: rebase locally to keep your branch tidy and conflict-free, then merge (often via PR, sometimes with `--no-ff`) into the shared branch.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "82555dbe2d5befa26b4bfb187f88063f9cc2de062080e6cbad1c673f003178b0"
+}

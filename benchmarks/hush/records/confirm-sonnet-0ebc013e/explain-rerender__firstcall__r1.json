@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__firstcall__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 31,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 13500,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.0954977,
+  "numTurns": 2,
+  "durationMs": 11878,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 614
+  },
+  "contextTraffic": 64183,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 14,
+  "narrationWords": 0,
+  "finalWords": 173,
+  "finalText": "A re-render happens for a few common reasons, even when the data itself hasn't changed.\n\n**Same values, new objects.** If you're passing something like `{name: \"x\"}` or `() => {}` written fresh in the parent's render, it's a brand-new object each time. React compares by reference, so it looks different even though it reads the same.\n\n**The parent itself re-renders.** By default, a child re-renders whenever its parent does, no matter what props it gets. You need to wrap the child in `React.memo` to make it skip renders when props are equal.\n\n**Context changes.** If the child reads from a Context, it re-renders whenever that context's value changes, even if its own props stay the same.\n\nQuick fixes to try:\n1. Wrap the child in `React.memo`.\n2. Wrap any function or object props in `useCallback` / `useMemo` so they keep the same reference between renders.\n3. Check if a Context provider nearby is updating more often than expected.\n\nIf you share the component code, I can point to the exact spot causing it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d6f8247eb591bc6c5f423b935c9ac01fb2a60550671209accff66cb5d265397d"
+}

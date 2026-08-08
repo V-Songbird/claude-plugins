@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__hush__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 100,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 22390,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.198585,
+  "numTurns": 8,
+  "durationMs": 20676,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1169
+  },
+  "contextTraffic": 106291,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4590,
+  "narrationWords": 0,
+  "finalWords": 122,
+  "finalText": "**It's a small Node HTTP service — five files in `src`, no dependencies, no tests.**\n\n```mermaid\ngraph LR\n  server[server.js] --> auth[auth.js]\n  server --> routes[routes.js]\n  routes --> cache[cache.js]\n  routes --> store[store.js]\n  cache --> store\n```\n\n`server.js` takes the request, checks the token, and hands off. `auth.js` reads a `Bearer <userId>.<signature>` header and signs with a shared secret. `routes.js` holds a three-entry table of method-and-path to handler. Reads go through `cache.js`, a 256-entry LRU with no expiry. `store.js` is a `Map` standing in for a database, where records die 15 minutes after a write.\n\nOne thing to watch: the comment in `routes.js` says writes clear the affected cache keys, but `putOrder` never does. So `GET /orders` keeps serving the old list after a `POST`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0ed33b8729df35524f7d33dc5f11709c57d5250d0fa02ab91c57afcf6145416e"
+}

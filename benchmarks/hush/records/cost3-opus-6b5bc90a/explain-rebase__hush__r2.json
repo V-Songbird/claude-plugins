@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 58,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 18584,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.121944,
+  "numTurns": 1,
+  "durationMs": 16850,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1004
+  },
+  "contextTraffic": 25514,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 126,
+  "finalText": "**Both pull changes from one branch into another. They differ in what your history looks like after.**\n\nMerge adds one new commit that joins the two lines. Every old commit stays exactly where it was.\n\nRebase replays your commits on top of the other branch. They become new commits with new IDs.\n\n```mermaid\nflowchart LR\n  subgraph Merge\n    A1(A) --> B1(B) --> C1(C) --> M(merge)\n    B1 --> D1(D) --> E1(E) --> M\n  end\n  subgraph Rebase\n    A2(A) --> B2(B) --> C2(C) --> D2(\"D'\") --> E2(\"E'\")\n  end\n```\n\nReach for rebase on your own branch, before anyone else has it. You get a straight line and an easier review.\n\nReach for merge once the branch is shared or pushed. Rewriting commits other people already pulled will break their copy.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1723724386073be0573a9a44246c9f6bfd91b7698b86aa19d17dcc1d65fca92f"
+}

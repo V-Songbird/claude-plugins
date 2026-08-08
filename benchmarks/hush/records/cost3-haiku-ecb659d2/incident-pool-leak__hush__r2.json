@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 76,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 33056,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.06002880000000001,
+  "numTurns": 12,
+  "durationMs": 31492,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2242
+  },
+  "contextTraffic": 146008,
+  "apiCalls": 5,
+  "toolCalls": 11,
+  "toolResultChars": 14494,
+  "narrationWords": 0,
+  "finalWords": 108,
+  "finalText": "**The leak was in `processOrder.js`** — when order validation failed, the connection was never released.\n\nUnlike `handleRequest`, which uses the safe `withConnection` wrapper, `processOrder` acquired directly and called `pool.release(conn)` after the await. When `run()` threw an error (bad order payload), that release line never executed, leaving the connection stuck in the `inUse` set forever.\n\nThe logs showed the cascade: each validation error leaked one connection. After 5 leaked connections, the pool was empty. All subsequent requests timed out, workers crashed.\n\nThe fix wraps the `run()` call in try/finally so release always runs, matching the pattern that was already working in the API handler. All 4 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "76aa5fd13d9e19642c87c523d94303afbe847291353f2d4ab31fcc7d3cea7749"
+}

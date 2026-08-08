@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__baseline__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 24,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 41904,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.060848700000000006,
+  "numTurns": 11,
+  "durationMs": 40531,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2737
+  },
+  "contextTraffic": 259102,
+  "apiCalls": 11,
+  "toolCalls": 10,
+  "toolResultChars": 5403,
+  "narrationWords": 118,
+  "finalWords": 115,
+  "finalText": "Perfect! All tests pass now. The bug was in how flat-amount coupons were being applied with non-USD currencies.\n\n**The Problem:**\nThe code was subtracting the USD-denominated coupon amount from the already-converted total, which mixed currencies:\n- `converted (EUR) - coupon.amount (USD)` = wrong result\n\n**The Fix:**\nApply the flat coupon **before** currency conversion, so both amounts are in USD:\n- `(subtotalUsd - coupon.amount) → convert to target currency`\n\nFor the test case: $100 order in EUR with a $10 coupon\n- ✅ Correct: (100 - 10) × 0.9 = 81\n- ❌ Wrong: 100 × 0.9 - 10 = 80\n\nAll 5 tests now pass, including the critical test for flat coupons with non-USD currencies.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "466bb105309df9e085001502a35c903aea814425d06fbf543d2d143e126eba95"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r3",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 24,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 46864,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "tests exit 1"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.32680200000000004,
+  "numTurns": 10,
+  "durationMs": 45329,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2580
+  },
+  "contextTraffic": 206737,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 9088,
+  "narrationWords": 6,
+  "finalWords": 194,
+  "finalText": "**Found it — one cause, all 10 failures.**\n\n`engine.js` rounds the running total to 2 decimal places *while it's still in USD*, then converts. The contract is to round once at the very end, in the target currency's own decimals.\n\nThe percent coupon is what makes it show up. It leaves a fraction of a cent, and that fraction gets thrown away before the exchange rate can multiply it.\n\nTake `2 x $9.99` with `SAVE10PCT` in GBP:\n\n| Step | Value |\n| --- | --- |\n| After 10% off | `17.982` |\n| Rounded early → converted | `14.02` |\n| Converted → rounded once | `14.03` |\n\nThat's why the pattern looked random. `USD` has a rate of `1`, so early rounding costs nothing. `EUR` happens to land on the same cent by luck. Only `GBP`, `CAD`, and `JPY` drift, and only when a percent coupon is in play.\n\nTests: 30 pass, 10 fail, 89ms. Every failure has a percent coupon.\n\nThe fix is to drop the two `round(...)` calls on lines 24 and 27 of `engine.js` and let line 31 do the only rounding. Want me to make that change?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "94bcb4e785b0c1f03f432005b7883007fd49bab6a27ccc3b520256ab127dfa48"
+}

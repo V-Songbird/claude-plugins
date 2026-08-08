@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 47,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 12311,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.086532,
+  "numTurns": 1,
+  "durationMs": 10726,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 781
+  },
+  "contextTraffic": 31929,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 85,
+  "finalText": "Two things usually cause this.\n\nFirst, by default a child re-renders whenever its parent does, even with the exact same props. Wrapping the child in `React.memo` stops that.\n\nSecond, even with `React.memo`, if you're passing it a new object, array, or function each render, it counts as a different prop every time. Wrap those with `useMemo` or `useCallback`, or move them outside the component.\n\nCheck your child for `React.memo`, and check the props you pass for `{}`, `[]`, or inline functions built fresh each render.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4770ec932b58556f864dbd65593d32ad43798b48723ba612efe313d416f38b7e"
+}

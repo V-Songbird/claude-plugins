@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r2",
+  "batchId": "probe-opener-ce0bd038",
+  "seed": "1786135293353",
+  "orderIndex": 3,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 38585,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.27343,
+  "numTurns": 9,
+  "durationMs": 36814,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1839
+  },
+  "contextTraffic": 197309,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 4677,
+  "narrationWords": 0,
+  "finalWords": 120,
+  "finalText": "**The build passes now.**\n\nOne real error, hiding under all the noise:\n\n```\nERROR EBUILD01 link-failed: src/core/settings.js — ReferenceError: retries is not defined\n```\n\n`resolveConfig` set `maxRetries: retries`, but there is no `retries` variable — it lives on the `env` argument. I now read `env.retries` and fall back to a new `DEFAULT_RETRIES` of 2.\n\nExit code 0, 3 warnings, 0 errors.\n\nThose 3 warnings are still there and none of them break the build:\n\n| Code | Where |\n| --- | --- |\n| `W1042` deprecated-api | `src/legacy/adapter.js` |\n| `W2213` unused-export | `src/utils/format.js` |\n| `W3307` circular-import | `src/core/graph.js` ↔ `src/state/tracker.js` |\n\nThose files do not exist in this tree, so the warnings are baked into `build.js` itself.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7e22bb10a9e2f99d7ad7c88eb9c8de2b3d94f7d486d6e1645e77522655e323ea"
+}

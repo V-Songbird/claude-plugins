@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__caveman__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 101,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 19415,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0372156,
+  "numTurns": 8,
+  "durationMs": 17908,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1226
+  },
+  "contextTraffic": 118122,
+  "apiCalls": 5,
+  "toolCalls": 7,
+  "toolResultChars": 4139,
+  "narrationWords": 0,
+  "finalWords": 147,
+  "finalText": "**Five-piece system:**\n\n**server.js** — HTTP entry. Pulls bearer token from `Authorization` header, verifies it. Routes requests if auth passes.\n\n**auth.js** — Token verification. Format: `Bearer <userId>.<hmac>`. Computes HMAC-SHA256 of the user ID against `AUTH_SECRET` env var, timing-safe comparison.\n\n**routes.js** — Route table. Maps `METHOD /path` to handlers. GET requests go through LRU cache. POST requests skip cache, hit store directly. Returns JSON or 404/500.\n\n**cache.js** — Read-through LRU. 256 entries, no expiry (store handles that). Deduplicates repeated reads within the cache window.\n\n**store.js** — In-memory data store. Each record expires 15 minutes after write. Currently tracks users and orders. Stand-in for real database.\n\n**Flow:** Request → Server checks token → Router looks up handler → Reads hit cache (or load from store), writes go direct to store → Response JSON.\n\nMinimal but complete: auth + routing + caching + persistence, all in Node.js built-ins. No external dependencies.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9e9a6194d14d8a424531189668aa621729618c9c7bb1afeff11a0b5d3147b71d"
+}

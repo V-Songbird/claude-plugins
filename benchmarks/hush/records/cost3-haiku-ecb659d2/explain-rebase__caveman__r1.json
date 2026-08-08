@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__caveman__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 54,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 7986,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0186658,
+  "numTurns": 1,
+  "durationMs": 6203,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 373
+  },
+  "contextTraffic": 22853,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 138,
+  "finalText": "**Merge:** Creates merge commit, preserves both branch histories. Final history shows branches diverged then rejoined.\n\n**Rebase:** Replays your commits on top of target branch. Linear history, no merge commit. Rewrites commit timestamps/hashes.\n\n**When to merge:**\n- Shared branches (main, develop). Merge commits document integration points.\n- PR workflows where reviewers expect the original commit chain intact.\n- Work already pushed/public. Rebase rewrites history—forces others to rebase too.\n\n**When to rebase:**\n- Local feature branch before merge. Clean up commits, fix message typos, squash WIP.\n- Keep feature branches up-to-date with main without clutter. `git rebase main` before final merge.\n- Unpushed work only. Once pushed, rebase breaks remote tracking.\n\n**Quick rule:** Rebase local, merge shared. If it's already public, merge.\n\n**Common flow:** Work on feature branch → `git rebase main` → push → open PR → maintainer merges.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "58b9fc2b8bb9445c2162f93ed2e07f26e3be3c2230526f99a4e1797fc00d2425"
+}

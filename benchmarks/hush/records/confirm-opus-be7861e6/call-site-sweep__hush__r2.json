@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 76,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 34896,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.44775050000000005,
+  "numTurns": 16,
+  "durationMs": 33357,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2197
+  },
+  "contextTraffic": 192235,
+  "apiCalls": 6,
+  "toolCalls": 15,
+  "toolResultChars": 28966,
+  "narrationWords": 0,
+  "finalWords": 104,
+  "finalText": "**17 call sites still pass the flag.** The 18th grep hit is the definition itself in `src/lib/format.js`.\n\n`src/reports/quarterly.js` has the most, with 5. Every one passes `true`, and each carries the same TODO comment.\n\n| File | Calls |\n| --- | --- |\n| `src/reports/quarterly.js` | 5 |\n| `src/billing/invoice.js` | 3 |\n| `src/admin/exports.js` | 3 |\n| `src/reports/monthly.js` | 2 |\n| `src/checkout/cart.js` | 2 |\n| `src/checkout/receipt.js` | 1 |\n| `src/billing/statement.js` | 1 |\n\nHeads up before you sweep: dropping the flag changes the result. `true` rounds half away from zero, and the one-argument path rounds half to even.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2224d14d0c085f3be67b9623b63e44f2316bec46e2a9585d8d7734f2e225ba14"
+}

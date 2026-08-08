@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__turnshort__r1",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 34,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "turnshort",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 72838,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6671349,
+  "numTurns": 15,
+  "durationMs": 65938,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4291
+  },
+  "contextTraffic": 768756,
+  "apiCalls": 15,
+  "toolCalls": 11,
+  "toolResultChars": 47649,
+  "narrationWords": 0,
+  "finalWords": 120,
+  "finalText": "Still ongoing at the end of the log, 2026-03-14T03:59:27.974Z. Here's the handoff.\n\n**On-call handoff — gateway 503s**\n\n**Root cause:** `dep-4471` (gateway, a.novak, \"config: connection-per-request for pool isolation\") flipped `gateway.pool.perRequest` from `false` to `true`. That change stops connections from being reused across requests, so the pool (size 20) fills up and stays pinned at `in_use=20, idle=0`, with the waiting queue climbing ever since.\n\n**Impact window:** started 2026-03-14T02:14:18.972Z, first `ERR_POOL_EXHAUSTED` 503 on `/v1/cart`. Still active as of the last log line, 2026-03-14T03:59:27.974Z — not yet self-resolved, ongoing over 1h45m.\n\n**Rollback:** revert `dep-4471` on gateway, put `gateway.pool.perRequest` back to `false`. Other same-window deploys (`dep-4472` billing-svc, `dep-4473` catalog-svc) are unrelated and don't need touching. Workers are unaffected, separate pool, no errors in their log.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5c22e970a0141fd45692fe589e1b73e5593048c59b7e0f2a431faddd7e09b8c3"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__defcur__r2",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 4,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "defcur",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31879,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2216566,
+  "numTurns": 12,
+  "durationMs": 30154,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1537
+  },
+  "contextTraffic": 253441,
+  "apiCalls": 7,
+  "toolCalls": 11,
+  "toolResultChars": 15194,
+  "narrationWords": 0,
+  "finalWords": 56,
+  "finalText": "**Found it and fixed it.** `orderTotal` in `src/pricing.js` was charging tax on the pre-discount amount instead of what the customer actually pays after the discount.\n\nChanged one line: tax now applies to the discounted total, not the original.\n\nAll 625 tests pass, and `verify.js` confirms the fix is real (not a rewritten test or gutted runner).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a037a4e3fe7e54b1a36b1dbfc046737fe4090e9df6d64a8c06c7e536820eb14b"
+}

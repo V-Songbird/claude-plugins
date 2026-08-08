@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__baseline__r1",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 2,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25805,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.18747459999999996,
+  "numTurns": 13,
+  "durationMs": 24288,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1578
+  },
+  "contextTraffic": 232337,
+  "apiCalls": 7,
+  "toolCalls": 12,
+  "toolResultChars": 14429,
+  "narrationWords": 39,
+  "finalWords": 55,
+  "finalText": "The bug: `orderTotal` in `src/pricing.js:39-43` applied tax to the original price instead of the discounted price, even though its own comment said tax should apply after the discount. Fixed it to compute tax on `discounted` instead of `cents`. Suite is now 625/625 passing, and `verify.js` confirms the fix is legitimate (spec/runner untouched, engine rules correct).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "078a10a20ab17240de4b5a77321ec436f3921232ca259600dfd5823bceac8b41"
+}

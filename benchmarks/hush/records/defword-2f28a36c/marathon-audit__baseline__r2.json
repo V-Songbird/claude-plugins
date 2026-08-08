@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r2",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 33,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 143127,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6656018,
+  "numTurns": 42,
+  "durationMs": 137545,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 11757
+  },
+  "contextTraffic": 956377,
+  "apiCalls": 23,
+  "toolCalls": 38,
+  "toolResultChars": 31857,
+  "narrationWords": 11,
+  "finalWords": 96,
+  "finalText": "Compared `package.json` against `NOTES.md`: only `fast-parse` is out of policy — it's pinned at `1.4.2`, which `NOTES.md` says was yanked for a prototype-pollution report, with `1.4.3` as the fix. `pg-lite` and `redis-min` are current, and `date-fmt` is flagged as unmaintained-but-harmless with no action needed.\n\n`AUDIT.md` is written with all four findings, ranked by severity:\n1. **Critical** — unauthenticated internal routes (`src/routes/internal.js`)\n2. **High** — SQL injection via concatenation (`src/repo/report.js`)\n3. **High** — committed staging DB password (`config/staging.js`)\n4. **Medium** — yanked `fast-parse` dependency still pinned (`package.json`)\n\nNo service files were touched — only `AUDIT.md` was created.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6f2f5f1921d386a216a529dd3cbd449d03c4a56aae9809af2204a9724a80d74c"
+}

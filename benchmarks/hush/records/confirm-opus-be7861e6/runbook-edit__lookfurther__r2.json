@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 93,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 101030,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.6721779999999999,
+  "numTurns": 16,
+  "durationMs": 96088,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5715
+  },
+  "contextTraffic": 499779,
+  "apiCalls": 15,
+  "toolCalls": 13,
+  "toolResultChars": 10376,
+  "narrationWords": 0,
+  "finalWords": 32,
+  "finalText": "**All three admin port mentions now say `9090`** — the health check `curl`, the SEC-233 known issue, and the appendix table.\n\nStaging stayed on `8091`, since only production moved.\n\n`node verify.js` passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "657b1c199fad30b1aad4e3a6416d713e8ab9fcdca8614c3dc2605a25bd9d0278"
+}

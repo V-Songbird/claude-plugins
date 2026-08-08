@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 56,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10392,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.083502,
+  "numTurns": 1,
+  "durationMs": 8662,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 579
+  },
+  "contextTraffic": 31930,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 123,
+  "finalText": "Merge keeps both histories intact. It joins two branches with a new commit that has two parents, so you can see exactly how things really happened.\n\nRebase rewrites history instead. It takes your commits and replays them on top of another branch, so it looks like you built in a straight line — no branching, no merge commit.\n\n**When to reach for each**\n- Merge: for shared or public branches, where you don't want to touch commits others already have.\n- Rebase: for your own local branch, to tidy it up before sharing, or to catch up with main without a messy history.\n\nOne hard rule: never rebase commits that someone else has already pulled. It rewrites them, and that breaks their copy.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "37fbfbe4fd407c32ab8fc41522e13a7c9a66184ce6f8602d233cae66a8d1e293"
+}

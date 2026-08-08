@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__opener__r2",
+  "batchId": "probe-opener-ce0bd038",
+  "seed": "1786135293353",
+  "orderIndex": 2,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "opener",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 36803,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "opener:Opener",
+  "costUsd": 0.265023,
+  "numTurns": 9,
+  "durationMs": 35135,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1583
+  },
+  "contextTraffic": 196763,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 4800,
+  "narrationWords": 0,
+  "finalWords": 92,
+  "finalText": "**The build passes now.**\n\nOne real error was hiding in the noise: `src/core/settings.js` set `maxRetries: retries`, and `retries` was never defined. It threw `ReferenceError: retries is not defined` at the link step.\n\nI changed it to read `env.retries` with a fallback constant of `3`. Build finishes with exit 0.\n\nThe 3 warnings are still there and are separate from this. Say the word and I'll clean those up too:\n\n- `W1042` — `crypto.createCipher` in `src/legacy/adapter.js`\n- `W2213` — unused export `formatLegacyDate` in `src/utils/format.js`\n- `W3307` — circular import between `src/core/graph.js` and `src/state/tracker.js`",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "aa17bbba1f5b02623eccb39edbcd4e81a9277288745b996530b56e103390662f"
+}

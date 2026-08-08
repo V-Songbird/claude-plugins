@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__baseline__r1",
+  "batchId": "turnstep-661d0ca5",
+  "seed": "1786172329502",
+  "orderIndex": 0,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23022,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.18338220000000002,
+  "numTurns": 11,
+  "durationMs": 21543,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1323
+  },
+  "contextTraffic": 231061,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 15101,
+  "narrationWords": 63,
+  "finalWords": 45,
+  "finalText": "Both green. The bug: `orderTotal()` was applying tax to the pre-discount amount instead of the discounted amount (contradicting its own doc comment). Fixed in `src/pricing.js:41` by taxing `discounted` instead of `cents` — all 625 cases pass and `verify.js` confirms the fix is legitimate (spec/runner untouched).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bb564d9d8ab701f626faa4b223ff479108db4cb392a67c3a65f9ece4b457d8a1"
+}

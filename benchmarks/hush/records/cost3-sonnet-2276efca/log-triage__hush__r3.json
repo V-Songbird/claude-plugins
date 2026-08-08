@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__hush__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 125,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34530,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2229485,
+  "numTurns": 4,
+  "durationMs": 33075,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2367
+  },
+  "contextTraffic": 144785,
+  "apiCalls": 4,
+  "toolCalls": 3,
+  "toolResultChars": 23467,
+  "narrationWords": 0,
+  "finalWords": 169,
+  "finalText": "Redis went down at 2:14 AM and prod never recovered from it.\n\n**What happened, in order:**\n1. Redis connection dropped (`ECONNREFUSED`), so the cache fell back to hitting the database directly.\n2. That direct-read fallback overloaded the store, and requests across `api`, `worker-1`, `worker-2`, and `scheduler` started timing out.\n3. The request queue backed up steadily, climbing from 52 to over 560 over the next 17 minutes.\n4. Redis kept trying to reconnect every couple minutes and kept failing — at least 12 attempts, all refused.\n5. At 2:31:44, `worker-2` ran out of memory from the growing backlog and crashed.\n6. Seconds later the `api` process stopped responding, and the supervisor killed everything. Service went down at 2:31:52.\n\nSo the real root cause is the Redis outage at `10.0.0.12:6379` — everything after that was the fallback path collapsing under load it was never meant to carry. Worth checking why Redis dropped and why nothing paged on 17 straight minutes of failed reconnects before it took the whole service down.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "090c9fb28e1c06cf88a37b489004d5511b381ec6d11ba9365e6a3aa3343e2b41"
+}

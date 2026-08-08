@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 66,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10809,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0857236,
+  "numTurns": 3,
+  "durationMs": 9220,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 720
+  },
+  "contextTraffic": 86257,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 363,
+  "narrationWords": 0,
+  "finalWords": 36,
+  "finalText": "Wrote `validate_email.py` with an `is_valid_email(email)` function that uses a regex to check the local part, domain labels, and overall length (max 254 chars per RFC). Verified it against valid/invalid test cases — all pass as expected.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9f37da7f0774d01b37384211ed9b34a41e2f30421ce0981d3142bb13247ef901"
+}

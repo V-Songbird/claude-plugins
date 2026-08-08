@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__nudge3__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 56,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "nudge3",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 158487,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.8922516999999999,
+  "numTurns": 38,
+  "durationMs": 152494,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 11022
+  },
+  "contextTraffic": 1097568,
+  "apiCalls": 25,
+  "toolCalls": 34,
+  "toolResultChars": 35839,
+  "narrationWords": 0,
+  "finalWords": 109,
+  "finalText": "dep check confirmed and `AUDIT.md` written — `node verify.js` passes.\n\n`package.json` pins `fast-parse` at the yanked `1.4.2`; the other three deps check out against `NOTES.md` (`pg-lite` and `redis-min` current, `date-fmt` unmaintained but flagged harmless).\n\n`AUDIT.md` has all four findings, ranked by severity:\n\n1. SQL injection in `src/repo/report.js` — filter and sort values pasted straight into the query.\n2. Unauthenticated internal routes in `src/routes/internal.js` — the VPN that used to guard them is gone.\n3. Hardcoded staging DB password in `config/staging.js`.\n4. Yanked `fast-parse` 1.4.2 in `package.json`, fix is 1.4.3.\n\nEach entry names the file, quotes the bad line, and says what to fix — no service code was touched.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "643504f77b2cd63032e59f494288082dd60aea09ee49c21f3d9b8a0a3b8502fa"
+}

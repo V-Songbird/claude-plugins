@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 39,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 26885,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.137859,
+  "numTurns": 1,
+  "durationMs": 24593,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1626
+  },
+  "contextTraffic": 25550,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 111,
+  "finalText": "**Merge keeps the history, rebase rewrites it.**\n\nA merge ties two branches together with one new joining commit. Both lines of work stay visible, exactly as they happened.\n\nA rebase replays your commits on top of the other branch. You get one straight line, and your commits get new IDs.\n\n```mermaid\nflowchart LR\n  subgraph after_merge\n    m1[main] --> mc[merge commit]\n    y1[your work] --> mc\n  end\n  subgraph after_rebase\n    m2[main] --> y2[your work, copied] --> tip[tip]\n  end\n```\n\nThose new IDs are the whole rule of thumb. Rebase only commits nobody else has pulled, usually your own branch before you share it. Merge anything already shared, or the new IDs break everyone else's copy.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a309a1180809a122265897ab4df5ce77f60ce660fbd09af6c5a992b2f379454b"
+}

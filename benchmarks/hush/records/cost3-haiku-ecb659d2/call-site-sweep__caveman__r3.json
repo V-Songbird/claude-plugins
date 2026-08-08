@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__caveman__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 116,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 12033,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.029409100000000004,
+  "numTurns": 3,
+  "durationMs": 10685,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 728
+  },
+  "contextTraffic": 71086,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 4856,
+  "narrationWords": 0,
+  "finalWords": 48,
+  "finalText": "**17 total call sites** pass legacy rounding flag.\n\n**Most in `src\\reports\\quarterly.js`: 5 calls**\n\nBreakdown by file:\n- quarterly.js: 5\n- exports.js: 3\n- invoice.js: 3\n- monthly.js: 2\n- cart.js: 2\n- statement.js: 1\n- receipt.js: 1\n\nAll marked with TODO comments about dropping the flag once migrated.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "51f7534f44f42e5d93136e70e87ce8ba06e20a39588d8d433dc220cbb38b6475"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__baseline__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 123,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 13147,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0730345,
+  "numTurns": 2,
+  "durationMs": 11918,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 835
+  },
+  "contextTraffic": 68837,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 60098,
+  "narrationWords": 0,
+  "finalWords": 239,
+  "finalText": "**Root cause: Redis crashed, triggering a cascading failure that took down prod.**\n\nHere's what happened:\n\n1. **02:14:07 - Redis dies**: Redis connection on `10.0.0.12:6379` went down (ECONNREFUSED)\n\n2. **Immediate fallback to direct store**: System tried to bypass the cache and hit the database directly instead\n\n3. **Cascade starts**: Without cache, every request now hit the overloaded store, causing timeouts. The system kept retrying, flooding the queue with stuck requests\n\n4. **Request queue explodes**: \n   - Started at queue depth 52 (line 186)\n   - Grew steadily: 55 → 94 → 166 → 253 → **568+** (line 702)\n   - Max capacity was only 500\n\n5. **Redis reconnect failed 12 times** (lines 224, 265, 306, 347, 388, 429, 470, 511, 552, 593, 634, 675, 716) — each attempt was refused, so there was no recovery path\n\n6. **Memory exhaustion** (line 717): Worker-2 ran out of heap memory trying to hold 500+ requests in the queue\n\n7. **02:31:45 - Complete collapse**: Supervisor killed the process group because API was unresponsive\n\n**The problem**: Once Redis went down, the system had no graceful degradation. It should have either:\n- Circuit-broken the store (reject requests instead of queuing infinitely)\n- Bounded the queue and shed load\n- Had a faster failure mode than timeout + retry\n\n**Immediate action**: Check why Redis crashed and whether it came back up. If it's back, expect it to crash again unless you fix the queueing/timeout behavior to handle cache failures better.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d07386c191f4c398837b699d6cbb49d1f12e69e80966c8338cdae4da272275f2"
+}

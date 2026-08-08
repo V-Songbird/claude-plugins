@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__baseline__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 27,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 84128,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6116952999999999,
+  "numTurns": 43,
+  "durationMs": 82888,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10160
+  },
+  "contextTraffic": 448807,
+  "apiCalls": 12,
+  "toolCalls": 42,
+  "toolResultChars": 27216,
+  "narrationWords": 122,
+  "finalWords": 36,
+  "finalText": "Migration complete — all 12 stragglers in `packages/` (across analytics, orders, billing, support, catalog, accounts) now use `db.execute({ sql, params })`. Left `cache.query` calls and `vendor/legacy-orm/adapter.js` untouched, since those aren't part of the migration. `verify.js` passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4c4ae880dc0c9e609f7e53be68366fa401ec9e4e87f0cad40a1bfce8dab0976e"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__caveman__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 95,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 43059,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.274216,
+  "numTurns": 10,
+  "durationMs": 41844,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2529
+  },
+  "contextTraffic": 187529,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6391,
+  "narrationWords": 0,
+  "finalWords": 170,
+  "finalText": "Build green. Exit 0.\n\n**Two real bugs, both from bump — sequential, second hidden behind first:**\n\n`src/core/options.js:7` — bundler renamed options key `retries` to `retryCount`. Call site never updated, so `options.retries` was `undefined`:\n> `TypeError: Cannot read properties of undefined (reading 'toFixed')`\n\nNow reads `retryCount ?? retries ?? 0`, so both bundler versions work.\n\n`src/net/retryPolicy.js:8` — new config loader leaves unset flags `undefined`; old one returned `false`. Strict check threw on absent flag. Now `undefined` treated as off; other non-booleans still throw (real misconfiguration).\n\n**Warnings not gone — 8 remain, and none fixable from src:**\n`build.js:18-24,46-48` emit them unconditionally. They point at `src/legacy/adapter.js`, `src/utils/format.js`, `src/core/graph.js`, `src/state/tracker.js` — none exist in this repo. Only `src/core/options.js` and `src/net/retryPolicy.js` present. So deprecation noise is fake-bundler output, not real diagnostics; silencing it would mean editing build.js log lines, which hides nothing real. Left alone.\n\nGenuine item if those files exist elsewhere: `W3307 circular-import: src/core/graph.js <-> src/state/tracker.js, resolution order is undefined` — that one bites at runtime. `crypto.createCipher` (W1042) also worth killing, deprecated and insecure.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ef7bb72be519948bdbf94cfbb71e31f83ae1ebea9d79c5a4d8229c753c2f1f55"
+}

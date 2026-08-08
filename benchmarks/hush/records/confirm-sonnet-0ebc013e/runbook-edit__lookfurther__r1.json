@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__lookfurther__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 92,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 37450,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.2588389,
+  "numTurns": 10,
+  "durationMs": 32605,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2232
+  },
+  "contextTraffic": 356838,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 6483,
+  "narrationWords": 0,
+  "finalWords": 25,
+  "finalText": "All three production mentions of 8081 are now 9090 — the health-check command, the known-issues note, and the environment table. Staging's 8091 stayed as is.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "923de1c9bdb47d5e9133e3e955449d427e4f37e85566495360df6060d1699f64"
+}

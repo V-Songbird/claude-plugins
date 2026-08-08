@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 86,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 64204,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0834218,
+  "numTurns": 10,
+  "durationMs": 62955,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5538
+  },
+  "contextTraffic": 208890,
+  "apiCalls": 8,
+  "toolCalls": 9,
+  "toolResultChars": 14972,
+  "narrationWords": 211,
+  "finalWords": 180,
+  "finalText": "Perfect! All 40 tests pass now. \n\n**Summary of the issue and fix:**\n\nThe bug was **premature rounding before currency conversion**. The engine was calling `round()` after applying each discount while still in USD, losing precision that then affected the final rounding after conversion.\n\n**Why it manifested with stacked discounts on non-USD currencies:**\n- When you round after percent discount but before currency conversion, small rounding errors (~0.002 USD) get multiplied by the conversion rate\n- This shifted error can flip whether a value rounds up or down in the target currency\n- For example, in GBP: losing 0.002 USD becomes losing ~0.0016 GBP, which changed 14.02596 → 14.02 instead of rounding up to 14.03\n- USD (rate 1.0) and EUR (rate 0.9) happened to avoid this, but GBP (0.78), CAD (1.35), and JPY (149) exposed it\n\n**The fix:** Removed the intermediate rounding calls and let precision flow through all discount calculations. Rounding now happens exactly once at the end after currency conversion—matching the contract your reference implementation defines and the financial principle of \"round exactly once, at the very end.\"",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a7f9feccb3a22890900b9fdab5e59cb5e794e28b520a4cc2c17fdf2f8f9edaa2"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r1",
+  "batchId": "heavysmoke-e1e37c31",
+  "seed": "1786150253947",
+  "orderIndex": 11,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 145002,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6304441000000001,
+  "numTurns": 36,
+  "durationMs": 140287,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 11439
+  },
+  "contextTraffic": 832233,
+  "apiCalls": 20,
+  "toolCalls": 32,
+  "toolResultChars": 30328,
+  "narrationWords": 28,
+  "finalWords": 109,
+  "finalText": "Wrote `AUDIT.md` with all four findings, ordered by severity:\n\n1. **Critical** — `src/routes/internal.js`: no auth wired up, unauthenticated read + destructive delete on `/internal/*`.\n2. **High** — `src/repo/report.js`: string-concatenated SQL in `runSavedReport`, filter/orderBy unvalidated (currently unreachable — no route calls it yet, but a landmine per its own docstring).\n3. **Medium** — `config/staging.js:11`: staging DB password committed in plaintext, unlike prod/dev which use env vars.\n4. **Low** — `package.json:6`: `fast-parse` still pinned at the yanked, prototype-pollution-vulnerable `1.4.2`; needs bumping to `1.4.3`. Not directly `require()`'d in `src/`, so exposure is limited but it should still be fixed.\n\nNo files under `src/`, `config/`, or `package.json` were touched — this was audit-only.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "794511dad14fdd79a7ad0c8718e7a781ef5e8ba6bb5b4c4b22aa305b3d52637d"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__hush__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 14,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 43225,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2491464,
+  "numTurns": 11,
+  "durationMs": 41746,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3137
+  },
+  "contextTraffic": 262018,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 12673,
+  "narrationWords": 0,
+  "finalWords": 109,
+  "finalText": "Found it and fixed it. The bundle stage was crashing after the lint pass with:\n\n```\nERROR EBUNDLE07 config-incomplete: packages/shared/config.js — Error: resolved config for @acme/db has no output.dir\n```\n\n`resolveRelease` in `packages/shared/config.js` merged config layers with a plain `Object.assign`, which is shallow. So a package that only overrides `output.format` (like `@acme/api`) wiped out the rest of `output` — `dir`, `entry` — instead of keeping them.\n\nI changed the merge to combine nested objects (`output`, `sourcemap`) key by key at each layer, instead of replacing them wholesale. `build.js` now finishes clean with 5 warnings and 0 errors, and `verify.js` confirms both the merge layering and the build itself pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "392ab3bd3c83523bcaeb7ef6a0a822bf4ca4321ab0ec0abc279ecea495f69ebd"
+}

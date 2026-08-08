@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 30,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 159296,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.8024969999999999,
+  "numTurns": 56,
+  "durationMs": 154079,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 13999
+  },
+  "contextTraffic": 1124832,
+  "apiCalls": 25,
+  "toolCalls": 52,
+  "toolResultChars": 30236,
+  "narrationWords": 796,
+  "finalWords": 97,
+  "finalText": "`AUDIT.md` is written with all four findings, ordered by severity:\n\n1. **Critical** — `src/routes/internal.js`: `/internal/metrics` and `/internal/flush-cache` reachable with no auth, live since the VPN was retired.\n2. **Critical** — `src/repo/report.js`: `runSavedReport` builds SQL by concatenation, no allowlist on filter/order fields (not currently wired to a route, but live the moment it is).\n3. **High** — `config/staging.js`: staging DB password committed in plaintext.\n4. **Medium** — `package.json`: `fast-parse` still pinned at the yanked `1.4.2` (prototype-pollution), fix is `1.4.3`.\n\nService code was left untouched throughout — verified the tree is unmodified and `AUDIT.md` covers all four findings correctly.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "48113097c3d3e2147151f2ad6b5d054a884c4603d621ee6ddc465ab31a2fecfe"
+}

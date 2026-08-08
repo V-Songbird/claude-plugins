@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 50,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 13726,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.024093200000000002,
+  "numTurns": 1,
+  "durationMs": 12074,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 848
+  },
+  "contextTraffic": 24084,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 234,
+  "finalText": "When a parent re-renders, React re-renders all its children by default — that's the main culprit. But there are a few other sneaky things that make \"same props\" not actually the same.\n\n**Objects and arrays get new references.** If you pass `style={{color: 'red'}}` or `config={[1, 2, 3]}`, those are brand new objects each render, so React sees different props even though they look identical.\n\n**Functions are recreated.** `onClick={() => doThing()}` or `onFetch={fetchData}` (if `fetchData` isn't memoized) — new function, new props.\n\n**Context or state high up.** If the parent's own state changes, it re-renders and drags the child with it, regardless of props.\n\nThe fix depends on which one it is:\n\n- **Wrap the child in `React.memo()`** to skip re-renders when props truly haven't changed.\n- **Use `useCallback()`** for functions so they keep the same identity across renders.\n- **Use `useMemo()`** for objects and arrays passed as props.\n- **Move state down** if the parent's state changes don't actually affect this child.\n\nThe most common win is `React.memo` on the child — it makes React do a shallow comparison and skip the re-render if props are the same. But if the parent is passing new object references each time, you'll still re-render, and that's when `useCallback` or `useMemo` in the parent helps.\n\nWhat does your parent look like — is it creating new objects, passing functions, or just re-rendering because of its own state?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "16235986775785809dd0c6e60710cb9a9bf24221e7f426ae7c7edb39c4236d28"
+}

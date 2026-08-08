@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__terse__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 46,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "terse",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 132989,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.8118086999999999,
+  "numTurns": 49,
+  "durationMs": 126349,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10172
+  },
+  "contextTraffic": 799329,
+  "apiCalls": 17,
+  "toolCalls": 45,
+  "toolResultChars": 26567,
+  "narrationWords": 0,
+  "finalWords": 122,
+  "finalText": "`fast-parse` is pinned at `1.4.2` in `package.json` — exactly the version `NOTES.md` says was yanked for a prototype-pollution bug. `1.4.3` has the fix. The other flagged packages check out fine: `pg-lite` and `redis-min` are current, `date-fmt` is unmaintained but marked harmless.\n\n`AUDIT.md` is written with all four findings, ranked by severity:\n1. SQL injection in `src/repo/report.js` — filter and sort fields pasted straight into the query, not yet wired to a route but ready to fire.\n2. Unauthenticated internal routes in `src/routes/internal.js` — live today, open to the internet since the VPN retired.\n3. Hardcoded staging DB password in `config/staging.js`.\n4. The yanked `fast-parse@1.4.2` dependency.\n\nI ran `verify.js` and it confirms the write-up is complete and the service code was left untouched.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "905a70be37b362a1f0a2f037b0a5685636abc755c43ac67d453ab74af488feef"
+}

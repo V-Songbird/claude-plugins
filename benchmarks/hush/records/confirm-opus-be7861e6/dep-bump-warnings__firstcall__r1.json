@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__firstcall__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 61,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 55814,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.33229149999999996,
+  "numTurns": 10,
+  "durationMs": 54182,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3402
+  },
+  "contextTraffic": 202066,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6316,
+  "narrationWords": 7,
+  "finalWords": 95,
+  "finalText": "**The build passes now.** Exit 0, no errors.\n\nYou were right that something real was in there. Two bugs from the bump broke the link stage:\n\n1. `src/core/options.js` read `options.retries`, but the new bundler sends `retryCount`. It now takes either.\n2. `src/net/retryPolicy.js` threw when `backoffEnabled` was unset. Unset now means off.\n\nHeads up on that second one. Backoff is off by default again, matching the old loader. Worth a check if you expected it on.\n\nThe 8 remaining warnings are hardcoded text inside `build.js`. They name files like `src/legacy/adapter.js` that are not in this repo.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0c39b88e278e46a255aaf9f09ae8970bf0ddcbdc22b00deb28a6e0142ebfae70"
+}

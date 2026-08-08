@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__firstcall__r1",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 29,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 21511,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.19581099999999999,
+  "numTurns": 8,
+  "durationMs": 19886,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1045
+  },
+  "contextTraffic": 106373,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4653,
+  "narrationWords": 0,
+  "finalWords": 99,
+  "finalText": "**It's a small Node HTTP service — five files, no package or tests.**\n\n```mermaid\ngraph LR\n  server[server.js] --> auth[auth.js]\n  server --> routes[routes.js]\n  routes --> cache[cache.js]\n  cache --> store[store.js]\n```\n\n`server.js` checks the token, then hands off. `auth.js` reads a bearer token signed with a shared secret. `routes.js` maps three routes to handlers. `cache.js` keeps the last 256 reads. `store.js` is a `Map` standing in for a database, records expiring after 15 minutes.\n\nOne thing to know: the comment in `routes.js` says writes clear the cache, but nothing does. After a `POST /orders`, `GET /orders` keeps serving the old list.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9468fc43b96a24c75286e792b17e2feef1098a503467f8e3093357a975d8d866"
+}

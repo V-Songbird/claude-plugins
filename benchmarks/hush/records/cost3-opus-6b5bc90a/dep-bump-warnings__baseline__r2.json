@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 94,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 56472,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.284048,
+  "numTurns": 11,
+  "durationMs": 55130,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3747
+  },
+  "contextTraffic": 173772,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 6509,
+  "narrationWords": 43,
+  "finalWords": 397,
+  "finalText": "Build's green: **exit 0, 0 errors**.\n\n## What was actually broken\n\nBoth bugs were in the link stage, and they were sequential — fixing the first only got you as far as tripping the second.\n\n**1. `src/core/options.js:7` — hard failure.** The bump renamed the options key `retries` → `retryCount`. This call site still read `options.retries`, which was now `undefined`, so `.toFixed(0)` threw `TypeError: Cannot read properties of undefined`. That's what aborted the build. Now reads `retryCount`, falling back to `retries` so any call site that hasn't been migrated yet keeps working.\n\n**2. `src/net/retryPolicy.js:7` — the silent one.** The old config loader returned `false` for unset flags; the new one leaves them `undefined`. The strict boolean check treated `undefined` as a config error and threw. Now `undefined` maps to `false` (the old default), while a genuinely non-boolean value still throws — that guard is worth keeping.\n\nThis second one is the one I'd look at hardest. It isn't just a build fix: **exponential backoff now resolves to `disabled`** (`link ok: exponential backoff disabled`). That's the faithful restoration of the pre-bump default, but if your config was previously relying on the loader to hand back an explicit value, you may actually want backoff *on*. Worth confirming against your intended config rather than accepting the default.\n\n## The warnings are still there — and they're not fixable from source\n\nThe build still reports `8 warnings`. I dug into these rather than chasing them, because they're not real:\n\n- Every warning is a **hardcoded string literal** in `build.js` (the `DEPRECATIONS` array at line 18, plus three `if (compiled === 63 | 131 | 178)` pushes). The final count is literally `DEPRECATIONS.length + 3`, printed regardless of what compiled.\n- They cite files that **don't exist** in this tree — `src/legacy/adapter.js`, `src/legacy/bufferShim.js`, `src/utils/format.js`, `src/core/graph.js`, `src/state/tracker.js`. The only two files under `src/` are the two I just fixed. The 216 `compile ...` lines are synthesized strings too.\n\nSo there's no `Buffer()` call, no `fs.exists`, no circular import to go fix. The only way to make that count read zero would be to edit the canned strings out of `build.js`, which would be cosmetic — it'd change the log, not the code. I didn't do that. Say the word if you want the noise suppressed anyway, or if `build.js` is a stand-in for a real bundler config you'd like me to look at instead.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7edefabefc89b467b4ee2a8aa77ed32dca91f015db506c7f8f056430070b86e7"
+}

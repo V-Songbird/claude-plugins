@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__turnshort__r1",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 17,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "turnshort",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 104655,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6549811,
+  "numTurns": 55,
+  "durationMs": 102554,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 12425
+  },
+  "contextTraffic": 458524,
+  "apiCalls": 11,
+  "toolCalls": 54,
+  "toolResultChars": 31152,
+  "narrationWords": 28,
+  "finalWords": 38,
+  "finalText": "Migration's done. The 12 remaining call sites across accounts, billing, orders, catalog, support, and analytics now use `db.execute({ sql, params })`, and `verify.js` confirms it — vendored code and `cache.query` were left untouched, and every module still works.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a350dbcd99c4c7a8aa8b1a7614c3cc34f3214ca92bb8b4589ba480c0a989d691"
+}

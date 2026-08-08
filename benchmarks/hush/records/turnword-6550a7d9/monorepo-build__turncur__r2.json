@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__turncur__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 12,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "turncur",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 37569,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.24938430000000003,
+  "numTurns": 11,
+  "durationMs": 35964,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1795
+  },
+  "contextTraffic": 387884,
+  "apiCalls": 11,
+  "toolCalls": 10,
+  "toolResultChars": 11162,
+  "narrationWords": 7,
+  "finalWords": 79,
+  "finalText": "Found it: `packages/shared/config.js:15` merged config layers with a shallow `Object.assign`, so any package override that touched part of `output` or `sourcemap` (like `@acme/api`'s `output: { format: 'esm' }`) wiped out the rest of that object — `output.dir` went missing and the bundle stage threw.\n\nFixed `resolveRelease` to merge `output` and `sourcemap` one level deep across defaults, package overrides, and CLI flags, so a partial override only changes the key it names. Build and the verifier both pass clean now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8e7a4da9e6fe4d3405a2cef21a1c5da2849e09a37b6a882aeb8b2ec8df97cf9f"
+}

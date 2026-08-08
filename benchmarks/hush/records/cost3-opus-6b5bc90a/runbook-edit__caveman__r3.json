@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 142,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 75886,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.48723450000000007,
+  "numTurns": 16,
+  "durationMs": 71283,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4380
+  },
+  "contextTraffic": 447503,
+  "apiCalls": 15,
+  "toolCalls": 13,
+  "toolResultChars": 10346,
+  "narrationWords": 6,
+  "finalWords": 84,
+  "finalText": "All 8081 mentions gone. `verify.js` passes:\n\n```\nOK runbook edits landed and the document survived\n```\n\nFour spots changed, not three — the health-check curl, the SEC-233 known-issue bullet, the appendix table, plus the curl inside the drain step I added earlier. Staging admin port left at 8091.\n\nRunbook now has all three changes: drain-before-restart in rollback, Priya in escalation contacts, admin port on 9090. Still outstanding from the first edit: confirm `payctl queue drain settle-jobs` is the real command — I inferred it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b06bf9e3f308b5f66872981b009b555463167e1616cc3b3ca259b5383c223645"
+}

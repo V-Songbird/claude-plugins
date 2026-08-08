@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__baseline__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 35,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 32734,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0515049,
+  "numTurns": 14,
+  "durationMs": 31503,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2684
+  },
+  "contextTraffic": 167570,
+  "apiCalls": 7,
+  "toolCalls": 13,
+  "toolResultChars": 5229,
+  "narrationWords": 75,
+  "finalWords": 83,
+  "finalText": "Perfect! All tests pass. I've successfully updated the codebase to use `computeTotal` everywhere:\n\n**Changes made:**\n- `src/cart.js` — Renamed function and updated export\n- `src/index.js` — Updated import and export  \n- `src/invoice.js` — Updated import and function call\n- `src/report.js` — Updated import and function call\n\n**Test results:** All 4 tests pass ✓\n- computeTotal sums discounted lines\n- computeTotal is exported from cart\n- invoice uses the shared total\n- daily report grand total\n\nThe migration from `calcTotal` to `computeTotal` is complete.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a2b2cdf14efdac5dc6f4c07184b2c8f7f1b51f856860ca0202046343b78d477f"
+}

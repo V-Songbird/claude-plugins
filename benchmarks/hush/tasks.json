@@ -175,5 +175,73 @@
       "require": 3,
       "patterns": ["refreshToken.*revoked|revoked.*refreshToken", "sessionCleanup.*rollback|rollback.*sessionCleanup", "\\b(698|700|703)\\b"]
     }
+  },
+  {
+    "id": "failing-suite",
+    "category": "tool",
+    "segment": "noisy-output",
+    "fixture": "failing-suite",
+    "prompt": "The pricing suite is red and the output is a wall of text I can't read through. Can you run it, work out what's actually broken, and get it green?",
+    "check": { "type": "tests", "cmd": "node verify.js" }
+  },
+  {
+    "id": "monorepo-build",
+    "category": "tool",
+    "segment": "noisy-output",
+    "fixture": "monorepo-build",
+    "prompt": "Our monorepo build is failing somewhere after the lint pass and I can't find where in all that output. Can you run it, figure out what's breaking, and get it building clean?",
+    "check": { "type": "tests", "cmd": "node verify.js" }
+  },
+  {
+    "id": "repo-sweep",
+    "category": "tool",
+    "segment": "search-heavy",
+    "fixture": "repo-sweep",
+    "prompt": "We're retiring db.query in favour of db.execute({ sql, params }). Most of the codebase moved over in earlier passes — can you find whatever is still on the old call and finish the migration?",
+    "check": { "type": "tests", "cmd": "node verify.js" }
+  },
+  {
+    "id": "feature-drift",
+    "category": "tool",
+    "segment": "long-session",
+    "fixture": "feature-drift",
+    "prompts": [
+      "I need a notification router. Fill in route() in src/router.js: low goes to email, normal to push, high to sms, critical to pager. There's a replay harness, node simulate.js, that shows you what it did.",
+      "Change of plan on high — those should go to both sms and email, not just sms.",
+      "We need quiet hours too. Between 22:00 and 07:00, only critical gets through, and it should go to push instead of pager.",
+      "Scrap that last part. During quiet hours everything except critical goes to the queue channel, and critical still pages the way it does the rest of the day.",
+      "One more: if we already sent something with the same key in the last 5 minutes, drop the repeat."
+    ],
+    "check": { "type": "tests", "cmd": "node verify.js" }
+  },
+  {
+    "id": "incident-forensics",
+    "category": "tool",
+    "segment": "long-session",
+    "fixture": "incident-forensics",
+    "prompts": [
+      "The gateway started throwing 503s last night. Can you dig through logs/gateway.log and tell me when it started and what the errors actually say?",
+      "Check deploys.csv — did anything ship near that time?",
+      "logs/worker.log covers the same window. Did the workers hit the same trouble, or was this only the gateway?",
+      "Write me the on-call handoff: root cause, the impact window, and which deploy to roll back."
+    ],
+    "check": {
+      "type": "keywords",
+      "require": 3,
+      "patterns": ["dep-4471", "pool|POOL_EXHAUSTED|connection", "perRequest|per-request|02:1[0-9]"]
+    }
+  },
+  {
+    "id": "marathon-audit",
+    "category": "tool",
+    "segment": "long-session",
+    "fixture": "marathon-audit",
+    "prompts": [
+      "I inherited this service and I need to know what's wrong with it. Start with auth — which routes are reachable without it?",
+      "Now check for secrets. Is anything sensitive committed anywhere in the tree?",
+      "Any place we're building SQL by pasting strings together?",
+      "Last one: check the dependencies in package.json against NOTES.md. Then write it all up in AUDIT.md — every finding, the file it's in, ordered by severity. Leave the service code alone, this is an audit."
+    ],
+    "check": { "type": "tests", "cmd": "node verify.js" }
   }
 ]

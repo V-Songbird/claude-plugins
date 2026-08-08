@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 92,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 49714,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.26728500000000005,
+  "numTurns": 11,
+  "durationMs": 48275,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3085
+  },
+  "contextTraffic": 174391,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 6716,
+  "narrationWords": 25,
+  "finalWords": 317,
+  "finalText": "Build is green now — exit 0.\n\n## What was actually broken\n\nTwo real bugs, chained so the first masked the second:\n\n**`src/core/options.js:7`** — the bump renamed the options key `retries` → `retryCount`. This call site still read `options.retries`, which was `undefined`, so `.toFixed(0)` threw and aborted the link stage. Now reads `retryCount` with a fallback to the old `retries`, plus a typed error instead of a bare `TypeError` on bad input.\n\n**`src/net/retryPolicy.js:8`** — the new config loader leaves unset flags as `undefined` where the old one returned `false`. The strict boolean check threw on `undefined`. Now treats unset as the old default (off); genuinely non-boolean values still throw.\n\nYou only ever saw the first one — the build died before reaching the backoff check. Fixing `options.js` alone would have just moved the failure down a line.\n\n## About the rest of the warnings\n\nThe other 8 are still there, and I didn't touch them, because they can't be fixed from this tree. They're hardcoded string literals in `build.js` (the `DEPRECATIONS` array at line 18, plus the three `W1042`/`W2213`/`W3307` pushes at lines 46–48) that get emitted unconditionally on a module counter — they aren't derived from analyzing any source. The files they name (`src/legacy/adapter.js`, `src/legacy/bufferShim.js`, `src/utils/format.js`, `src/core/graph.js`, `src/state/tracker.js`) don't exist here; `src/` contains only the two files I edited.\n\nSo \"clean\" in the sense of *zero warnings* would require either deleting those lines from `build.js` — which would be suppressing the output rather than fixing anything — or having the real source tree those warnings point at. Tell me which you want if this is a trimmed-down repro of a larger repo.\n\nWorth flagging regardless: `W3307 circular-import: src/core/graph.js <-> src/state/tracker.js, resolution order is undefined` is the one I'd look at next in the real tree. Undefined resolution order is the kind of thing a bundler bump silently reorders, and it fails at runtime rather than build time.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3f8b42d8f90bcc904265f20280986ab085ec5ad4ca59ff2fb863a1116f4f2722"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__firstcall__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 71,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 21563,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.1973075,
+  "numTurns": 8,
+  "durationMs": 20115,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1092
+  },
+  "contextTraffic": 106446,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4653,
+  "narrationWords": 6,
+  "finalWords": 113,
+  "finalText": "**It's a small JSON API in plain Node — five files, no dependencies, no `package.json` or tests.**\n\n```mermaid\ngraph LR\n  server[server.js] -->|checks token| auth[auth.js]\n  server --> routes[routes.js]\n  routes -->|reads| cache[cache.js]\n  routes -->|writes| store[store.js]\n  cache --> store\n```\n\n`server.js` takes the request, checks the token, and hands off. `auth.js` reads a `Bearer <userId>.<signature>` header signed with a shared secret. `routes.js` holds a table of three endpoints. `cache.js` is a 256-entry read cache, and `store.js` is an in-memory map where records die after 15 minutes.\n\nOne thing to know: the comment in `routes.js` promises that writes clear the cache, but no code does that. `POST /orders` writes, and `GET /orders` keeps serving the old list.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b19fa00d879fd207da60d014c8962f3ad4cc222a94f2cf928779e1f103fd4195"
+}

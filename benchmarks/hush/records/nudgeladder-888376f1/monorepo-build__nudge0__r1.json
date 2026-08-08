@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__nudge0__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 12,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "nudge0",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 37537,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.22611570000000003,
+  "numTurns": 10,
+  "durationMs": 35991,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2709
+  },
+  "contextTraffic": 253351,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 10497,
+  "narrationWords": 0,
+  "finalWords": 51,
+  "finalText": "Found it: `resolveRelease` merged layers with a plain `Object.assign`, so any layer that touched one key inside `output` or `sourcemap` wiped the rest of that nested object.\n\nI gave it a proper merge that combines nested objects key-by-key instead of replacing them wholesale. Both the build and `verify.js` pass clean now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e01074da0c9beaa96311ccdab750210be74457ac70c4fc0e6a9f0475a419f7be"
+}

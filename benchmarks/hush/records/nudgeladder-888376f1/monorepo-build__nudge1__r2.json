@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__nudge1__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 18,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "nudge1",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 24100,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.18841019999999997,
+  "numTurns": 9,
+  "durationMs": 22473,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1387
+  },
+  "contextTraffic": 216109,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 10664,
+  "narrationWords": 0,
+  "finalWords": 64,
+  "finalText": "Fixed. `resolveRelease` in `packages/shared/config.js` merged layers with `Object.assign`, which replaces whole nested objects — so any package overriding one key inside `output` or `sourcemap` (like `@acme/api`) silently dropped its siblings, and `build.js` aborted at the bundle stage with `EBUNDLE07 config-incomplete`.\n\nReplaced it with a proper deep merge so partial overrides only touch the key they name. `build.js` and `verify.js` both pass now, exit 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "96a5a074e5bbec5bb8a695dde9933d207d99b8d6d6322a3b2af1d8808d364bc0"
+}

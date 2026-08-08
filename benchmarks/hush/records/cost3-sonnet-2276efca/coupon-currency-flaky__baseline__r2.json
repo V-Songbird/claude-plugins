@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 86,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28728,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.169474,
+  "numTurns": 9,
+  "durationMs": 27330,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2040
+  },
+  "contextTraffic": 190584,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 9020,
+  "narrationWords": 167,
+  "finalWords": 130,
+  "finalText": "All 40 tests pass now.\n\n**Root cause:** `computeTotal` in `src/pricing/engine.js` was rounding to USD cents after *each* stacked discount step (percent, then flat), before converting to the order's currency. That intermediate rounding discarded fractional-cent precision; when the exchange rate then multiplied that already-rounded figure, the final rounding landed one cent off about half the time. It only showed up when a percent coupon was stacked with a non-USD currency, since percent discounts are the ones that produce fractional cents in USD, and only currency conversion amplifies that lost fraction into a visible cent.\n\n**Fix:** apply discounts to the unrounded USD amount and round only once, at the very end, after converting to the target currency — matching the contract described in the code's own comment and the test's reference implementation.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "15c810763b0f20e7a3d4ac1b68c17b38a81b090e71d6ee03f36a905b8e961af8"
+}

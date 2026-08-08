@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__caveman__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 48,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 16245,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.10066549999999999,
+  "numTurns": 1,
+  "durationMs": 14854,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 752
+  },
+  "contextTraffic": 24063,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 243,
+  "finalText": "Two separate causes. Check both.\n\n**1. No `React.memo`.** Default React re-render child whenever parent render. Props same or not — irrelevant. Props only matter after `memo`.\n\n```jsx\nconst Child = React.memo(function Child({ items }) { ... })\n```\n\n**2. Props not same — same *value*, new *reference*.** `memo` use `Object.is` per prop. Objects, arrays, functions, JSX created inline = new ref each parent render.\n\n```jsx\n// breaks memo every render\n<Child style={{margin: 4}} items={[1,2]} onClick={() => save(id)} />\n```\n\nFix:\n```jsx\nconst style = useMemo(() => ({margin: 4}), [])\nconst onClick = useCallback(() => save(id), [id])\n```\nOr hoist static objects outside component.\n\n**Other suspects:**\n- Context. Child consume context = re-render on context value change, `memo` no help. Context value itself inline object = new ref every provider render.\n- `children` prop. `<Memoized>{<Thing/>}</Memoized>` — new element object each render, breaks memo.\n- Parent recreate component type inside its body (`function Parent() { const Child = () => ... }`) = unmount + remount every time. Worse than re-render.\n\n**Diagnose:** React DevTools Profiler, \"Record why each component rendered\" in settings. Tell exact prop that changed.\n\nCheap manual version:\n```jsx\nuseEffect(() => { console.log('items changed') }, [items])\n```\nFire on ref change, not value change — confirm suspicion fast.\n\nWarning: re-render not automatically bug. React re-render cheap unless render body heavy or subtree big. Profile before wrap everything in `memo`/`useMemo` — memo comparison itself cost, and stale-closure bugs from bad `useCallback` deps cost more.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "efb33295e4f10cd3ec9d2cbe4e799d0c5ff9656c1e27271e58e1f5bb171c49ab"
+}

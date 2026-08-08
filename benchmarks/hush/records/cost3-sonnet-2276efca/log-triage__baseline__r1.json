@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__baseline__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 119,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 27524,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.3163728,
+  "numTurns": 5,
+  "durationMs": 26277,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1988
+  },
+  "contextTraffic": 196266,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 60187,
+  "narrationWords": 0,
+  "finalWords": 352,
+  "finalText": "Here's the timeline reconstructed from `logs/app.log`:\n\n**Everything was healthy** from 02:00:00 until 02:14:07 — steady `GET /orders`/`GET /users`/health-check traffic across api/worker-1/worker-2/scheduler, all 200s.\n\n**02:14:07.113Z — root cause: Redis died**\n```\nERROR [api] redis connection lost: connect ECONNREFUSED 10.0.0.12:6379\nWARN  [api] cache layer degraded — falling back to direct store reads\n```\nRedis at `10.0.0.12:6379` became unreachable. The app fell back to hitting the backing store directly for every request.\n\n**02:14:08 onward — cascading overload**\nWith cache bypassed, the direct store couldn't keep up:\n- Recurring `cache miss storm` warnings on nearly every key\n- `TimeoutError: request timed out after 5000ms (store overloaded)` from api/worker-1/worker-2/scheduler in a steady round-robin, every ~2s from 02:14 through 02:31\n- `request queue depth` climbed continuously and never drained: 52 → 250 (02:20:48) → 500/max (02:25:48) → 568 by 02:31:24. Nothing was shedding load once the queue hit its stated max of 500, so it just kept growing.\n- Redis reconnect attempts (0 through 12, every ~2.5 min) all failed with the same `ECONNREFUSED 10.0.0.12:6379` — Redis never came back on its own.\n\n**02:31:44.902 — worker-2 OOMs**\n```\nERROR [worker-2] JavaScript heap out of memory (request backlog)\nFATAL [supervisor] worker-2 exited with code 134, restarting\n```\nThe unbounded backlog of queued requests finally exhausted worker-2's heap.\n\n**02:31:52.318 — total outage**\n```\nFATAL [supervisor] api unresponsive, killing process group — service down\n```\nThe api process was wedged badly enough that the supervisor gave up and killed the whole process group.\n\n**Summary:** A Redis outage at `10.0.0.12:6379` (02:14:07) triggered a fallback path with no circuit breaker or load shedding. Requests piled up in an unbounded queue for ~17.5 minutes while Redis reconnects kept failing, until worker-2 OOM'd and the supervisor killed the service (02:31:52). The actual crash was memory exhaustion from backlog, but the root cause is the Redis dependency going down combined with no backpressure/circuit-breaker on the direct-store fallback.\n\n**Recommendation:** add a circuit breaker that sheds load (fail fast / 503) once queue depth or store latency crosses a threshold, instead of letting requests queue indefinitely; also alert on Redis reconnect failures much earlier than 17 minutes in.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "96296ef2f0701c3725057482dff13e896f9e577ac4f50ad8f15bbe87c8f06a21"
+}

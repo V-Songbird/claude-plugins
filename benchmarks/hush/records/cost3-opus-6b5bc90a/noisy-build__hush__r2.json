@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__hush__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 39,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 35975,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.26647150000000003,
+  "numTurns": 9,
+  "durationMs": 34320,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1587
+  },
+  "contextTraffic": 196904,
+  "apiCalls": 7,
+  "toolCalls": 8,
+  "toolResultChars": 5212,
+  "narrationWords": 0,
+  "finalWords": 108,
+  "finalText": "**The build is green again.**\n\nOne real error hid under the noise: `src/core/settings.js` read a bare `retries`, which never existed. That threw `ReferenceError: retries is not defined` and killed the link step.\n\nIt now reads `env.retries` and falls back to a new `DEFAULT_RETRIES = 2`.\n\nBuild finishes with 0 errors, exit 0.\n\nThe 3 warnings are still there and are separate work:\n\n| Code | Where |\n| --- | --- |\n| `W1042` deprecated `crypto.createCipher` | `src/legacy/adapter.js` |\n| `W2213` unused export `formatLegacyDate` | `src/utils/format.js` |\n| `W3307` circular import | `src/core/graph.js` ↔ `src/state/tracker.js` |\n\nThose files aren't in this project yet, so I left them alone.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "63ff921498eb846067906c28eb216304a9f0a5ce1de00d6dc29e5576cebc4464"
+}

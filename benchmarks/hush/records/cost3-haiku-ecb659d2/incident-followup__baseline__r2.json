@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__baseline__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 131,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 47209,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1239033,
+  "numTurns": 9,
+  "durationMs": 43409,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2971
+  },
+  "contextTraffic": 413109,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 60679,
+  "narrationWords": 0,
+  "finalWords": 99,
+  "finalText": "Done. I've written up the handoff at `ON_CALL_HANDOFF.md` with:\n\n- **Root cause**: Redis offline at 02:14:07, reconnect failed 12+ times\n- **Impact window**: 02:14:07 to 02:31:45 UTC (~17.5 minutes) — degraded until OOM crash, then total outage\n- **ioredis version**: Listed as `^5.4.1` in package.json, but **exact installed version unknown** without a lock file\n\nThe key blocker for investigating the reconnect failures is finding out what ioredis version actually ran on prod. The `^5.4.1` constraint is pretty loose and could have installed anything from 5.4.1 up through recent 5.x releases. Check your deployment artifacts or node_modules snapshot to confirm.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c1cb9b52b8992c474914c9ba20d211498a9334c99711f0446429914b2f4822d6"
+}

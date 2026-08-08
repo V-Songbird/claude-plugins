@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__baseline__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 2,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 23983,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.17046050000000004,
+  "numTurns": 8,
+  "durationMs": 22418,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1205
+  },
+  "contextTraffic": 138341,
+  "apiCalls": 6,
+  "toolCalls": 7,
+  "toolResultChars": 2020,
+  "narrationWords": 72,
+  "finalWords": 111,
+  "finalText": "All 5 tests pass.\n\n**The bug:** `token.js:7` used a strict `<` comparison:\n\n```js\nreturn token.exp < nowSeconds;   // before\nreturn token.exp <= nowSeconds;  // after\n```\n\nA token with `exp: 100` was reported as *valid* at `nowSeconds === 100`, contradicting the documented contract on line 4 (\"expired the moment `exp` is reached\"). In practice that gave every token an extra grace second past its expiry — the leak you were seeing.\n\n`secondsLeft` needed no change: it delegates to `isExpired`, and at the expiry instant both the old arithmetic path (`100 - 100`) and the new short-circuit return `0`, which is why that test passed even while the underlying check was wrong.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "288014030fe93a715675eb143d01c40cb6d5197dc6a7c80c8477a3977a84d00f"
+}

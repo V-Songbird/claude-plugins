@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__caveman__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 36,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 32366,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.056594500000000006,
+  "numTurns": 8,
+  "durationMs": 30979,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2254
+  },
+  "contextTraffic": 163843,
+  "apiCalls": 6,
+  "toolCalls": 7,
+  "toolResultChars": 14168,
+  "narrationWords": 24,
+  "finalWords": 31,
+  "finalText": "Done. Real error buried in warnings was in src/core/settings.js:17 — undefined variable `retries`. Changed it to `env.retries || DEFAULTS.retries` after adding retries to DEFAULTS. Build now clean: 3 warnings, 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6e607d5d4e5f6d460d459692ac396772d34c75c3d10986d24cffe7fa6f4a953e"
+}

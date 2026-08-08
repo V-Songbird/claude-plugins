@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__baseline__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 26,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 77249,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.7122665,
+  "numTurns": 16,
+  "durationMs": 72079,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4548
+  },
+  "contextTraffic": 1040196,
+  "apiCalls": 16,
+  "toolCalls": 12,
+  "toolResultChars": 83570,
+  "narrationWords": 18,
+  "finalWords": 196,
+  "finalText": "## On-Call Handoff — Gateway 503s\n\n**Root cause:** `dep-4471` (gateway, deployed by a.novak, 2026‑03‑14 02:12–02:14Z) — *\"config: connection-per-request for pool isolation\"*. It flipped `gateway.pool.perRequest: false -> true` (config generation 119, applied 02:13:41.234Z). Connections stopped being returned to the shared pool, pinning it at `in_use=20/20` with an ever-growing `waiting` queue.\n\n**Impact window:** **02:14:18.972Z → ongoing** (still failing as of the last log line, 03:59:27.974Z — **not self-healing**, needs active remediation).\n- First sign: `WARN acquire slow: waited 100ms` at 02:14:14.920Z\n- First 503: `req-07401 /v1/cart -> billing-svc 503` at 02:14:18.972Z\n- Errors recur every request cycle across `/v1/cart`, `/v1/session`, `/v1/catalog/search`, `/v1/orders`, `/v1/checkout` — all upstreams (billing/orders/catalog/accounts) affected\n- Pool wait times climbed steadily from ~100ms to ~890ms and the waiting queue from ~13 to 70+ over the ~1h45m window, confirming continuous degradation, not a transient blip.\n\n**Scope:** Gateway only. `worker.log` shows zero errors/503s through the entire window — workers use a separate DB pool (size 8) untouched by this config change.\n\n**Action: roll back `dep-4471` on gateway** (revert `gateway.pool.perRequest` to `false`). No other deploy in `deploys.csv` is implicated — `dep-4472` (billing-svc, 02:41) and `dep-4473` (catalog-svc, 03:20) both landed after the outage was already underway and are unrelated.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3175409a23bae65834e0382a8bd2454bd2fb59f07d9cb1c3a115963619227033"
+}

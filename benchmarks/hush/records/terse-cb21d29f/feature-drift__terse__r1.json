@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__terse__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 25,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "terse",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 124818,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5347126,
+  "numTurns": 15,
+  "durationMs": 116299,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 9374
+  },
+  "contextTraffic": 496016,
+  "apiCalls": 12,
+  "toolCalls": 10,
+  "toolResultChars": 11958,
+  "narrationWords": 0,
+  "finalWords": 17,
+  "finalText": "That's already in place — same key within 5 minutes drops the repeat, and `verify.js` checks it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "148cc5214439c4837218c9f6e62873463cc0d9ceaed95fd83f8d613a52fbc420"
+}

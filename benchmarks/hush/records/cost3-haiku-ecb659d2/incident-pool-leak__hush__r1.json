@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 72,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 31316,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.058589100000000005,
+  "numTurns": 11,
+  "durationMs": 29537,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2048
+  },
+  "contextTraffic": 145206,
+  "apiCalls": 5,
+  "toolCalls": 10,
+  "toolResultChars": 14030,
+  "narrationWords": 0,
+  "finalWords": 49,
+  "finalText": "Fixed it. The leak was in `processOrder.js`—when an order failed validation, it threw before reaching the `pool.release()` call, trapping the connection permanently. I wrapped the `run()` call in try/finally so the release always happens, even on errors.\n\nAll 4 tests pass now. The pool recovers correctly when orders fail.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "8e02adc30791260c35f67a9ea2333eb51c61d1bb1f55876e8a4cd8e0c31e9c6f"
+}

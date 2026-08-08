@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 115,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 34591,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.1736628,
+  "numTurns": 6,
+  "durationMs": 32951,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1520
+  },
+  "contextTraffic": 204721,
+  "apiCalls": 6,
+  "toolCalls": 5,
+  "toolResultChars": 4781,
+  "narrationWords": 0,
+  "finalWords": 44,
+  "finalText": "All 11 files using `formatAmount` are accounted for, and only those already checked call it with a second argument — no other spots to worry about.\n\n17 call sites still pass the legacy rounding flag, all as `true`. `src/reports/quarterly.js` has the most, with 5.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "681ab5e685a71f3b90780b4c775994adbebf3879b61e4cfd8aadbea9c94317e6"
+}

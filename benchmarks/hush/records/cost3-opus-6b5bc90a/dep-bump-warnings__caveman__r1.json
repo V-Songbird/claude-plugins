@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__caveman__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 90,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 40770,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.26059299999999996,
+  "numTurns": 10,
+  "durationMs": 39362,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2145
+  },
+  "contextTraffic": 186494,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6128,
+  "narrationWords": 0,
+  "finalWords": 139,
+  "finalText": "Build green. Exit 0.\n\nTwo real bugs from bump, sequential:\n\n1. `src/core/options.js:7` — bundler renamed options field `retries` to `retryCount`. Call site read old name, got `undefined`, `TypeError: Cannot read properties of undefined (reading 'toFixed')`. Now reads `retryCount`, falls back to `retries`.\n2. `src/net/retryPolicy.js:7` — new config loader leaves unset flags `undefined`, old one returned `false`. Strict check threw `backoffEnabled must be a boolean, got undefined`. Now `undefined` means off; other non-boolean still throws.\n\nSecond one only surfaced after first fixed — hidden behind the crash.\n\nRemaining 8 warnings not fixable from source: `build.js` emits them from hardcoded arrays (`DEPRECATIONS`, plus three `if (compiled === N)` lines), and they name files that don't exist in `src` (`src/legacy/adapter.js`, `src/utils/format.js`). Pure log noise from the fake bundler, no code behind them. Say the word if you want them muted in `build.js`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ab40d44074be057ffef3185a4ecf10f5f6b4a5720057ab922a92b89cfdf682eb"
+}

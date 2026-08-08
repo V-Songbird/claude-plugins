@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__caveman__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 116,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 21750,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1509378,
+  "numTurns": 6,
+  "durationMs": 20249,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1775
+  },
+  "contextTraffic": 160845,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 3889,
+  "narrationWords": 10,
+  "finalWords": 64,
+  "finalText": "Both single-arg only, no legacy flag.\n\n**17 call sites** still pass second `legacyRounding` arg. Worst offender: `src\\reports\\quarterly.js` — 5 sites (lines 16, 37, 58, 83, 104).\n\nBreakdown by file:\n- `reports\\quarterly.js` — 5\n- `admin\\exports.js` — 3\n- `billing\\invoice.js` — 3\n- `reports\\monthly.js` — 2\n- `checkout\\cart.js` — 2\n- `checkout\\receipt.js` — 1\n- `billing\\statement.js` — 1\n\n`reports\\ledger.js`, `billing\\refunds.js`, `admin\\dashboard.js` — clean, already single-arg.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c709d2290a1dcb6a6948a0c27bfc967fcb0537955457729366f4a9873ff4a2f1"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__baseline__r2",
+  "batchId": "turnstep-661d0ca5",
+  "seed": "1786172329502",
+  "orderIndex": 3,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23867,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.17247579999999998,
+  "numTurns": 11,
+  "durationMs": 22513,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1353
+  },
+  "contextTraffic": 194837,
+  "apiCalls": 6,
+  "toolCalls": 10,
+  "toolResultChars": 14847,
+  "narrationWords": 35,
+  "finalWords": 64,
+  "finalText": "The bug: `orderTotal` in `src/pricing.js` was computing tax on the pre-discount amount instead of the discounted amount — contradicting its own comment (\"tax what's actually owed\"). Only order rows with both a discount *and* a tax exposed it, which is why it was hiding in the wall of text. Changed it to tax the discounted total. All 625 cases pass and `verify.js` confirms it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d44ff02685fec0e761c0ae9d538bf9311eeb807cd4caf560c8b9fddb2ffa1287"
+}

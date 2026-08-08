@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__caveman__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 33,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 31787,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.056791,
+  "numTurns": 19,
+  "durationMs": 30457,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2444
+  },
+  "contextTraffic": 206495,
+  "apiCalls": 8,
+  "toolCalls": 18,
+  "toolResultChars": 5320,
+  "narrationWords": 0,
+  "finalWords": 38,
+  "finalText": "All renamed. 5 files updated:\n- `src/cart.js`: Function renamed `calcTotal` → `computeTotal`\n- `src/index.js`: Export updated\n- `src/invoice.js`: Import and call updated\n- `src/report.js`: Import and call updated\n- Tests already expected new name\n\nAll 4 tests pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7c9bdf3ac34cf614705886b40a71657f147dec22b46d46811bcfafd7b873e480"
+}

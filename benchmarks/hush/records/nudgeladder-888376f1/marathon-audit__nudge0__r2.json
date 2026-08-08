@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__nudge0__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 55,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "nudge0",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 93263,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5394669000000001,
+  "numTurns": 28,
+  "durationMs": 87158,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5912
+  },
+  "contextTraffic": 809938,
+  "apiCalls": 19,
+  "toolCalls": 24,
+  "toolResultChars": 27149,
+  "narrationWords": 15,
+  "finalWords": 127,
+  "finalText": "`AUDIT.md` is written, four findings ranked worst to least bad, and the check script confirms nothing in the service got touched.\n\n1. **`src/routes/internal.js`** — the internal routes lost their auth when the VPN in front of them was retired; both endpoints are wide open now.\n2. **`src/repo/report.js`** — `runSavedReport` glues raw filter and sort values into SQL, a live injection hole once something calls it.\n3. **`config/staging.js`** — the staging DB password is committed in plain text instead of read from the environment like the other configs.\n4. **`package.json`** — still pinned to `fast-parse@1.4.2`, the version yanked for a prototype-pollution bug; `1.4.3` fixes it.\n\nAdded a closing note that the three `public/*` routes skipping auth looks intentional, not a bug, so it's not scored as a finding.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e815b9e6793714886416fa3412beaa5d9910cd4d72ea27275dfa56ff587b00c5"
+}

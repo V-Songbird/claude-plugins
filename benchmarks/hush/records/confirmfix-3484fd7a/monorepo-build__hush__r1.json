@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__hush__r1",
+  "batchId": "confirmfix-3484fd7a",
+  "seed": "1786153613114",
+  "orderIndex": 4,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31882,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.20587769999999997,
+  "numTurns": 10,
+  "durationMs": 30293,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2208
+  },
+  "contextTraffic": 216032,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 10719,
+  "narrationWords": 0,
+  "finalWords": 72,
+  "finalText": "Found it: `packages/shared/config.js` merged config layers with a shallow `Object.assign`, so any package overriding one key inside `output` or `sourcemap` (like `@acme/api`'s `output.format`) silently lost the other keys in that object, and the bundle stage caught the missing `output.dir`.\n\nI replaced it with a proper deep merge that layers defaults → package overrides → CLI flags key-by-key, including nested objects, without mutating `RELEASE_DEFAULTS`. Both `node build.js` and `node verify.js` now exit 0.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "875aaa2bcc9af0b00f0e173cdcd1f4fccb8a84cccd69e0c955d339a819877d04"
+}

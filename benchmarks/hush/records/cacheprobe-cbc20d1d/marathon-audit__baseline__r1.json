@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r1",
+  "batchId": "cacheprobe-cbc20d1d",
+  "seed": "1786151075446",
+  "orderIndex": 7,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 139824,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6914998000000001,
+  "numTurns": 50,
+  "durationMs": 135169,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10263
+  },
+  "contextTraffic": 723504,
+  "apiCalls": 17,
+  "toolCalls": 46,
+  "toolResultChars": 27608,
+  "narrationWords": 28,
+  "finalWords": 72,
+  "finalText": "All four findings are written up in `AUDIT.md`, ordered by severity:\n\n1. **Critical** — SQL injection in `src/repo/report.js` (`runSavedReport` concatenates filter/order-by into the query)\n2. **High** — Unauthenticated internal endpoints in `src/routes/internal.js` (missing `requireAuth` after the VPN was retired)\n3. **High** — Hardcoded staging DB password in `config/staging.js`\n4. **Medium** — `fast-parse` pinned to the yanked `1.4.2` in `package.json` (fix is `1.4.3`)\n\nNo service code was touched — only `AUDIT.md` was added.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4bb67d008a1a64e8b8d2e1d60aa5c57aeb2ef5954a8a84febe95134aba0def10"
+}

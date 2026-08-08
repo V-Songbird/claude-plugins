@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__prenudge__r1",
+  "batchId": "pre2-756b4e9f",
+  "seed": "1786174006947",
+  "orderIndex": 1,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "prenudge",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 30441,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2193435,
+  "numTurns": 12,
+  "durationMs": 28758,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1406
+  },
+  "contextTraffic": 260845,
+  "apiCalls": 7,
+  "toolCalls": 11,
+  "toolResultChars": 14512,
+  "narrationWords": 0,
+  "finalWords": 58,
+  "finalText": "Fixed. `orderTotal` in `src/pricing.js` was taxing the pre-discount price instead of the discounted one, so any row with both a discount and a tax came out wrong — most rows only had one or the other, which is why it slipped through before.\n\nAll 625 cases pass now, and `verify.js` confirms it's genuinely fixed rather than papered over.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "02e7775098bf7f96caef586ab9ac1903224a0c72ee4b200244847fb6e7428409"
+}

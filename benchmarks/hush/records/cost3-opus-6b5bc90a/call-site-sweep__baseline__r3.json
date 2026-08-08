@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__baseline__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 114,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 81306,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.3883959999999999,
+  "numTurns": 11,
+  "durationMs": 80031,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5773
+  },
+  "contextTraffic": 235361,
+  "apiCalls": 9,
+  "toolCalls": 10,
+  "toolResultChars": 7052,
+  "narrationWords": 57,
+  "finalWords": 335,
+  "finalText": "## 17 call sites still pass the legacy rounding flag\n\n`src/reports/quarterly.js` has the most, with **5**.\n\n| File | 2-arg calls | (of total `formatAmount` calls) |\n|---|---|---|\n| `src/reports/quarterly.js` | **5** | 31 |\n| `src/admin/exports.js` | 3 | 21 |\n| `src/billing/invoice.js` | 3 | 26 |\n| `src/checkout/cart.js` | 2 | 23 |\n| `src/reports/monthly.js` | 2 | 24 |\n| `src/billing/statement.js` | 1 | 22 |\n| `src/checkout/receipt.js` | 1 | 18 |\n| `src/admin/dashboard.js` | 0 | 17 |\n| `src/billing/refunds.js` | 0 | 19 |\n| `src/reports/ledger.js` | 0 | 20 |\n\nTotal: 221 call sites across 10 files, 17 of which pass the second argument.\n\nThe sites:\n\n```\nsrc/admin/exports.js:16      formatAmount(row.tip, true)\nsrc/admin/exports.js:37      formatAmount(row.commission, true)\nsrc/admin/exports.js:62      formatAmount(row.credit, true)\nsrc/billing/invoice.js:16    formatAmount(row.tip, true)\nsrc/billing/invoice.js:45    formatAmount(row.balance, true)\nsrc/billing/invoice.js:74    formatAmount(row.payout, true)\nsrc/billing/statement.js:16  formatAmount(row.bundle, true)\nsrc/checkout/cart.js:16      formatAmount(row.prepayment, true)\nsrc/checkout/cart.js:53      formatAmount(row.writeOff, true)\nsrc/checkout/receipt.js:16   formatAmount(row.tip, true)\nsrc/reports/monthly.js:16    formatAmount(row.tip, true)\nsrc/reports/monthly.js:57    formatAmount(row.settlement, true)\nsrc/reports/quarterly.js:16  formatAmount(row.bundle, true)\nsrc/reports/quarterly.js:37  formatAmount(row.holdback, true)\nsrc/reports/quarterly.js:58  formatAmount(row.subtotal, true)\nsrc/reports/quarterly.js:83  formatAmount(row.surcharge, true)\nsrc/reports/quarterly.js:104 formatAmount(row.gross, true)\n```\n\nNotes on the sweep:\n\n- I counted arguments with a real paren-matching parse (comments and string literals blanked out first) rather than a line regex, so nested calls like `formatAmount(f(a, b))` couldn't inflate the count. In practice every call turned out to be a single-line, flat expression.\n- All 17 pass the literal `true` — there are no variable or computed flags, so each site is an unconditional legacy-rounding request. That makes the removal mechanical: delete the argument and accept the behavior change from half-away-from-zero to half-to-even.\n- No indirect paths to worry about: no aliased imports, no `.call`/`.apply`/`.bind`, no spread arguments, and the only non-call mentions are the 10 `require` destructures plus the definition and export in `src/lib/format.js`. The repo is 11 JS files under `src/` plus one JSON file that doesn't reference the function.\n- The one thing that changes behavior beyond the flag itself: these 17 sites are the only ones whose output will move, and only for values landing exactly on a half-cent boundary.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ecbeb3e45d630ec0a006914e6865f1bb5d48a89405a16841e50c1faa0b57987f"
+}

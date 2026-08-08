@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__baseline__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 8,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 39355,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.21348060000000002,
+  "numTurns": 10,
+  "durationMs": 38026,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3381
+  },
+  "contextTraffic": 232905,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 10723,
+  "narrationWords": 104,
+  "finalWords": 81,
+  "finalText": "Both pass. Root cause: `resolveRelease()` in `packages/shared/config.js:13` merged config layers with a shallow `Object.assign`, so a package override touching just one key of `output` or `sourcemap` (e.g. `@acme/api`'s `output: { format: 'esm' }`) clobbered the whole nested object and dropped `output.dir`/`entry`, which `build.js`'s bundle stage catches and aborts on. Replaced it with a `mergeLayer` helper that merges nested plain objects key-by-key across the defaults → package overrides → CLI flags layers, without mutating `RELEASE_DEFAULTS`. Build and `verify.js` both exit 0 now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d896dbf44e92618ed040f9141fa8913709ddcc48c766414e57759d33545821cc"
+}

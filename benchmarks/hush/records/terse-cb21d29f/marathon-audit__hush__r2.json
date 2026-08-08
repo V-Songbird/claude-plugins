@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__hush__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 45,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 94328,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5576206,
+  "numTurns": 26,
+  "durationMs": 87425,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 6552
+  },
+  "contextTraffic": 669642,
+  "apiCalls": 16,
+  "toolCalls": 22,
+  "toolResultChars": 21922,
+  "narrationWords": 0,
+  "finalWords": 95,
+  "finalText": "`fast-parse` is still pinned at `1.4.2` in `package.json` — exactly the version `NOTES.md` says was yanked for a prototype-pollution bug, with `1.4.3` sitting right there as the fix.\n\n`AUDIT.md` is written with all four findings, worst first:\n\n1. **`src/routes/internal.js`** — no auth on `/internal/metrics` and `/internal/flush-cache`, wide open since the VPN was dropped.\n2. **`src/repo/report.js`** — SQL injection via string-built `WHERE`/`ORDER BY` clauses.\n3. **`config/staging.js`** — a real staging DB password committed in plain text.\n4. **`package.json`** — `fast-parse` stuck on the yanked `1.4.2`, needs `1.4.3`.\n\nNo service code was touched, just the new `AUDIT.md`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1744bad99f6645a496bb9eb90ff78b121665c59195293112f466cb2ea907c93c"
+}

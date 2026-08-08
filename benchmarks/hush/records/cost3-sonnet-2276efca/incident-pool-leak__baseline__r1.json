@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 73,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25511,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.31157929999999995,
+  "numTurns": 10,
+  "durationMs": 24231,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1699
+  },
+  "contextTraffic": 257077,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 51676,
+  "narrationWords": 109,
+  "finalWords": 114,
+  "finalText": "All 4 tests pass now.\n\n**Root cause:** `src/jobs/processOrder.js` acquired a connection with `pool.acquire()` and only called `pool.release(conn)` on the line *after* `await run(conn, order)` — so any rejected order (invalid payload) skipped the release entirely. The pool has no timeout-based reclaim, so each bad order permanently consumed one connection. The logs show this exactly: each `invalid order payload` error bumps `pool in-use` by one and it never comes back down, until `5/5` hit around 02:06 and things started failing outright, then cascaded into the 02:11–02:13 total exhaustion and restarts.\n\n**Fix:** `processOrder` now goes through the existing `withConnection` helper (already used correctly by `handlers/api.js`), which releases in a `finally` block regardless of success or failure.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0db585ef683055eddf9a79908ffab59dfcd87a81f806d99839a768fbf4327d8f"
+}

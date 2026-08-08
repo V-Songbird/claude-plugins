@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__firstcall__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 75,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 17918,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.1668784,
+  "numTurns": 3,
+  "durationMs": 16240,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1329
+  },
+  "contextTraffic": 106234,
+  "apiCalls": 3,
+  "toolCalls": 2,
+  "toolResultChars": 17365,
+  "narrationWords": 0,
+  "finalWords": 66,
+  "finalText": "Found 17 call sites still passing that legacy rounding flag, spread across six files.\n\n`src\\reports\\quarterly.js` has the most — 5 of them, at lines 16, 37, 58, 83, and 104. The rest: `billing\\invoice.js` and `admin\\exports.js` have 3 each, `checkout\\cart.js` and `reports\\monthly.js` have 2 each, and `billing\\statement.js` and `checkout\\receipt.js` have 1 each.\n\nWant me to go ahead and strip that second argument from all 17 call sites?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "29773d419d6c1874b248e5dc7dc9311e4607bab9d98d398f52e9188e6f2f0978"
+}

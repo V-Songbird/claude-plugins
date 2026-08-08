@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__baseline__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 20,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 88360,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.6871750000000001,
+  "numTurns": 40,
+  "durationMs": 87053,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10463
+  },
+  "contextTraffic": 572322,
+  "apiCalls": 14,
+  "toolCalls": 39,
+  "toolResultChars": 26858,
+  "narrationWords": 147,
+  "finalWords": 40,
+  "finalText": "Migration complete and verified. Fixed the 13 remaining `db.query` call sites across `analytics`, `orders`, `billing`, `support`, `catalog`, and `accounts` packages, converting each to `db.execute({ sql, params })`. Left `cache.query` and `vendor/legacy-orm/adapter.js` untouched, as they're unrelated/vendored code. `verify.js` now passes clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "719ebfc0a8259c51721edf464189cb8fe4d54c8885e2dc4ab18676d82724ea82"
+}

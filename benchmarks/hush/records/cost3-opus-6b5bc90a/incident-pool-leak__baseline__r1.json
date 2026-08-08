@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 73,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 90340,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.4560075,
+  "numTurns": 17,
+  "durationMs": 88878,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4855
+  },
+  "contextTraffic": 291855,
+  "apiCalls": 10,
+  "toolCalls": 16,
+  "toolResultChars": 22165,
+  "narrationWords": 59,
+  "finalWords": 499,
+  "finalText": "Found it and fixed it. Tests are green.\n\n## Root cause\n\n`src/jobs/processOrder.js:9` released the connection *after* the await, with no `try/finally`:\n\n```js\nconst conn = pool.acquire();\nconst result = await run(conn, order); // rejects for a bad order\npool.release(conn);                    // ← never reached on rejection\n```\n\nAny order that failed validation threw past the `release()`, and since `Pool` has no finalizer or timeout reclaim (`src/db/pool.js:3-5`), each failure permanently burned one of the 5 connections.\n\nThe comment claimed this path acquired directly because it needed the connection held across a retry loop — but that loop \"was since removed,\" so the justification for bypassing the safe wrapper was already stale.\n\n## What the logs show\n\nThe worker log is a clean ledger of it — 125 `started`, 120 `completed, connection released`. The 5 missing releases line up exactly with the 5 jobs that failed after acquiring:\n\n```\n02:06:15.640 ERROR job order-4122 failed: invalid order payload\n02:06:15.645 WARN  [db] pool in-use: 3/5      ← never comes back down\n02:06:20.440 ERROR job order-4123 failed: invalid order payload\n02:06:20.445 WARN  [db] pool in-use: 4/5\n02:06:25.240 INFO  job order-4124 completed, connection released\n02:06:25.245 WARN  [db] pool in-use: 4/5      ← healthy job returns its own, floor holds\n02:06:30.040 ERROR job order-4125 failed: invalid order payload\n02:06:30.045 WARN  [db] pool in-use: 5/5      ← floor hits the ceiling\n02:06:33.000 ERROR job order-4126 failed: pool exhausted\n```\n\nNote job 4124: a *successful* job in between still releases fine, and in-use stays at 4. That's the tell that it's a per-failure ratchet, not general saturation — the in-use floor only ever steps up, once per failed order. Pool size 5, so the 5th leak was terminal. Worker-1 died at 02:06:35; the api tier then ground against the same shared pool until the supervisor restarted both at 02:13:36.\n\nTwo of the 7 `failed:` lines (4126, 4127) are exhaustion victims, not leaks — they never got a connection. So 5 leaks, not 7.\n\nThe request path was never implicated: `handleRequest` already routed through `withConnection`, and its test passed both before and after.\n\n## Fix\n\nRouted `processOrder` through the same wrapper the API path uses, rather than adding a second hand-rolled `try/finally`:\n\n```js\nasync function processOrder(pool, order, run) {\n  return withConnection(pool, (conn) => run(conn, order));\n}\n```\n\n## Verification\n\n- `node --test tests/*.test.js` → 4/4 pass (was 2 pass / 2 fail; the two failures were the leak tests, both reporting `availableCount()` of 0).\n- Replayed the actual 2am sequence — 125 jobs with the same 5 failing — against the fixed code: 120 ok, 5 rejected, pool back to 5/5 with no exhaustion.\n\nOne thing I'd flag but did not change, since it's beyond the fix: `Pool` still has no reclaim path, so it depends entirely on every caller being disciplined. `processOrder` was the only direct `acquire()` outside the wrapper, so you're clean right now — but a `withConnection`-only API (making `acquire`/`release` private) would make this class of incident unrepresentable rather than merely absent. Happy to do that if you want it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ec02eb01bb783210bab2a537c57a77222031a601acdc5afe7cd80622c1dc1ec0"
+}

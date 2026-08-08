@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__caveman__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 140,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 3,
+  "wallMs": 39483,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.06150910000000001,
+  "numTurns": 9,
+  "durationMs": 34832,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2804
+  },
+  "contextTraffic": 234181,
+  "apiCalls": 9,
+  "toolCalls": 6,
+  "toolResultChars": 6261,
+  "narrationWords": 0,
+  "finalWords": 20,
+  "finalText": "Done. Updated all three mentions — health check curl, known issues note, and environment table. Production admin port now 9090.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "15b6a5410cd7da2f16d621c0290c079b13a6e527c537b5de56ee54b641a53f03"
+}

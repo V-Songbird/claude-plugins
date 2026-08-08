@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__hush__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 134,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 40713,
+  "check": {
+    "pass": false,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.3433455,
+  "numTurns": 7,
+  "durationMs": 35823,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2328
+  },
+  "contextTraffic": 294561,
+  "apiCalls": 7,
+  "toolCalls": 4,
+  "toolResultChars": 23707,
+  "narrationWords": 0,
+  "finalWords": 164,
+  "finalText": "Here's the handoff writeup. The ioredis version is blank because there's no lockfile in the repo to confirm it — check `npm ls ioredis` against a live install before you publish this.\n\n**Root cause**\nRedis at `10.0.0.12:6379` became unreachable at 02:14:07 UTC. The app's cache fallback then sent every request straight to the store, which couldn't keep up. That triggered a cache-miss storm and a growing request backlog that Redis never recovered from — reconnect attempts kept failing every ~80 seconds through at least attempt 12.\n\n**Impact window**\nDegradation started 02:14:07 UTC on 2026-07-04, when Redis dropped. Full outage hit at 02:31:52 UTC, when the api process stopped responding and was killed. That's about 18 minutes of climbing errors and queue depth before the hard down. The log doesn't show a recovery timestamp, so confirm end-of-incident time separately.\n\n**ioredis version**\nNot available — no `package-lock.json` in this repo. Pull it from `npm ls ioredis` on a real install before checking it against the changelog.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b76521d44169703e86cf17d7ed1ead70f7fe4094a21ec6029134ba631b3f056c"
+}

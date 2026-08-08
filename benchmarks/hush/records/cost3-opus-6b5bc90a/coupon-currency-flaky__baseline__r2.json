@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__baseline__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 86,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 97891,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.46606400000000003,
+  "numTurns": 16,
+  "durationMs": 96583,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 6459
+  },
+  "contextTraffic": 301280,
+  "apiCalls": 11,
+  "toolCalls": 15,
+  "toolResultChars": 9966,
+  "narrationWords": 86,
+  "finalWords": 468,
+  "finalText": "Found it. Not flaky — the failures are 100% deterministic (identical 10/40 across 5 runs). What made it *look* random is the mechanism.\n\n## Root cause\n\n`src/pricing/engine.js:24` rounded the running USD subtotal to cents **before** the FX conversion:\n\n```js\nusd = round(usd * (1 - percent.amount), 2);   // ← intermediate round\n...\nconst target = convert(usd, order.currency);\nreturn round(target, decimalsFor(order.currency));  // ← rounds again\n```\n\nThe contract (and the test's reference implementation) is to round **once, at the end, in the target currency's decimals**. Percent discounts are the only step that produces sub-cent USD amounts — `2 × $9.99 = $19.98 → ×0.9 = $17.982`. That `$0.002` remainder got discarded, and then the FX rate **magnified** the discarded error.\n\n## Why the pattern looked invisible\n\nThe error only surfaces when `dropped_remainder × rate` happens to push the converted total across a half-cent boundary. Same discarded $0.002, four different outcomes:\n\n| Currency | Exact target | Engine's target | Result |\n|---|---|---|---|\n| EUR ×0.9 | 16.18380 → **16.18** | 16.18200 → 16.18 | fine |\n| GBP ×0.78 | 14.02596 → **14.03** | 14.02440 → 14.02 | **1¢ short** |\n| CAD ×1.35 | 24.27570 → **24.28** | 24.27300 → 24.27 | **1¢ short** |\n| JPY ×149 | 2679.318 → **2679** | 2679.020 → 2679 | fine |\n\nSo USD never breaks (rate 1.0), EUR happened to never break on these baskets, GBP/CAD break consistently, and JPY breaks only on some baskets — but with a **whole yen** off, since rate 149 amplifies the remainder ~75× more than GBP does.\n\nTwo things worth correcting in how this was reported to you:\n\n- **It isn't specific to stacking.** A percent coupon alone is enough (tests 19, 20, 27, 28 fail with only `SAVE10PCT`). Stacking a flat coupon neither causes nor fixes it — the error just carries through, so percent+flat is simply the most common real-world combo and dominates the reports.\n- **The error is always in the customer's favor** here (undercharging by a cent), never over.\n\n## Fix\n\nRemoved both intermediate rounds so full precision flows through the discount chain to the single final rounding. The flat-coupon round was harmless today (whole-dollar amounts) but would compound the same way, so it went too.\n\n**Verification:** 40/40 tests pass. I also swept the engine against the reference across 1,788,120 cases — all 5 currencies × 8 coupon combos (including `SAVE20PCT`/`FLAT15`, which the test matrix never exercises) × prices $1.00–$150.00 × quantities 1–3 — with zero mismatches.\n\nOne adjacent issue I did **not** touch, since it's outside what you asked and the tests can't catch it (the reference has the same behavior): a flat coupon larger than the subtotal produces a negative total — `FLAT15` on a $10 cart returns `-$5`. Worth a separate look if that's reachable from checkout.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9536d8871aa7e6d94d260574bc49484b2f574fb0b4b8c9714a5f42e872da8a35"
+}

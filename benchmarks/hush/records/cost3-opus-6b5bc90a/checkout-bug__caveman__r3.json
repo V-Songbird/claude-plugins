@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 25,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 42832,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2982155000000001,
+  "numTurns": 12,
+  "durationMs": 41513,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2472
+  },
+  "contextTraffic": 220091,
+  "apiCalls": 8,
+  "toolCalls": 11,
+  "toolResultChars": 7394,
+  "narrationWords": 20,
+  "finalWords": 123,
+  "finalText": "Fixed. All 5 tests pass.\n\n**Cause:** `src/services/pricing.js:22` (old) subtracted flat coupon `amount` from the already-converted total. But flat amounts are stored in USD (`src/models/coupon.js:7`), so a $10 coupon became €10 — an inflated discount at rate < 1, undersized at rate > 1. `$100` order in EUR gave `100*0.9 - 10 = 80` instead of `(100-10)*0.9 = 81`. USD orders unaffected (rate 1) — masked the bug.\n\n**Fix:** apply coupon in USD, convert last. Extracted `applyCoupon(amountUsd, coupon)`. Percent path result unchanged (multiplication commutes with conversion), but now lives in the same base-currency space — no more mixed-space math.\n\nAlso added `Math.max(0, ...)` — coupon bigger than subtotal previously yielded a negative total. Not covered by tests; flagging since it was reachable via `src/routes/checkout.js:17`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7cf696ddcd3ba16a8b405d1fb2ec62cff10a859ded40f639e208128446d26db2"
+}

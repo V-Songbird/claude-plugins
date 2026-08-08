@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__caveman__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 52,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 6855,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0701415,
+  "numTurns": 1,
+  "durationMs": 4978,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 297
+  },
+  "contextTraffic": 30495,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 116,
+  "finalText": "Common cause: pass new object/array/function literal each render (inline `{}`, `[]`, arrow func). New reference each time, so child prop check fail even if content same.\n\nFix, pick fit:\n- Wrap component in `React.memo(Child)` — shallow compare props.\n- Memoize object/array with `useMemo`.\n- Memoize function with `useCallback`.\n\nExample:\n\n```jsx\n// bad: new object + new function every render\n<Child style={{color: 'red'}} onClick={() => doThing(id)} />\n\n// good\nconst style = useMemo(() => ({color: 'red'}), []);\nconst onClick = useCallback(() => doThing(id), [id]);\n<Child style={style} onClick={onClick} />\n```\n\nAlso check: parent re-render alone don't cause child re-render if child wrapped `React.memo` and props stable. No memo = child re-render on every parent render regardless of props.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3d53587fc43b054830d5cba32db4af69b3792b0cc499c757c66d70435b08d643"
+}

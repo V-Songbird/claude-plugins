@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__hush__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 17,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 40661,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.3329895,
+  "numTurns": 13,
+  "durationMs": 39140,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2043
+  },
+  "contextTraffic": 262614,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 7745,
+  "narrationWords": 4,
+  "finalWords": 71,
+  "finalText": "**Fixed the coupon bug.**\n\n`pricing.js` changed the money into the shopper's currency first, then took off the flat coupon. But flat coupons are stored in USD, so a $10 coupon came off as €10. Now the coupon comes off while the total is still in USD, and the conversion happens last.\n\nA €100 order with `WELCOME10` now gives 81, not 80. Percent coupons are untouched.\n\nAll 5 tests pass in 0.09s.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6bdd87194c9b47ba7a8feda205acd8ecc2b300d8f5153ad79248131b2e78d650"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__caveman__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 130,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 61081,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.47194800000000003,
+  "numTurns": 10,
+  "durationMs": 56678,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2636
+  },
+  "contextTraffic": 591025,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 60742,
+  "narrationWords": 8,
+  "finalWords": 32,
+  "finalText": "Wrote `ONCALL_HANDOFF.md`. Covers root cause, impact window (02:14:07–02:31:52 UTC), follow-ups. ioredis exact version unresolved — no lockfile in repo, only range `^5.4.1`. Need deploy-env `npm ls ioredis` for exact match against changelog.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "939da11d9985eadca6d7c52ec0172b14f0ddc9c702273098bd0c7c21ea6892ce"
+}

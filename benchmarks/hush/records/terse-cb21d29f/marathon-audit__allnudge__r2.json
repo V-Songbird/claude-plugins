@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__allnudge__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 47,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "allnudge",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 126169,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6885805999999999,
+  "numTurns": 32,
+  "durationMs": 119399,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 9232
+  },
+  "contextTraffic": 790770,
+  "apiCalls": 18,
+  "toolCalls": 28,
+  "toolResultChars": 24773,
+  "narrationWords": 0,
+  "finalWords": 106,
+  "finalText": "`AUDIT.md` is written, four findings ordered worst to least severe, no service files touched.\n\n1. **Unauthenticated internal routes** — `src/routes/internal.js`. Metrics dump and a cache-flush write, both reachable with zero credentials since the VPN in front of them was retired.\n2. **SQL injection** — `src/repo/report.js`, `runSavedReport`. The filter value gets pasted into the query string instead of bound as a parameter.\n3. **Hardcoded staging password** — `config/staging.js`. A real DB password committed in plain text, unlike dev and prod which pull it from the environment.\n4. **Yanked dependency** — `package.json` still pins `fast-parse` at `1.4.2`, the version pulled for a prototype-pollution report. `1.4.3` is the fix.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3337bd4bc1f5ab82f75c33b2ebc1d4e47af19a1883d34c724eed4982cb496f5f"
+}

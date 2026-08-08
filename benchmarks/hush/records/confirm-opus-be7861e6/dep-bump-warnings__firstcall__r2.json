@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__firstcall__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 65,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 53107,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.3189515,
+  "numTurns": 10,
+  "durationMs": 51558,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3637
+  },
+  "contextTraffic": 172803,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 6022,
+  "narrationWords": 0,
+  "finalWords": 74,
+  "finalText": "**The build's green again.** Two real bugs, the rest was noise.\n\n1. `src/core/options.js` read `options.retries`, but the bump renamed it to `retryCount`. It reads the new name now, falling back to the old one.\n2. `src/net/retryPolicy.js` threw when the flag was unset. The new config loader leaves unset flags as `undefined`. An unset flag now counts as off.\n\nThe 8 warnings still print. They're hardcoded in `build.js` and name files this repo doesn't have.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2f3a54c3c8fc771cb8e8f2eb544290aea9b16bbfd475b967b842cda1c58f0705"
+}

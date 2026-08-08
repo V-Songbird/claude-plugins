@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__hush__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 22,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 40023,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.34688949999999996,
+  "numTurns": 20,
+  "durationMs": 38439,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2601
+  },
+  "contextTraffic": 241184,
+  "apiCalls": 8,
+  "toolCalls": 19,
+  "toolResultChars": 6927,
+  "narrationWords": 0,
+  "finalWords": 57,
+  "finalText": "**Renamed `calcTotal` to `computeTotal` everywhere.**\n\nFour files changed: `cart.js` (the function and its comment), plus `index.js`, `invoice.js`, and `report.js`.\n\nThe one `calcTotal` left is in `tests/total.test.js:18`, which checks the old name is gone. That's on purpose.\n\nAll 4 tests pass in 0.07s. Run them with `node --test tests/total.test.js` — pointing at the folder fails on this Node.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "017f6e113c1e6b6147bb3c315097aa9d5e0223fc303e569b752e98796b56c2cb"
+}

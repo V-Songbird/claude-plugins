@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 40,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 10545,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.079197,
+  "numTurns": 1,
+  "durationMs": 8822,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 292
+  },
+  "contextTraffic": 31930,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 169,
+  "finalText": "Both let you bring one branch's changes into another, but they leave very different history behind.\n\nMerge keeps every commit as it happened and adds one new commit that ties the two branches together. Nothing gets rewritten, and you can see exactly when the branches came together.\n\nRebase takes your commits and replays them one by one on top of the other branch, as if you'd written them there from the start. History ends up in a straight line, but the commits are technically new, even though the changes look the same.\n\nThat leads to the one rule that really matters: never rebase commits that are already pushed and shared with others. Rewriting history that other people have already pulled will make their copies conflict with yours.\n\nSo in practice:\n- Use **merge** for shared branches, like bringing `main` into a feature branch, or finishing a feature back into `main`.\n- Use **rebase** for your own local, not-yet-pushed work, when you want a clean, linear history before sharing it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "681d978ef95c2f9e64c03c9a8be0a6f498ec35bf8fd8f533cd6af42e1c2508dd"
+}

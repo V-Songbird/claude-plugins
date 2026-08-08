@@ -1,0 +1,37 @@
+{
+  "key": "checkout-bug__caveman__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 25,
+  "task": "checkout-bug",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 20527,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.14428800000000003,
+  "numTurns": 8,
+  "durationMs": 19130,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1330
+  },
+  "contextTraffic": 161081,
+  "apiCalls": 5,
+  "toolCalls": 7,
+  "toolResultChars": 4426,
+  "narrationWords": 24,
+  "finalWords": 33,
+  "finalText": "All 5 tests pass now.\n\nRoot cause: `computeTotal` converted subtotal to target currency first, then subtracted flat coupon's USD amount directly — mixed currencies. Fixed by subtracting flat coupon in USD before conversion.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9689fa4dc3f8256491faba8cd8f06667a584d9cd3ec435d6c9e96cda651cfabb"
+}

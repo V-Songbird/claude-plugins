@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__deffin__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 32,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "deffin",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 104777,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.7089881,
+  "numTurns": 35,
+  "durationMs": 97796,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 7585
+  },
+  "contextTraffic": 691939,
+  "apiCalls": 16,
+  "toolCalls": 31,
+  "toolResultChars": 23658,
+  "narrationWords": 0,
+  "finalWords": 110,
+  "finalText": "`fast-parse` is pinned at `1.4.2` in `package.json` — exactly the version NOTES.md flags as yanked for prototype pollution. It needs `1.4.3`.\n\n`AUDIT.md` is written, five findings ranked by severity:\n\n1. SQL injection in `src/repo/report.js` — filter and sort pasted into the query unescaped.\n2. `src/routes/internal.js` reachable with no login — the VPN it relied on is gone.\n3. `public/health`, `public/status`, `public/version` also skip auth, and each one accepts an unauthenticated `POST`.\n4. Staging DB password committed in plain text in `config/staging.js`.\n5. `fast-parse` still pinned to the yanked `1.4.2`.\n\n`node verify.js` passes: `OK AUDIT.md names all four findings and the service was left alone`. Nothing in the service was touched.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c7a59839b81c083e11c606a7cc63aac77c187506d77461c22856bf7d4e579d0a"
+}

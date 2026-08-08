@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__baseline__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 15,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 36005,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.22629770000000002,
+  "numTurns": 10,
+  "durationMs": 34680,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2289
+  },
+  "contextTraffic": 245168,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 20560,
+  "narrationWords": 106,
+  "finalWords": 85,
+  "finalText": "Build is green and verify passes.\n\nRoot cause: `resolveRelease` in `packages/shared/config.js:13` merged layers with `Object.assign`, which is shallow — so any package overriding just one key inside `output` or `sourcemap` (e.g. `@acme/api` setting `output.format`) silently wiped the rest of that nested object (`output.dir`, `output.entry`), which then failed the bundle stage's `output.dir` check in `build.js`.\n\nFix: replaced the shallow merge with a `deepMerge` that recursively merges nested plain objects while still letting later layers (package overrides, then CLI flags) win on individual keys, without mutating `RELEASE_DEFAULTS`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b47e87f52f4eb28668223f61e59f193b496adeb83105f6627ea40b463c064ace"
+}

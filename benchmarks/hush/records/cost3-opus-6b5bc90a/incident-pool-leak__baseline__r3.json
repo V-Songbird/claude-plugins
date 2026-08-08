@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 80,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 119645,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.5437384999999999,
+  "numTurns": 20,
+  "durationMs": 118274,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 6433
+  },
+  "contextTraffic": 362350,
+  "apiCalls": 12,
+  "toolCalls": 19,
+  "toolResultChars": 20435,
+  "narrationWords": 109,
+  "finalWords": 511,
+  "finalText": "Fixed. Here's what happened and what I changed.\n\n## Root cause\n\n`src/jobs/processOrder.js` acquired a connection and released it *after* the `await`, with no `try/finally`:\n\n```js\nconst conn = pool.acquire();\nconst result = await run(conn, order);  // rejects for a bad order\npool.release(conn);                     // never reached on rejection\n```\n\nWhen `run` rejected, the rejection propagated out of `processOrder` and the release line was skipped. Since `Pool` has no finalizer or timeout-based reclaim (called out in the comment at `src/db/pool.js:3-5`), each failed order burned a connection **permanently**.\n\nThe comment claimed the direct acquire was needed to hold the connection across a retry loop — but that loop \"was since removed,\" so the divergence from the safe wrapper was leftover dead justification.\n\n## The logs confirm it exactly\n\n`logs/worker.log` accounts for every connection:\n\n| | count |\n|---|---|\n| `job started` | 125 |\n| `completed, connection released` | 120 |\n| `failed: invalid order payload` | **5** |\n\n5 failures, 5 never released — and the pool is size 5. The `[db] pool in-use` warnings step up in lockstep with the failures and never step back down (`2/5` → `3/5` → `4/5` → `5/5`), with successful job 4124 in between not moving the number. The next two jobs died with `pool exhausted`, then worker-1 hit FATAL at 02:06:35.\n\n`logs/app.log` is the downstream victim, not a second leak: it serves clean 200s until the shared pool drains, then goes to `acquire timeout` and 503s, and the supervisor restarts both processes at 02:13:36. I checked `src/handlers/api.js` specifically — it routes through `withConnection`, whose `try/finally` is correct, so the request path was never the source.\n\n## Fix\n\n`processOrder` now uses the existing safe wrapper instead of hand-rolling acquire/release:\n\n```js\nasync function processOrder(pool, order, run) {\n  return withConnection(pool, (conn) => run(conn, order));\n}\n```\n\nThis reuses `db/pool.js`'s wrapper rather than adding a second `try/finally`, so there's now one release path in the codebase instead of two that can drift apart again.\n\n## Verification\n\nAll 4 tests pass (was 2 failed / 2 passed). I also probed three failure modes the tests don't cover:\n\n- **50 consecutive synchronous throws** from `run` (tests only use async rejections) → pool fully recovers to 2/2. The `await fn(conn)` sits inside the `try`, so sync throws are caught too.\n- **Acquire on an exhausted pool** → throws cleanly without corrupting state; the pool returns to full availability once the outstanding connection is released.\n- **9 concurrent mixed success/failure jobs on a size-3 pool** → 7 rejections, and availability still returns to 3/3.\n\nOne note on scope, since it's adjacent but not what you asked me to fix: the pool has no acquire timeout or reclaim, so `acquire()` throws immediately rather than waiting, and any future missed release is again permanent. This fix removes the leak that paged you, but the pool stays unforgiving of that class of bug. If you want a safety net — a timeout-based reclaim, or making `acquire` outside `withConnection` harder to reach — that's a separate change and I'd want your call on the semantics before touching it.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c13e677e60e39f30d1ad415c297fbcd050afc82bae73d7b6a66e60f725960223"
+}

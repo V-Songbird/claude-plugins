@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__hush__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 43,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 118316,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.7129566999999999,
+  "numTurns": 50,
+  "durationMs": 111517,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 8811
+  },
+  "contextTraffic": 753570,
+  "apiCalls": 17,
+  "toolCalls": 46,
+  "toolResultChars": 26823,
+  "narrationWords": 32,
+  "finalWords": 63,
+  "finalText": "`AUDIT.md` is written, four findings, worst first, service code untouched.\n\n1. `src/routes/internal.js` — no auth check, both internal endpoints open to anyone.\n2. `src/repo/report.js` — SQL injection via string-built `WHERE`/`ORDER BY` in `runSavedReport`.\n3. `config/staging.js` — a live-looking database password committed in plain text.\n4. `package.json` — `fast-parse` pinned at `1.4.2`, the version yanked for a prototype-pollution bug per `NOTES.md`. Fix is `1.4.3`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0b4193b10c8ee48c78320e6fc93af8cb3760e1ddb006b963768b4dd26642167e"
+}

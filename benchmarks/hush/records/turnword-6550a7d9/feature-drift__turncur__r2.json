@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__turncur__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 31,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "turncur",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 140812,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5827741000000001,
+  "numTurns": 19,
+  "durationMs": 131847,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10629
+  },
+  "contextTraffic": 815721,
+  "apiCalls": 19,
+  "toolCalls": 14,
+  "toolResultChars": 18399,
+  "narrationWords": 0,
+  "finalWords": 27,
+  "finalText": "Already there — that dedup check is at `src/router.js:25-28`, dropping a repeat when the same key delivered less than 5 minutes ago. `node verify.js` still passes clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cb530a6c0189b84607ec316d8c1aadd3fda077d02124dff4a39a28384a9729be"
+}

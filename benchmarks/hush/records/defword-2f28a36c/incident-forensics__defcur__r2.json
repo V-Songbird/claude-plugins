@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__defcur__r2",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 28,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "defcur",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 85523,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.698553,
+  "numTurns": 16,
+  "durationMs": 78764,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5028
+  },
+  "contextTraffic": 805816,
+  "apiCalls": 16,
+  "toolCalls": 12,
+  "toolResultChars": 41790,
+  "narrationWords": 0,
+  "finalWords": 104,
+  "finalText": "**Gateway 503 outage — on-call handoff**\n\n**Root cause:** `dep-4471` (gateway, a.novak, 02:12–02:14Z) — \"config: connection-per-request for pool isolation.\" Right after it landed, the pool started throwing `ERR_POOL_EXHAUSTED` (size 20, in_use 20, connections never returned), and the backlog of waiting requests climbed steadily with no recovery.\n\n**Impact window:** 2026-03-14 02:14:18Z to at least 03:59:27Z, the end of the current log — still ongoing when the log cuts off. Scope is gateway only: `/v1/checkout`, `/v1/cart`, `/v1/session`, `/v1/catalog/search`, `/v1/orders` all hit 503s; `/health` mostly still returned 200. Worker jobs stayed healthy the whole time.\n\n**Rollback:** revert `dep-4471` on the gateway. No other service or deploy is implicated.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d4cafe1c5ff4510d44cf80f8b9253d88b02e3e6d1c136d0971671f912f419a26"
+}

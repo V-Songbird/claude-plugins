@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__defcur__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 25,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "defcur",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 88572,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6815730999999999,
+  "numTurns": 14,
+  "durationMs": 81973,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4665
+  },
+  "contextTraffic": 747203,
+  "apiCalls": 14,
+  "toolCalls": 10,
+  "toolResultChars": 44162,
+  "narrationWords": 0,
+  "finalWords": 154,
+  "finalText": "**On-call handoff — gateway 503s**\n\n**Root cause.** `dep-4471` (a.novak, gateway, 02:12–02:14 UTC) flipped `gateway.pool.perRequest` from `false` to `true`, applied as config generation 119 at 02:13:41. That capped the pool at its fixed size of 20 with no reuse, and it saturated 33 seconds later.\n\n**Impact window.** First 503 at `02:14:18 UTC`, 2026-03-14 (`req-07401`, pool `ERR_POOL_EXHAUSTED`, size 20/in_use 20). Still failing at the last log line, `03:59:27 UTC` — not yet resolved. `waiting` queue climbed steadily the whole time, from 13 up into the 70s–80s.\n\n**Scope.** Gateway only. Every real route hit it — `/v1/cart`, `/v1/checkout`, `/v1/session`, `/v1/orders`, `/v1/catalog/search` — but `/health` kept returning 200 the whole time, so the process itself never died. `worker.log` is clean for the same window: one unrelated pre-existing slow-query warning (`OPS-2210`), no errors.\n\n**Rollback.** Revert `dep-4471` — set `gateway.pool.perRequest` back to `false` (or raise pool size if perRequest is wanted long-term). No other deploy in that window is implicated.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c52c3674003177dda8a0ce3f0257f18cead11ece1a00f4a4abe255f200071693"
+}

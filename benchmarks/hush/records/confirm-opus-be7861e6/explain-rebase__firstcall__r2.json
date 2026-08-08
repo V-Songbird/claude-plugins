@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__firstcall__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 41,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 28481,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.17140600000000003,
+  "numTurns": 2,
+  "durationMs": 26522,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1804
+  },
+  "contextTraffic": 52709,
+  "apiCalls": 2,
+  "toolCalls": 1,
+  "toolResultChars": 235,
+  "narrationWords": 0,
+  "finalWords": 121,
+  "finalText": "**Merge keeps history as it happened. Rebase rewrites it to look tidy.**\n\nA merge joins two branches with one new commit. Both lines of work stay visible.\n\nA rebase lifts your commits off and replays them on top of the other branch. You get a straight line, but those commits are copies with new IDs.\n\n```mermaid\nflowchart LR\n  subgraph Merge\n    A1[main] --> M[merge commit]\n    B1[your branch] --> M\n  end\n  subgraph Rebase\n    A2[main] --> C1[copy of commit 1] --> C2[copy of commit 2]\n  end\n```\n\nReach for rebase on your own branch, before anyone else has it. Reach for merge when the branch is shared.\n\nThe one hard rule: never rebase commits someone else already pulled. Their copy and yours stop matching.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3f1a7261f9a573dd8676262d6ae8d0d3794b65dc3ba236d3b6a56dac6f1ad3bf"
+}

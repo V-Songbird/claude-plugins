@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 61,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 6901,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.078462,
+  "numTurns": 1,
+  "durationMs": 5099,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 243
+  },
+  "contextTraffic": 31930,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 133,
+  "finalText": "Both let you bring one branch's changes into another, but they leave very different history behind.\n\n**Merge** keeps both branches' history exactly as it happened, and adds one new commit that ties them together. Nothing gets rewritten, so it's always safe, even on shared branches.\n\n**Rebase** takes your commits and replays them on top of the other branch, one by one, as if you'd started from there. This gives you a clean, straight line of history with no merge commits — but it rewrites your commit history, so it's not safe once others have pulled those commits.\n\nA simple rule of thumb: merge for anything shared or already pushed, like bringing `main` into a long-lived branch. Rebase for your own local, not-yet-shared work, to tidy it up before you open a pull request.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ff6db60b97b9682b2dca61c2b2026f35e31d1f241dd1970b300e6f8acc13f285"
+}

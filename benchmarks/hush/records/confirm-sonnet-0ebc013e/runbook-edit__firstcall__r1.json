@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__firstcall__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 90,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 36208,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.2590384,
+  "numTurns": 10,
+  "durationMs": 31296,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2207
+  },
+  "contextTraffic": 357176,
+  "apiCalls": 10,
+  "toolCalls": 7,
+  "toolResultChars": 6473,
+  "narrationWords": 0,
+  "finalWords": 25,
+  "finalText": "All three spots updated: the health-check `curl` command, the known-issues note, and the environment table. Staging's admin port stays 8091, only production moved to 9090.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5ae12593f5f31a89dedd1d7fb2d78b8c0361c395ba9adde76ed6ccbaea3ac627"
+}

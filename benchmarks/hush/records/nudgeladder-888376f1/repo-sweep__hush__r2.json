@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__hush__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 26,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 86520,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6060746,
+  "numTurns": 42,
+  "durationMs": 84979,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 9929
+  },
+  "contextTraffic": 367333,
+  "apiCalls": 9,
+  "toolCalls": 41,
+  "toolResultChars": 24047,
+  "narrationWords": 21,
+  "finalWords": 50,
+  "finalText": "Migration's done. 11 files across analytics, orders, billing, support, catalog, and accounts had leftover `db.query` calls — all moved to `db.execute({ sql, params })`. Left `cache.query` and the vendored `adapter.js` untouched, and the repo's own verifier confirms it: `OK every db.query call site moved to db.execute, and nothing else moved`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "23b906d748b5d880bd70c6406c9b9a0255753338e3087b4bc197d679870c1c34"
+}

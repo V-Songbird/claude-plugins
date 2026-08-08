@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r1",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 11,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 59878,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.41373,
+  "numTurns": 14,
+  "durationMs": 58261,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2436
+  },
+  "contextTraffic": 316328,
+  "apiCalls": 10,
+  "toolCalls": 13,
+  "toolResultChars": 16060,
+  "narrationWords": 7,
+  "finalWords": 112,
+  "finalText": "**Found the leak in the order worker, fixed it.**\n\n`processOrder` grabbed a connection, awaited the work, then released. When an order threw, that release line never ran, so the connection was gone for good.\n\nThe worker log matches exactly. Every `invalid order payload` bumps `pool in-use` by one and it never drops. Five bad orders, five connections, pool dead at 02:06:30. The API and web side never leaked — they already used the safe wrapper.\n\nThe fix routes `processOrder` through the same `withConnection` wrapper, which releases in a `finally`.\n\nAll 4 tests pass, 68ms.\n\nWorth a follow-up: the pool has no reclaim or timeout, so any future missed release is permanent again.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e5b82db66713d3d80e43a70950b1a7f29bb8c8753d075e51bdde37baca2a4084"
+}

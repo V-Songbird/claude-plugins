@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__firstcall2__r2",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 21,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "firstcall2",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 73993,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall2:Firstcall2",
+  "costUsd": 0.43637600000000004,
+  "numTurns": 12,
+  "durationMs": 72418,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4223
+  },
+  "contextTraffic": 283830,
+  "apiCalls": 9,
+  "toolCalls": 11,
+  "toolResultChars": 10802,
+  "narrationWords": 7,
+  "finalWords": 106,
+  "finalText": "**Found it — and it isn't random.**\n\n`engine.js` rounded the running total to cents after the percent coupon, *before* changing currency. That threw away a fraction of a cent. The exchange rate then multiplied that small error into a whole visible cent.\n\nThat is why it looked patternless. All 10 failures involved a percent coupon. USD and EUR happened to survive the rounding. `GBP`, `CAD` and `JPY` did not.\n\nI changed `engine.js` to keep full precision through both coupons and round once at the very end, in the target currency's own decimals. That is what the test's reference already expected.\n\n40 tests pass, 0 fail, 0.08s.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "af39ead5abc4ae3813d2fdf8f68aca2155f1f8873999c221a08e66c6805a9f57"
+}

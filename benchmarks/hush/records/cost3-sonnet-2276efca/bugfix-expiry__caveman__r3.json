@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__caveman__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 8,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 17199,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.13465739999999998,
+  "numTurns": 7,
+  "durationMs": 15692,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 730
+  },
+  "contextTraffic": 187879,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 2266,
+  "narrationWords": 17,
+  "finalWords": 20,
+  "finalText": "All 5 pass. Fix: `isExpired` used `<`, let token expiring exactly at `exp` slip through as valid. Changed to `<=`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "255fe7d3a271097ebef9bdcd6bd136bc85f15087d50ccb3cc09c134a8a275b74"
+}

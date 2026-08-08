@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__nudge0__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 3,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "nudge0",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 26506,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.19646450000000004,
+  "numTurns": 10,
+  "durationMs": 25028,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1028
+  },
+  "contextTraffic": 215308,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 14830,
+  "narrationWords": 0,
+  "finalWords": 25,
+  "finalText": "**Fixed.** `orderTotal` in `src/pricing.js` was taxing the pre-discount amount instead of the discounted one.\n\nAll 625 tests pass and `verify.js` confirms the fix is real.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ffc7408c8a0fe31adf7f7a9c8ce29e187ddf5a1831bbb4712f48474ee87ec5e9"
+}

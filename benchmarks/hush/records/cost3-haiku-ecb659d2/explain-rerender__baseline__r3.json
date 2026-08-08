@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__baseline__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 51,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10074,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.017984800000000002,
+  "numTurns": 1,
+  "durationMs": 8607,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 724
+  },
+  "contextTraffic": 21329,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 172,
+  "finalText": "The most common cause is that you're creating **new object or function references** each time the parent renders, even though their values are the same.\n\nReact compares props by reference, not by value. Common culprits:\n\n**1. Inline objects/arrays**\n```jsx\n// ❌ Creates a new object every render\n<Child config={{size: 'large'}} />\n\n// ✅ Move outside or memoize\nconst config = {size: 'large'};\n<Child config={config} />\n```\n\n**2. Inline functions**\n```jsx\n// ❌ Creates a new function every render\n<Child onClick={() => handleClick()} />\n\n// ✅ Use useCallback\nconst handleClick = useCallback(() => {\n  // ...\n}, [])\n<Child onClick={handleClick} />\n```\n\n**3. Child isn't memoized**\n```jsx\n// ✅ Memoize the child to skip re-renders when props are the same\nconst Child = React.memo(({prop}) => {\n  return <div>{prop}</div>;\n});\n```\n\n**Quick diagnostic:** Add a `console.log` in your child component. If it fires even with identical props, it's a reference issue. Check the parent—look for `{}`, `[]`, or arrow functions being created inline.\n\nIf you share the code, I can pinpoint the exact issue.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d814fbec3cb39befce732450e88ec5f656c5644aca5179209f2cdb35752f84dc"
+}

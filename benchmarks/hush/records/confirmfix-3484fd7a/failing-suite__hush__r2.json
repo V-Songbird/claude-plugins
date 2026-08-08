@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__hush__r2",
+  "batchId": "confirmfix-3484fd7a",
+  "seed": "1786153613114",
+  "orderIndex": 3,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 22437,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.20960450000000003,
+  "numTurns": 13,
+  "durationMs": 20789,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1225
+  },
+  "contextTraffic": 252053,
+  "apiCalls": 7,
+  "toolCalls": 12,
+  "toolResultChars": 14882,
+  "narrationWords": 0,
+  "finalWords": 38,
+  "finalText": "Found it: `orderTotal` was charging tax on the pre-discount amount instead of the discounted one, in `src/pricing.js`. Fixed by taxing the discounted total.\n\nAll 625 cases pass, and `verify.js` confirms the fix is real, not a neutered test.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "c812a055c39240b6a4f0b2902b35a3edef8f7931b9aa7d84131f0a7ccc02050a"
+}

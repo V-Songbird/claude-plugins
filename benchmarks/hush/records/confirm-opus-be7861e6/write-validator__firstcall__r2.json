@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__firstcall__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 46,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 93320,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.382769,
+  "numTurns": 7,
+  "durationMs": 91764,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5419
+  },
+  "contextTraffic": 207796,
+  "apiCalls": 7,
+  "toolCalls": 6,
+  "toolResultChars": 848,
+  "narrationWords": 0,
+  "finalWords": 67,
+  "finalText": "**Wrote `email_validator.py`.** The function is `is_valid_email(address)`, and it returns `True` or `False`.\n\nIt checks the shape of the address only. A well formed address can still bounce, so send a confirmation link if you need to know a mailbox is real.\n\nTwo switches let you loosen it:\n- `allow_quoted=True` accepts `\"jane doe\"@example.com`.\n- `require_tld=False` accepts `root@localhost`.\n\n31 of 31 built-in checks pass. Run them with `python email_validator.py`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4cda8cfb4c1627ad6924a253a524f1e58071258045f06572df1fe817d05e1b38"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__caveman__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 54,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 8802,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0713925,
+  "numTurns": 1,
+  "durationMs": 7306,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 380
+  },
+  "contextTraffic": 30496,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 177,
+  "finalText": "Rebase and merge differ in how they combine branch history.\n\n**Merge**\n- Create new commit joining two branch tip.\n- History stay untouched. Old commits keep original parent.\n- Result: branch graph show fork and join point (non-linear).\n- Safe for shared/public branch — nobody's history rewrite.\n\n**Rebase**\n- Replay commit from your branch onto tip of target branch, one by one.\n- Each commit get new hash (parent change).\n- Result: linear history, look like work happen sequentially after target branch.\n- Rewrite history — dangerous on shared branch (anyone else with old copy get diverged history, force-push needed).\n\nWhen to reach for each:\n\n- **Merge**: integrate feature branch into main/shared branch. Preserve true history, safe, no coordination needed with team.\n- **Rebase**: clean up local/feature branch before push (squash mess, drop WIP commits, keep linear log). Also use to update feature branch with latest main without merge-commit clutter — `git rebase main` while on feature branch.\n\nGolden rule: never rebase commit already pushed and shared, unless team agree (force-push required after, everyone else must reset).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "ab18ba576747c27f40aa465c640746c7274b712fdc14c791388d502595fb327a"
+}

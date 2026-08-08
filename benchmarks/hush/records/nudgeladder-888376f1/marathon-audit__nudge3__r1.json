@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__nudge3__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 51,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "nudge3",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 108150,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6642218,
+  "numTurns": 47,
+  "durationMs": 102089,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 8661
+  },
+  "contextTraffic": 610091,
+  "apiCalls": 14,
+  "toolCalls": 43,
+  "toolResultChars": 27717,
+  "narrationWords": 0,
+  "finalWords": 115,
+  "finalText": "Only one dependency issue: `fast-parse` is still pinned at `1.4.2` in `package.json`, the version its publisher yanked over a prototype-pollution report. `date-fmt`, `pg-lite`, and `redis-min` all match what `NOTES.md` says is fine.\n\n`AUDIT.md` is written with all four findings, worst first:\n\n1. **SQL injection** in `src/repo/report.js` — saved-report filter and sort are pasted into the query unescaped.\n2. **Internal routes wide open** in `src/routes/internal.js` — no auth check since the VPN in front of them was retired.\n3. **Plaintext staging password** in `config/staging.js` — committed instead of pulled from an env var like prod does.\n4. **Yanked dependency** — `fast-parse` needs bumping from `1.4.2` to `1.4.3`.\n\nService code wasn't touched — only `AUDIT.md` was added.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "81e1538f528e236246cedb04f88ad4f96905baa8cec1635ba36f0077b2f4f211"
+}

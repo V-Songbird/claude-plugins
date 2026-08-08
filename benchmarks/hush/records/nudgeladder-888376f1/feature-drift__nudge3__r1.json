@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__nudge3__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 34,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "nudge3",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 167388,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.729889,
+  "numTurns": 20,
+  "durationMs": 159831,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 12183
+  },
+  "contextTraffic": 805045,
+  "apiCalls": 18,
+  "toolCalls": 15,
+  "toolResultChars": 15542,
+  "narrationWords": 9,
+  "finalWords": 25,
+  "finalText": "That's already in there — same key within 5 minutes of its last send gets dropped, at `src/router.js:37`. No change needed, and `verify.js` still passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "abe0427ba12243197e83470cae287bac9bc70271202ceee8f57fb555e5042d37"
+}

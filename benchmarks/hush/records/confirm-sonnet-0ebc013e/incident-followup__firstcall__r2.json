@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__firstcall__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 87,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 43571,
+  "check": {
+    "pass": false,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 3)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.3356918,
+  "numTurns": 7,
+  "durationMs": 38521,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1917
+  },
+  "contextTraffic": 293895,
+  "apiCalls": 7,
+  "toolCalls": 4,
+  "toolResultChars": 23716,
+  "narrationWords": 0,
+  "finalWords": 138,
+  "finalText": "**On-call handoff — prod outage, 2026-07-04**\n\n**Root cause:** Redis at `10.0.0.12:6379` became unreachable. The API's cache layer fell back to direct store reads, which the store couldn't handle at full traffic.\n\n**Impact window:** 02:14:07 UTC to 02:31:52 UTC (about 18 minutes).\n- 02:14:07 — Redis connection lost, fallback to direct reads begins.\n- 02:14–02:31 — Timeouts and queue depth climb steadily. 12 reconnect attempts to Redis, all failed.\n- 02:29 — Request queue exceeds its cap of 500.\n- 02:31:44 — `worker-2` crashes from an out-of-memory error under the backlog.\n- 02:31:52 — Supervisor kills the process group. Full outage.\n\n**ioredis version:** Couldn't confirm. There's no `package-lock.json` or `package.json` anywhere in this repo, so the installed version isn't visible from here. Whoever owns the deploy repo will need to check the lockfile there before comparing against the changelog.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6ca6349c5888472deb243ee51f4e13713f4e9e29b1ebb0653333890c613414fd"
+}

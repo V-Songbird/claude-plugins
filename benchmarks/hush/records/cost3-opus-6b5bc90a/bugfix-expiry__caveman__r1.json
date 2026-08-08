@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__caveman__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 1,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 27464,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.2244725,
+  "numTurns": 9,
+  "durationMs": 25680,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1135
+  },
+  "contextTraffic": 202364,
+  "apiCalls": 8,
+  "toolCalls": 8,
+  "toolResultChars": 3022,
+  "narrationWords": 16,
+  "finalWords": 92,
+  "finalText": "Fixed. 5/5 pass.\n\n`token.js:7` — `isExpired` used `token.exp < nowSeconds`. Token with `exp` exactly equal to now returned `false` = valid, so token slipped through for one second past expiry. Doc comment say \"expired the moment `exp` is reached\" — strict `<` contradict it.\n\n```js\nreturn token.exp <= nowSeconds;\n```\n\n`secondsLeft` needed no change — it delegate to `isExpired`, so boundary now return 0.\n\nNote on running: `node --test tests/` fail on this Node (v22.22.2) with `MODULE_NOT_FOUND` — directory arg not resolved. Use `node --test tests/token.test.js` or `node --test` from repo root.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "09d72dee170cad5deba58ce39dcd7975e2b56cf2e380fee035116b71ccf9ce78"
+}

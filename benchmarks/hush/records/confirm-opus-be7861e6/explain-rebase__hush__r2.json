@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 40,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 2,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 23889,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.13639400000000002,
+  "numTurns": 1,
+  "durationMs": 22241,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1582
+  },
+  "contextTraffic": 25514,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 122,
+  "finalText": "**Merge keeps both histories. Rebase rewrites yours.**\n\nA merge adds one new commit that joins two branches. Nothing already committed changes.\n\nA rebase replays your commits on top of another branch. Same edits, new commits, new IDs.\n\n```mermaid\nflowchart LR\n  subgraph M[merge]\n    a[main] --> m((merge commit))\n    b[your branch] --> m\n  end\n  subgraph R[rebase]\n    c[main] --> d[copy of commit 1] --> e[copy of commit 2]\n  end\n```\n\nReach for rebase on your own branch that nobody else has pulled. History stays a straight line and reads easily.\n\nReach for merge once someone else has your branch, or when you want the record of what really happened.\n\nThe one hard rule: never rebase commits other people already pulled. Their copy and yours stop matching.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "89830518f4c5f5e1b59d9cbeb24ec2fffb8040559a69acea68308a59f396d794"
+}

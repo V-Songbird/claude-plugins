@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__hush__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 63,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 18150,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.127279,
+  "numTurns": 1,
+  "durationMs": 16206,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1224
+  },
+  "contextTraffic": 25500,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 169,
+  "finalText": "```python\nimport re\n\n_EMAIL_RE = re.compile(\n    # local part: dot-separated atoms, no leading, trailing, or doubled dots\n    r\"^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+\"\n    r\"(?:\\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*\"\n    r\"@\"\n    # domain: one or more labels, each 1-63 chars, no leading or trailing hyphen\n    r\"(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+\"\n    r\"[A-Za-z]{2,63}$\"\n)\n\n\ndef is_valid_email(address: str) -> bool:\n    \"\"\"Return True if `address` is a syntactically valid email address.\n\n    Checks the shape of the address only. It does not check that the\n    domain resolves or that the mailbox can receive mail.\n    \"\"\"\n    if not isinstance(address, str) or len(address) > 254:\n        return False\n\n    if not _EMAIL_RE.match(address):\n        return False\n\n    local, _, domain = address.rpartition(\"@\")\n    return len(local) <= 64 and len(domain) <= 255\n```\n\nIt checks the shape and the length limits from the spec: 254 for the whole address, 64 for the part before `@`, 63 per domain label.\n\nTwo things it does not do. It won't tell you whether the mailbox is real, and it rejects quoted local parts like `\"john doe\"@example.com`, which are legal but almost never used. Say the word if you want either one.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "710d4cdcf5dd488cd62fdcce8659e6b8683d3d71270ff0cd215a476c966689c1"
+}

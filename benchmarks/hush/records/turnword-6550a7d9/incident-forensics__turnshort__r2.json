@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__turnshort__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 38,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "turnshort",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 72123,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6286637,
+  "numTurns": 15,
+  "durationMs": 65542,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3571
+  },
+  "contextTraffic": 750728,
+  "apiCalls": 15,
+  "toolCalls": 11,
+  "toolResultChars": 42810,
+  "narrationWords": 0,
+  "finalWords": 88,
+  "finalText": "**On-call handoff — gateway 503s**\n\n**Root cause:** `dep-4471` (gateway, a.novak, finished 02:14:00Z) — \"config: connection-per-request for pool isolation.\" Right after it landed, the pool stopped returning connections after each request. Logs show `ERR_POOL_EXHAUSTED`, pool stuck at 20/20 in use, with the waiting queue climbing steadily instead of draining.\n\n**Impact window:** 2026-03-14 02:14:18Z through at least 03:59:27Z (end of available log — still failing, never recovered on its own). Gateway only. `worker.log` shows workers healthy the whole time, steady at `size=8 in_use=1 idle=7 waiting=0`.\n\n**Rollback:** revert `dep-4471` on gateway.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "43f8a21e726772658e4e4ab1121c6e4cc8b662313e897da712209052fc9fdcf6"
+}

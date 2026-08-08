@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__turnfin__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 37,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "turnfin",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 72932,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6287856000000001,
+  "numTurns": 15,
+  "durationMs": 66657,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3990
+  },
+  "contextTraffic": 747536,
+  "apiCalls": 15,
+  "toolCalls": 11,
+  "toolResultChars": 41266,
+  "narrationWords": 0,
+  "finalWords": 123,
+  "finalText": "**Gateway 503 incident — on-call handoff**\n\n**Root cause:** `dep-4471` (gateway, a.novak, deployed 02:12–02:14 UTC) — \"config: connection-per-request for pool isolation.\" Seconds after it finished, the gateway pool (capped at 20 connections) filled and stayed full, throwing `ERR_POOL_EXHAUSTED` on every route.\n\n**Impact window:** 2026-03-14 02:14:18 UTC to at least 03:59:27 UTC, when the log ends — still ongoing, not yet self-recovered. Errors repeat every ~4 seconds across all routes, and the wait queue has climbed from 13 to 70+ over that time.\n\n**Scope:** gateway only. `worker.log` shows its pool untouched the whole window (size 8, 1 in use, 0 waiting) — no downstream spread.\n\n**Roll back:** `dep-4471` on gateway. It's the only deploy at the right time, and its change matches the failure exactly.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "feebaeec738e4f5e485a05bf4037fac9ab388d85756b355726bcd2f2077d106d"
+}

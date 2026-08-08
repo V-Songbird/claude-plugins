@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__baseline__r1",
+  "batchId": "pre2-756b4e9f",
+  "seed": "1786174006947",
+  "orderIndex": 5,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 28826,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.184446,
+  "numTurns": 10,
+  "durationMs": 27592,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1986
+  },
+  "contextTraffic": 228388,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 11303,
+  "narrationWords": 107,
+  "finalWords": 102,
+  "finalText": "The build now finishes with exit 0, and `verify.js` confirms the config layering is actually fixed (not worked around).\n\n**Root cause:** `packages/shared/config.js` merged the defaults → package overrides → CLI flags with a shallow `Object.assign`, so any layer touching a nested object (`output`, `sourcemap`) replaced the whole object instead of merging keys. `@acme/api`'s override `output: { format: 'esm' }` was wiping out `output.dir`/`output.entry`, which the bundle stage's completeness check caught and aborted the build on.\n\n**Fix:** Replaced it with a recursive `deepMerge` that merges plain objects key-by-key (leaving `RELEASE_DEFAULTS` unmutated) and applies it in the same defaults → overrides → cliFlags order.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3aad4d6ce2632c66d3949d398efc4915825d20b3c05c6a301906035e197dabac"
+}

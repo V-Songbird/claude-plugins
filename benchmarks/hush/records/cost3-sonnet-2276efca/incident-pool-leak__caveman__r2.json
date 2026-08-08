@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__caveman__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 75,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 30193,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.35538,
+  "numTurns": 12,
+  "durationMs": 28723,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1881
+  },
+  "contextTraffic": 330956,
+  "apiCalls": 7,
+  "toolCalls": 11,
+  "toolResultChars": 53592,
+  "narrationWords": 52,
+  "finalWords": 101,
+  "finalText": "All 4 pass. Root cause and fix:\n\n**Bug**: `processOrder.js` acquire conn direct, no try/finally. Order validation fail → `run()` reject → `pool.release(conn)` line never hit → conn leak forever.\n\n**Log proof**: worker.log `02:06:15` onward — 3 failed orders in row (bad payload), pool in-use climb 2→5, then `pool exhausted`, worker-1 fatal exit. app.log same pattern 02:09-02:13, cascading 503s till supervisor restart both processes.\n\n**Fix**: route `processOrder` through existing `withConnection` helper (same one `api.js` already use) — guarantees release in finally, no matter reject or resolve.\n\nTests were red for same reason (no release on rejected path) — now green, 4/4 pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e9c2e44d7da3777b61ff111e217285f75d588b7105227bc3af1fdf052bf46e9d"
+}

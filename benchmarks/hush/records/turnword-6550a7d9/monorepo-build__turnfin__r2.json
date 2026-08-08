@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__turnfin__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 13,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "turnfin",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25954,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.19154159999999998,
+  "numTurns": 9,
+  "durationMs": 24200,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1700
+  },
+  "contextTraffic": 210327,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 10270,
+  "narrationWords": 0,
+  "finalWords": 86,
+  "finalText": "**Fixed and building clean.**\n\nThe break was in `packages/shared/config.js`. It merged config layers with `Object.assign`, which is shallow — any override that named one key inside `output` or `sourcemap` wiped out the rest of that object instead of just changing that key.\n\nI swapped it for a proper deep merge, so `output` and `sourcemap` now merge key by key across defaults, package overrides, and CLI flags. `node verify.js` passes, including the check that a partial `output.dir` from the command line doesn't erase a package's own `entry`/`format`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "51b6be200056842e168be047f85246eda618704c7cf0b64ccf2da5cf430cd4a1"
+}

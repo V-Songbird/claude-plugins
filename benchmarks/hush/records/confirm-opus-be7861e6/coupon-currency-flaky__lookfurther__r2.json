@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 59,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 78774,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.439895,
+  "numTurns": 13,
+  "durationMs": 77087,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4642
+  },
+  "contextTraffic": 279275,
+  "apiCalls": 9,
+  "toolCalls": 12,
+  "toolResultChars": 9666,
+  "narrationWords": 6,
+  "finalWords": 123,
+  "finalText": "**Found it.** Every failing case had a percent coupon.\n\n`engine.js` rounded the running USD total to cents after each discount. Then it rounded again after converting to the order currency. That is two roundings, and the leftover fraction got multiplied by the exchange rate first.\n\nMost carts look fine because the leftover only sometimes crosses a rounding line. It showed up on GBP, CAD and JPY, never on USD or EUR.\n\nThe fix keeps full precision through the discounts and rounds once at the end, in the target currency's own decimal places.\n\n40 pass, 0 fail, 0.08s. Same result three runs, so it was never flaky.\n\nOne thing I left alone: a flat coupon larger than the cart still returns a negative total.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "eb7f1c1d335bccc017d7cd01e454ad75ec2f48cb9978ebf37a9f3ea4f1ceafff"
+}

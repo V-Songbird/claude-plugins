@@ -1,0 +1,15 @@
+{
+  "name": "@acme/service",
+  "version": "4.2.1",
+  "private": true,
+  "dependencies": {
+    "fast-parse": "1.4.2",
+    "tiny-router": "3.0.1",
+    "pg-lite": "2.8.0",
+    "redis-min": "1.9.4",
+    "date-fmt": "0.6.2"
+  },
+  "devDependencies": {
+    "spec-runner": "5.1.0"
+  }
+}

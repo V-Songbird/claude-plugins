@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__baseline__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 8,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31906,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.19453159999999997,
+  "numTurns": 10,
+  "durationMs": 30704,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2492
+  },
+  "contextTraffic": 229926,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 10939,
+  "narrationWords": 81,
+  "finalWords": 100,
+  "finalText": "Both pass. Root cause: `resolveRelease()` in `packages/shared/config.js` did a shallow `Object.assign` across defaults → package overrides → CLI flags, so any layer that set one key inside `output` or `sourcemap` (e.g. `@acme/api`'s `{ output: { format: 'esm' } }`) silently wiped the sibling keys (`dir`, `entry`) instead of merging them. That's what made the bundle stage throw `no output.dir` well past the lint pass. I replaced it with a `mergeLayer` helper that merges matching nested plain objects key-by-key while leaving `RELEASE_DEFAULTS` unmutated; `build.js` now exits 0 and `verify.js` confirms the layering rule holds even for overrides the fixture didn't ship.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b1927a4635d84858482b7deb6242139e3b705dec7efb0cb2d6068603744b2210"
+}

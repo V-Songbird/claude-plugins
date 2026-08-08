@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__baseline__r2",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 5,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23153,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.19060909999999998,
+  "numTurns": 11,
+  "durationMs": 21888,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1384
+  },
+  "contextTraffic": 232982,
+  "apiCalls": 7,
+  "toolCalls": 10,
+  "toolResultChars": 17093,
+  "narrationWords": 51,
+  "finalWords": 50,
+  "finalText": "Both green: `run-tests.js` reports 625/625 passing (exit 0), and `verify.js` confirms the fix is legitimate (exit 0).\n\nThe bug was in `orderTotal` (`src/pricing.js`): tax was being calculated on the pre-discount amount instead of the discounted amount, even though the discount was applied first. Fixed by taxing `discounted` instead of `cents`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3d466c5555872d5dc8ae1c0d649c9a0e45ac7d08f1e4d30d72d05b247ba38ae7"
+}

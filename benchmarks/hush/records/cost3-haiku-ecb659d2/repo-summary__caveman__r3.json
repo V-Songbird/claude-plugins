@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__caveman__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 106,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 18880,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0356884,
+  "numTurns": 10,
+  "durationMs": 17337,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1297
+  },
+  "contextTraffic": 95971,
+  "apiCalls": 4,
+  "toolCalls": 9,
+  "toolResultChars": 4240,
+  "narrationWords": 0,
+  "finalWords": 155,
+  "finalText": "Node.js API server. Five files, stacked top-to-bottom:\n\n**server.js** — HTTP entry point. Creates Node server, verifies auth header on every request, routes to handler or 401.\n\n**routes.js** — Route table with three endpoints:\n- `GET /users` — fetch user by query param `id`, cached\n- `GET /orders` — list user's orders, cached  \n- `POST /orders` — create order, bypasses cache, invalidates on write\n\nCache decorates reads; writes skip cache (only store).\n\n**auth.js** — HMAC-SHA256 token verification. Tokens are `Bearer <userId>.<hex-sig>`. Secret from `AUTH_SECRET` env var, defaults to `dev-secret`.\n\n**store.js** — In-memory key-value store. Every record expires 15 minutes after write. Used as fake DB. Two record types: `user:<id>` and `orders:<userId>`.\n\n**cache.js** — LRU cache (256 max entries). Read-through: checks cache, calls loader if miss. No expiry here — store handles TTL.\n\n**Flow:** Request → auth → route → cache (reads only) → store → response.\n\nStart: `node src/server.js` listens on `PORT` env var or 8080.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a493c45a44d0d5b2d90bf5ef82564c13f8adbc51d13185132721f1b9d8f9a246"
+}

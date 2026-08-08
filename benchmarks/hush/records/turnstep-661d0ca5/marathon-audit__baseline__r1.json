@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__baseline__r1",
+  "batchId": "turnstep-661d0ca5",
+  "seed": "1786172329502",
+  "orderIndex": 20,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 133884,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.5848262,
+  "numTurns": 36,
+  "durationMs": 128713,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 10718
+  },
+  "contextTraffic": 802114,
+  "apiCalls": 20,
+  "toolCalls": 32,
+  "toolResultChars": 28225,
+  "narrationWords": 0,
+  "finalWords": 94,
+  "finalText": "Dependency check confirmed only one issue: `fast-parse` is pinned at `1.4.2` in `package.json`, the exact version `NOTES.md` says was yanked for a prototype-pollution report (fixed in `1.4.3`). The other three flagged deps (`pg-lite`, `redis-min`, `date-fmt`) are all fine per the notes.\n\n`AUDIT.md` is written with all four findings, ordered by severity:\n\n1. **Critical** — SQL injection via concatenation, `src/repo/report.js`\n2. **Critical** — unauthenticated internal routes, `src/routes/internal.js`\n3. **High** — plaintext committed password, `config/staging.js`\n4. **Medium** — yanked dependency, `package.json` (`fast-parse` 1.4.2 → 1.4.3)\n\nNo service code was touched — verified against `verify.js`, which passes.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "df60d76561923ce14fad96c1d4b780360bace63a2099a946062e83fa5963bfb8"
+}

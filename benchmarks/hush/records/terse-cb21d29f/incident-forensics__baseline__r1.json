@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__baseline__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 33,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 78821,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.7451097000000001,
+  "numTurns": 15,
+  "durationMs": 73470,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5078
+  },
+  "contextTraffic": 1052858,
+  "apiCalls": 15,
+  "toolCalls": 11,
+  "toolResultChars": 89902,
+  "narrationWords": 0,
+  "finalWords": 251,
+  "finalText": "**On-Call Handoff — Gateway 503s**\n\n**Status:** Ongoing / unresolved as of end of available logs (03:59:27Z). Needs active mitigation.\n\n**Root cause**\nGateway pool exhaustion, almost certainly triggered by **dep-4471** (gateway, deployed by a.novak, finished **2026-03-14T02:14:00Z**): *\"config: connection-per-request for pool isolation.\"* First pool-exhaustion warning fired 15s after that deploy finished (02:14:14.920Z), first 503 4s after that (02:14:18.972Z). Every error since is `ERR_POOL_EXHAUSTED acquiring connection from pool` — the pool (fixed size 20) sits pinned at `in_use=20, idle=0` with `waiting` climbing steadily and unbounded (12 → 200+ over the log window), never draining back down. That signature (pinned in_use, no recovery) points to a connection leak introduced by the config change, not a traffic spike or downstream outage — requests across all backends (billing-svc, orders-svc, catalog-svc, accounts-svc) are affected equally, confirming it's the shared pool, not one service.\n\n**Impact window**\n- **Start:** 2026-03-14T02:14:14.920Z (first WARN \"acquire slow\"); first 503 at 02:14:18.972Z.\n- **End:** Not yet recovered — 503s and `ERR_POOL_EXHAUSTED` still occurring at the last log line (03:59:27.974Z). Duration so far: ~1h45m and counting.\n- **Scope:** Gateway only. Checked worker.log for the same window — worker's separate pool (size 8) stayed at a steady `in_use=1 idle=7 waiting=0` throughout, jobs completed normally. No spillover to workers.\n\n**Rollback**\nRoll back **dep-4471** (gateway, a.novak, \"connection-per-request for pool isolation\"). No other deploy is close in time — the prior one (dep-4470, worker, 00:48Z) is over an hour earlier; the next ones (dep-4472 billing-svc 02:41Z, dep-4473 catalog-svc 03:20Z) landed after the incident was already underway and aren't candidates.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cd06d988662d082882478d665028b8712636345cdabdf9a6851744fb4e884ca3"
+}

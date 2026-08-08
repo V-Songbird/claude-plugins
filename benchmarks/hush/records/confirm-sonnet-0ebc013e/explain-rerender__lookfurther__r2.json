@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__lookfurther__r2",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 33,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "qa",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 11924,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.083478,
+  "numTurns": 1,
+  "durationMs": 10372,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 563
+  },
+  "contextTraffic": 31965,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 95,
+  "finalText": "React re-renders every child by default whenever the parent re-renders. It does this no matter what the props are, unless you tell it not to.\n\nThe fix is `React.memo` around the child. That makes React compare props before re-rendering it.\n\nOne catch: if any prop is a function, object, or array made fresh inside the parent each render, `React.memo` still sees it as new. That's because JavaScript treats each new object or function as different, even if it looks the same. Wrap those props in `useCallback` or `useMemo` in the parent to keep them stable.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "4dc6b074be1697ad46bc778e496747cc28f2f7fc9efc3c6ce35ee14a700535fc"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__caveman__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 132,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 3,
+  "wallMs": 51750,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.4754573999999999,
+  "numTurns": 11,
+  "durationMs": 47010,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2985
+  },
+  "contextTraffic": 594602,
+  "apiCalls": 10,
+  "toolCalls": 8,
+  "toolResultChars": 60735,
+  "narrationWords": 0,
+  "finalWords": 276,
+  "finalText": "No lockfile in repo — no `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml` found. Only `package.json` gives range `^5.4.1`, not exact installed version. Flag that in handoff below.\n\nHere's the handoff doc (normal prose, since this gets shared):\n\n---\n\n## On-Call Handoff — Prod Outage 2026-07-04\n\n**Impact window:** 02:14:07 UTC – 02:31:52 UTC (~17m 45s), service fully down from 02:31:52 until restart/mitigation (not captured in log).\n\n**Root cause:** Redis at `10.0.0.12:6379` became unreachable (`ECONNREFUSED`). The cache layer fell back to direct store reads, which overloaded the backing store and triggered cascading timeouts across `api`, `worker-1`, `worker-2`, and `scheduler`. The request queue grew unbounded — it exceeded its own configured max (500) around 02:29:12 and kept climbing to 568, indicating the backpressure/max-queue-depth limit is not actually enforced in code. 12 automatic Redis reconnect attempts (02:14:07–02:31:26) all failed with the same `ECONNREFUSED`; Redis never recovered on its own. At 02:31:44, `worker-2` hit `JavaScript heap out of memory` from the backlog and was restarted by the supervisor (exit code 134), but the `api` process remained unresponsive and the supervisor killed the whole process group at 02:31:52, taking the service down.\n\n**Dependency version:** `ioredis` is pinned in `package.json` as `^5.4.1`. No lockfile is present in the repo, so the exact installed version can't be confirmed from source — pull it from the deployed container/`node_modules` (`npm ls ioredis` on the prod host) before cross-checking the changelog for reconnect-behavior fixes.\n\n**Follow-ups:**\n1. Confirm exact `ioredis` version running in prod (no lockfile to derive it from).\n2. Investigate why `10.0.0.12:6379` dropped (network/OOM/redis-side restart).\n3. Fix queue depth enforcement — it's currently advisory only, not an actual cap.\n4. Consider generating/committing a lockfile to make dependency audits reproducible.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "45f8904d05ff4f9cfcc13749b8d7ddcbf3447dca4b61b3a4fe85403a8e76ea93"
+}

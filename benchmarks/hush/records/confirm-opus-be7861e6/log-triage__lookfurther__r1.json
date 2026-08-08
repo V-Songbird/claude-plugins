@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__lookfurther__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 80,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "lookfurther",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 88588,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.446877,
+  "numTurns": 12,
+  "durationMs": 87137,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5097
+  },
+  "contextTraffic": 244077,
+  "apiCalls": 8,
+  "toolCalls": 11,
+  "toolResultChars": 14339,
+  "narrationWords": 0,
+  "finalWords": 119,
+  "finalText": "**Redis went away and took the service with it.**\n\nAt `02:14:07` the api logged `redis connection lost: connect ECONNREFUSED 10.0.0.12:6379`.\n\n1. The cache dropped out, so every read went straight to the store.\n2. The store timed out at 5 seconds, again and again.\n3. The request queue climbed past its 500 limit at `02:29:12`.\n4. At `02:31:44` `worker-2` ran out of memory and died with code 134.\n5. Eight seconds later the supervisor killed the api. Service down.\n\nRedis never came back. 13 retries, all refused, one every 80 seconds, and the gap never grew.\n\nNothing succeeded after `02:14:03`, so it was a full outage, not a slowdown.\n\nOne oddity: this log covers July 4, not last night.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9c81a8641b6d452d06478a07a98cf740608746633fe04c6a274217fedc385107"
+}

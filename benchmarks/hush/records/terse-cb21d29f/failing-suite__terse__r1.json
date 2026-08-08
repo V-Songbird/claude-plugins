@@ -1,0 +1,37 @@
+{
+  "key": "failing-suite__terse__r1",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 0,
+  "task": "failing-suite",
+  "segment": "noisy-output",
+  "arm": "terse",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 19347,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.3112521,
+  "numTurns": 10,
+  "durationMs": 17655,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 980
+  },
+  "contextTraffic": 216619,
+  "apiCalls": 6,
+  "toolCalls": 9,
+  "toolResultChars": 14697,
+  "narrationWords": 0,
+  "finalWords": 30,
+  "finalText": "Found it: `orderTotal` was taxing the pre-discount amount instead of the discounted one. Fixed `src/pricing.js` to tax the discounted total.\n\nAll 625 cases pass now, and `verify.js` confirms it's green.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "132a6b6d8eb51822eadb9fa6100e6ffaefd7bb978b82227616db9328e41a645b"
+}

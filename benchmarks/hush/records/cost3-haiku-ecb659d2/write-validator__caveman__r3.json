@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__caveman__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 69,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 8545,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0189968,
+  "numTurns": 1,
+  "durationMs": 6758,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 444
+  },
+  "contextTraffic": 22841,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 73,
+  "finalText": "```python\nimport re\n\ndef validate_email(email):\n    \"\"\"Validate email address format.\"\"\"\n    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'\n    return re.match(pattern, email) is not None\n```\n\nSimple regex covers most cases. Checks for alphanumeric/dots/underscores before `@`, domain name, and valid TLD.\n\nFor stricter validation, use `email-validator` library:\n```python\nfrom email_validator import validate_email, EmailNotValidError\n\ndef validate_email(email):\n    try:\n        validate_email(email)\n        return True\n    except EmailNotValidError:\n        return False\n```\n\nLibrary handles edge cases regex misses (consecutive dots, trailing dash, etc.). Pick based on strictness needed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b8c9c0f434f804198b03417aab1b6d9f31b768d1dca17eb9d3abeab3799cc638"
+}

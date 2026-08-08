@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__caveman__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 60,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 8737,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.018785800000000002,
+  "numTurns": 1,
+  "durationMs": 7061,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 397
+  },
+  "contextTraffic": 22853,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 167,
+  "finalText": "**Merge** creates new commit that joins two branches. History shows both branches existed, parallel work visible. Fast-forward if target hasn't moved since your branch started.\n\n**Rebase** replays your commits on top of target branch. Rewrites history—looks like linear sequence, no branching. Commits get new hashes (destructive if pushed).\n\n**When to use each:**\n\n**Merge:**\n- Shared/public branches (main, release, team work). History matters. No force-push risk.\n- Feature complete, ready to document the integration point.\n- Coordinating with others—rebase would rewrite their copy.\n\n**Rebase:**\n- Local branch before push. Clean history before merging to main.\n- Sync with upstream without merge commits cluttering log.\n- Single author, haven't pushed yet (or only to your own fork).\n\n**Rule:** Rebase locally. Merge to shared branches. Never rebase after push (unless you own that branch).\n\nMerge keeps truth: \"this work happened in parallel.\" Rebase rewrites for clean narrative: \"feature built on current main.\" Pick based on whether history matters to your team or if clean linear log is worth the risk.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "1b63d6b025195f169f456cfdae19bbfe078e0e2073f66293c5adffda8d0a59e8"
+}

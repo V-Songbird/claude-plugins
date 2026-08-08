@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r2",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 94,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 30058,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.21123019999999998,
+  "numTurns": 11,
+  "durationMs": 28745,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1932
+  },
+  "contextTraffic": 268789,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 15711,
+  "narrationWords": 57,
+  "finalWords": 112,
+  "finalText": "Build is green now (exit 0). Root cause: the bundler bump changed the shape of options handed to modules.\n\n- `src/core/options.js:7` — still read `options.retries` but the new bundler passes `retryCount`, so `.toFixed(0)` threw on `undefined`. Fixed to read `options.retryCount`.\n- `src/net/retryPolicy.js:8` — the new config loader leaves unset flags as `undefined` instead of `false`, but the strict boolean check only accepted `true`/`false` and threw otherwise. Fixed to treat `undefined` as disabled, same as `false`.\n\nThe remaining ~950 lines of `WARN DEP0xxx` deprecation notices and `note:`/`dedupe:` chatter are just noise from the new bundler version (8 warnings reported in the final summary) — not actionable, build now completes cleanly with 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9d51ee1a667da61c2b8a8129d5fa7364d6f93b98f654da105b500e405f0f37ee"
+}

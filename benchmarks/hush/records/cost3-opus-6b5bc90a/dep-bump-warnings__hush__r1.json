@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 91,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 58646,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.3307405,
+  "numTurns": 10,
+  "durationMs": 57197,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3395
+  },
+  "contextTraffic": 201879,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6601,
+  "narrationWords": 7,
+  "finalWords": 86,
+  "finalText": "**The build passes now.** The real trouble wasn't a warning at all. The link step was throwing.\n\nTwo spots broke on the bump, one after the other:\n\n1. `src/core/options.js` read `options.retries`, but the new shape is `retryCount`. It now takes either name.\n2. `src/net/retryPolicy.js` threw when `backoffEnabled` was unset. Unset now means off, as it did before.\n\n`node build.js` exits 0.\n\nThe 8 warnings are still printed. `build.js` writes them as fixed text. The files they name aren't in this project, so there's nothing to change.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "6e1e3314ad40ee4f34e58b0e6f3bc27269b3e8e7d91092477c811e9c696f0e84"
+}

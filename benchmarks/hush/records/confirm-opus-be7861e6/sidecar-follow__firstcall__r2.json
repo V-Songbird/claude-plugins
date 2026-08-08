@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__firstcall__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 99,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 37168,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.3079185,
+  "numTurns": 8,
+  "durationMs": 35332,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1506
+  },
+  "contextTraffic": 199249,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 13446,
+  "narrationWords": 0,
+  "finalWords": 74,
+  "finalText": "**698 of 700 tests passed. Two failed, both in `auth/tokens.test.js`.**\n\n- `refreshToken silently accepts an already-revoked token` — `auth/tokens.test.js:400`\n- `sessionCleanup leaves orphaned rows after a rollback` — `auth/tokens.test.js:650`\n\nNothing else in the log went wrong. No skips, no errors, no crash at the end.\n\nBoth failures sit in the same file, so one change may well cover both. The first one lets a revoked token still work, which is worth looking at first.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "78ff0611bafcfd4e980ced9b47e9be75e9ee2f66799cebf0c7b29b5db6330bc4"
+}

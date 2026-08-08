@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__firstcall__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 72,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "firstcall",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 31824,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.21166899999999997,
+  "numTurns": 5,
+  "durationMs": 30376,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2194
+  },
+  "contextTraffic": 177188,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 18042,
+  "narrationWords": 0,
+  "finalWords": 89,
+  "finalText": "Full sweep's done: 17 call sites still pass the legacy rounding flag, spread across 7 files. `src\\reports\\quarterly.js` has the most, with 5.\n\nHere's the breakdown:\n\n| File | Two-arg calls |\n|---|---|\n| `reports\\quarterly.js` | 5 |\n| `billing\\invoice.js` | 3 |\n| `admin\\exports.js` | 3 |\n| `reports\\monthly.js` | 2 |\n| `checkout\\cart.js` | 2 |\n| `billing\\statement.js` | 1 |\n| `checkout\\receipt.js` | 1 |\n\nAll of them pass `true` as the second argument. Four files — `admin\\dashboard.js`, `reports\\ledger.js`, `billing\\refunds.js` — already only use the single-argument form.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5f18f2ad68889a7efde2e871f1bd53f0ce8d9f40dcd5db7f29c0c41fe3015eb1"
+}

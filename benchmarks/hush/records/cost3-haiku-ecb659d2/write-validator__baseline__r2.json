@@ -1,0 +1,37 @@
+{
+  "key": "write-validator__baseline__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 66,
+  "task": "write-validator",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 9398,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0175778,
+  "numTurns": 1,
+  "durationMs": 7737,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 653
+  },
+  "contextTraffic": 21316,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 189,
+  "finalText": "Here's a practical Python function that validates email addresses:\n\n```python\nimport re\n\ndef validate_email(email: str) -> bool:\n    \"\"\"\n    Validate an email address using a reasonable pattern.\n    \n    Args:\n        email: The email address to validate\n        \n    Returns:\n        True if the email appears valid, False otherwise\n    \"\"\"\n    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'\n    return re.match(pattern, email) is not None\n\n\n# Example usage:\nprint(validate_email(\"<email>\"))        # True\nprint(validate_email(\"invalid.email@\"))          # False\nprint(validate_email(\"<email>\"))  # True\n```\n\nThis function:\n- Checks for a local part (before @) with letters, numbers, and common special characters\n- Requires a domain with at least one dot and a valid TLD (2+ letters)\n- Handles common formats like `<email>`\n\n**For stricter validation**, consider the `email-validator` library:\n\n```python\nfrom email_validator import validate_email, EmailNotValidError\n\ndef validate_email(email: str) -> bool:\n    try:\n        validate_email(email)\n        return True\n    except EmailNotValidError:\n        return False\n```\n\nThis library:\n- Follows RFC 5321/5322 standards more closely\n- Normalizes email addresses\n- Checks for disposable email domains (optional)\n- More reliable for production use\n\n**Which should you use?**\n- Simple regex: Quick validation for forms/UI, acceptable false-positive rate\n- `email-validator` library: Production systems where accuracy matters, or you need DNS/SMTP validation\n\nWhich approach fits your use case?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "67effa4e143014d1e90f9bbe6b9ab224d6bb13370c854d376afb070e2441a46f"
+}

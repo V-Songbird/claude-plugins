@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__hush__r2",
+  "batchId": "cacheprobe-cbc20d1d",
+  "seed": "1786151075446",
+  "orderIndex": 9,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 164207,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.869424,
+  "numTurns": 39,
+  "durationMs": 158405,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 11704
+  },
+  "contextTraffic": 885390,
+  "apiCalls": 20,
+  "toolCalls": 35,
+  "toolResultChars": 21941,
+  "narrationWords": 0,
+  "finalWords": 114,
+  "finalText": "`fast-parse` matches what `NOTES.md` flagged — still pinned at `1.4.2`, the yanked version, needs `1.4.3`. The other three (`date-fmt`, `pg-lite`, `redis-min`) are fine as is.\n\n`AUDIT.md` is written, four findings ranked worst to best:\n\n1. **SQL injection** in `src/repo/report.js` — filter and sort fields get pasted into the query unvalidated.\n2. **Unauthenticated internal routes** in `src/routes/internal.js` — no auth check since the VPN in front of them was retired.\n3. **Hardcoded staging password** in `config/staging.js`, committed in plain text.\n4. **Yanked dependency** — `fast-parse` still on `1.4.2` in `package.json`.\n\nNo service files were touched, and the audit's own check script confirms it: `OK AUDIT.md names all four findings and the service was left alone`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "bc9cba626d36e37b429c7cc0faeb68abb084950b92762b10caed39fbf9c9fb8a"
+}

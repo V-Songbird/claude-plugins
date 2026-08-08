@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__firstcall__r2",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 12,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "firstcall",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 43011,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "firstcall:Firstcall",
+  "costUsd": 0.4117875,
+  "numTurns": 14,
+  "durationMs": 41153,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2181
+  },
+  "contextTraffic": 299295,
+  "apiCalls": 9,
+  "toolCalls": 13,
+  "toolResultChars": 19029,
+  "narrationWords": 4,
+  "finalWords": 103,
+  "finalText": "**Found the leak in the worker's order path and fixed it.**\n\n`processOrder` grabbed a connection, ran the order, then released it. When an order threw, that release line never ran, so the connection was gone for good. The pool has no reclaim, so each bad order shrank it by one.\n\nThe logs match exactly. Every `invalid order payload` line is missing its `connection released` line, and in-use climbs 2/5 → 5/5 as the bad orders pile up. Then `pool exhausted` and the restart.\n\nIt now goes through `withConnection`, which releases in a `finally`. The request path already did.\n\nAll 4 tests pass, 64ms.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "00219c83ef91f6e09a7b5593b46a4ebfdbef8e7f9f0e8aaec0eaba0279ca6980"
+}

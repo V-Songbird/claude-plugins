@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__hush__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 2,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 18578,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.254966,
+  "numTurns": 6,
+  "durationMs": 16638,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 663
+  },
+  "contextTraffic": 164867,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 2124,
+  "narrationWords": 0,
+  "finalWords": 31,
+  "finalText": "Found it: `isExpired` used `<` instead of `<=`, so a token expiring exactly at the current second still counted as valid.\n\nFixed `token.js:7` to use `<=`. All 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d53cb54bcc944953b9f06e843b93458cc81e7149d0bb782b59ff005930d8ea37"
+}

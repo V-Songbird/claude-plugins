@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 102,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 53608,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.22316049999999998,
+  "numTurns": 9,
+  "durationMs": 52229,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3445
+  },
+  "contextTraffic": 94709,
+  "apiCalls": 4,
+  "toolCalls": 8,
+  "toolResultChars": 4771,
+  "narrationWords": 19,
+  "finalWords": 677,
+  "finalText": "This is a very small codebase — 5 files, ~130 lines total, zero third-party dependencies (only `node:http` and `node:crypto`). There's no `package.json`, no README, no tests, and it isn't under version control, so the source is the only documentation.\n\n## The shape of it\n\nA minimal JSON HTTP API arranged in four clean layers, each file depending only on the one below it:\n\n```\nserver.js   HTTP listener + auth gate\n   ↓\nroutes.js   method+path → handler table\n   ↓\ncache.js    LRU read-through (reads only)\n   ↓\nstore.js    in-memory data with TTL\n```\n\n`auth.js` sits off to the side, used only by `server.js`.\n\n## Request lifecycle\n\n1. **`server.js:8`** — every request hits one handler. It calls `verifyToken` on the `Authorization` header first; no token, no entry (401). Nothing downstream ever re-checks auth, so this is the single gate.\n2. **`routes.js:14`** — builds a key like `\"GET /orders\"` from the method and pathname, looks it up in `TABLE`. Miss → 404.\n3. Handler runs, wrapped in `Promise.resolve(...)` so sync and async handlers are interchangeable. Resolve → 200 + JSON. Reject → 500 with the error message as the body.\n\nThree endpoints exist: `GET /users`, `GET /orders`, `POST /orders`.\n\n## The modules\n\n**`auth.js`** — HMAC bearer tokens shaped `<userId>.<hexsig>`. `sign(userId)` is an HMAC-SHA256 of the user id under `AUTH_SECRET` (defaults to `'dev-secret'`). Verification recomputes the signature and compares with `crypto.timingSafeEqual`. Note there's no expiry and no revocation — a token is valid forever as long as the secret holds. There's also no user lookup: the identity is whatever id is in the token.\n\n**`routes.js`** — the table at line 7 is the whole routing story. Reads are wrapped in `cached(...)`; the write goes direct to the store. Handlers receive `(query, user)`, so `user.id` is how ownership is expressed — `GET /orders` and `POST /orders` are implicitly scoped to the caller.\n\n**`cache.js`** — a 256-entry LRU using `Map` insertion order as the recency list: a hit deletes and re-inserts the key to bump it, and overflow evicts `lru.keys().next().value` (the oldest). Deliberately no TTL — the header comment says freshness is the store's job.\n\n**`store.js`** — a `Map` of `{ value, expiresAt }` with a 15-minute TTL, lazily swept on read. Two key namespaces, `user:<id>` and `orders:<userId>`. Orders are stored as one array per user; `putOrder` reads the array, pushes, and writes back, which refreshes that user's TTL. Everything lives in process memory, so a restart is a full data wipe.\n\n## Things worth knowing before you change anything\n\nA few places where the code and its stated intent don't line up — I'd verify these against whatever your actual requirements are rather than assume they're deliberate:\n\n- **The cache is never invalidated.** The comment at `routes.js:5` says writes \"invalidate the affected keys,\" but `cache.js` exports only `cached` — there's no invalidate function and nothing calls one. So `POST /orders` updates the store while `GET /orders` keeps serving the stale pre-write array from the LRU, indefinitely (the cache has no TTL). This is the biggest gap I'd look at first.\n- **There's no request body parsing.** `POST /orders` passes `q.body` (`routes.js:10`), but `parseQuery` only reads URL search params — it never touches the request stream. So a normal POST with a JSON body pushes `undefined` into the orders array. Writes only work at all via `?body=...` in the query string, as a string.\n- **`GET /users` ignores the caller.** It looks up `q.id` from the query string, not `user.id`, so any authenticated user can fetch any user record. May be intended as an admin-ish endpoint, but it's unguarded.\n- **A malformed token can crash the process.** `auth.js:16` compares `sig.length` in characters but `timingSafeEqual` compares bytes, so a signature with non-ASCII characters produces mismatched buffer lengths and throws. That throw is inside the raw `http` callback with no try/catch, which takes the server down.\n- **Cache lifetime outlives store lifetime.** Store records expire at 15 minutes; cache entries don't expire at all. A cached read can outlive its backing record by a long way.\n\nWant me to dig into any of these, or start fixing them?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "da00acbdc9500dbb0906e82de86014a62a9b292ad21a66a24e4f594cf93cabbf"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 77,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 68828,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.5416575,
+  "numTurns": 19,
+  "durationMs": 67257,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4447
+  },
+  "contextTraffic": 302645,
+  "apiCalls": 9,
+  "toolCalls": 18,
+  "toolResultChars": 33652,
+  "narrationWords": 0,
+  "finalWords": 64,
+  "finalText": "**17 call sites still pass the flag.** `src/reports/quarterly.js` has the most, with 5. All of them pass `true`.\n\n| File | Two-arg calls |\n| --- | --- |\n| `src/reports/quarterly.js` | 5 |\n| `src/billing/invoice.js` | 3 |\n| `src/admin/exports.js` | 3 |\n| `src/checkout/cart.js` | 2 |\n| `src/reports/monthly.js` | 2 |\n| `src/billing/statement.js` | 1 |\n| `src/checkout/receipt.js` | 1 |",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "35d4cbef6b4762df2c768bfcfa90e94fc4935b0574cc28f388b1aac777b81ac3"
+}

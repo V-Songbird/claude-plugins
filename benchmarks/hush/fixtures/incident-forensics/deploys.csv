@@ -1,0 +1,7 @@
+deploy_id,service,started_at,finished_at,author,summary
+dep-4468,catalog-svc,2026-03-13T22:04:00Z,2026-03-13T22:11:00Z,r.okafor,bump search analyzer to 4.2
+dep-4469,accounts-svc,2026-03-13T23:31:00Z,2026-03-13T23:36:00Z,m.silva,add rate limit to /v1/session
+dep-4470,worker,2026-03-14T00:48:00Z,2026-03-14T00:55:00Z,j.tanaka,retry backoff for webhook jobs
+dep-4471,gateway,2026-03-14T02:12:00Z,2026-03-14T02:14:00Z,a.novak,config: connection-per-request for pool isolation
+dep-4472,billing-svc,2026-03-14T02:41:00Z,2026-03-14T02:46:00Z,r.okafor,invoice pdf template fix
+dep-4473,catalog-svc,2026-03-14T03:20:00Z,2026-03-14T03:25:00Z,m.silva,cache ttl 60s -> 300s

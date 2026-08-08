@@ -1,0 +1,37 @@
+{
+  "key": "explain-rebase__hush__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 36,
+  "task": "explain-rebase",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 1,
+  "category": "qa",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 19245,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.130689,
+  "numTurns": 1,
+  "durationMs": 17633,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1354
+  },
+  "contextTraffic": 25514,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 128,
+  "finalText": "**Merge joins, rebase rewrites.**\n\nA merge makes one new commit with two parents. Both histories stay exactly as they were.\n\nA rebase copies your commits onto the tip of the other branch. The copies are new commits with new IDs, and the originals get dropped.\n\n```mermaid\nflowchart LR\n  subgraph Merge\n    A1[main] --> M[merge commit]\n    B1[your work] --> M\n  end\n  subgraph Rebase\n    A2[main] --> C1[copy of your work]\n  end\n```\n\nReach for rebase on your own work that nobody has pulled yet. It keeps history a straight line and makes review easier.\n\nReach for merge when the branch is shared, or when landing a finished feature. The merge commit records when it landed.\n\nThe one rule: never rebase commits someone else already has. Their copy and yours drift apart.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "3bbcb6091c92bab2eb81201ec1f3536f24a5240c7e04bbab12891b6efe32f9b4"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__turnstep__r2",
+  "batchId": "turnstep-661d0ca5",
+  "seed": "1786172329502",
+  "orderIndex": 6,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "turnstep",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 30398,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2021751,
+  "numTurns": 9,
+  "durationMs": 28805,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2043
+  },
+  "contextTraffic": 215778,
+  "apiCalls": 6,
+  "toolCalls": 8,
+  "toolResultChars": 10921,
+  "narrationWords": 0,
+  "finalWords": 75,
+  "finalText": "Found it and fixed it. `resolveRelease` in `packages/shared/config.js` was doing a shallow `Object.assign`, so any package that overrode part of `output` or `sourcemap` lost the rest of that block — that's what aborted the bundle stage after lint.\n\nI changed the merge to combine nested objects (`output`, `sourcemap`) key by key instead of replacing them wholesale, so partial overrides like `@acme/api`'s `output.format` no longer wipe out `output.dir`.\n\nBuild and verify both pass now, 0 errors.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "fd026cd185ff1120c493ec8a45eda087758eb56bba00840d600129e228da11a4"
+}

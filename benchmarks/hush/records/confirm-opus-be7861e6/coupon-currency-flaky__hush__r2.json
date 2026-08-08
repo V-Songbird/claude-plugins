@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__hush__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 58,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 48825,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.3513084999999999,
+  "numTurns": 11,
+  "durationMs": 47310,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2632
+  },
+  "contextTraffic": 241085,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 9381,
+  "narrationWords": 6,
+  "finalWords": 128,
+  "finalText": "**Found it, and it's one cause, not a stacking bug.**\n\n`engine.js` rounded the running total to US cents right after the percent coupon, before changing currency. That rounded-away fraction then got multiplied by the exchange rate, which grew it enough to tip the final rounding the wrong way.\n\nWhy it looked random: it only shows up when the rate is unkind. GBP, CAD and JPY carts drifted a cent. USD and EUR happened to round the same either way, so they looked fine.\n\nPercent coupons alone were already wrong. Stacking just made it more visible, since more carts land near a boundary.\n\nI removed the two mid-way roundings, so the total now rounds once at the end in the cart's own currency. All 40 tests pass in 86ms.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e8fe48a1f7e2ff0f65597acd3ea1bd9be767bf96cc17bdd7e9373651eef6a71a"
+}

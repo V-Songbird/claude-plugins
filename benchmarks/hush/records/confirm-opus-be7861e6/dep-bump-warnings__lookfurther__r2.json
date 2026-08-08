@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__lookfurther__r2",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 64,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "lookfurther",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 48176,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "lookfurther:Lookfurther",
+  "costUsd": 0.30753,
+  "numTurns": 10,
+  "durationMs": 46654,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2623
+  },
+  "contextTraffic": 201041,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6359,
+  "narrationWords": 0,
+  "finalWords": 99,
+  "finalText": "**The build passes now.** Two spots hadn't caught up with the bump.\n\n1. `src/core/options.js` read `options.retries`, but the new shape is `retryCount`. It now takes either, and falls back to `0`.\n2. `src/net/retryPolicy.js` threw when a flag was unset. The new loader leaves those as `undefined`, so it now reads as off, like before.\n\nThat second one flips backoff to disabled by default. Set `backoffEnabled: true` if you want it on.\n\nThe 8 warnings are still there, and they're noise you can't fix here. `build.js` prints them as fixed text about files like `src/legacy/adapter.js`, which aren't in this repo.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "5355f4b5b935123cb8798a7fe974ccc6a50530d194e76c97220f6e480a2a35f0"
+}

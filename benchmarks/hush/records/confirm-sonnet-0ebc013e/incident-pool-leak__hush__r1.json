@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__hush__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 48,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 30235,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2179667,
+  "numTurns": 11,
+  "durationMs": 28701,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1556
+  },
+  "contextTraffic": 286055,
+  "apiCalls": 8,
+  "toolCalls": 10,
+  "toolResultChars": 10509,
+  "narrationWords": 0,
+  "finalWords": 71,
+  "finalText": "Found it: `src/jobs/processOrder.js` released the connection with a plain statement after `await run(...)`, so any rejection skipped the release. The worker log shows exactly that — each `invalid order payload` failure bumped `pool in-use` by one, until it hit `5/5` and the worker died from `pool exhausted`.\n\nFixed by wrapping the release in `try/finally`, matching the safe pattern `db/pool.js` already used for the request path. All 4 tests pass now (70ms).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "841adc635f3a7e94e08c522c72dbbf343b346eeae6f1ba0ef1de4bd671f92e7e"
+}

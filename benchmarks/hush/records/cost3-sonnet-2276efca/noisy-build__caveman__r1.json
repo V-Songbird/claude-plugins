@@ -1,0 +1,37 @@
+{
+  "key": "noisy-build__caveman__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 36,
+  "task": "noisy-build",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 16969,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.22654169999999998,
+  "numTurns": 6,
+  "durationMs": 15629,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 834
+  },
+  "contextTraffic": 175364,
+  "apiCalls": 5,
+  "toolCalls": 5,
+  "toolResultChars": 33575,
+  "narrationWords": 9,
+  "finalWords": 47,
+  "finalText": "Build clean now, exit 0.\n\nReal error: `src/core/settings.js:17` used undefined var `retries` instead of `env.retries` → `maxRetries` came back `undefined`, threw `EBUILD01`. Fixed: `maxRetries: env.retries`.\n\nRest was noise: 900 lines compile log, dedupe spam, 3 harmless warnings (deprecated API, unused export, circular import) — none broke build.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0ed8257dcac896feb0af7c40a6ab1d1c888813fc1ba6cd668815ff02f850e6ec"
+}

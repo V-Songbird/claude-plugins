@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__baseline__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 37,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 65584,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.306099,
+  "numTurns": 15,
+  "durationMs": 59661,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3607
+  },
+  "contextTraffic": 510895,
+  "apiCalls": 15,
+  "toolCalls": 11,
+  "toolResultChars": 11804,
+  "narrationWords": 0,
+  "finalWords": 240,
+  "finalText": "## On-Call Handoff — Gateway 503s\n\n**Status:** Ongoing as of end of log coverage (03:59:27Z) — pool backlog still growing, not self-healing.\n\n**Root cause:**\nDeploy `dep-4471` (gateway, a.novak, 02:12–02:14Z) — *\"config: connection-per-request for pool isolation\"* — shipped a config change (generation 118→119, applied 02:13:41.234Z) that flipped `gateway.pool.perRequest: false -> true`. Against a fixed pool size of 20, allocating one connection per request exhausts the pool almost immediately under normal traffic.\n\n**Impact window:**\n- **Start:** 2026-03-14 02:14:18.972Z (first `503`, req-07401), ~38s after the config applied.\n- **End:** none — still active at last log entry, 03:59:27.974Z. Queue depth (`waiting`) climbed steadily from 18 to 74 over that period with no recovery.\n- **Scope:** gateway only. Routes hit: `/v1/cart`, `/v1/session`, `/v1/catalog/search`, `/v1/orders`, `/v1/checkout` (all backends: catalog-svc, orders-svc, accounts-svc, billing-svc). `/health` kept returning 200 throughout, so this wasn't caught by basic health checks. Confirmed via `logs/worker.log` that the worker fleet (job runner) was unaffected — no errors, no elevated db_wait, unrelated to this incident.\n\n**Error signature:** every 503 paired with `ERROR pool ... ERR_POOL_EXHAUSTED acquiring connection from pool (size 20, in_use 20, waiting N)`, preceded by `WARN pool ... acquire slow` as an early indicator (first at 02:14:14.920Z).\n\n**Action: roll back `dep-4471`** — revert `gateway.pool.perRequest` to `false` (or push a new config generation restoring it). No other deploy in the window is implicated (`dep-4470` worker deploy finished 00:55Z, well before; `dep-4472` billing-svc deploy didn't start until 02:41Z, after the outage was already underway).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "a7e1011754d56f6119fac67dc293a9973e1338f69c988fa81c56dd1746802a44"
+}

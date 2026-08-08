@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__hush__r1",
+  "batchId": "confirm-opus-be7861e6",
+  "seed": "1786140000000",
+  "orderIndex": 60,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 60655,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.2999545,
+  "numTurns": 10,
+  "durationMs": 59099,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2368
+  },
+  "contextTraffic": 200530,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 6382,
+  "narrationWords": 8,
+  "finalWords": 103,
+  "finalText": "**The build passes now.** The screen of warnings was noise, but it was hiding two real errors.\n\nBoth came from the bump changing shapes your code still expected:\n\n1. `resolveRetries` read `options.retries`, but the bundler now sends `retryCount`. It now accepts either.\n2. `isBackoffEnabled` threw on a missing flag. The new config loader leaves unset flags `undefined`, so that now means off.\n\n`node build.js` exits 0: `build finished in 44.9s with 8 warnings, 0 errors`.\n\nThose 8 warnings are printed by `build.js` itself as fixed text. They name files like `src/legacy/adapter.js` that aren't in the tree, so there's nothing to fix behind them.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "13b1de6dca8bcf094d17e11d3ec981526bec20990580b5867e027277d0d1ed84"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "incident-forensics__baseline__r1",
+  "batchId": "turnword-6550a7d9",
+  "seed": "1786174781150",
+  "orderIndex": 33,
+  "task": "incident-forensics",
+  "segment": "long-session",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 75924,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.4055637,
+  "numTurns": 17,
+  "durationMs": 70543,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4450
+  },
+  "contextTraffic": 658214,
+  "apiCalls": 17,
+  "toolCalls": 13,
+  "toolResultChars": 23815,
+  "narrationWords": 0,
+  "finalWords": 232,
+  "finalText": "## On-Call Handoff — Gateway 503s\n\n**Status:** Ongoing / unresolved as of last log entry (03:59:27Z) — errors were still increasing in frequency, not self-recovering.\n\n**Root cause:**\nDeploy `dep-4471` (gateway, a.novak, 2026-03-14 02:12–02:14Z, \"connection-per-request for pool isolation\") applied config generation 119, flipping `gateway.pool.perRequest: false -> true` (also bumped `gateway.timeout.upstreamMs: 2000 -> 2500`). This broke connection reuse in the gateway's upstream pool — pool saturates at `in_use=20/20` and never drains, so requests queue and time out with `ERR_POOL_EXHAUSTED`, surfaced to clients as 503s.\n\n**Impact window:**\n- **Start:** 2026-03-14 02:14:18Z — first `503`/`ERR_POOL_EXHAUSTED` (`req-07401`, ~4s after dep-4471 finished deploying; first slow-acquire warning at 02:14:14Z).\n- **End:** not yet recovered — `waiting` queue on the pool climbed from 13 at first failure to 172+ by 03:55:58Z, with 503s still firing every log cycle at the end of the captured window (03:59Z).\n- **Scope:** gateway only. Errors span all four upstreams (billing-svc, orders-svc, catalog-svc, accounts-svc) since it's the shared pool, not one backend. Confirmed via `worker.log` that background job workers were unaffected throughout (normal `db_wait`, no errors) — they don't go through this pool.\n- Two later deploys (`dep-4472` billing-svc 02:41Z, `dep-4473` catalog-svc 03:20Z) are unrelated and postdate the onset; not contributors.\n\n**Action: roll back `dep-4471`** (gateway config gen 119) — specifically revert `gateway.pool.perRequest` to `false`. Watch the `pool stats` log line (`in_use`/`waiting`) to confirm the pool drains back to normal (pre-incident baseline was `in_use=5-10`, `waiting=0`).",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2a6b3b1b53ef3eecd2b60537750778f55ca1bbe5c9b50e87cf57bd17e48bde15"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "sidecar-follow__hush__r1",
+  "batchId": "confirm-sonnet-0ebc013e",
+  "seed": "1786140000000",
+  "orderIndex": 97,
+  "task": "sidecar-follow",
+  "segment": "noisy-output",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 23713,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.14719959999999999,
+  "numTurns": 5,
+  "durationMs": 22215,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1058
+  },
+  "contextTraffic": 166574,
+  "apiCalls": 5,
+  "toolCalls": 4,
+  "toolResultChars": 3144,
+  "narrationWords": 0,
+  "finalWords": 55,
+  "finalText": "698 out of 700 tests passed last night. Two failed, both in `auth/tokens.test.js`:\n\n1. **refreshToken silently accepts an already-revoked token** (line 400) — worth a close look, since it sounds like a real security gap, not just a flaky test.\n2. **sessionCleanup leaves orphaned rows after a rollback** (line 650).\n\nEverything else came back clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "34da7a18d95bfa033757e4f4230e8bbc946455b8b377a0c2c5003275df78cfe9"
+}

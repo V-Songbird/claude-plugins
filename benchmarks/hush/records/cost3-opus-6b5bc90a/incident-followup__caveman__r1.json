@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__caveman__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 126,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 121696,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.5996254999999999,
+  "numTurns": 13,
+  "durationMs": 117156,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 7521
+  },
+  "contextTraffic": 335120,
+  "apiCalls": 10,
+  "toolCalls": 10,
+  "toolResultChars": 20732,
+  "narrationWords": 25,
+  "finalWords": 133,
+  "finalText": "Written to `INCIDENT-HANDOFF.md`.\n\nThree things in it need your eye before you hand it off:\n\n**ioredis version is unresolved, not answered.** No `package-lock.json`, no `node_modules/` in this directory. I documented the range `^5.4.1` and listed four ways to get the real number, but I did not fill in a version — I don't have one. Doc says so plainly rather than guessing.\n\n**Recovery time is unknown.** Log ends at the `service down` line. Handoff states degraded window (02:14:07 – 02:31:52, 17m45s) and hard-down start, but total impact is open until someone pulls logs past 02:31.\n\n**Date discrepancy flagged at top.** Log is 2026-07-04, you said last night. Doc leads with that so nobody acts on the wrong incident.\n\nRoot cause and impact window sections are solid — both come straight from log lines.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "559dffef2493d160fa27543e1a294cf82b4c80982391bf1006fc466f2cf6e73e"
+}

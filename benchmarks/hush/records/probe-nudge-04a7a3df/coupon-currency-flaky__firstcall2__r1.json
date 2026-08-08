@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__firstcall2__r1",
+  "batchId": "probe-nudge-04a7a3df",
+  "seed": "1786135293353",
+  "orderIndex": 18,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "firstcall2",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 64624,
+  "check": {
+    "pass": false,
+    "score": 0,
+    "detail": "tests exit 1"
+  },
+  "outputStyle": "firstcall2:Firstcall2",
+  "costUsd": 0.37801450000000003,
+  "numTurns": 10,
+  "durationMs": 62780,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 4176
+  },
+  "contextTraffic": 210209,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 9166,
+  "narrationWords": 6,
+  "finalWords": 129,
+  "finalText": "**Found it — `engine.js` rounds the money twice, and the first round is too early.**\n\nAfter the percent coupon it rounds to 2 US decimals. That throws away a fraction of a cent. The exchange rate then multiplies the leftover error. Some carts get pushed over a rounding line.\n\n10 of 40 tests fail. Every one uses `SAVE10PCT`. Flat-only carts always pass, because $5 has no fractional cent to lose. USD and EUR get lucky. `GBP`, `CAD` and `JPY` do not.\n\nExample: a CAD cart, 2 x $9.99, 10% off. Should be `24.28`. The code gives `24.27`.\n\nThe fix is to drop both `round(..., 2)` calls in `computeTotal` and round once at the very end, which is what the test's own reference does. I have not changed any files.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cfcaef0ef0c9690d32f37c6ef5dc006c1ddb81fb7c12bbaadba5992d6ef9d5fd"
+}

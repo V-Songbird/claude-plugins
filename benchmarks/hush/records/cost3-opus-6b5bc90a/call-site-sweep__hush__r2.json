@@ -1,0 +1,37 @@
+{
+  "key": "call-site-sweep__hush__r2",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 113,
+  "task": "call-site-sweep",
+  "segment": "search-heavy",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 34726,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.4318115,
+  "numTurns": 16,
+  "durationMs": 33232,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2388
+  },
+  "contextTraffic": 228442,
+  "apiCalls": 7,
+  "toolCalls": 15,
+  "toolResultChars": 31212,
+  "narrationWords": 8,
+  "finalWords": 111,
+  "finalText": "**17 call sites still pass the flag.** `src/reports/quarterly.js` has the most, with 5.\n\nHere's the full spread:\n\n| File | Calls with the flag |\n| --- | --- |\n| `src/reports/quarterly.js` | 5 |\n| `src/admin/exports.js` | 3 |\n| `src/billing/invoice.js` | 3 |\n| `src/reports/monthly.js` | 2 |\n| `src/checkout/cart.js` | 2 |\n| `src/billing/statement.js` | 1 |\n| `src/checkout/receipt.js` | 1 |\n\nEvery one passes a literal `true`, and each already carries a `TODO` about dropping it. So all 17 would change behaviour if you just delete the argument — they round half away from zero today, half to even after. `dashboard.js`, `ledger.js`, and `refunds.js` are already clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "0e57ee53d1b90011b10669f0a403f8045b4eaa5c31e794259754ceb5553ffb0b"
+}

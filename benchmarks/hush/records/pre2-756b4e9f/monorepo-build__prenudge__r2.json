@@ -1,0 +1,37 @@
+{
+  "key": "monorepo-build__prenudge__r2",
+  "batchId": "pre2-756b4e9f",
+  "seed": "1786174006947",
+  "orderIndex": 7,
+  "task": "monorepo-build",
+  "segment": "noisy-output",
+  "arm": "prenudge",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 38691,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.23861849999999996,
+  "numTurns": 10,
+  "durationMs": 36976,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3038
+  },
+  "contextTraffic": 256822,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 10719,
+  "narrationWords": 0,
+  "finalWords": 112,
+  "finalText": "Found it: the config merge in `packages/shared/config.js` used `Object.assign` on the whole layer, so any package or CLI override that touched `output` or `sourcemap` replaced the entire nested object instead of just the key it named — that's why `resolveRelease` came back missing `output.dir` for packages that only meant to override `format` or `entry`.\n\nFixed it with a merge that only overwrites the specific nested keys a layer sets, leaving the rest of `output`/`sourcemap` intact across defaults → package overrides → CLI flags.\n\nBuild and verify both pass now: `build finished in 74.3s with 5 warnings, 0 errors`, and `verify.js` reports `OK the config merge layers properly and the build is green`.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b23dc4ca37c23db46f8d8441c42f158e3acd52aa9358b4ee5783948c9054d4e3"
+}

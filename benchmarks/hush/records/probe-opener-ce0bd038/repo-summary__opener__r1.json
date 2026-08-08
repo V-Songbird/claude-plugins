@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__opener__r1",
+  "batchId": "probe-opener-ce0bd038",
+  "seed": "1786135293353",
+  "orderIndex": 12,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "opener",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 22252,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "opener:Opener",
+  "costUsd": 0.209963,
+  "numTurns": 8,
+  "durationMs": 20690,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1099
+  },
+  "contextTraffic": 132872,
+  "apiCalls": 5,
+  "toolCalls": 7,
+  "toolResultChars": 4618,
+  "narrationWords": 0,
+  "finalWords": 122,
+  "finalText": "**It's a small JSON API in plain Node — five files, no dependencies, no package.json.**\n\n```mermaid\ngraph LR\n  server[server.js] --> auth[auth.js]\n  server --> routes[routes.js]\n  routes --> cache[cache.js]\n  routes --> store[store.js]\n  cache --> store\n```\n\n`server.js` checks the token, then hands the request to `routes.js`, which matches `\"METHOD /path\"` against a small table of three endpoints. Reads go through `cache.js`, a 256-entry in-memory cache. Writes go straight to `store.js`, a `Map` where every record dies 15 minutes after its last write. Tokens are `userId.hmac` signed with `AUTH_SECRET`, which falls back to `dev-secret`.\n\nOne thing to know: the comment in `routes.js` says writes clear the affected cache keys, but nothing does. After a `POST /orders`, a `GET /orders` keeps serving the old list forever.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f5d0dce38fca4cbec9401c523db4707096264893f251cb75f8c3a3a400443b90"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "refactor-rename__baseline__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 32,
+  "task": "refactor-rename",
+  "segment": "coding",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 35143,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0554489,
+  "numTurns": 15,
+  "durationMs": 33823,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2865
+  },
+  "contextTraffic": 193803,
+  "apiCalls": 8,
+  "toolCalls": 14,
+  "toolResultChars": 5264,
+  "narrationWords": 77,
+  "finalWords": 94,
+  "finalText": "Perfect! All tests pass. ✓ I've successfully updated all references from `calcTotal` to `computeTotal`:\n\n**Changes made:**\n- **src/cart.js**: Renamed function from `calcTotal` to `computeTotal` and updated export\n- **src/index.js**: Updated import and export to use `computeTotal`\n- **src/invoice.js**: Updated import and function call to use `computeTotal`\n- **src/report.js**: Updated import and function call to use `computeTotal`\n\n**Test results:** All 4 tests pass ✓\n- computeTotal sums discounted lines\n- computeTotal is exported from cart\n- invoice uses the shared total\n- daily report grand total\n\nThe refactoring is complete and all tests are passing.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "2328d9c0469bf5a1366162bfefe13f5adf01521d69dae1d39ffe760a97af83f3"
+}

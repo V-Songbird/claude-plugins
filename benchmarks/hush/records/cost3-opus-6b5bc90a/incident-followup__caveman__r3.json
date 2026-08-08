@@ -1,0 +1,37 @@
+{
+  "key": "incident-followup__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 132,
+  "task": "incident-followup",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 113119,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 3)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.5428609999999999,
+  "numTurns": 13,
+  "durationMs": 108538,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 7111
+  },
+  "contextTraffic": 324123,
+  "apiCalls": 10,
+  "toolCalls": 10,
+  "toolResultChars": 16264,
+  "narrationWords": 5,
+  "finalWords": 928,
+  "finalText": "No lock file present, so the ioredis version is an open item in the doc rather than a stated fact — I've flagged it with the command to resolve it. Handoff below (normal prose, ready to paste):\n\n---\n\n# On-Call Handoff — incident-service outage\n\n**Prepared:** 2026-08-07\n**Source:** `logs/app.log` (719 lines)\n**Status:** Root cause identified. Recovery not captured in available logs. Two open items below.\n\n## ⚠️ Date discrepancy — resolve before acting\n\nThe log covers **2026-07-04 02:00–02:31 UTC**, approximately five weeks before this writeup. It was reported as \"last night.\" Before treating this as a fresh incident, confirm whether this is a stale log file, a rotated file that was misread, or a host with an incorrect clock. The analysis below is accurate to the file contents, but the incident date may not be what was assumed.\n\n## Root cause\n\nThe Redis instance at `10.0.0.12:6379` became unavailable at `02:14:07.113 UTC`. The failure mode was `ECONNREFUSED`, not a timeout — the host was reachable and actively refused the connection, indicating the Redis process was down or not listening, rather than a network partition.\n\nThe application's degradation path converted this dependency failure into a full outage. On losing Redis, the cache layer fell back to direct store reads (`cache layer degraded — falling back to direct store reads`). The store could not absorb full uncached traffic; the first `TimeoutError: request timed out after 5000ms (store overloaded)` appeared three seconds later.\n\nTimed-out requests were retained in memory rather than shed. Queue depth grew monotonically from 52 to 568 over roughly 17 minutes, crossing the logged `max 500` threshold at `02:29:12` with no rejection, no 503s, and no back-pressure. The limit was logged but never enforced. The accumulated backlog exhausted the V8 heap, killing worker-2 (`JavaScript heap out of memory (request backlog)`, exit code 134 / SIGABRT). The supervisor restarted worker-2 but the api process remained wedged under the same backlog and was killed at `02:31:52.318`.\n\n**Redis unavailability was the trigger. The absence of queue back-pressure is what escalated a degraded-cache condition into a hard outage.**\n\n## Impact window\n\n| Marker | Timestamp (UTC) | Elapsed |\n|---|---|---|\n| Last healthy request | 02:14:03.137 | — |\n| Redis connection lost — degradation begins | 02:14:07.113 | T+0 |\n| First request timeout | 02:14:10.228 | T+3s |\n| Queue exceeds configured max (502 > 500) | 02:29:12.359 | T+15m05s |\n| worker-2 OOM | 02:31:44.902 | T+17m38s |\n| Service down — process group killed | 02:31:52.318 | T+17m45s |\n\n**Degraded:** 02:14:07 – 02:31:52 (17m45s). Requests during this window were served from the store with 5s timeouts and rising latency; an unknown fraction failed.\n\n**Hard down:** from 02:31:52 onward. **Recovery time is unknown** — the log file ends at the kill line with no restart or recovery entries. Duration of the full outage must be sourced from the load balancer, uptime monitor, or a later log segment.\n\n## ioredis version — UNRESOLVED, needs on-call action\n\nThe exact installed version could not be determined from this repository. `package.json` declares a semver range only:\n\n```json\n\"ioredis\": \"^5.4.1\"\n```\n\nThis resolves to any `5.x` release at or above 5.4.1. There is no `package-lock.json`, `yarn.lock`, or `pnpm-lock.yaml` in the repo, and no `node_modules/` directory — the working tree contains only `package.json` and `logs/app.log`.\n\nTo get the exact version, run one of the following against the production host or the deployed artifact:\n\n```\nnpm ls ioredis                                    # on the running host\ncat node_modules/ioredis/package.json | grep version\ndocker run --rm <image> npm ls ioredis            # against the deployed image\n```\n\nThe lock file from the CI build that produced the running image is also authoritative.\n\n**Assessment of relevance:** the version matters less than the original question implied. The log records 13 reconnect attempts (0 through 12) spanning `02:15:26` to `02:31:26`, every one returning `ECONNREFUSED` on the same address. The port refused every connection for 16 straight minutes. No client-side reconnect fix changes that outcome — there was nothing to reconnect to. The version is still worth confirming for backoff and jitter behavior on recovery, but it should not be treated as a candidate root cause.\n\n## Open items\n\n1. **Confirm the incident date** and whether Redis has since recovered. — *blocking further triage*\n2. **Retrieve the exact ioredis version** from prod using the commands above.\n3. **Determine why Redis at `10.0.0.12` went down.** No Redis-side logs are available here; that host's logs are required for a complete root cause.\n4. **Establish actual recovery time** from LB/monitoring, since the app log does not capture it.\n\n## Recommended remediation, highest value first\n\n1. **Enforce the queue limit.** `max 500` is currently a value printed in a log line, not an applied bound. Reject at capacity with 503 instead of buffering. This change alone prevents the OOM and would have contained the incident to degraded service.\n2. **Add a circuit breaker on store reads.** After N consecutive 5s timeouts, fail fast rather than adding load to an already-overloaded store.\n3. **Set an explicit heap cap** (`--max-old-space-size`) so a worker fails predictably, and extend the supervisor's restart policy to cover the api process — it restarted worker-2 but never api.\n4. **Alert on `cache layer degraded`.** That line appeared at 02:14:07, seventeen minutes before the crash. Nothing acted on it. This is the single highest-leverage detection gap.\n5. **Add jitter to reconnect backoff.** Attempts were evenly spaced at ~80s intervals. Harmless in this incident, but all four processes retrying in lockstep will spike a recovering Redis.\n6. **Commit a lock file.** Its absence blocked version identification during an active incident review.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "e4cac4b1dc0bfe63cc9d87cf73b45a585046ec4a40ab3624d3ead4361bce6877"
+}

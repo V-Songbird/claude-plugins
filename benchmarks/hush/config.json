@@ -2,14 +2,15 @@
   "model": "haiku",
   "reps": 2,
   "concurrency": 3,
-  "maxTurns": 25,
-  "runTimeoutMs": 480000,
+  "maxTurns": 40,
+  "runTimeoutMs": 900000,
   "segments": {
     "noisy-output": "noisy build and test output",
     "coding": "ordinary coding",
     "debugging": "debugging failures",
     "search-heavy": "search-heavy work",
-    "doc-editing": "durable-document editing"
+    "doc-editing": "durable-document editing",
+    "long-session": "long sessions that drift"
   },
-  "defaultTasks": ["bugfix-expiry", "bugfix-pagination", "checkout-bug", "refactor-rename", "noisy-build", "explain-rerender", "explain-rebase", "write-validator", "call-site-sweep", "runbook-edit"]
+  "defaultTasks": ["bugfix-expiry", "bugfix-pagination", "checkout-bug", "refactor-rename", "noisy-build", "explain-rerender", "explain-rebase", "write-validator", "call-site-sweep", "runbook-edit", "feature-drift"]
 }

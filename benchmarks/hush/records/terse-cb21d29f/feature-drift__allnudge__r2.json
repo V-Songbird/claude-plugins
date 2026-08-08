@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__allnudge__r2",
+  "batchId": "terse-cb21d29f",
+  "seed": "1786167821765",
+  "orderIndex": 30,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "allnudge",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 113005,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5827423,
+  "numTurns": 19,
+  "durationMs": 104201,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 7912
+  },
+  "contextTraffic": 680370,
+  "apiCalls": 16,
+  "toolCalls": 14,
+  "toolResultChars": 14001,
+  "narrationWords": 0,
+  "finalWords": 20,
+  "finalText": "That's already in place — `verify.js`'s repeat-key checks (`dup` and `crit` keys) pass under the current code, no change needed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "b3ce1d62741ebbfe8a6bf8530d540061a4bcb811c850f018574c7bcdf66d0fcf"
+}

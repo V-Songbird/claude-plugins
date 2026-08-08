@@ -1,0 +1,37 @@
+{
+  "key": "feature-drift__deffin__r1",
+  "batchId": "defword-2f28a36c",
+  "seed": "1786177231404",
+  "orderIndex": 18,
+  "task": "feature-drift",
+  "segment": "long-session",
+  "arm": "deffin",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 5,
+  "wallMs": 98771,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.5858755,
+  "numTurns": 24,
+  "durationMs": 89173,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 5944
+  },
+  "contextTraffic": 864364,
+  "apiCalls": 21,
+  "toolCalls": 19,
+  "toolResultChars": 16198,
+  "narrationWords": 0,
+  "finalWords": 39,
+  "finalText": "Repeats within 5 minutes of the same key now drop, tracked per-key in the replay state. The replay shows 99 drops from repeats, and `verify.js` — which turned out to encode this exact final rule set — passes clean.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "9aed41fd906f4e22a15229d258dfab662556f0ac6bd5fc4bba626ad580a1e0da"
+}

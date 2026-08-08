@@ -1,0 +1,37 @@
+{
+  "key": "dep-bump-warnings__baseline__r3",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 96,
+  "task": "dep-bump-warnings",
+  "segment": "noisy-output",
+  "arm": "baseline",
+  "rep": 3,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25591,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.1963505,
+  "numTurns": 10,
+  "durationMs": 24238,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1680
+  },
+  "contextTraffic": 232112,
+  "apiCalls": 7,
+  "toolCalls": 9,
+  "toolResultChars": 16124,
+  "narrationWords": 22,
+  "finalWords": 106,
+  "finalText": "Build now succeeds (exit 0, 0 errors). Two real bugs were hiding under the deprecation noise, both from the bundler's new options shape:\n\n- `src/core/options.js:7` — `resolveRetries` still read `options.retries`, but the new bundler passes `retryCount`. Fixed to read the new field.\n- `src/net/retryPolicy.js:8` — `isBackoffEnabled` threw on `undefined` flags; the new config loader leaves unset flags `undefined` instead of `false`. Added an `undefined` → `false` case.\n\nThe remaining 8 warnings are genuine deprecation noise (`fs.exists`, `Buffer()`, punycode, etc.) from the dependency bump itself — not build-breaking, but worth scheduling cleanup for since some (like `Buffer()` and `crypto.createCipher`) are slated for removal in future Node versions.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "785680d5aec5e800a18f86f8227636e501806832e3934212f58df79b850de3f7"
+}

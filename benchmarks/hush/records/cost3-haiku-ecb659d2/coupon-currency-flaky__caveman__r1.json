@@ -1,0 +1,37 @@
+{
+  "key": "coupon-currency-flaky__caveman__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 81,
+  "task": "coupon-currency-flaky",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 39974,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.0681991,
+  "numTurns": 15,
+  "durationMs": 38571,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 2822
+  },
+  "contextTraffic": 237251,
+  "apiCalls": 9,
+  "toolCalls": 14,
+  "toolResultChars": 11789,
+  "narrationWords": 83,
+  "finalWords": 95,
+  "finalText": "All 40 tests pass. Root cause: **double rounding error**.\n\nBug was lines 24 and 27 — code rounded after each coupon before currency conversion. When coupons stack:\n1. Percent coupon applied → rounded to 2 decimals (loss of precision)\n2. Flat coupon applied to already-rounded amount → more precision loss\n3. Convert to target currency (multiplies accumulated error)\n4. Final round (can't recover lost precision)\n\nReference implementation was correct — only round once at the very end. Fix removed the intermediate rounding. Verified: all 40 tests across 5 currencies and 4 coupon combinations now pass.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "d403b375c0b1446f01ebf36c2f24b09924af1d303fabba55a80589020cb61280"
+}

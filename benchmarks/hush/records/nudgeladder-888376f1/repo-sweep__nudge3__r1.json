@@ -1,0 +1,37 @@
+{
+  "key": "repo-sweep__nudge3__r1",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 21,
+  "task": "repo-sweep",
+  "segment": "search-heavy",
+  "arm": "nudge3",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 108558,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 1.0174801,
+  "numTurns": 57,
+  "durationMs": 107014,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 13220
+  },
+  "contextTraffic": 567874,
+  "apiCalls": 12,
+  "toolCalls": 56,
+  "toolResultChars": 57054,
+  "narrationWords": 57,
+  "finalWords": 51,
+  "finalText": "Migrated all 36 stale call sites across 12 modules — teamService, apiKeyAdmin, session (accounts), cohort (analytics), refund, couponService (billing), macroAdmin, sla (support), variantAdmin, supplier (catalog), returnService, shipment (orders). Each `db.query(sql, params)` became `db.execute({ sql, params })`, left `cache.query` and the vendored `legacy-orm` adapter untouched.\n\n`node verify.js` confirms it: OK, everything moved.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "cf34e341356e8b56fb155dc9aedd6dd1e89302e916ec1494252bb3e1712ede65"
+}

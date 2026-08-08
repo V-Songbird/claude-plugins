@@ -1,0 +1,37 @@
+{
+  "key": "explain-rerender__hush__r3",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 53,
+  "task": "explain-rerender",
+  "segment": "coding",
+  "arm": "hush",
+  "rep": 3,
+  "category": "qa",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 10627,
+  "check": {
+    "pass": true,
+    "score": 0.6666666666666666,
+    "detail": "2/3 rubric hits (need 2)"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.022518200000000002,
+  "numTurns": 1,
+  "durationMs": 8378,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 533
+  },
+  "contextTraffic": 24084,
+  "apiCalls": 1,
+  "toolCalls": 0,
+  "toolResultChars": 0,
+  "narrationWords": 0,
+  "finalWords": 149,
+  "finalText": "The most common reason is that the parent is re-rendering, which forces the child to re-render too, even with the same props. Unless the child is wrapped in `React.memo()`, it will re-render whenever its parent does.\n\nA second common culprit: the props that look \"the same\" are actually new objects or functions each render. An inline function, an object literal, or an array created in the parent's render method will be a different reference each time, so the child sees new props even though the values match. You can fix this with `useCallback` for functions and `useMemo` for objects or arrays.\n\nIf your child is already wrapped in `memo()`, check whether it's consuming context — a context value change will re-render it no matter what.\n\nDo you have code you'd like me to look at? Knowing what you're passing and whether you've tried `memo()` would help narrow it down.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "7a9981cbd423ded49003004c7eac3b8953c3d93f4d26dab3af0664e6eb7b3c87"
+}

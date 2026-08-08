@@ -1,0 +1,37 @@
+{
+  "key": "marathon-audit__hush__r2",
+  "batchId": "nudgeladder-888376f1",
+  "seed": "1786151788484",
+  "orderIndex": 57,
+  "task": "marathon-audit",
+  "segment": "long-session",
+  "arm": "hush",
+  "rep": 2,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 4,
+  "wallMs": 103310,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.6509115,
+  "numTurns": 31,
+  "durationMs": 96861,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 6858
+  },
+  "contextTraffic": 750052,
+  "apiCalls": 17,
+  "toolCalls": 27,
+  "toolResultChars": 28843,
+  "narrationWords": 0,
+  "finalWords": 104,
+  "finalText": "`package.json` pins `fast-parse` at `1.4.2` — the exact version `NOTES.md` says was yanked after a prototype-pollution report. `1.4.3` is the fix. The other three deps check out fine: `date-fmt` unmaintained but harmless, `pg-lite` and `redis-min` both current.\n\n`AUDIT.md` is written with all four findings, worst first:\n\n1. `src/routes/internal.js` — no auth on the internal endpoints, now internet-facing since the VPN was retired.\n2. `src/repo/report.js` — SQL injection via string-built queries in `runSavedReport`.\n3. `config/staging.js` — staging DB password committed in plain text.\n4. `package.json` — `fast-parse` stuck on the yanked `1.4.2`.\n\nNothing else in the tree was touched — this stayed a read-only audit.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "378164cb20166f255bcbb080ac59ff7218dd1703558a0d90f46eab3f0e407d7b"
+}

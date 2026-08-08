@@ -1,0 +1,37 @@
+{
+  "key": "incident-pool-leak__baseline__r2",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 77,
+  "task": "incident-pool-leak",
+  "segment": "debugging",
+  "arm": "baseline",
+  "rep": 2,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 48174,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.12113209999999999,
+  "numTurns": 14,
+  "durationMs": 46870,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3249
+  },
+  "contextTraffic": 414164,
+  "apiCalls": 10,
+  "toolCalls": 13,
+  "toolResultChars": 55477,
+  "narrationWords": 172,
+  "finalWords": 151,
+  "finalText": "Perfect! All tests pass now. The issue was clear from the logs and code:\n\n**Root cause:** When jobs failed validation in `processOrder.js`, the connection was never released. When `run(conn, order)` threw an error, the `pool.release(conn)` call on line 9 was skipped, permanently removing that connection from the pool. After 5 failed jobs, the pool was completely exhausted and all new requests got 503 errors.\n\n**The fix:** Added a try/finally block to guarantee `pool.release(conn)` executes even when validation fails—matching the pattern already used in `handleRequest`.\n\nThe logs showed this clearly:\n- Lines 269-279 in worker.log: Failed jobs with \"invalid order payload\" followed by increasing pool-in-use warnings (2/5 → 3/5 → 4/5 → 5/5)\n- App.log lines 281+: Once all 5 connections were held, all requests timed out with \"pool exhausted\"\n\nThe fix is minimal and correct—all four tests now pass, including the critical one that specifically tests connection release on validation failures.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "78b003bef7fc1075e0d210536a8c2efa7a77015506a3fafa57623e9884d610ed"
+}

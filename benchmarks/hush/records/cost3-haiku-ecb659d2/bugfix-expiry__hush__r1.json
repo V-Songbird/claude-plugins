@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-expiry__hush__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 0,
+  "task": "bugfix-expiry",
+  "segment": "debugging",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 30036,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.075061,
+  "numTurns": 7,
+  "durationMs": 28003,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1352
+  },
+  "contextTraffic": 154893,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 4080,
+  "narrationWords": 0,
+  "finalWords": 55,
+  "finalText": "Fixed it. The bug was in the `isExpired` function — it used `<` instead of `<=`, so tokens at the exact moment of expiration slipped through as valid. Changed it to `token.exp <= nowSeconds` to match the spec in the comment that says tokens expire the moment `exp` is reached. All 5 tests pass now.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "691c332d88805dd7fe89e85ab5d341516f99ed36caa6b2600aa7fd480ee8905d"
+}

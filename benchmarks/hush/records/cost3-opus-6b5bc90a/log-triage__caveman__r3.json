@@ -1,0 +1,37 @@
+{
+  "key": "log-triage__caveman__r3",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 124,
+  "task": "log-triage",
+  "segment": "noisy-output",
+  "arm": "caveman",
+  "rep": 3,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 1,
+  "wallMs": 60541,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "3/3 rubric hits (need 2)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.35825550000000006,
+  "numTurns": 8,
+  "durationMs": 59011,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3617
+  },
+  "contextTraffic": 203396,
+  "apiCalls": 7,
+  "toolCalls": 7,
+  "toolResultChars": 16767,
+  "narrationWords": 0,
+  "finalWords": 506,
+  "finalText": "## What happened\n\nRedis died. Everything downstream cascaded from that. Not a code deploy, not traffic spike.\n\n**Caveat:** log covers **2026-07-04 02:00–02:31 UTC**, not last night (today 2026-08-07). Either this is an old rotated file or clock/retention wrong. Check you're reading right file.\n\n## Timeline\n\n| Time (UTC) | Event |\n|---|---|\n| 02:00:00–02:14:03 | Healthy. Cache hit ratio 0.90–0.98, all 200s. Last successful request 02:14:03. |\n| **02:14:07.113** | `redis connection lost: connect ECONNREFUSED 10.0.0.12:6379` — root cause |\n| 02:14:07.114 | `cache layer degraded — falling back to direct store reads` |\n| 02:14:08 | Cache miss storm starts. Every read hits store direct. |\n| 02:14:10 | First `TimeoutError: request timed out after 5000ms (store overloaded)` |\n| 02:15:26 → 02:31:26 | 13 redis reconnect attempts (0–12), all ECONNREFUSED. Redis never returned. |\n| **02:29:12** | Queue depth 502 crosses max 500. Limit not enforced — depth kept climbing to 568. |\n| 02:31:44.902 | `[worker-2] JavaScript heap out of memory (request backlog)` |\n| 02:31:45.001 | `FATAL [supervisor] worker-2 exited with code 134, restarting` |\n| **02:31:52.318** | `FATAL [supervisor] api unresponsive, killing process group — service down` |\n\nRedis loss to total death: **17m45s**. User-facing errors started ~4s after redis dropped.\n\n## Counts\n\n- 173 × `TimeoutError` 5000ms\n- 174 × cache miss storm\n- 173 × queue depth warn (52 climbing monotonic to 568, +3 per sample — pure backlog growth, never drained)\n- 13 × redis reconnect failed\n\n## Real problems, ranked\n\n1. **Redis single point of failure.** ECONNREFUSED = process down or port closed, not network flake. No replica, no failover. Service has zero cache-less survival capacity.\n2. **No backpressure.** `max 500` is logged but not enforced. Queue grew past it 68 deep, no shedding, no 503s. That backlog is what OOM'd worker-2 (exit 134 = 128+6 SIGABRT = V8 OOM abort).\n3. **No circuit breaker on store reads.** 173 requests each burned full 5000ms timeout against an already-overloaded store. Timeouts were the load amplifier, not just symptom.\n4. **Reconnect backoff is flat ~80s, no jitter, no give-up.** ioredis default is exponential-ish; someone overrode it. 13 attempts across 16 min all identical spacing. No circuit-open state to fail fast while redis is gone.\n5. **Fallback strategy is wrong.** \"Cache miss → hit store direct\" with no request coalescing means 174 concurrent stampedes for the same `orders:*` keys.\n\n## Fixes, priority order\n\n1. Enforce queue max — shed to 503 at depth 500. Stops OOM path immediately. Cheapest fix, biggest win.\n2. Circuit breaker on store reads: open after N consecutive timeouts, fail fast instead of eating 5s each.\n3. Request coalescing / single-flight on cache misses so one key = one store read.\n4. Redis HA (sentinel or managed failover) + exponential backoff with jitter on reconnect.\n5. Alert on `cache layer degraded` — you had 17 minutes of warning before death and nothing paged.\n\nWant me to check `src/server.js` for the queue and reconnect config? Not in this directory — only `package.json` and the log are here.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "f275dbcaaf9a46d9682d7d599b5c6320210134d8e4f6fffd2e7ff665c60a6fb1"
+}

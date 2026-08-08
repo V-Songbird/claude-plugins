@@ -1,0 +1,37 @@
+{
+  "key": "repo-summary__baseline__r1",
+  "batchId": "cost3-sonnet-2276efca",
+  "seed": "1786120000000",
+  "orderIndex": 99,
+  "task": "repo-summary",
+  "segment": "search-heavy",
+  "arm": "baseline",
+  "rep": 1,
+  "category": "tool",
+  "model": "sonnet",
+  "turnsRun": 1,
+  "wallMs": 25501,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "5/5 rubric hits (need 4)"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.12590040000000002,
+  "numTurns": 8,
+  "durationMs": 24229,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1970
+  },
+  "contextTraffic": 116821,
+  "apiCalls": 4,
+  "toolCalls": 7,
+  "toolResultChars": 4522,
+  "narrationWords": 24,
+  "finalWords": 368,
+  "finalText": "It's a tiny Node.js HTTP service — 5 files, no `package.json`, no tests, no framework. Here's how the pieces fit, in request order:\n\n**`server.js`** — entry point. Creates a raw `http.Server`, calls `verifyToken` on every request's `Authorization` header, and rejects with 401 if it fails. Otherwise hands off to `route()`. Listens on `PORT` (default 8080) when run directly.\n\n**`auth.js`** — bearer token verification. Tokens are `<userId>.<hexSignature>`, where the signature is `HMAC-SHA256(userId, AUTH_SECRET)`. `verifyToken` recomputes the expected signature and compares with `timingSafeEqual` (constant-time, avoiding timing attacks). Returns `{ id: userId }` or `null`. Note there's no real user database — anyone who knows the secret can mint a token for *any* user ID; `sign()` is exported so presumably something else (not in this repo) issues tokens.\n\n**`routes.js`** — a flat route table keyed by `\"METHOD /path\"` (e.g. `'GET /orders'`), mapping to a handler function. `route()` builds the key from the incoming request, looks it up, runs it, and serializes the result as JSON (404 for unknown routes, 500 on handler errors). Query/body parsing is minimal (`parseQuery` just reads URL search params — note `POST /orders` reads `q.body` but nothing in this code actually parses a request body, so that handler looks incomplete/unwired).\n\n**`cache.js`** — a small in-memory LRU (256 entries, no TTL) used as a read-through cache: `cached(key, loader)` returns the cached value or calls `loader()` and stores it, evicting the oldest entry when full.\n\n**`store.js`** — the \"database\": an in-memory `Map` where every record expires 15 minutes after it was last written. Exposes domain functions `getUser`, `listOrders`, `putOrder`.\n\n**How they connect:**\n```\nserver.js → auth.js (verify) → routes.js (dispatch) → cache.js (GETs) → store.js (data)\n                                              └────────→ store.js directly (POST /orders)\n```\n\nOne thing worth flagging since you just inherited this: the comment atop `routes.js` says writes \"invalidate the affected keys,\" but `POST /orders` calls `putOrder` directly with no call into `cache.js` — so after a write, a cached `orders:<userId>` entry would keep serving stale data until it ages out of the LRU. That's a real bug, not just a documentation nit, if this is meant to be correct.\n\nWant me to fix that cache-invalidation gap, or dig into anything else first (e.g. the unimplemented request-body parsing for POST)?",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "46b17e4b58d4a0bc49e19c5af951108346698bb0d232fb2e672be136a96bef2d"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "bugfix-pagination__caveman__r1",
+  "batchId": "cost3-haiku-ecb659d2",
+  "seed": "1786120000000",
+  "orderIndex": 11,
+  "task": "bugfix-pagination",
+  "segment": "debugging",
+  "arm": "caveman",
+  "rep": 1,
+  "category": "tool",
+  "model": "haiku",
+  "turnsRun": 1,
+  "wallMs": 22843,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "default",
+  "costUsd": 0.041152900000000006,
+  "numTurns": 7,
+  "durationMs": 21529,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 1435
+  },
+  "contextTraffic": 144940,
+  "apiCalls": 6,
+  "toolCalls": 6,
+  "toolResultChars": 2734,
+  "narrationWords": 32,
+  "finalWords": 11,
+  "finalText": "All 5 tests green. Fixed off-by-one error in start index calculation.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "47032637903e4d16940cb4317131ee7f4774d21dec0d2a819dc0448932b45de0"
+}

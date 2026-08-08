@@ -1,0 +1,37 @@
+{
+  "key": "runbook-edit__hush__r1",
+  "batchId": "cost3-opus-6b5bc90a",
+  "seed": "1786120000000",
+  "orderIndex": 135,
+  "task": "runbook-edit",
+  "segment": "doc-editing",
+  "arm": "hush",
+  "rep": 1,
+  "category": "tool",
+  "model": "opus",
+  "turnsRun": 3,
+  "wallMs": 64271,
+  "check": {
+    "pass": true,
+    "score": 1,
+    "detail": "tests pass"
+  },
+  "outputStyle": "hush:Hush",
+  "costUsd": 0.4925285,
+  "numTurns": 15,
+  "durationMs": 59402,
+  "resultSubtype": "success",
+  "usage": {
+    "output_tokens": 3109
+  },
+  "contextTraffic": 370964,
+  "apiCalls": 12,
+  "toolCalls": 12,
+  "toolResultChars": 10144,
+  "narrationWords": 0,
+  "finalWords": 45,
+  "finalText": "**Admin port is 9090 everywhere it's production.** Three spots: the health check `curl`, the SEC-233 known issue, and the appendix table.\n\nStaging stayed at `8091` — you said production moved, so I left it alone.\n\n`verify.js` passes: all three edits landed and nothing else changed.",
+  "stderr": "",
+  "debugManifest": null,
+  "contentSha256": "200cec199690925926eb7a0338700e0bee6c44581c246a8769a2ee00ff79db78"
+}
