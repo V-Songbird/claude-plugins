@@ -2,8 +2,8 @@
 # Full of your paths and your machine's name, so it stays on your machine.
 results/
 
-# records/ is deliberately NOT ignored: those are the sanitized, hashed,
-# write-once copies a published number is generated from. Keep them.
-# records/*/published/ is committed too — the readiness gate compares each
-# batch's committed claim set byte-for-byte against what the records
-# regenerate, so a stale publish is caught instead of shipped.
+# Run data stays local too. The repo publishes the harness — tasks, fixtures,
+# runner, tests — so anyone can reproduce the numbers themselves; the retained
+# records and generated claim sets are the operator's local audit trail, read
+# by scripts/readiness-gate.js from disk at release time.
+records/
