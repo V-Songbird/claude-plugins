@@ -21,7 +21,7 @@ describe('readCaps: the numbers come from the style, not from this file', () => 
   test('reads both caps out of the real style file', () => {
     const caps = loadCaps();
     assert.strictEqual(caps.lineCap, 12);
-    assert.strictEqual(caps.wordCap, 15);
+    assert.strictEqual(caps.wordCap, 10);
   });
 
   test('the caps the meter scores against are the caps the style states', () => {

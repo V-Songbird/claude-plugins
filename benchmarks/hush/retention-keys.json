@@ -1,0 +1,41 @@
+{
+  "$comment": "Answer keys for the retention meter (runner/retention.js). One entry per task: the details a final report must carry because they change what the reader does next. Written from the fixtures and task prompts only — never from any arm's replies — and frozen before a batch is scored. Provenance: authored 2026-08-11; the author had seen same-day batch outputs, so treat scores on batches run before that date as post-hoc; keys apply cleanly to any batch run after it. One pilot amendment, disclosed: repo-sweep item 1 originally read 'the remaining old db.query call sites were moved', which a judge fairly read as contradicted by reports that correctly leave the vendored adapter alone; it now says 'the application call sites'. Scoring is separate from each task's pass/fail check on purpose: a run can pass and still drop details, which is exactly what this meter exists to see.",
+  "tasks": {
+    "log-triage": [
+      "Redis was unreachable — connection refused at 10.0.0.12:6379",
+      "the trouble started at about 02:14",
+      "with the cache gone, requests fell through to the store, which overloaded and timed out",
+      "the request queue grew past its 500 cap",
+      "a worker crashed out of memory",
+      "the service went fully down at about 02:31 when the api process was killed"
+    ],
+    "dep-bump-warnings": [
+      "the options code read the old retries field, but the new bundler passes retryCount",
+      "the retry policy rejected undefined flags; unset flags must count as backoff off",
+      "the remaining warnings are deprecation noise, not build breakers",
+      "the build now finishes clean, with no errors"
+    ],
+    "failing-suite": [
+      "the bug is in orderTotal in the pricing code",
+      "tax was computed on the pre-discount amount instead of the discounted one",
+      "the suite is green now"
+    ],
+    "repo-sweep": [
+      "the application call sites still on db.query were moved to db.execute",
+      "the verification run passes"
+    ],
+    "feature-drift": [
+      "a repeat of the same key within 5 minutes is dropped",
+      "that holds at every priority, including critical",
+      "the change is verified — the replay or verify run passes"
+    ],
+    "incident-forensics": [
+      "the root cause is deploy dep-4471, which switched the gateway pool to a connection per request",
+      "the deploy to roll back is dep-4471",
+      "the errors are pool exhaustion — the 20-connection pool runs dry",
+      "the impact started at about 02:14",
+      "the incident is still ongoing at the end of the log",
+      "the workers were unaffected — the trouble is gateway-only"
+    ]
+  }
+}
