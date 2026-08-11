@@ -1,0 +1,4 @@
+# Run output stays on the operator's machine; the repo carries the harness.
+results/
+picks/results/
+records/
