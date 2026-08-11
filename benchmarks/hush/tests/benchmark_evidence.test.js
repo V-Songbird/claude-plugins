@@ -41,9 +41,9 @@ function rmTree(dir) {
 // ---------------------------------------------------------------- segments
 
 describe('segments: every task is placed, every segment is populated', () => {
-  test('config declares the six segments the suite is evaluated over', () => {
+  test('config declares the three segments the suite is evaluated over', () => {
     assert.deepStrictEqual(Object.keys(CONFIG.segments).sort(), [
-      'coding', 'debugging', 'doc-editing', 'long-session', 'noisy-output', 'search-heavy',
+      'long-session', 'noisy-output', 'search-heavy',
     ]);
   });
 
@@ -59,7 +59,7 @@ describe('segments: every task is placed, every segment is populated', () => {
     for (const seg of Object.keys(CONFIG.segments)) assert.ok(used.has(seg), `segment ${seg} has no task`);
   });
 
-  test('the default subset exists and covers all five segments', () => {
+  test('the default subset exists and covers every segment', () => {
     const ids = new Set(TASKS.map((t) => t.id));
     for (const id of CONFIG.defaultTasks) assert.ok(ids.has(id), `defaultTasks names a missing task: ${id}`);
     const covered = new Set(TASKS.filter((t) => CONFIG.defaultTasks.includes(t.id)).map((t) => t.segment));
@@ -74,28 +74,23 @@ describe('segments: every task is placed, every segment is populated', () => {
   });
 
   test('the search-heavy fixture is big enough that a grep genuinely collapses', () => {
-    const dir = path.join(BENCH, 'fixtures', 'call-site-sweep');
+    const dir = path.join(BENCH, 'fixtures', 'repo-sweep');
     const walk = (d) => fs.readdirSync(d, { withFileTypes: true })
       .flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
-    let mentions = 0, legacyCalls = 0;
+    let mentions = 0;
     for (const f of walk(dir).filter((f) => f.endsWith('.js'))) {
       for (const line of fs.readFileSync(f, 'utf8').split('\n')) {
-        if (line.includes('formatAmount')) mentions++;
-        if (/return formatAmount\([^)]+,[^)]+\)/.test(line)) legacyCalls++;
+        if (line.includes('db.query') || line.includes('db.execute')) mentions++;
       }
     }
-    assert.ok(mentions > 200, `only ${mentions} matching lines — too small to be search-heavy`);
-    assert.strictEqual(legacyCalls, 17, 'the ground-truth count of deprecated call sites drifted');
+    assert.ok(mentions > 100, `only ${mentions} matching lines — too small to be search-heavy`);
+    assert.ok(fs.existsSync(path.join(dir, 'verify.js')), 'the migration has no ground-truth check');
   });
 
-  test('the doc-editing fixture ships a real document and a durability check', () => {
-    const dir = path.join(BENCH, 'fixtures', 'runbook-edit');
-    const doc = fs.readFileSync(path.join(dir, 'docs', 'runbook.md'), 'utf8');
-    assert.ok(doc.split('\n').length > 100, 'the runbook is too short to be a durable document');
-    assert.strictEqual((doc.match(/\b8081\b/g) || []).length, 3, 'the port the task rewrites drifted');
-    assert.ok(fs.existsSync(path.join(dir, 'verify.js')));
-    const task = TASKS.find((t) => t.id === 'runbook-edit');
-    assert.ok(Array.isArray(task.prompts) && task.prompts.length >= 3, 'doc editing has to span turns');
+  test('every long-session task really spans several prompts', () => {
+    for (const t of TASKS.filter((x) => x.segment === 'long-session')) {
+      assert.ok(Array.isArray(t.prompts) && t.prompts.length >= 3, `${t.id} does not span turns`);
+    }
   });
 });
 

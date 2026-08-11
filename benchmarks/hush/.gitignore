@@ -7,3 +7,4 @@ results/
 # records and generated claim sets are the operator's local audit trail, read
 # by scripts/readiness-gate.js from disk at release time.
 records/
+records-archive/

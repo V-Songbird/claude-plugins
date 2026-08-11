@@ -6,11 +6,15 @@
   "runTimeoutMs": 900000,
   "segments": {
     "noisy-output": "noisy build and test output",
-    "coding": "ordinary coding",
-    "debugging": "debugging failures",
     "search-heavy": "search-heavy work",
-    "doc-editing": "durable-document editing",
     "long-session": "long sessions that drift"
   },
-  "defaultTasks": ["bugfix-expiry", "bugfix-pagination", "checkout-bug", "refactor-rename", "noisy-build", "explain-rerender", "explain-rebase", "write-validator", "call-site-sweep", "runbook-edit", "feature-drift"]
+  "defaultTasks": [
+    "log-triage",
+    "dep-bump-warnings",
+    "failing-suite",
+    "repo-sweep",
+    "feature-drift",
+    "incident-forensics"
+  ]
 }

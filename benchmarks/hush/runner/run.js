@@ -3,7 +3,7 @@
 // Orchestrates headless `claude -p` sessions: tasks x arms x reps, isolated
 // workspaces, stream-json transcripts, metrics + ground-truth check per run.
 //
-//   node runner/run.js --tag smoke --tasks explain-rerender --reps 1 --model haiku
+//   node runner/run.js --tag smoke --tasks failing-suite --reps 1 --model haiku
 //   node runner/run.js --tag mine  --reps 2 --model haiku          # default subset
 //   node runner/run.js --tag full  --full --reps 2 --model haiku   # whole suite
 //   node runner/run.js --tag byo   --rival-dir /path/to/other-plugin
