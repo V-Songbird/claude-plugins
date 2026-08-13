@@ -17,6 +17,17 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "^(Bash|PowerShell)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/check-checkpoint-commits.js\"",
+            "commandWindows": "node \"$env:CLAUDE_PROJECT_DIR\\.claude\\hooks\\check-checkpoint-commits.js\"",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }

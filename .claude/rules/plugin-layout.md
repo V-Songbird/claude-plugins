@@ -66,7 +66,7 @@ The `.claude/skills/cut-release/` skill walks the whole sequence.
 
 ## Adding a plugin
 
-1. Create the plugin's own GitHub repo with the layout above.
+1. When onboarding a new plugin, create its own public GitHub repo matching the `## Layout` structure above.
 2. Add it as a submodule here, then add a `marketplace.json` entry with the
    `url`/`sha` source shape and a `version`.
 3. Run the `manifest-curator` agent (audit mode) and

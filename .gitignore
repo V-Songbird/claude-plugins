@@ -26,3 +26,7 @@ ROADMAP.jsonl
 # This repo's dev config ported to other agent CLIs — local-only, not published
 .agents/
 .codex/
+
+# Plugin-local session state — written at run time, never published
+.assay/
+.scribe/
