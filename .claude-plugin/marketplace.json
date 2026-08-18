@@ -86,10 +86,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/razor.git",
-        "sha": "b4e5fc02a586d128b908a8b686b9aeead1c44198"
+        "sha": "16ba2fded382d05cfc7d4ba4ee912ed325cde62b"
       },
       "description": "YAGNI checkpoints at the harness level for real engineering work — nudges toward the simplest solution and asks one evidence-backed \"do we need this?\" before new dependencies, file sprawl, and unchecked build growth.",
-      "version": "1.1.3",
+      "version": "1.2.0",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
