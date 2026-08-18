@@ -1,5 +1,5 @@
 {
-  "model": "haiku",
+  "model": "sonnet",
   "reps": 2,
   "concurrency": 3,
   "maxTurns": 40,

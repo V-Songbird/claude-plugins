@@ -31,25 +31,25 @@ node runner/run.js --tag plan --dry-run
 **1. Smoke test first** (one task, one rep — pennies, ~30s) to confirm the plumbing drives `claude` and scores an answer:
 
 ```bash
-node runner/run.js --tag smoke --tasks failing-suite --reps 1 --model haiku
+node runner/run.js --tag smoke --tasks failing-suite --reps 1
 ```
 
-**2. The real thing** — the whole suite (6 tasks × baseline + hush × 2 reps, small model):
+**2. The real thing** — the whole suite (6 tasks × baseline + hush × 2 reps) on the model our headline numbers use:
 
 ```bash
-node runner/run.js --tag mine --model haiku
+node runner/run.js --tag mine
 node runner/report.js --tag mine
 ```
 
 That writes `results/mine/report.md` and `results/mine/report.html` — tables, per-segment distributions, SVG bar charts, and the two arms' final answers side by side. Open the HTML to see it all at a glance.
 
-**3. Go bigger** (optional) — the larger model, the one our headline numbers use (costs more):
+**3. Cross-check on the larger model** (optional) — a result only counts when both models agree on the direction:
 
 ```bash
-node runner/run.js --tag big --model sonnet
+node runner/run.js --tag big --model opus
 ```
 
-Flags: `--tasks a,b` (pick tasks) · `--reps N` · `--model haiku|sonnet` · `--arms baseline,hush` · `--concurrency N` · `--tag NAME` · `--seed N` (the arm order is shuffled inside every task-and-rep block so no arm always meets a cold cache; pass the seed a run printed to replay its exact order) · `--ablations` (see below) · `--resume` (re-read completed runs from disk instead of paying for them again — a rate-limited or interrupted run records as an error and re-runs) · `--hush-debug` (attach hush's per-decision manifest to each hush-arm record, surfaced in `report.md` as a "hush decisions" line per task).
+Flags: `--tasks a,b` (pick tasks) · `--reps N` · `--model sonnet|opus` · `--arms baseline,hush` · `--concurrency N` · `--tag NAME` · `--seed N` (the arm order is shuffled inside every task-and-rep block so no arm always meets a cold cache; pass the seed a run printed to replay its exact order) · `--ablations` (see below) · `--resume` (re-read completed runs from disk instead of paying for them again — a rate-limited or interrupted run records as an error and re-runs) · `--hush-debug` (attach hush's per-decision manifest to each hush-arm record, surfaced in `report.md` as a "hush decisions" line per task).
 
 ## Which half of hush is doing the work?
 
