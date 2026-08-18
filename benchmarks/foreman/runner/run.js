@@ -71,6 +71,14 @@ const ARMS = {
     pluginDirs: [HUSH_DIR, RAZOR_DIR],
     settings: path.join(ROOT, 'settings-trio.json'),
   },
+  // P2, the lesson-ledger arms. Opt-in like trio, and moved-file only —
+  // they are the SAME foreman.md prompt with one lesson block spliced in,
+  // written by lessons/gen.js. See that file for what each arm carries and
+  // why the unlabeled one has to exist.
+  'lessons-control': { prompt: 'lessons-control', pluginDirs: [] },
+  'lessons-fresh': { prompt: 'lessons-fresh', pluginDirs: [] },
+  'lessons-graded': { prompt: 'lessons-graded', pluginDirs: [] },
+  'lessons-unlabeled': { prompt: 'lessons-unlabeled', pluginDirs: [] },
 };
 
 // Default arms come from config.json (the four prompt-only arms) — `trio`

@@ -68,6 +68,7 @@ Flags: `--tasks a,b` · `--reps N` · `--model haiku|sonnet` · `--arms vibe,fre
 | `webtemplate` | The generic Role/Context/Task/Format shape common prompt guides recommend. Same facts, structured — but no truth-grounding, scope-discipline, or mandatory-verification blocks. |
 | `foreman` | A handoff assembled from Foreman's `prompt-template.md`: same facts again, plus the template's guardrail blocks and a required verification command. |
 | `trio` (opt-in) | The identical foreman prompt, executed in a destination session with hush and razor active — the full trio versus foreman-alone. Runs only when named via `--arms`. |
+| `lessons-*` (opt-in) | Four arms for the lesson-ledger question below — `moved-file` only. Same prompt, one block spliced in, nothing else different. |
 
 **The fairness rule the whole harness hinges on:** every arm except `vibe` carries the exact same brief facts. Arms differ in format and guardrails, never in information access — including the deliberately wrong file name in the stale-brief task, which all four arms state identically.
 
@@ -105,6 +106,26 @@ node picks/ranking-replay.js --roadmap /path/to/ROADMAP.jsonl
 The replay is deterministic and free. It reports top-pick disagreements for
 human judgment; it does not silently turn critical depth into a new priority
 system.
+
+## The lesson-ledger arms
+
+A third question: when a handoff quotes a lesson an earlier task recorded, does saying how stale it is actually matter?
+
+```bash
+node lessons/gen.js                                        # write the four arm prompts (free, deterministic)
+node lessons/gen.js --check                                # exit 1 if they drifted
+node runner/run.js --tasks moved-file --arms lessons-control,lessons-fresh,lessons-graded,lessons-unlabeled
+```
+
+All four arms are the same `moved-file` prompt with one block spliced in, so the only thing that varies is what that block says. `lessons-control` carries none. `lessons-fresh` carries a correct lesson. `lessons-graded` carries a stale one that says it might be stale — what the product actually ships. `lessons-unlabeled` carries the same stale claim with the label stripped, and it is there on purpose: if it doesn't do worse than `lessons-graded`, the label isn't earning its place.
+
+The fixture is already a decoy — the prompt names `src/parser.js` and the real code lives in `src/tokenizer.js` — so the stale lesson points exactly where a session should not go.
+
+```bash
+node lessons/p3-report.js --root /path/to/project
+```
+
+That one is free and reads your own project: how often a close actually recorded a lesson, and which refusals fired. It needs `trialLog` turned on.
 
 ## Roadmap health and attention cost
 
