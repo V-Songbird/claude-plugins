@@ -17,7 +17,7 @@
 // from the home that owns them; a fixture checkout that carries both halves
 // under one root still audits exactly as before.
 //
-// Ten points decide whether hush can leave alpha. They are written out below,
+// Ten points decide whether hush is releasable. They are written out below,
 // verbatim, each one beside the check that proves it — this file is the
 // checklist, so a point cannot drift away from its evidence. Every check runs
 // something: the tests that already prove the invariant, or the artifact whose
@@ -171,8 +171,8 @@ const POINTS = [
     n: 4,
     point: 'Deletions and failures cannot be silently hidden.',
     check: (ctx) => proves(ctx, ['tests/compress_tool_output.test.js', 'tests/preserve_exit_code.test.js'],
-      'a delta names removed lines and where they were removed rather than reporting all-unchanged, failure '
-      + 'vocabulary survives the digest, and the real exit code reaches the model'),
+      'every omitted span is marked with its line count and the assertion that no warning, error or '
+      + 'failure line was cut, failure vocabulary survives the digest, and the real exit code reaches the model'),
   },
   {
     n: 5,
@@ -197,10 +197,10 @@ const POINTS = [
   },
   {
     n: 7,
-    point: 'Core, Quiet, Voices, and Draft have separate contracts.',
+    point: 'Core, Quiet, and the on-demand style skills have separate contracts.',
     check: (ctx) => proves(ctx, ['tests/surface_conformance.test.js'],
       'Core and Quiet switch independently, a surface switch beats every per-hook flag inside it, and the two '
-      + 'on-demand surfaces (Voices, Draft) have no hook at all, so neither can start itself',
+      + 'on-demand surfaces have no hook at all, so neither can start itself',
       [optionalSurfacesStayCold(ctx)]),
   },
   {
@@ -217,7 +217,7 @@ const POINTS = [
   },
   {
     n: 10,
-    point: 'The benchmark suite reports uncertainty and publishes auditable run data.',
+    point: 'The benchmark suite reports uncertainty and retains auditable run data.',
     check: (ctx) => benchmarkDataIsAuditable(ctx),
   },
 ];
@@ -324,7 +324,7 @@ function claimsComeFromRecords(ctx) {
 /**
  * Point 10. Two halves: the statistics report spread (proven by the suite's own
  * tests), and the run data behind them survives the run in a form someone else
- * can check — hash-verified, provenance-stamped, published.
+ * can check — hash-verified, provenance-stamped, regenerated into a claim set.
  */
 function benchmarkDataIsAuditable(ctx) {
   const { runs, error } = retained(ctx);
@@ -354,18 +354,18 @@ function benchmarkDataIsAuditable(ctx) {
       return {
         met: false,
         evidence: `${RECORDS_DIR}/ — ${runs.length} runs, all hash-verified and stamped`,
-        missing: `${unpublished.map(publishedClaimsPath).join(', ')} has never been generated, so the run data is retained but not published`,
+        missing: `${unpublished.map(publishedClaimsPath).join(', ')} has never been generated, so the retained run data has no claim set to check it against`,
       };
     }
     return {
       met: true,
-      evidence: `${RECORDS_DIR}/ — ${runs.length} hash-verified runs, all batch/seed/segment stamped, published per batch (${batchIds.join(', ')})`,
+      evidence: `${RECORDS_DIR}/ — ${runs.length} hash-verified runs, all batch/seed/segment stamped, with a claim set regenerated per batch (${batchIds.join(', ')})`,
     };
   })();
 
   return proves(ctx, ['tests/benchmark_evidence.test.js'],
     'every figure is a distribution: n, median, quartiles and a 95% interval per segment, the worst single '
-    + 'regression named rather than averaged away — and the runs behind it are retained, tamper-evident and published',
+    + 'regression named rather than averaged away — and the runs behind it are retained, tamper-evident and regenerated per batch',
     [audit], 'harnessTests');
 }
 
@@ -418,7 +418,7 @@ function render(report) {
   const failed = report.results.filter((r) => !r.met);
   out.push(`${report.results.length - failed.length} of ${report.results.length} points met in ${(report.ms / 1000).toFixed(1)}s.`);
   out.push(failed.length
-    ? `NOT READY FOR 1.0 — point(s) ${failed.map((r) => r.n).join(', ')} unmet. Leaving alpha is blocked until they are.`
+    ? `NOT READY FOR 1.0 — point(s) ${failed.map((r) => r.n).join(', ')} unmet. A release is blocked until they are.`
     : 'READY FOR 1.0 — every point met.');
   return out.join('\n');
 }

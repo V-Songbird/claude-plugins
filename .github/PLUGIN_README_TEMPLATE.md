@@ -173,8 +173,9 @@ Inside Claude Code, run:
 
 <!-- one line: when it takes effect; "nothing to configure" if true; any one-time step, stated simply.
      If there's a sibling plugin, close the section with a one-line cross-sell ("Running <sibling>
-     too? Good instinct — the pair is measured in [Better together](#better-together) below.") —
-     the early ad lives here; the pair NUMBERS stay in Benchmarks where they're earned. -->
+     too? They fire on different moments of a session, so neither notices the other.") — the
+     early ad lives here; any pair NUMBERS stay in Benchmarks where they're earned, and a
+     pair section only exists while it carries a measurement. -->
 
 ## What you can do
 

@@ -13,12 +13,12 @@ It drives **real headless Claude Code sessions** (`claude -p`) on the same fixed
 ## The honest disclaimer, up front
 
 > [!WARNING]
-> This costs real money. The cheap default run is roughly **$2–4 on the small model** and takes a few minutes. The full suite, extra arms, or the bigger model all cost more — the bill scales with tasks × arms × reps.
+> This costs real money. The cheap default run is roughly **$2–4 on the small model** and takes a few minutes. Extra arms or the bigger model cost more — the bill scales with tasks × arms × reps.
 
 > [!NOTE]
 > The numbers move between runs — a handful of reps against a live model, not a powered experiment. Expect single-digit-percent swings on any given task, and more on the noisy ones. Judge a task by the *per-rep spread*, not just the mean.
 
-**What you should see:** the same *shape* as our published charts — hush **below baseline on the noisy build tasks** (`failing-suite`, `monorepo-build`), **far less mid-turn narration** throughout, and every task still passing. You will **not** reproduce our exact figures, and that's expected. A run where hush is cheaper on every single task would be the surprising result, not the target.
+**What you should see:** the same *shape* as our published charts — hush **a wash on the noisy build tasks** (`log-triage`, `dep-bump-warnings`, `failing-suite`), **far less mid-turn narration** throughout, and every task still passing. You will **not** reproduce our exact figures, and that's expected. A run where hush is cheaper on every single task would be the surprising result, not the target.
 
 ## Run it
 
@@ -49,11 +49,11 @@ That writes `results/mine/report.md` and `results/mine/report.html` — tables, 
 node runner/run.js --tag big --model sonnet
 ```
 
-Flags: `--tasks a,b` (pick tasks) · `--full` (whole suite) · `--reps N` · `--model haiku|sonnet` · `--arms baseline,hush` · `--concurrency N` · `--tag NAME` · `--seed N` (the arm order is shuffled inside every task-and-rep block so no arm always meets a cold cache; pass the seed a run printed to replay its exact order) · `--ablations` (see below) · `--resume` (re-read completed runs from disk instead of paying for them again — a rate-limited or interrupted run records as an error and re-runs) · `--hush-debug` (attach hush's per-decision manifest to each hush-arm record, surfaced in `report.md` as a "hush decisions" line per task).
+Flags: `--tasks a,b` (pick tasks) · `--reps N` · `--model haiku|sonnet` · `--arms baseline,hush` · `--concurrency N` · `--tag NAME` · `--seed N` (the arm order is shuffled inside every task-and-rep block so no arm always meets a cold cache; pass the seed a run printed to replay its exact order) · `--ablations` (see below) · `--resume` (re-read completed runs from disk instead of paying for them again — a rate-limited or interrupted run records as an error and re-runs) · `--hush-debug` (attach hush's per-decision manifest to each hush-arm record, surfaced in `report.md` as a "hush decisions" line per task).
 
 ## Which half of hush is doing the work?
 
-hush has two independent surfaces — Core (tool-output compression, exit codes, compaction) and Quiet (the turn nudge, the narration meter, the subagent brief). `--ablations` adds an arm for each, so a win lands on a surface instead of on "the plugin":
+hush has two independent surfaces — Core (tool-output compression, exit codes, compaction) and Quiet (the turn nudge, the subagent brief). `--ablations` adds an arm for each, so a win lands on a surface instead of on "the plugin":
 
 ```bash
 node runner/run.js --tag abl --ablations

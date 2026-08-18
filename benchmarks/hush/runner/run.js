@@ -5,7 +5,6 @@
 //
 //   node runner/run.js --tag smoke --tasks failing-suite --reps 1 --model haiku
 //   node runner/run.js --tag mine  --reps 2 --model haiku          # default subset
-//   node runner/run.js --tag full  --full --reps 2 --model haiku   # whole suite
 //   node runner/run.js --tag byo   --rival-dir /path/to/other-plugin
 //   node runner/run.js --tag abl   --ablations   # add Core-only and Quiet-only arms
 //   node runner/run.js --tag rep   --seed 12345  # replay an earlier run's arm order
@@ -113,7 +112,7 @@ rivalDirs.forEach((dir, i) => {
 // can be attributed to a surface instead of to "the plugin". Same plugin dir,
 // same settings, same arm plumbing as a rival — only the env differs.
 //   hush-core-only   Core on, Quiet off  — compression, exit codes, compaction
-//   hush-quiet-only  Quiet on, Core off  — turn nudge, narration meter, brief
+//   hush-quiet-only  Quiet on, Core off  — turn nudge, brief
 if (argv.includes('--ablations')) {
   addArm('hush-core-only', HUSH_DIR, path.join(ROOT, 'settings-hush.json'), { HUSH_QUIET: 'off' });
   addArm('hush-quiet-only', HUSH_DIR, path.join(ROOT, 'settings-hush.json'), { HUSH_CORE: 'off' });
@@ -122,14 +121,11 @@ if (argv.includes('--ablations')) {
 const armNames = (flag('arms', Object.keys(ARMS).join(','))).split(',');
 
 // --- task selection ---------------------------------------------------------
-// No --tasks and no --full -> the cheap default subset from config.json.
-const full = argv.includes('--full');
+// No --tasks -> the task set config.json declares.
 const taskIds = flag('tasks', null);
 const tasks = taskIds
   ? TASKS.filter((t) => taskIds.split(',').includes(t.id))
-  : full
-    ? TASKS
-    : TASKS.filter((t) => CONFIG.defaultTasks.includes(t.id));
+  : TASKS.filter((t) => CONFIG.defaultTasks.includes(t.id));
 
 // Segments are what the report groups by; a task without a known one would
 // quietly land in an "unsegmented" bucket, so fail here instead.

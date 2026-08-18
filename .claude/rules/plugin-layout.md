@@ -28,10 +28,10 @@ plugin-name/                  # a separate repo, mounted as a submodule
 ├── .claude-plugin/
 │   └── plugin.json           # NO version field — see Versions below
 ├── README.md                 # from .github/PLUGIN_README_TEMPLATE.md
-├── CHANGELOG.md              # Keep a Changelog format
+├── CHANGELOG.md              # dated entries, newest first
 ├── LICENSE                   # MIT
 ├── CONTRIBUTING.md           # verbatim from .github/PLUGIN_CONTRIBUTING_TEMPLATE.md
-├── SECURITY.md               # verbatim from .github/PLUGIN_SECURITY_TEMPLATE.md
+├── SECURITY.md               # verbatim from .github/PLUGIN_SECURITY_TEMPLATE.md, plus a plugin section
 ├── CODE_OF_CONDUCT.md        # verbatim from .github/PLUGIN_CODE_OF_CONDUCT_TEMPLATE.md
 ├── skills/<name>/SKILL.md    # plus references/ for files the skill loads
 ├── hooks/hooks.json          # hook event wiring
@@ -39,9 +39,13 @@ plugin-name/                  # a separate repo, mounted as a submodule
 └── tests/                    # required when the plugin has scripted behavior
 ```
 
-All three community files are required, and they are copied from this repo's
-`.github/` templates verbatim — don't hand-drift a plugin's copy. The root
-copies of those files govern this marketplace repo itself, not the plugins.
+All three community files are required, and the template body is copied from
+this repo's `.github/` templates verbatim — don't hand-drift it. A plugin may
+add its own section into that body when it has something plugin-specific to say
+(hush's `SECURITY.md` adds a note on its `[hush …]` markers before the closing
+`> [!NOTE]` block); every template block has to survive verbatim and in order.
+The root copies of those files govern this marketplace repo itself, not the
+plugins.
 
 ## Versions
 

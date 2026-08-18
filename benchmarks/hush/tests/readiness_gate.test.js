@@ -69,10 +69,10 @@ describe('the checklist is the contract, in the gate itself', () => {
       '4. Deletions and failures cannot be silently hidden.',
       '5. Sidecars have a documented lifecycle.',
       '6. Statistics distinguish observation from estimation.',
-      '7. Core, Quiet, Voices, and Draft have separate contracts.',
+      '7. Core, Quiet, and the on-demand style skills have separate contracts.',
       '8. Public claims match workload-segment evidence.',
       '9. Configuration and stock-style recovery are stable across updates.',
-      '10. The benchmark suite reports uncertainty and publishes auditable run data.',
+      '10. The benchmark suite reports uncertainty and retains auditable run data.',
     ]);
   });
 
@@ -212,7 +212,7 @@ function fixtureRoot(tag, opts = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), `hush-gate-${tag}-`));
   scratch.push(root);
   fs.mkdirSync(path.join(root, 'hooks'), { recursive: true });
-  for (const skill of ['craft-style', 'hush-compress', 'hush-stats', 'pick-style']) {
+  for (const skill of ['craft-style', 'pick-style']) {
     fs.mkdirSync(path.join(root, 'skills', skill), { recursive: true });
   }
   fs.writeFileSync(path.join(root, 'README.md'), opts.readme === undefined ? README_FIXTURE : opts.readme);
@@ -255,10 +255,10 @@ describe('falsifiability: a complete evidence set passes, and each break costs i
 
   test('point 7 flips when a hook starts an on-demand surface', () => {
     const report = runFixture(fixtureRoot('selfstart', {
-      hooks: { hooks: { SessionStart: [{ hooks: [{ type: 'command', command: 'node "${CLAUDE_PLUGIN_ROOT}/skills/hush-compress/run.js"' }] }] } },
+      hooks: { hooks: { SessionStart: [{ hooks: [{ type: 'command', command: 'node "${CLAUDE_PLUGIN_ROOT}/skills/craft-style/run.js"' }] }] } },
     }));
     assert.deepStrictEqual(flipped(complete(), report), [7]);
-    assert.match(point(report, 7).missing, /runs hush-compress — an optional surface that starts itself/);
+    assert.match(point(report, 7).missing, /runs craft-style — an optional surface that starts itself/);
   });
 
   test('point 8 flips when the published claims no longer match the records', () => {
@@ -267,11 +267,11 @@ describe('falsifiability: a complete evidence set passes, and each break costs i
     assert.match(point(report, 8).missing, /is stale — it does not match what the records regenerate/);
   });
 
-  test('points 8 and 10 flip when the records were never published', () => {
+  test('points 8 and 10 flip when the claim set was never generated', () => {
     const report = runFixture(fixtureRoot('unpublished', { published: 'none' }));
     assert.deepStrictEqual(flipped(complete(), report), [8, 10]);
     assert.match(point(report, 8).missing, /has never been generated/);
-    assert.match(point(report, 10).missing, /retained but not published/);
+    assert.match(point(report, 10).missing, /has no claim set to check it against/);
   });
 
   test('point 8 flips when a declared workload segment has no runs', () => {

@@ -4,8 +4,9 @@
 //
 // `results/` stays local and gitignored — that is the raw output, full of your
 // paths and your machine's name. `records/` is the auditable copy: the same
-// numbers with everything machine-specific scrubbed out, safe to publish and
-// safe to check into a repo, and the only input the claim generator accepts.
+// numbers with everything machine-specific scrubbed out, and the only input
+// the claim generator accepts. It stays local and gitignored too — this
+// harness is how anyone regenerates the numbers.
 
 const crypto = require('node:crypto');
 const fs = require('node:fs');

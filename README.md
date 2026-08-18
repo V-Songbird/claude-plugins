@@ -95,10 +95,11 @@ Run this once after cloning, to switch on the commit gates:
 git config core.hooksPath scripts/git-hooks
 ```
 
-`.claude/settings.json` (committed) registers two repo-wide dev hooks. Both are dev-only. Neither fires for anyone who merely *installed* a plugin from this repo — only for edits made inside the source tree itself:
+`.claude/settings.json` (committed) registers three repo-wide dev hooks. All are dev-only. None fire for anyone who merely *installed* a plugin from this repo — only for work done inside the source tree itself:
 
 - `.claude/hooks/run-tests-on-edit.js` reruns a plugin's own test suite after an `Edit`/`Write` lands in that plugin's `scripts/` or `hooks/` dir. It finds the right suite by walking up to the nearest `.claude-plugin/plugin.json` marker, so it works for any plugin here. Silent when green; it surfaces a failure when red.
 - `.claude/hooks/nudge-manifest-curator.js` nudges a follow-up `manifest-curator` audit after an edit lands in `.claude-plugin/marketplace.json` or any plugin's `.claude-plugin/plugin.json`. Manifest edits are easy to get subtly wrong, so the reminder earns its keep.
+- `.claude/hooks/check-checkpoint-commits.js` watches `Bash`/`PowerShell` calls for a `git commit` whose message reads like a per-step checkpoint (`task 3/7: …`) and reminds you that checkpoints belong on a branch, squash-merged back into one real commit before you report the work done.
 
 Tests, for a plugin that has them:
 
