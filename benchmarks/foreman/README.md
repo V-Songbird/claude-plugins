@@ -10,7 +10,7 @@ Every fixture hides a trap where the lazy route is the easy route: a facade file
 
 - **Claude Code, signed in.** `claude` must be on your PATH and already authenticated (run any `claude` command once first). Every run bills your account — see the cost note below.
 - **Node** on your PATH (any recent version). If you use [fnm](https://github.com/Schniz/fnm), activate it in this shell first — e.g. on PowerShell: `fnm env --use-on-cd | Out-String | Invoke-Expression`.
-- Run the commands **from this `benchmarks/` directory.**
+- Run the commands **from this `benchmarks/foreman/` directory.**
 
 ## The honest disclaimer, up front
 
@@ -147,39 +147,22 @@ runs before the first useful task, how many questions a task costs, how often a
 commit gets interrupted, and whether an interrupted run comes back — only exist
 if a session records them as they happen. [`TRIALS.md`](../../foreman/TRIALS.md)
 defines those as opt-in, local, count-only project trials: no titles, no paths,
-no ids, a log you can delete at any time, and nothing recording anything today.
+no ids, a log you can delete at any time, and only the script-side events
+recorded today — the model-side ones (recommendation acceptance, override rate,
+questions per task) stay unwired.
 Pass `--trial-log <path>` and each tool computes its own rates; without one they
 report `null` with a reason rather than zero. The recovery number additionally
 ships a clearly labeled proxy — how much interrupted work is sitting open —
 which is not the same thing and never stands in for the rate.
 
-One of `attention-cost.js`'s numbers is published as a record:
-[`records/R-005-prompt-overhead.json`](records/R-005-prompt-overhead.json) —
-**the standard handoff profile carries 68 words of fixed guardrail text against
-the reinforced profile's 567, 12% of it, 499 words saved on every standard
-handoff.** That is a static computation over `prompt-template.md`, not a model
-trial, and the record says so in its limitations.
+One of `attention-cost.js`'s numbers: **the standard handoff profile carries 68
+words of fixed guardrail text against the reinforced profile's 567, 12% of it,
+499 words saved on every standard handoff.** That is a static computation over
+`prompt-template.md`, not a model trial.
 
-## Result records
-
-Anything Foreman claims publicly about performance has to point at a file in
-[`records/`](records/README.md): the exact fixtures and prompts, the model and
-its settings, the repetition count, every run next to the aggregate, the date,
-the environment, and the claim's limitations. Records are immutable — a
-correction is a new record with a `supersedes` pointer, never an edit.
-
-```bash
-node records/validate-records.js
-```
-
-Free, deterministic, no model call. It fails if a record is missing a field,
-names no limitation, has fewer runs than repetitions claims, carries an
-unnamed aggregate statistic, or references a fixture that has been edited since
-the run — the hash check is what stops a claim drifting away from its evidence.
-`--records <dir>` points it elsewhere; the default is the published set.
-
-`results/` is *not* records. It is your own local run output, gitignored, and
-nothing there supports a public claim until someone publishes a record for it.
+Run output stays local — `results/` and `records/` are gitignored. `results/` is
+your own local run output. The harness in this repo is the published way to
+regenerate any number a README states.
 
 ## What's measured
 

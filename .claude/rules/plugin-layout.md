@@ -62,14 +62,15 @@ commit that moves a submodule pointer without the matching `source.sha`;
 `verify-marketplace-pins.js` runs in CI and re-checks every pin. Neither one
 checks the `version` bump itself — verify that by eye.
 
-The `.claude/skills/cut-release/` skill walks the whole sequence.
+The local-only `.claude/skills/cut-release/` skill walks the whole sequence; if
+you are reading this from a clone, see `CONTRIBUTING.md` → "Cutting a release".
 
 ## Adding a plugin
 
 1. When onboarding a new plugin, create its own public GitHub repo matching the `## Layout` structure above.
 2. Add it as a submodule here, then add a `marketplace.json` entry with the
    `url`/`sha` source shape and a `version`.
-3. Run the `manifest-curator` agent (audit mode) and
+3. Run the local-only `manifest-curator` agent (audit mode) and
    `node scripts/git-hooks/verify-marketplace-pins.js`.
 
 ## Tests
