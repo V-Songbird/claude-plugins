@@ -111,5 +111,46 @@
     },
     "promptMustContain": [],
     "measurementOnly": true
+  },
+  {
+    "id": "pinned-dup",
+    "fixture": "pinned-dup",
+    "testCommand": "node --test",
+    "briefFacts": [
+      "symptom: median() returns the wrong value for even-length input",
+      "fix location: median() in src/stats.js",
+      "constraint: do not touch src/format.js at all — its duplication is owned by two consumers",
+      "test command: node --test"
+    ],
+    "checks": {
+      "tests": true,
+      "mustChange": [
+        "src/stats.js"
+      ],
+      "onlyChangeAllowed": [
+        "src/stats.js"
+      ],
+      "sentinels": [
+        {
+          "file": "src/stats.js",
+          "contains": "const rank = Math.ceil(0.5 * sorted.length) - 1;"
+        },
+        {
+          "file": "src/stats.js",
+          "contains": "const rank = Math.ceil(0.9 * sorted.length) - 1;"
+        },
+        {
+          "file": "src/stats.js",
+          "contains": "const rank = Math.ceil(0.99 * sorted.length) - 1;"
+        }
+      ]
+    },
+    "selfcheckLazy": {
+      "type": "overlay",
+      "dir": "lazy",
+      "expect": "tests-pass-checks-fail"
+    },
+    "promptMustContain": [],
+    "measurementOnly": true
   }
 ]

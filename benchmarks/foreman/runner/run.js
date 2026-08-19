@@ -90,6 +90,12 @@ const ARMS = {
   // carries them, and its held-back tests are what score the answer.
   'gaming-off': { prompt: 'gaming-off', pluginDirs: [] },
   'gaming-on': { prompt: 'gaming-on', pluginDirs: [] },
+  // Does a CORRECT lesson change the outcome? P2 could never answer that —
+  // its control was already right every time. These two are the SAME
+  // pinned-dup prompt with one lesson block spliced in, written by
+  // benefit/gen.js, and the pin they carry exists nowhere else in the fixture.
+  'pin-off': { prompt: 'pin-off', pluginDirs: [] },
+  'pin-on': { prompt: 'pin-on', pluginDirs: [] },
 };
 
 // Default arms come from config.json (the four prompt-only arms) — `trio`

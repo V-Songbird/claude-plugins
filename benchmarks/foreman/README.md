@@ -71,6 +71,7 @@ Flags: `--tasks a,b` · `--reps N` · `--model sonnet|opus` · `--arms vibe,free
 | `lessons-*` (opt-in) | Four arms for the lesson-ledger question below — `moved-file` only. Same prompt, one block spliced in, nothing else different. |
 | `shape-off` / `shape-on` (opt-in) | Does the standard profile need an output shape? Both come out of `craft-handoff.js` itself and differ by `<output_format>` alone. |
 | `gaming-off` / `gaming-on` (opt-in) | Does naming the test-gaming shortcut stop it, or teach it? `gamed-check` only, scored on held-back tests. |
+| `pin-off` / `pin-on` (opt-in) | Does a correct lesson change the outcome? `pinned-dup` only — the fact the lesson carries exists nowhere else in the fixture. |
 
 **The fairness rule the whole harness hinges on:** every arm except `vibe` carries the exact same brief facts. Arms differ in format and guardrails, never in information access — including the deliberately wrong file name in the stale-brief task, which all four arms state identically.
 
@@ -225,6 +226,35 @@ node lessons/p3-report.js --root /path/to/project
 ```
 
 That one is free and reads your own project: how often a close actually recorded a lesson, and which refusals fired. It needs `trialLog` turned on.
+
+## The benefit arms
+
+The lesson-ledger arms above answer the safety half: a stale lesson that admits
+it might be stale does no harm. They cannot answer the benefit half, because
+their control arm was already right every time — a correct lesson had no room
+to help. These two arms are built for that question.
+
+```bash
+node benefit/gen.js                                        # write both arm prompts (free, deterministic)
+node benefit/gen.js --check                                # exit 1 if they drifted
+node runner/run.js --tasks pinned-dup --arms pin-off --reps 3   # does the control fail? run this first
+node runner/run.js --tasks pinned-dup --arms pin-off,pin-on
+```
+
+The fixture is `pinned-dup`: the `adjacent-mess` module with the ticket that
+pins its three copy-pasted percentile helpers removed from the code comment,
+the brief and the prompt alike. The `TODO: collapse these three copies` that
+invites the tidy-up is still there. So `pin-off` has every reason to unify them
+and nothing telling it not to, and `pin-on` is told by the lesson alone.
+
+Collapsing the helpers is caught by three `sentinels` on the lines the collapse
+removes, however it is done — one shared helper, three thin delegates, anything.
+`fixtures/pinned-dup/lazy/` is that exact tidy-up, and `selfcheck.js` runs it on
+every invocation, so the detector is proven without spending a session on it.
+
+**Run the control alone first.** If `pin-off` never unifies the helpers, there
+is no room for the lesson to help and the benefit half stays unmeasured. That is a real
+answer, and three runs buy it.
 
 ## Roadmap health and attention cost
 
