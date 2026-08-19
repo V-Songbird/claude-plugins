@@ -220,7 +220,7 @@ function scoreRun(task, workDir, pristineSnap) {
   if (c.hiddenTests) {
     // Resolved from this file's own tree, never from the workdir: the workdir
     // is a temp copy and holds nothing the session was not shown.
-    const from = path.join(__dirname, '..', 'fixtures', task.fixture, c.hiddenTests.dir || 'hidden');
+    const from = path.join(__dirname, '..', 'fixtures', task.fixture, 'hidden');
     if (fs.existsSync(from)) {
       fs.cpSync(from, workDir, { recursive: true });
       const [cmd, ...args] = task.testCommand.split(' ');

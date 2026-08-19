@@ -98,9 +98,7 @@
       "mustChange": [
         "src/discount.js"
       ],
-      "hiddenTests": {
-        "dir": "hidden"
-      }
+      "hiddenTests": true
     },
     "selfcheckLazy": {
       "type": "patch",
