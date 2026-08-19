@@ -107,6 +107,29 @@ The replay is deterministic and free. It reports top-pick disagreements for
 human judgment; it does not silently turn critical depth into a new priority
 system.
 
+**Which roadmap you replay decides whether the answer means anything.** The
+generated backlogs at `picks/fixtures/10`, `/50` and `/150` cannot separate
+the three orderings at all: every entry in them has a critical depth of 0 or
+1, and depth equals `unblocks_total` on every row, so all three come back
+byte-identical however large the backlog gets. A replay over those reports no
+disagreement and means nothing by it.
+
+`picks/fixtures/deep` is hand-authored to be the shape they never produce — a
+four-long serial chain against a three-wide fan, deliberately tied on
+`unblocks_total` so the comparator has to fall through to direct `unblocks`:
+
+```bash
+node picks/ranking-replay.js --roadmap picks/fixtures/deep/ROADMAP.jsonl
+```
+
+Current ranking picks the fan head; critical-depth-first picks the chain head;
+critical depth as a late tie-breaker changes nothing, because direct
+`unblocks` has already separated the two rows before depth is consulted. That
+one disagreement is the whole trade, and Foreman declines it: its user works
+one task at a time, so three immediate options beat a longer critical path.
+`tests/ranking_replay.test.js` pins all of it, so a future change to the
+sorter has to argue with the case rather than rediscover it.
+
 ## The lesson-ledger arms
 
 A third question: when a handoff quotes a lesson an earlier task recorded, does saying how stale it is actually matter?

@@ -192,4 +192,63 @@ for (const size of SIZES) {
   for (const e of entries) counts[e.status] = (counts[e.status] || 0) + 1;
   console.log(`wrote picks/fixtures/${size}: ${entries.length} entries  ${JSON.stringify(counts)}`);
 }
+
+// [Foreman: 147] One hand-shaped backlog the seeded sizes above can never
+// produce. Their dependency graphs are shallow: every entry comes out with a
+// critical depth of 0 or 1, and depth equals unblocks_total on every row, so
+// all three replay strategies return byte-identical orderings however large
+// the backlog gets. A replay over those alone reports "no disagreement" and
+// means nothing by it.
+//
+// `deep` is the shape that separates them: a four-long serial chain against a
+// three-wide fan, deliberately tied on unblocks_total so the current
+// comparator has to fall through to direct `unblocks`.
+//
+//   chain: 101 <- 102 <- 103 <- 104    depth(101)=3, unblocks(101)=1, total=3
+//   fan:   110 <- 111, 112, 113        depth(110)=1, unblocks(110)=3, total=3
+//
+// Current ranking picks the fan head, critical-depth-first picks the chain
+// head, and the late tie-breaker changes nothing. That one disagreement is
+// the whole trade; tests/ranking_replay.test.js pins it.
+function deepEntry(id, title, dependsOn) {
+  return {
+    id,
+    title,
+    why: 'Fixture entry: the dependency shape is the point, not the prose.',
+    what: `Do the work described by ${title}.`,
+    status: 'planned',
+    source: 'user',
+    depends_on: dependsOn,
+    planned_touches: [`src/area-${id}`],
+    observed_touches: [],
+    commits: [],
+    created_at: '2026-03-01',
+    updated_at: '2026-03-01',
+    notes: '',
+  };
+}
+
+const DEEP = [
+  deepEntry('101', 'Chain head: replace the transport', []),
+  deepEntry('102', 'Chain 2: migrate the callers', ['101']),
+  deepEntry('103', 'Chain 3: delete the shim', ['102']),
+  deepEntry('104', 'Chain tail: drop the compatibility flag', ['103']),
+  deepEntry('110', 'Fan head: publish the shared schema', []),
+  deepEntry('111', 'Fan leaf A: adopt the schema in billing', ['110']),
+  deepEntry('112', 'Fan leaf B: adopt the schema in sessions', ['110']),
+  deepEntry('113', 'Fan leaf C: adopt the schema in reporting', ['110']),
+  deepEntry('120', 'Unrelated: tidy the logging helper', []),
+];
+
+{
+  const dir = path.join(OUT, 'deep');
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(
+    path.join(dir, 'ROADMAP.jsonl'),
+    [JSON.stringify({ foreman_roadmap_format: 2 }), ...DEEP.map((e) => JSON.stringify(e))].join('\n') + '\n'
+  );
+  fs.writeFileSync(path.join(dir, 'TODO.md'), renderTodo(DEEP));
+  console.log(`wrote picks/fixtures/deep: ${DEEP.length} entries  {"planned":${DEEP.length}}`);
+}
+
 console.log('gen OK');
