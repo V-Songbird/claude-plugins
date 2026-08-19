@@ -79,6 +79,17 @@ const ARMS = {
   'lessons-fresh': { prompt: 'lessons-fresh', pluginDirs: [] },
   'lessons-graded': { prompt: 'lessons-graded', pluginDirs: [] },
   'lessons-unlabeled': { prompt: 'lessons-unlabeled', pluginDirs: [] },
+  // [§4.2] Does the standard profile need an output shape? Both prompts come
+  // out of the product's own craft-handoff.js — see outputshape/gen.js — and
+  // differ by the canonical <output_format> block and nothing else.
+  'shape-off': { prompt: 'shape-off', pluginDirs: [] },
+  'shape-on': { prompt: 'shape-on', pluginDirs: [] },
+  // [§4.1] Does naming the shortcut stop it, or teach it? Both prompts come out
+  // of the product's own craft-handoff.js — see gaming/gen.js — and differ by
+  // the anti-test-gaming clause and nothing else. Only the gamed-check fixture
+  // carries them, and its held-back tests are what score the answer.
+  'gaming-off': { prompt: 'gaming-off', pluginDirs: [] },
+  'gaming-on': { prompt: 'gaming-on', pluginDirs: [] },
 };
 
 // Default arms come from config.json (the four prompt-only arms) — `trio`
@@ -114,9 +125,13 @@ for (const a of armNames) {
 
 // --- task selection ---------------------------------------------------------
 const taskIds = flag('tasks', null);
+// A `measurementOnly` task exists for one named A/B and carries no prompts for
+// the four default arms, so it joins a run only when it is asked for by name.
+// Leaving it in the default matrix would crash an ordinary run on a missing
+// prompt file, which is a worse answer than not being there.
 const tasks = taskIds
   ? TASKS.filter((t) => taskIds.split(',').includes(t.id))
-  : TASKS;
+  : TASKS.filter((t) => !t.measurementOnly);
 
 const outDir = path.join(ROOT, 'results', tag);
 

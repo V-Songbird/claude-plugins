@@ -138,8 +138,10 @@ for (const task of TASKS) {
   const score = scoreRun(task, solvedWork, pristineSnap);
   if (!score.pass) problems.push(`scoreRun on solved tree fails: ${score.violations.join('; ')}`);
 
-  // 5: prompts exist, non-empty
-  for (const arm of ARMS) {
+  // 5: prompts exist, non-empty. A measurement-only fixture carries prompts for
+  // its own A/B and none for the four default arms, so the whole prompt section
+  // is skipped for it — the state machine above still has to hold.
+  for (const arm of task.measurementOnly ? [] : ARMS) {
     const p = path.join(fixtureDir, 'prompts', `${arm}.md`);
     if (!fs.existsSync(p)) { problems.push(`missing prompt ${arm}.md`); continue; }
     if (!fs.readFileSync(p, 'utf8').trim()) problems.push(`empty prompt ${arm}.md`);
@@ -147,7 +149,7 @@ for (const task of TASKS) {
 
   // 6: foreman prompt structure, current-template truth_grounding, facts
   const foremanPath = path.join(fixtureDir, 'prompts', 'foreman.md');
-  if (fs.existsSync(foremanPath)) {
+  if (!task.measurementOnly && fs.existsSync(foremanPath)) {
     const fp = fs.readFileSync(foremanPath, 'utf8');
     for (const block of FOREMAN_REQUIRED) {
       if (!fp.includes(block)) problems.push(`foreman.md missing ${block}`);
