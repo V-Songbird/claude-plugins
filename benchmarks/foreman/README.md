@@ -38,14 +38,14 @@ node runner/run.js --dry-run --tag smoke   # print the full planned run matrix, 
 **1. Smoke test first** (one task, two arms, one rep — pennies) to confirm the plumbing drives `claude` and scores an answer:
 
 ```bash
-node runner/run.js --tag smoke --tasks api-constraint --reps 1 --model haiku --arms vibe,foreman
+node runner/run.js --tag smoke --tasks api-constraint --reps 1 --model sonnet --arms vibe,foreman
 node runner/report.js --tag smoke
 ```
 
 **2. The real thing** — the full default grid:
 
 ```bash
-node runner/run.js --tag mine --model haiku
+node runner/run.js --tag mine --model sonnet
 node runner/report.js --tag mine
 ```
 
@@ -57,7 +57,7 @@ That writes `results/mine/report.md`: per-task × per-arm tables (correctness, c
 node runner/run.js --tag big --model sonnet
 ```
 
-Flags: `--tasks a,b` · `--reps N` · `--model haiku|sonnet` · `--arms vibe,freeform,webtemplate,foreman,trio` · `--concurrency N` · `--tag NAME`.
+Flags: `--tasks a,b` · `--reps N` · `--model sonnet|opus` · `--arms vibe,freeform,webtemplate,foreman,trio` · `--concurrency N` · `--tag NAME`.
 
 ## The arms
 

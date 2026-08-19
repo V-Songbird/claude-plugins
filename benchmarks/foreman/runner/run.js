@@ -7,8 +7,8 @@
 // Same chassis as benchmarks/hush/runner/run.js.
 //
 //   node runner/run.js --dry-run --tag smoke
-//   node runner/run.js --tag smoke --tasks api-constraint --reps 1 --model haiku --arms vibe,foreman
-//   node runner/run.js --tag full --reps 4 --model haiku
+//   node runner/run.js --tag smoke --tasks api-constraint --reps 1 --model sonnet --arms vibe,foreman
+//   node runner/run.js --tag full --reps 4 --model sonnet
 //   node runner/run.js --tag trio --reps 4 --model sonnet --arms foreman,trio
 //
 // Every arm's prompt is a hand-authored frozen file at

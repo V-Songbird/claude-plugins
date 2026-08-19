@@ -3,8 +3,8 @@
 // Orchestrates headless `claude -p` sessions: tasks x arms x reps, isolated
 // workspaces, stream-json transcripts, metrics + ground-truth check per run.
 //
-//   node runner/run.js --tag smoke --tasks failing-suite --reps 1 --model haiku
-//   node runner/run.js --tag mine  --reps 2 --model haiku          # default subset
+//   node runner/run.js --tag smoke --tasks failing-suite --reps 1 --model sonnet
+//   node runner/run.js --tag mine  --reps 2 --model sonnet         # default subset
 //   node runner/run.js --tag byo   --rival-dir /path/to/other-plugin
 //   node runner/run.js --tag abl   --ablations   # add Core-only and Quiet-only arms
 //   node runner/run.js --tag rep   --seed 12345  # replay an earlier run's arm order

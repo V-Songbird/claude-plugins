@@ -18,7 +18,7 @@
 // pays for records it has not judged yet.
 //
 //   node runner/retention.js --records records/v18-c827bd6f
-//   node runner/retention.js --records records/v18-c827bd6f --judge-model haiku
+//   node runner/retention.js --records records/v18-c827bd6f --judge-model sonnet
 //
 // KNOWN CEILING: the judge is a model, so single-item verdicts carry noise;
 // spot-check a few against the raw text before trusting a close arm-to-arm
@@ -143,10 +143,10 @@ async function main() {
   const argv = process.argv.slice(2);
   const at = (flag, dflt) => (argv.includes(flag) ? argv[argv.indexOf(flag) + 1] : dflt);
   const recordsArg = at('--records', null);
-  const model = at('--judge-model', 'haiku');
+  const model = at('--judge-model', 'sonnet');
   const concurrency = Number(at('--concurrency', 4));
   if (!recordsArg) {
-    console.error('Usage: retention.js --records <dir> [--judge-model haiku] [--concurrency 4]');
+    console.error('Usage: retention.js --records <dir> [--judge-model sonnet] [--concurrency 4]');
     process.exit(1);
   }
   const dir = path.resolve(ROOT, recordsArg);

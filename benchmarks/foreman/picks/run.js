@@ -13,7 +13,7 @@
 //
 //   node picks/run.js --tag check --arms foreman            # free, runs now
 //   node picks/run.js --tag smoke --dry-run                 # markdown arm planned only
-//   node picks/run.js --tag real --reps 5 --model haiku     # bills the account
+//   node picks/run.js --tag real --reps 5 --model sonnet    # bills the account
 //
 // Chassis notes (spawn flags, env scrubbing, temp workdirs) copied from
 // runner/run.js — see the comments there for the rationale on each flag.
@@ -40,7 +40,7 @@ function flag(name, dflt) {
   return i >= 0 ? argv[i + 1] : dflt;
 }
 const tag = flag('tag', 'dev');
-const model = flag('model', 'haiku');
+const model = flag('model', 'sonnet');
 const reps = Number(flag('reps', 5));
 const sizes = flag('sizes', '10,50,150').split(',').map(Number);
 const arms = flag('arms', 'markdown,foreman').split(',');

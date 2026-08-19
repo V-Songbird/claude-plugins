@@ -174,7 +174,7 @@ function synthRuns() {
       for (const [arm, reps] of Object.entries(arms)) {
         reps.forEach((costUsd, i) => out.push({
           key: `${task}__${arm}__r${i + 1}`,
-          batchId: 'fixture-0001', seed: '4242', model: 'haiku',
+          batchId: 'fixture-0001', seed: '4242', model: 'sonnet',
           task, segment, arm, rep: i + 1, costUsd,
           usage: { output_tokens: Math.round(costUsd * 4000) },
           contextTraffic: Math.round(costUsd * 90000),

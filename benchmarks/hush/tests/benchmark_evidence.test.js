@@ -219,7 +219,7 @@ function synthRuns() {
       for (const [arm, reps] of Object.entries(arms)) {
         reps.forEach((c, i) => out.push({
           key: `${task}__${arm}__r${i + 1}`,
-          batchId: 'synthetic-0001', seed: '12345', model: 'haiku',
+          batchId: 'synthetic-0001', seed: '12345', model: 'sonnet',
           task, segment, arm, rep: i + 1,
           costUsd: c,
           usage: { output_tokens: Math.round(c * 4000) },
@@ -536,7 +536,7 @@ describe('published claims are generated from records', () => {
   // thinned batch visible — and it sits unread in the same directory.
   describe('a batch thinned after the fact does not publish', () => {
     const manifest = () => ({
-      batchId: 'synthetic-0001', seed: '12345', model: 'haiku', reps: 2, tag: 'synthetic',
+      batchId: 'synthetic-0001', seed: '12345', model: 'sonnet', reps: 2, tag: 'synthetic',
       arms: ['baseline', 'hush'],
       order: runs.map((r) => r.key),
     });
