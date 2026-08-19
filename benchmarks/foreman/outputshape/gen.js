@@ -177,4 +177,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { ARMS, build, judgmentFor, promptPath };
+module.exports = { ARMS, build, promptPath };

@@ -259,6 +259,4 @@ async function main() {
   }
 }
 
-if (require.main === module) main();
-
-module.exports = { ARMS, promptFor, candidatesIn, COMMIT_DIFF };
+main();
