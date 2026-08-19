@@ -96,6 +96,10 @@ const ARMS = {
   // benefit/gen.js, and the pin they carry exists nowhere else in the fixture.
   'pin-off': { prompt: 'pin-off', pluginDirs: [] },
   'pin-on': { prompt: 'pin-on', pluginDirs: [] },
+  // The mirror: the same block carrying a claim that is false of the code, on
+  // the same fresh label. Nothing in the product can detect this case, so what
+  // it costs has to be measured rather than reasoned about.
+  'pin-wrong': { prompt: 'pin-wrong', pluginDirs: [] },
 };
 
 // Default arms come from config.json (the four prompt-only arms) — `trio`

@@ -31,7 +31,7 @@ function filesUnder(dir) {
 }
 
 describe('the benefit arms', () => {
-  test('both arms exist on disk and match what gen.js would write', () => {
+  test('every arm exists on disk and matches what gen.js would write', () => {
     for (const arm of Object.keys(gen.ARMS)) {
       const target = gen.armPath(arm);
       assert.ok(fs.existsSync(target), `${arm}.md is missing — run: node benefit/gen.js`);
@@ -47,8 +47,15 @@ describe('the benefit arms', () => {
     assert.equal(gen.build('pin-off'), BASE);
   });
 
-  test('the treatment is the control plus one block, and nothing else', () => {
-    assert.equal(gen.build('pin-on').replace(gen.ARMS['pin-on'] + '\n', ''), BASE);
+  test('every treatment is the control plus one block, and nothing else', () => {
+    for (const arm of Object.keys(gen.ARMS)) {
+      if (arm === 'pin-off') continue;
+      assert.equal(
+        gen.build(arm).replace(gen.ARMS[arm] + '\n', ''),
+        BASE,
+        `${arm} differs from the control in more than its lesson block`
+      );
+    }
   });
 
   test('the pin reaches the session through the lesson and nowhere else', () => {
@@ -115,5 +122,58 @@ describe('the benefit arms', () => {
 
   test('the fixture is measurement-only, so it stays out of the default matrix', () => {
     assert.equal(TASK.measurementOnly, true);
+  });
+});
+
+// The mirror arm. `pin-on` proved a correct lesson moves the outcome, so the
+// same channel has to be assumed to carry a wrong one just as hard — and
+// nothing in the product can detect that case, because the staleness resolver
+// answers "have the files changed", never "was the claim ever true".
+describe('the wrong-lesson arm', () => {
+  test('is the same block shape as the true one — only the claim differs', () => {
+    const right = gen.ARMS['pin-on'];
+    const wrong = gen.ARMS['pin-wrong'];
+    const strip = (text, lesson, labelText) => text.replace(`- ${lesson} ${labelText} `, '- ');
+    assert.equal(
+      strip(wrong, gen.WRONG_LESSON, gen.WRONG_LABEL),
+      strip(right, gen.PIN_LESSON, gen.PIN_LABEL),
+      'the arms differ by more than the lesson line'
+    );
+  });
+
+  test('claims the same freshness the true lesson does', () => {
+    assert.ok(gen.WRONG_LABEL.includes('unchanged since'));
+    assert.doesNotMatch(gen.build('pin-wrong'), /possibly stale/);
+  });
+
+  test('names a different entry and ticket, so nothing but the claim tells them apart', () => {
+    assert.notEqual(gen.WRONG_LABEL, gen.PIN_LABEL);
+    assert.doesNotMatch(gen.WRONG_LESSON, /PERF-1123/);
+  });
+
+  test('does not carry the true pin, which would confound the helpers half', () => {
+    assert.doesNotMatch(gen.build('pin-wrong'), /do not unify them/);
+    assert.doesNotMatch(gen.WRONG_LESSON, /p50|p90|p99/);
+  });
+
+  test('pins the exact thing the task was sent to change, so the two conflict', () => {
+    assert.match(gen.WRONG_LESSON, /median\(\)/);
+    assert.match(gen.WRONG_LESSON, /do not change it/);
+    assert.match(BASE, /Fix the even-length branch of median\(\)/);
+  });
+
+  test('is falsifiable by the fixture itself — the shipped suite covers the branch', () => {
+    const suite = fs.readFileSync(
+      path.join(FIXTURE, 'app', 'tests', 'stats.test.js'),
+      'utf8'
+    );
+    assert.match(suite, /median of even-length input averages the middle pair/);
+  });
+
+  test('the runner knows every arm, or the batch cannot be launched', () => {
+    const run = fs.readFileSync(path.join(ROOT, 'runner', 'run.js'), 'utf8');
+    for (const arm of Object.keys(gen.ARMS)) {
+      assert.ok(run.includes(`'${arm}': { prompt: '${arm}'`), `run.js has no ${arm} arm`);
+    }
   });
 });

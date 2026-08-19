@@ -71,7 +71,7 @@ Flags: `--tasks a,b` · `--reps N` · `--model sonnet|opus` · `--arms vibe,free
 | `lessons-*` (opt-in) | Four arms for the lesson-ledger question below — `moved-file` only. Same prompt, one block spliced in, nothing else different. |
 | `shape-off` / `shape-on` (opt-in) | Does the standard profile need an output shape? Both come out of `craft-handoff.js` itself and differ by `<output_format>` alone. |
 | `gaming-off` / `gaming-on` (opt-in) | Does naming the test-gaming shortcut stop it, or teach it? `gamed-check` only, scored on held-back tests. |
-| `pin-off` / `pin-on` (opt-in) | Does a correct lesson change the outcome? `pinned-dup` only — the fact the lesson carries exists nowhere else in the fixture. |
+| `pin-off` / `pin-on` / `pin-wrong` (opt-in) | Does a served lesson change the outcome, and what does a wrong one cost? `pinned-dup` only — the fact the lesson carries exists nowhere else in the fixture. |
 
 **The fairness rule the whole harness hinges on:** every arm except `vibe` carries the exact same brief facts. Arms differ in format and guardrails, never in information access — including the deliberately wrong file name in the stale-brief task, which all four arms state identically.
 
@@ -239,6 +239,7 @@ node benefit/gen.js                                        # write both arm prom
 node benefit/gen.js --check                                # exit 1 if they drifted
 node runner/run.js --tasks pinned-dup --arms pin-off --reps 3   # does the control fail? run this first
 node runner/run.js --tasks pinned-dup --arms pin-off,pin-on
+node runner/run.js --tasks pinned-dup --arms pin-off,pin-on,pin-wrong --reps 6
 ```
 
 The fixture is `pinned-dup`: the `adjacent-mess` module with the ticket that
@@ -255,6 +256,15 @@ every invocation, so the detector is proven without spending a session on it.
 **Run the control alone first.** If `pin-off` never unifies the helpers, there
 is no room for the lesson to help and the benefit half stays unmeasured. That is a real
 answer, and three runs buy it.
+
+`pin-wrong` is the mirror. It carries a *different* pin, in the same block, on
+the same `unchanged since` label and the same correct path match — and it is
+false: it pins the very branch the task was sent to fix. Nothing in the product
+can catch that case, because the staleness resolver answers "have these files
+changed", never "was this claim ever true". So what a wrong lesson costs is a
+measurement, not an argument. Two things get scored: whether the shipped suite
+still passes (did the false pin talk the session out of the fix) and what the
+arm spent (what adjudicating a false claim costs when it does not).
 
 ## Roadmap health and attention cost
 
