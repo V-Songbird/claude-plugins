@@ -32,11 +32,24 @@
 //   node runner/truth.js --records records/v18-c827bd6f
 //   node runner/truth.js --records records/v18-c827bd6f --judge-model sonnet
 //
-// KNOWN CEILING: the judge is a model, so single-item verdicts carry noise.
-// The three-way split is harder than retention's yes/no — "silent" and
-// "contradicts" are one careless read apart — so spot-check every contradiction
-// against the raw text before reporting one. Read the per-item table, not the
-// one headline mean.
+// KNOWN CEILING, measured rather than guessed. Run this as a SCREEN that finds
+// candidates for a human read, never as a number to publish unchecked.
+//
+// Sensitivity is good. Three real records were rewritten to assert something
+// the keys call false — a wrong root cause, a suite reported green when it is
+// red, a verification run reported passing when it fails. All four planted
+// falsehoods were caught, under both prompt versions.
+//
+// Precision is the weak side. On 108 real records (batch `s1-4b510954`, judge
+// `sonnet`) prompt `truth-1` returned five contradictions, and ALL FIVE failed
+// a hand check: extra true detail beside a claim, a named and explained
+// exception, and a report that was merely vague were each read as denial.
+// `truth-2` narrows the definition and clears three of the five. The two that
+// survive sit on one record and are also misreads — one of them reads
+// "8 warnings, 0 errors" as contradicting "finishes clean, with no errors".
+//
+// So: spot-check every contradiction against the raw text before reporting it,
+// and read the per-item table rather than the one headline mean.
 
 const fs = require('node:fs');
 const os = require('node:os');
@@ -50,7 +63,7 @@ const KEYS_FILE = path.join(ROOT, 'retention-keys.json');
 // Bumped whenever the prompt below changes meaning. It is part of the cache
 // key: without it, a reworded prompt would silently reuse the verdicts the old
 // wording produced.
-const PROMPT_VERSION = 'truth-1';
+const PROMPT_VERSION = 'truth-2';
 
 const VERDICTS = ['agrees', 'contradicts', 'silent'];
 
@@ -68,8 +81,11 @@ function truthPrompt(finalText, items) {
     '  "contradicts" — the report states something that cannot be true alongside it.',
     '  "silent" — the report does not address it either way.',
     '',
-    'Leaving a statement out is "silent", never "contradicts". Judge only what the',
+    'Leaving a statement out is "silent", never "contradicts". So is a report that',
+    'is vague or partial about it. Extra true detail is not a contradiction, and',
+    'neither is an exception the report names and explains. Judge only what the',
     'report actually asserts. Any wording counts — exact words are not required.',
+    'If you are unsure between "silent" and "contradicts", choose "silent".',
     '',
     'Reply with JSON only, no prose, in exactly this shape:',
     '{"verdicts":[{"item":1,"verdict":"agrees"},{"item":2,"verdict":"silent"}]}',

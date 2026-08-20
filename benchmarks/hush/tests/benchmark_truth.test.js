@@ -27,6 +27,19 @@ describe('truthPrompt', () => {
     assert.ok(/Leaving a statement out is "silent", never "contradicts"\./.test(prompt));
   });
 
+  // Each clause below removed a measured false positive: a report that added
+  // true detail beside a claim, one that named and explained an exception, and
+  // one that was merely vague were all read as denial without them.
+  test('rules out the three misreads that produced false contradictions', () => {
+    assert.ok(/vague or partial about it/.test(prompt), 'vagueness');
+    assert.ok(/Extra true detail is not a contradiction/.test(prompt), 'extra detail');
+    assert.ok(/an exception the report names and explains/.test(prompt), 'named exception');
+  });
+
+  test('breaks the tie towards silence, because a false alarm costs more here', () => {
+    assert.ok(/unsure between "silent" and "contradicts", choose "silent"/.test(prompt));
+  });
+
   test('stays blind — no arm, plugin, or style names', () => {
     assert.ok(!/hush|baseline|rival|arm\b|style/i.test(prompt));
   });
