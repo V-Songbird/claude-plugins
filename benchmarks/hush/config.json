@@ -2,7 +2,7 @@
   "model": "sonnet",
   "reps": 2,
   "concurrency": 3,
-  "maxTurns": 40,
+  "maxTurns": 60,
   "runTimeoutMs": 900000,
   "segments": {
     "noisy-output": "noisy build and test output",

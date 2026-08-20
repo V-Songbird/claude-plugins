@@ -144,6 +144,16 @@ function assertUsableRun(parsed) {
     if (!(p.costUsd > 0)) {
       throw new Error(`zero-cost call (cost=${p.costUsd}, subtype=${p.resultSubtype}) — not a usable data point`);
     }
+    // A session the turn cap guillotined never reached its final message, so
+    // everything it wrote counts as mid-turn text: measured, such a run scores
+    // maximum narration against a final message of a handful of words. That is
+    // the harness pulling the plug, not the arm behaving badly, and it lands
+    // hardest on whichever task runs longest. Refuse it the way a rate-limited
+    // reply is refused — an ERR line the operator can see beats a poisoned mean.
+    if (p.resultSubtype === 'error_max_turns') {
+      throw new Error('cut off at the turn cap (subtype=error_max_turns) — the session never '
+        + 'produced a final message, so its narration and cost are not comparable');
+    }
   }
 }
 

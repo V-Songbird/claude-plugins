@@ -691,6 +691,21 @@ describe('a run that cannot be a data point is refused', () => {
     assert.throws(() => assertUsableRun([ok, { ...ok, costUsd: 0 }, ok]), /zero-cost/);
     assert.doesNotThrow(() => assertUsableRun([ok, ok, ok]));
   });
+
+  // Every one of the nine turn-cap kills in the retained record set landed on
+  // repo-sweep, the longest task, and each scored up to 137 narration words
+  // against a final message of 0-23. Scoring them compares an arm's behaviour
+  // with the harness's own guillotine.
+  test('a session cut off at the turn cap is not a data point', () => {
+    assert.throws(() => assertUsableRun([{ ...ok, resultSubtype: 'error_max_turns' }]), /turn cap/);
+    assert.throws(() => assertUsableRun([ok, { ...ok, resultSubtype: 'error_max_turns' }]), /turn cap/);
+  });
+
+  test('the turn cap leaves room for the longest task to finish', () => {
+    // The kills all share one signature: apiCalls === maxTurns exactly. A cap
+    // at or below what a task routinely needs guarantees more of them.
+    assert.ok(CONFIG.maxTurns >= 60, `maxTurns is ${CONFIG.maxTurns} — repo-sweep needs more room`);
+  });
 });
 
 describe('batch provenance makes a splice detectable', () => {
