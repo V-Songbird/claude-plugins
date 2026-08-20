@@ -1,0 +1,764 @@
+# git log --oneline --stat v4.1.0..HEAD  (branch: release/4.2, 380 commits)
+# generated for the release meeting — do not edit by hand
+
+32d46a2 2026-05-02 Ines Costa       chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 37 ++++++++---  package-lock.json | 11 +++-
+09ecf1b 2026-05-02 Priya Nair       refactor(db): split the router file by resource
+        src/db/pool.js | 28 ++++++--
+50f4263 2026-05-02 Priya Nair       chore(deps): bump husky from 9.0.11 to 9.1.1
+        package.json | 11 +++-  package-lock.json | 17 ++++--
+6d44914 2026-05-02 Yuki Tanaka      chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 7 ++-  package-lock.json | 24 +++++--
+1a03a8e 2026-05-02 Lena Fischer     test(core): add the missing teardown to the queue suite
+        test/core.test.js | 2 +-
+f66d359 2026-05-02 Ines Costa       fix(http): clear the timer when the socket drops
+        src/http/client.js | 41 +++++++++---  test/http.test.js | 33 +++++++---
+3cadc69 2026-05-02 Ana Ruiz         perf(queue): batch the metric writes
+        src/queue/consumer.js | 16 ++++--
+0b1f14f 2026-05-02 Ana Ruiz         chore(deps): bump dotenv from 16.4.5 to 16.4.7
+        package.json | 25 +++++--  package-lock.json | 44 +++++++++----
+15e6f8e 2026-05-02 Priya Nair       perf(core): skip the JSON round-trip on the hot path
+        src/core/config.js | 53 +++++++++++----
+d81d16e 2026-05-03 Dana Whitfield   refactor(api): move the config loader under src/config
+        src/api/router.js | 5 +-
+926177f 2026-05-03 Tom Bergeron     chore: update the issue template
+        CODEOWNERS | 48 ++++++++++----
+4cc01d5 2026-05-03 Sam Okonkwo      chore(deps): bump vitest from 1.6.0 to 2.0.1
+        package.json | 13 +++-  package-lock.json | 41 +++++++++---
+90be347 2026-05-03 Lena Fischer     chore(deps): bump eslint from 9.4.0 to 9.5.0
+        package.json | 36 ++++++++---  package-lock.json | 29 ++++++---
+e5320a3 2026-05-03 Ana Ruiz         chore: update the issue template
+        package.json | 36 ++++++++---
+f2d7ea3 2026-05-03 Tom Bergeron     ci: skip the docs job on a draft
+        .github/workflows/ci.yml | 23 +++++--
+dae39f4 2026-05-03 Ana Ruiz         chore(deps): bump eslint from 9.4.0 to 9.5.0
+        package.json | 46 ++++++++++----  package-lock.json | 27 ++++++--
+a8668c0 2026-05-03 Sam Okonkwo      chore(deps): bump esbuild from 0.21.4 to 0.23.0
+        package.json | 21 +++++--  package-lock.json | 55 +++++++++++----
+f5f28a6 2026-05-04 Ana Ruiz         refactor(core): collapse the two retry helpers into one
+        src/core/clock.js | 24 +++++--
+8e16a13 2026-05-04 Tom Bergeron     chore(deps): bump vitest from 1.6.0 to 2.0.1
+        package.json | 9 ++-  package-lock.json | 16 ++++--
+c186394 2026-05-04 Ines Costa       chore: regenerate the lockfile
+        tsconfig.json | 37 ++++++++---
+950bec5 2026-05-04 Marco Silva      fix(queue): guard the null cursor in the paginator
+        src/queue/consumer.js | 12 +++-  test/queue.test.js | 27 ++++++--
+269680d 2026-05-04 Ana Ruiz         ci: split the lint job out of the build
+        .github/workflows/ci.yml | 24 +++++--
+1cc3cb9 2026-05-04 Priya Nair       chore(deps): bump nanoid from 5.0.7 to 5.0.8
+        package.json | 60 ++++++++++++-----  package-lock.json | 54 +++++++++++----
+905cf44 2026-05-04 Priya Nair       test(http): seed the fixture clock so the run is stable
+        test/http.test.js | 52 +++++++++++----  src/http/client.js | 35 +++++++---
+34dac1e 2026-05-04 Lena Fischer     docs: note the minimum node version
+        docs/retries.md | 26 ++++++--
+ea333df 2026-05-05 Priya Nair       refactor(db): collapse the two retry helpers into one
+        src/db/pool.js | 49 ++++++++++----  src/db/query.js | 25 +++++--
+652ee2d 2026-05-05 Tom Bergeron     ci: run the suite on node 22
+        .github/workflows/ci.yml | 41 +++++++++---
+56f55c6 2026-05-05 Sam Okonkwo      test(db): seed the fixture clock so the run is stable
+        test/db.test.js | 2 +-
+9a37196 2026-05-05 Omar Haddad      ci: fail the build on a type error
+        .github/workflows/ci.yml | 28 ++++++--
+0cd6bed 2026-05-05 Ana Ruiz         chore(deps): bump nanoid from 5.0.7 to 5.0.8
+        package.json | 14 +++-  package-lock.json | 27 ++++++--
+f30fa8c 2026-05-05 Sam Okonkwo      refactor(jobs): rename the internal Ctx type to RequestCtx
+        src/jobs/scheduler.js | 48 ++++++++++----
+2e61589 2026-05-05 Yuki Tanaka      refactor(jobs): stop re-exporting the internal error types
+        src/jobs/runner.js | 54 +++++++++++----
+686096a 2026-05-05 Lena Fischer     chore: add the editorconfig back
+        .editorconfig | 48 ++++++++++----  CODEOWNERS | 33 +++++++---
+7c34ba7 2026-05-06 Priya Nair       chore(deps): bump vitest from 1.6.0 to 2.0.1
+        package.json | 49 ++++++++++----  package-lock.json | 27 ++++++--
+ac03cba 2026-05-06 Marco Silva      refactor(http): move the config loader under src/config
+        src/http/client.js | 37 ++++++++---  src/http/retry.js | 15 +++--
+eb874a5 2026-05-06 Sam Okonkwo      fix(http): close the pool on shutdown
+        src/http/client.js | 32 +++++++---  test/http.test.js | 28 ++++++--
+fe86faa 2026-05-06 Ana Ruiz         refactor(http): drop the unused v2 debug helper
+        src/http/retry.js | 58 ++++++++++++-----
+3b1d9b4 2026-05-06 Ines Costa       test(api): stop the flaky ordering assertion
+        test/api.test.js | 58 ++++++++++++-----
+cd9c9f8 2026-05-06 Tom Bergeron     chore: add the editorconfig back
+        .nvmrc | 19 ++++--
+731bdf8 2026-05-06 Ana Ruiz         chore: pin the node version in .nvmrc
+        tsconfig.json | 55 +++++++++++----  .nvmrc | 57 ++++++++++++-----
+000e297 2026-05-06 Dana Whitfield   docs: correct the default port in the readme
+        README.md | 58 ++++++++++++-----
+5f722ad 2026-05-07 Ines Costa       chore(deps): bump fastify from 4.28.0 to 4.28.1
+        package.json | 34 +++++++---  package-lock.json | 36 ++++++++---
+caa0693 2026-05-07 Ines Costa       chore(deps): bump esbuild from 0.21.4 to 0.23.0
+        package.json | 14 +++-  package-lock.json | 17 ++++--
+e931aa3 2026-05-07 Priya Nair       test(auth): assert the error code, not the message
+        test/auth.test.js | 17 ++++--  src/auth/session.js | 42 +++++++++---
+fc3ba54 2026-05-07 Lena Fischer     chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 52 +++++++++++----  package-lock.json | 30 ++++++---
+db8060d 2026-05-07 Dana Whitfield   chore: pin the node version in .nvmrc
+        CODEOWNERS | 20 ++++--  tsconfig.json | 6 ++-
+8ccab60 2026-05-07 Dana Whitfield   ci: retry flaky jobs with backoff
+        .github/workflows/ci.yml | 7 ++-
+7c972fd 2026-05-07 Ines Costa       chore(deps): bump ioredis from 5.4.1 to 5.4.2
+        package.json | 20 ++++--  package-lock.json | 59 ++++++++++++-----
+df3fb8b 2026-05-07 Sam Okonkwo      refactor(db): collapse the two retry helpers into one
+        src/db/migrate.js | 27 ++++++--  src/db/query.js | 19 ++++--
+8a92c1c 2026-05-08 Dana Whitfield   chore(deps): bump pg from 8.12.0 to 8.13.0
+        package.json | 17 ++++--  package-lock.json | 28 ++++++--
+f422ecc 2026-05-08 Priya Nair       refactor(queue): move the config loader under src/config
+        src/queue/consumer.js | 16 ++++--  src/queue/producer.js | 4 +-
+7fc4f04 2026-05-08 Yuki Tanaka      refactor(db): pull the request id out of the logger context
+        src/db/query.js | 60 ++++++++++++-----
+dd5fef5 2026-05-08 Marco Silva      test(store): cover the empty-page path in the paginator
+        test/store.test.js | 41 +++++++++---
+3bde46a 2026-05-08 Ana Ruiz         docs: add the local setup steps
+        docs/quickstart.md | 40 ++++++++---
+3155354 2026-05-08 Dana Whitfield   refactor(jobs): use the shared clock helper instead of Date.now
+        src/jobs/runner.js | 33 +++++++---
+9919474 2026-05-08 Dana Whitfield   chore: regenerate the lockfile
+        .gitignore | 10 ++-
+df40df9 2026-05-08 Dana Whitfield   ci: fail the build on a type error
+        .github/workflows/ci.yml | 29 ++++++---
+e0ed964 2026-05-09 Tom Bergeron     chore: sort the package.json fields
+        CODEOWNERS | 52 +++++++++++----  .nvmrc | 49 ++++++++++----
+6043860 2026-05-09 Yuki Tanaka      fix(core): drop the duplicate header
+        src/core/clock.js | 56 ++++++++++++----  test/core.test.js | 41 +++++++++---
+7de3e58 2026-05-09 Tom Bergeron     ci: fail the build on a type error
+        .github/workflows/ci.yml | 43 +++++++++----
+e3338e9 2026-05-09 Sam Okonkwo      refactor(jobs): split the router file by resource
+        src/jobs/runner.js | 28 ++++++--  src/jobs/scheduler.js | 30 ++++++---
+410fdc5 2026-05-09 Sam Okonkwo      chore(deps): bump typescript from 5.5.2 to 5.5.4
+        package.json | 40 ++++++++---  package-lock.json | 40 ++++++++---
+08d38fb 2026-05-09 Ines Costa       refactor(db): drop the unused v2 debug helper
+        src/db/query.js | 55 +++++++++++----
+edeb068 2026-05-09 Priya Nair       chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 8 ++-  package-lock.json | 5 +-
+0fc970b 2026-05-09 Dana Whitfield   chore(deps): bump fastify from 4.28.0 to 4.28.1
+        package.json | 5 +-  package-lock.json | 17 ++++--
+f76535f 2026-05-10 Marco Silva      test(auth): drop the snapshot nobody reads
+        test/auth.test.js | 2 +-  src/auth/session.js | 1 +-
+63751c0 2026-05-10 Marco Silva      fix(queue): trim the trailing slash once
+        src/queue/consumer.js | 22 +++++--  test/queue.test.js | 10 ++-
+c04c871 2026-05-10 Ines Costa       chore(deps): bump eslint from 9.4.0 to 9.5.0
+        package.json | 47 ++++++++++----  package-lock.json | 58 ++++++++++++-----
+6d4093d 2026-05-10 Priya Nair       chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 3 +-  package-lock.json | 46 ++++++++++----
+067b05d 2026-05-10 Priya Nair       chore: ignore the coverage folder
+        .editorconfig | 9 ++-  CODEOWNERS | 56 ++++++++++++----
+9937a08 2026-05-10 Lena Fischer     fix(api): guard the null cursor in the paginator
+        src/api/serialize.js | 30 ++++++---  test/api.test.js | 55 +++++++++++----
+f911982 2026-05-10 Lena Fischer     docs: note the minimum node version
+        docs/retries.md | 10 ++-
+90ef91a 2026-05-10 Ana Ruiz         chore(deps): bump typescript from 5.5.2 to 5.5.4
+        package.json | 26 ++++++--  package-lock.json | 39 ++++++++---
+bccae9c 2026-05-11 Tom Bergeron     chore(deps): bump fastify from 4.28.0 to 4.28.1
+        package.json | 35 +++++++---  package-lock.json | 44 +++++++++----
+e627d6e 2026-05-11 Ana Ruiz         ci: retry flaky jobs with backoff
+        .github/workflows/ci.yml | 26 ++++++--
+0e89c52 2026-05-11 Ana Ruiz         test(auth): add a case for a zero-length body
+        test/auth.test.js | 3 +-
+7a65223 2026-05-11 Sam Okonkwo      refactor(billing): delete the dead feature-flag branch
+        src/billing/proration.js | 47 ++++++++++----
+b0da715 2026-05-11 Lena Fischer     refactor(core): use the shared clock helper instead of Date.now
+        src/core/clock.js | 42 +++++++++---
+96cc3fb 2026-05-11 Ines Costa       chore: regenerate the lockfile
+        CODEOWNERS | 13 +++-
+b79a741 2026-05-11 Omar Haddad      chore: ignore the coverage folder
+        CODEOWNERS | 34 +++++++---
+7fe261d 2026-05-11 Sam Okonkwo      refactor(jobs): use the shared clock helper instead of Date.now
+        src/jobs/runner.js | 20 ++++--
+157f39f 2026-05-12 Marco Silva      ci: retry flaky jobs with backoff
+        .github/workflows/ci.yml | 37 ++++++++---
+ee6879c 2026-05-12 Marco Silva      test(http): add a case for a zero-length body
+        test/http.test.js | 57 ++++++++++++-----
+44f0f4b 2026-05-12 Lena Fischer     refactor(http): inline the single-use response mapper
+        src/http/client.js | 26 ++++++--
+b26eed4 2026-05-12 Dana Whitfield   test(db): raise the timeout on the slow integration case
+        test/db.test.js | 1 +-
+c8597e3 2026-05-12 Ines Costa       chore: add the editorconfig back
+        package.json | 29 ++++++---
+94b1192 2026-05-12 Yuki Tanaka      ci: run the suite on node 22
+        .github/workflows/ci.yml | 11 +++-
+d9f59eb 2026-05-12 Sam Okonkwo      chore(deps): bump tsx from 4.15.7 to 4.16.2
+        package.json | 31 +++++++---  package-lock.json | 48 ++++++++++----
+c22b47f 2026-05-12 Priya Nair       refactor(core): collapse the two retry helpers into one
+        src/core/config.js | 34 +++++++---
+fa29d3b 2026-05-13 Marco Silva      refactor(core): drop the unused v2 debug helper
+        src/core/errors.js | 32 +++++++---
+a5cc2cc 2026-05-13 Omar Haddad      test(billing): add the missing teardown to the queue suite
+        test/billing.test.js | 11 +++-
+76506f8 2026-05-13 Yuki Tanaka      chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 46 ++++++++++----  package-lock.json | 11 +++-
+21637f8 2026-05-13 Ana Ruiz         perf(store): skip the JSON round-trip on the hot path
+        src/store/cache.js | 11 +++-
+59a26ac 2026-05-13 Tom Bergeron     test(store): assert the error code, not the message
+        test/store.test.js | 3 +-
+c073c0c 2026-05-13 Yuki Tanaka      chore(deps): bump tsx from 4.15.7 to 4.16.2
+        package.json | 24 +++++--  package-lock.json | 45 +++++++++----
+00bde10 2026-05-13 Omar Haddad      test(http): add a case for a zero-length body
+        test/http.test.js | 53 +++++++++++----
+56dc828 2026-05-13 Omar Haddad      refactor(api): drop the unused v1 export route
+        src/api/router.js | 5 +-  src/api/handlers.js | 50 ++++++++++----  test/api.test.js | 16 ++++--
+62afbff 2026-05-13 Marco Silva      fix(store): handle an empty allowlist
+        src/store/cache.js | 43 +++++++++----  test/store.test.js | 14 +++-
+77efb59 2026-05-14 Ana Ruiz         chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 9 ++-  package-lock.json | 22 +++++--
+ff79e4a 2026-05-14 Marco Silva      chore: sort the package.json fields
+        CODEOWNERS | 53 +++++++++++----  tsconfig.json | 2 +-
+bfd8b0f 2026-05-14 Priya Nair       chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 9 ++-  package-lock.json | 36 ++++++++---
+601004b 2026-05-14 Priya Nair       test(api): raise the timeout on the slow integration case
+        test/api.test.js | 51 +++++++++++----
+bf24ccb 2026-05-14 Ana Ruiz         chore(deps): bump typescript from 5.5.2 to 5.5.4
+        package.json | 58 ++++++++++++-----  package-lock.json | 16 ++++--
+740bb56 2026-05-14 Tom Bergeron     refactor(billing): move the config loader under src/config
+        src/billing/invoice.js | 34 +++++++---  src/billing/proration.js | 5 +-
+ec31d25 2026-05-14 Lena Fischer     chore(deps): bump typescript from 5.5.2 to 5.5.4
+        package.json | 22 +++++--  package-lock.json | 25 +++++--
+5d4de73 2026-05-14 Ana Ruiz         refactor(db): stop re-exporting the internal error types
+        src/db/query.js | 35 +++++++---
+6302ee9 2026-05-15 Marco Silva      fix(billing): drop the duplicate header
+        src/billing/proration.js | 25 +++++--  test/billing.test.js | 31 +++++++---
+d988aed 2026-05-15 Ines Costa       refactor(core): stop re-exporting the internal error types
+        src/core/errors.js | 4 +-  src/core/clock.js | 26 ++++++--
+4c51dfa 2026-05-15 Lena Fischer     chore(deps): bump prettier from 3.3.0 to 3.3.2
+        package.json | 14 +++-  package-lock.json | 5 +-
+610f363 2026-05-15 Omar Haddad      test(api): stop the flaky ordering assertion
+        test/api.test.js | 57 ++++++++++++-----
+0805ec8 2026-05-15 Ines Costa       refactor(db): rename the internal Ctx type to RequestCtx
+        src/db/query.js | 48 ++++++++++----
+1b55313 2026-05-15 Tom Bergeron     fix(db): stop logging the whole request body
+        src/db/pool.js | 27 ++++++--  test/db.test.js | 17 ++++--
+5f89a20 2026-05-15 Lena Fischer     fix(db): handle an empty allowlist
+        src/db/migrate.js | 4 +-  test/db.test.js | 36 ++++++++---
+63bacc2 2026-05-15 Omar Haddad      chore(deps): bump husky from 9.0.11 to 9.1.1
+        package.json | 3 +-  package-lock.json | 54 +++++++++++----
+242e42e 2026-05-16 Dana Whitfield   chore(deps): bump dotenv from 16.4.5 to 16.4.7
+        package.json | 26 ++++++--  package-lock.json | 3 +-
+8b353d9 2026-05-16 Priya Nair       chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 54 +++++++++++----  package-lock.json | 49 ++++++++++----
+4d83260 2026-05-16 Ines Costa       refactor(core): stop re-exporting the internal error types
+        src/core/clock.js | 3 +-  src/core/errors.js | 46 ++++++++++----
+c0d7470 2026-05-16 Dana Whitfield   chore(deps): bump esbuild from 0.21.4 to 0.23.0
+        package.json | 51 +++++++++++----  package-lock.json | 31 +++++++---
+6a1c09f 2026-05-16 Tom Bergeron     chore(deps): bump eslint from 9.4.0 to 9.5.0
+        package.json | 60 ++++++++++++-----  package-lock.json | 44 +++++++++----
+2804641 2026-05-16 Yuki Tanaka      refactor(queue): drop the unused v2 debug helper
+        src/queue/producer.js | 2 +-
+b247804 2026-05-16 Sam Okonkwo      chore: add the editorconfig back
+        .nvmrc | 11 +++-  tsconfig.json | 2 +-
+fbeaa6d 2026-05-16 Ines Costa       refactor(jobs): delete the dead feature-flag branch
+        src/jobs/scheduler.js | 9 ++-
+f451396 2026-05-17 Marco Silva      chore(deps): bump tsx from 4.15.7 to 4.16.2
+        package.json | 21 +++++--  package-lock.json | 58 ++++++++++++-----
+37040e9 2026-05-17 Ana Ruiz         docs: correct the default port in the readme
+        README.md | 7 ++-
+589b254 2026-05-17 Sam Okonkwo      test(jobs): add the missing teardown to the queue suite
+        test/jobs.test.js | 60 ++++++++++++-----
+4bf8b51 2026-05-17 Tom Bergeron     test(webhooks): seed the fixture clock so the run is stable
+        test/webhooks.test.js | 11 +++-
+f3b63cb 2026-05-17 Priya Nair       test(queue): stop the flaky ordering assertion
+        test/queue.test.js | 54 +++++++++++----
+bed6215 2026-05-17 Lena Fischer     chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 59 ++++++++++++-----  package-lock.json | 20 ++++--
+2727d93 2026-05-17 Priya Nair       chore: add the editorconfig back
+        package.json | 54 +++++++++++----
+5ad2ef1 2026-05-17 Lena Fischer     test(billing): assert the error code, not the message
+        test/billing.test.js | 46 ++++++++++----
+825a3be 2026-05-18 Marco Silva      chore(deps): bump tsx from 4.15.7 to 4.16.2
+        package.json | 40 ++++++++---  package-lock.json | 54 +++++++++++----
+8d145bc 2026-05-18 Omar Haddad      docs: document the retry envelope
+        docs/quickstart.md | 19 ++++--
+647160a 2026-05-18 Tom Bergeron     refactor(core): collapse the two retry helpers into one
+        src/core/errors.js | 30 ++++++---
+6b7874a 2026-05-18 Priya Nair       refactor(webhooks): drop the unused v2 debug helper
+        src/webhooks/dispatch.js | 37 ++++++++---
+1bec7e3 2026-05-18 Ana Ruiz         ci: retry flaky jobs with backoff
+        .github/workflows/ci.yml | 56 ++++++++++++----
+8cb63e9 2026-05-18 Omar Haddad      chore(deps): bump knex from 3.1.0 to 3.1.2
+        package.json | 24 +++++--  package-lock.json | 44 +++++++++----
+137c018 2026-05-18 Omar Haddad      chore(deps): bump fastify from 4.28.0 to 4.28.1
+        package.json | 27 ++++++--  package-lock.json | 47 ++++++++++----
+f94ffe0 2026-05-18 Lena Fischer     test(core): assert the error code, not the message
+        test/core.test.js | 12 +++-  src/core/clock.js | 58 ++++++++++++-----
+f03bf1e 2026-05-19 Priya Nair       chore(deps): bump pg from 8.12.0 to 8.13.0
+        package.json | 29 ++++++---  package-lock.json | 28 ++++++--
+2da7310 2026-05-19 Ines Costa       chore: tidy the tsconfig paths
+        tsconfig.json | 33 +++++++---  CODEOWNERS | 26 ++++++--
+cc0930c 2026-05-19 Dana Whitfield   test(billing): stop the flaky ordering assertion
+        test/billing.test.js | 8 ++-
+b7be7ee 2026-05-19 Tom Bergeron     chore(deps): bump prettier from 3.3.0 to 3.3.2
+        package.json | 38 ++++++++---  package-lock.json | 17 ++++--
+d628e51 2026-05-19 Marco Silva      chore(deps): bump fastify from 4.28.0 to 4.28.1
+        package.json | 36 ++++++++---  package-lock.json | 45 +++++++++----
+f4d0384 2026-05-19 Ines Costa       chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 49 ++++++++++----  package-lock.json | 26 ++++++--
+ef25e23 2026-05-19 Dana Whitfield   perf(billing): avoid the extra clone in the mapper
+        src/billing/proration.js | 12 +++-
+5197630 2026-05-19 Sam Okonkwo      chore: tidy the tsconfig paths
+        CODEOWNERS | 42 +++++++++---  tsconfig.json | 43 +++++++++----
+13a6525 2026-05-20 Yuki Tanaka      test(auth): add a case for a zero-length body
+        test/auth.test.js | 41 +++++++++---
+fcf9259 2026-05-20 Omar Haddad      chore(deps): bump husky from 9.0.11 to 9.1.1
+        package.json | 48 ++++++++++----  package-lock.json | 6 ++-
+f04299e 2026-05-20 Ana Ruiz         ci: stop uploading the coverage artifact twice
+        .github/workflows/ci.yml | 51 +++++++++++----
+5e5b0ae 2026-05-20 Ana Ruiz         chore: drop the stale codeowners entry
+        CODEOWNERS | 53 +++++++++++----  package.json | 43 +++++++++----
+8bc9f3c 2026-05-20 Priya Nair       refactor(auth): inline the single-use response mapper
+        src/auth/token.js | 43 +++++++++----
+78ad1bc 2026-05-20 Yuki Tanaka      test(auth): seed the fixture clock so the run is stable
+        test/auth.test.js | 5 +-
+c90d0af 2026-05-20 Ana Ruiz         test(http): add a case for a zero-length body
+        test/http.test.js | 40 ++++++++---
+f0539de 2026-05-20 Sam Okonkwo      refactor(api): rename the internal Ctx type to RequestCtx
+        src/api/handlers.js | 30 ++++++---
+fa14fe0 2026-05-21 Tom Bergeron     ci: stop uploading the coverage artifact twice
+        .github/workflows/ci.yml | 48 ++++++++++----
+35d4464 2026-05-21 Ana Ruiz         test(api): add the missing teardown to the queue suite
+        test/api.test.js | 32 +++++++---
+4a30eaa 2026-05-21 Lena Fischer     fix(jobs): trim the trailing slash once
+        src/jobs/runner.js | 2 +-  test/jobs.test.js | 24 +++++--
+5063cb9 2026-05-21 Sam Okonkwo      chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 37 ++++++++---  package-lock.json | 33 +++++++---
+faeb427 2026-05-21 Sam Okonkwo      chore(deps): bump prettier from 3.3.0 to 3.3.2
+        package.json | 35 +++++++---  package-lock.json | 56 ++++++++++++----
+b8527fa 2026-05-21 Dana Whitfield   refactor(store): split the router file by resource
+        src/store/keys.js | 28 ++++++--
+62c7199 2026-05-21 Marco Silva      test(queue): cover the empty-page path in the paginator
+        test/queue.test.js | 52 +++++++++++----
+4cc062b 2026-05-21 Marco Silva      chore(deps): bump prettier from 3.3.0 to 3.3.2
+        package.json | 59 ++++++++++++-----  package-lock.json | 11 +++-
+dc8b5d2 2026-05-22 Priya Nair       fix(jobs): handle an empty allowlist
+        src/jobs/scheduler.js | 17 ++++--  test/jobs.test.js | 38 ++++++++---
+c111d02 2026-05-22 Ana Ruiz         docs: note the minimum node version
+        docs/quickstart.md | 12 +++-
+45dc5a2 2026-05-22 Lena Fischer     refactor(store): pull the request id out of the logger context
+        src/store/cache.js | 34 +++++++---
+bcdd0bb 2026-05-22 Dana Whitfield   chore: sort the package.json fields
+        tsconfig.json | 42 +++++++++---
+56459e1 2026-05-22 Marco Silva      docs: add the local setup steps
+        README.md | 36 ++++++++---
+a027dfd 2026-05-22 Yuki Tanaka      chore(deps): bump typescript from 5.5.2 to 5.5.4
+        package.json | 6 ++-  package-lock.json | 13 +++-
+be03287 2026-05-22 Ines Costa       fix(api): keep the trace id across the retry
+        src/api/serialize.js | 2 +-  test/api.test.js | 43 +++++++++----
+1479907 2026-05-22 Dana Whitfield   refactor(api): collapse the two retry helpers into one
+        src/api/serialize.js | 12 +++-
+8ba1123 2026-05-23 Lena Fischer     docs: add the local setup steps
+        README.md | 8 ++-
+8663fa1 2026-05-23 Ana Ruiz         refactor(queue): delete the dead feature-flag branch
+        src/queue/consumer.js | 10 ++-  src/queue/producer.js | 53 +++++++++++----
+0937150 2026-05-23 Lena Fischer     chore(deps): bump undici from 6.19.2 to 6.19.5
+        package.json | 60 ++++++++++++-----  package-lock.json | 52 +++++++++++----
+a548f0d 2026-05-23 Ines Costa       test(auth): seed the fixture clock so the run is stable
+        test/auth.test.js | 29 ++++++---
+cf03cb8 2026-05-23 Ana Ruiz         chore(deps): bump pg from 8.12.0 to 8.13.0
+        package.json | 55 +++++++++++----  package-lock.json | 34 +++++++---
+b2dc5e4 2026-05-23 Tom Bergeron     chore(deps): bump husky from 9.0.11 to 9.1.1
+        package.json | 39 ++++++++---  package-lock.json | 47 ++++++++++----
+97db924 2026-05-23 Lena Fischer     test(jobs): raise the timeout on the slow integration case
+        test/jobs.test.js | 52 +++++++++++----
+4a257dc 2026-05-23 Yuki Tanaka      ci: stop uploading the coverage artifact twice
+        .github/workflows/ci.yml | 26 ++++++--
+0f6538e 2026-05-24 Priya Nair       refactor(billing): delete the dead feature-flag branch
+        src/billing/proration.js | 38 ++++++++---
+69b5b55 2026-05-24 Sam Okonkwo      chore(deps): bump fastify from 4.28.0 to 4.28.1
+        package.json | 24 +++++--  package-lock.json | 11 +++-
+3afaea8 2026-05-24 Tom Bergeron     test(webhooks): cover the empty-page path in the paginator
+        test/webhooks.test.js | 50 ++++++++++----
+e180e99 2026-05-24 Omar Haddad      test(api): raise the timeout on the slow integration case
+        test/api.test.js | 44 +++++++++----  src/api/router.js | 20 ++++--
+eacf9b6 2026-05-24 Lena Fischer     test(store): drop the snapshot nobody reads
+        test/store.test.js | 5 +-
+7b38c43 2026-05-24 Priya Nair       perf(core): skip the JSON round-trip on the hot path
+        src/core/errors.js | 21 +++++--
+1c9d194 2026-05-24 Sam Okonkwo      refactor(http): move the config loader under src/config
+        src/http/retry.js | 54 +++++++++++----  src/http/client.js | 26 ++++++--
+8dd7062 2026-05-24 Ana Ruiz         docs: note the minimum node version
+        README.md | 53 +++++++++++----
+ee10ef3 2026-05-25 Ana Ruiz         refactor(api): drop the unused v2 debug helper
+        src/api/handlers.js | 56 ++++++++++++----  src/api/router.js | 11 +++-
+a950511 2026-05-25 Sam Okonkwo      refactor(store): delete the dead feature-flag branch
+        src/store/keys.js | 31 +++++++---
+720a2ea 2026-05-25 Yuki Tanaka      ci: run the suite on node 22
+        .github/workflows/ci.yml | 36 ++++++++---
+0ea3632 2026-05-25 Ana Ruiz         test(http): raise the timeout on the slow integration case
+        test/http.test.js | 20 ++++--
+fe403b7 2026-05-25 Yuki Tanaka      refactor(api): delete the dead feature-flag branch
+        src/api/handlers.js | 28 ++++++--
+005f0fd 2026-05-25 Marco Silva      chore(deps): bump esbuild from 0.21.4 to 0.23.0
+        package.json | 23 +++++--  package-lock.json | 19 ++++--
+447d90e 2026-05-25 Omar Haddad      ci: run the suite on node 22
+        .github/workflows/ci.yml | 28 ++++++--
+d7cf97b 2026-05-25 Yuki Tanaka      refactor(auth): stop re-exporting the internal error types
+        src/auth/session.js | 55 +++++++++++----
+397757f 2026-05-25 Marco Silva      chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 52 +++++++++++----  package-lock.json | 54 +++++++++++----
+59402bc 2026-05-26 Priya Nair       fix(store): use the right units in the latency histogram
+        src/store/cache.js | 41 +++++++++---  test/store.test.js | 47 ++++++++++----
+73567b4 2026-05-26 Omar Haddad      refactor(api): delete the dead feature-flag branch
+        src/api/serialize.js | 40 ++++++++---
+fdc125e 2026-05-26 Ana Ruiz         perf(db): batch the metric writes
+        src/db/pool.js | 40 ++++++++---
+502a91c 2026-05-26 Yuki Tanaka      chore: ignore the coverage folder
+        .gitignore | 32 +++++++---
+2e5324f 2026-05-26 Lena Fischer     chore: update the issue template
+        CODEOWNERS | 59 ++++++++++++-----
+9429971 2026-05-26 Yuki Tanaka      test(api): cover the empty-page path in the paginator
+        test/api.test.js | 8 ++-
+6a330d3 2026-05-26 Lena Fischer     refactor(http): pull the request id out of the logger context
+        src/http/client.js | 36 ++++++++---  src/http/retry.js | 5 +-
+8c01ee7 2026-05-26 Sam Okonkwo      ci: cache the pnpm store between jobs
+        .github/workflows/ci.yml | 6 ++-
+bb1d05e 2026-05-27 Tom Bergeron     docs: fix the typo in the quickstart
+        docs/retries.md | 1 +-
+6c712e6 2026-05-27 Priya Nair       refactor(db): rename the internal Ctx type to RequestCtx
+        src/db/pool.js | 38 ++++++++---
+94194cc 2026-05-27 Omar Haddad      perf(db): skip the JSON round-trip on the hot path
+        src/db/migrate.js | 29 ++++++---
+cd9e13c 2026-05-27 Omar Haddad      test(store): raise the timeout on the slow integration case
+        test/store.test.js | 21 +++++--  src/store/keys.js | 19 ++++--
+3dc75a3 2026-05-27 Lena Fischer     chore(deps): bump ioredis from 5.4.1 to 5.4.2
+        package.json | 13 +++-  package-lock.json | 43 +++++++++----
+2c0f3b1 2026-05-27 Marco Silva      test(http): add a case for a zero-length body
+        test/http.test.js | 29 ++++++---
+98e748c 2026-05-27 Lena Fischer     ci: retry flaky jobs with backoff
+        .github/workflows/ci.yml | 35 +++++++---
+bbd661f 2026-05-27 Tom Bergeron     test(http): assert the error code, not the message
+        test/http.test.js | 15 +++--
+c422331 2026-05-28 Omar Haddad      test(auth): cover the empty-page path in the paginator
+        test/auth.test.js | 57 ++++++++++++-----  src/auth/session.js | 41 +++++++++---
+7cb4f8c 2026-05-28 Lena Fischer     test(core): assert the error code, not the message
+        test/core.test.js | 50 ++++++++++----  src/core/errors.js | 57 ++++++++++++-----
+00d91fd 2026-05-28 Priya Nair       refactor(http): rename the internal Ctx type to RequestCtx
+        src/http/client.js | 42 +++++++++---  src/http/retry.js | 14 +++-
+395fb48 2026-05-28 Ana Ruiz         feat(webhooks): retry failed deliveries with exponential backoff
+        src/webhooks/dispatch.js | 37 ++++++++---  src/core/config.js | 28 ++++++--  test/webhooks.test.js | 29 ++++++---
+0733fb7 2026-05-28 Lena Fischer     perf(api): avoid the extra clone in the mapper
+        src/api/serialize.js | 28 ++++++--
+b78c957 2026-05-28 Lena Fischer     chore(deps): bump pg from 8.12.0 to 8.13.0
+        package.json | 32 +++++++---  package-lock.json | 9 ++-
+b9cd42d 2026-05-28 Lena Fischer     chore: sort the package.json fields
+        .editorconfig | 48 ++++++++++----  .gitignore | 14 +++-
+cc96f5a 2026-05-28 Yuki Tanaka      chore(deps): bump tsx from 4.15.7 to 4.16.2
+        package.json | 12 +++-  package-lock.json | 21 +++++--
+2f63e95 2026-05-29 Ines Costa       refactor(billing): collapse the two retry helpers into one
+        src/billing/proration.js | 52 +++++++++++----
+60c77ab 2026-05-29 Omar Haddad      chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 42 +++++++++---  package-lock.json | 3 +-
+2f8b69b 2026-05-29 Marco Silva      refactor(webhooks): use the shared clock helper instead of Date.now
+        src/webhooks/dispatch.js | 30 ++++++---
+c639163 2026-05-29 Ana Ruiz         chore(deps): bump knex from 3.1.0 to 3.1.2
+        package.json | 57 ++++++++++++-----  package-lock.json | 14 +++-
+b2f620a 2026-05-29 Sam Okonkwo      chore(deps): bump tsx from 4.15.7 to 4.16.2
+        package.json | 41 +++++++++---  package-lock.json | 16 ++++--
+82b3a46 2026-05-29 Sam Okonkwo      chore(deps): bump vitest from 1.6.0 to 2.0.1
+        package.json | 24 +++++--  package-lock.json | 6 ++-
+b581b5b 2026-05-29 Yuki Tanaka      refactor(core): drop the unused v2 debug helper
+        src/core/errors.js | 21 +++++--
+1f2bc4e 2026-05-29 Tom Bergeron     fix(core): use the right units in the latency histogram
+        src/core/errors.js | 19 ++++--  test/core.test.js | 9 ++-
+6a678de 2026-05-30 Yuki Tanaka      test(db): cover the empty-page path in the paginator
+        test/db.test.js | 46 ++++++++++----
+2924272 2026-05-30 Sam Okonkwo      refactor(jobs): drop the unused v2 debug helper
+        src/jobs/scheduler.js | 12 +++-
+6ea7fd1 2026-05-30 Sam Okonkwo      test(api): add a case for a zero-length body
+        test/api.test.js | 50 ++++++++++----
+3b8e7a0 2026-05-30 Priya Nair       chore(deps): bump prettier from 3.3.0 to 3.3.2
+        package.json | 9 ++-  package-lock.json | 41 +++++++++---
+25e0738 2026-05-30 Sam Okonkwo      ci: cache the pnpm store between jobs
+        .github/workflows/ci.yml | 14 +++-
+1c2678c 2026-05-30 Dana Whitfield   chore: drop the stale codeowners entry
+        package.json | 47 ++++++++++----
+3e871b7 2026-05-30 Ana Ruiz         chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 11 +++-  package-lock.json | 1 +-
+7ed16d9 2026-05-30 Omar Haddad      refactor(queue): pull the request id out of the logger context
+        src/queue/producer.js | 29 ++++++---
+334ca3b 2026-05-31 Sam Okonkwo      chore(deps): bump typescript from 5.5.2 to 5.5.4
+        package.json | 24 +++++--  package-lock.json | 2 +-
+9f46c65 2026-05-31 Dana Whitfield   docs: fix the typo in the quickstart
+        README.md | 1 +-
+4b1e18b 2026-05-31 Dana Whitfield   chore: sort the package.json fields
+        tsconfig.json | 52 +++++++++++----  CODEOWNERS | 20 ++++--
+23660b4 2026-05-31 Tom Bergeron     chore(deps): bump husky from 9.0.11 to 9.1.1
+        package.json | 41 +++++++++---  package-lock.json | 41 +++++++++---
+97502a8 2026-05-31 Tom Bergeron     fix(core): tighten the token parser error message
+        src/core/errors.js | 21 +++++--  test/core.test.js | 58 ++++++++++++-----
+ca834c6 2026-05-31 Priya Nair       chore(deps): bump ioredis from 5.4.1 to 5.4.2
+        package.json | 59 ++++++++++++-----  package-lock.json | 37 ++++++++---
+ad23fa9 2026-05-31 Lena Fischer     refactor(jobs): use the shared clock helper instead of Date.now
+        src/jobs/runner.js | 30 ++++++---
+365301f 2026-05-31 Priya Nair       chore(deps): bump ioredis from 5.4.1 to 5.4.2
+        package.json | 37 ++++++++---  package-lock.json | 24 +++++--
+a3ec8ca 2026-06-01 Yuki Tanaka      chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 11 +++-  package-lock.json | 46 ++++++++++----
+6aa487f 2026-06-01 Priya Nair       ci: skip the docs job on a draft
+        .github/workflows/ci.yml | 38 ++++++++---
+303e5f6 2026-06-01 Sam Okonkwo      docs: add the local setup steps
+        docs/quickstart.md | 5 +-
+04d0822 2026-06-01 Priya Nair       chore(deps): bump tsx from 4.15.7 to 4.16.2
+        package.json | 27 ++++++--  package-lock.json | 49 ++++++++++----
+2500177 2026-06-01 Ana Ruiz         fix(api): keep the trace id across the retry
+        src/api/serialize.js | 28 ++++++--  test/api.test.js | 14 +++-
+e2c9eaa 2026-06-01 Lena Fischer     chore(deps): bump pg from 8.12.0 to 8.13.0
+        package.json | 41 +++++++++---  package-lock.json | 18 ++++--
+d6008b8 2026-06-01 Lena Fischer     chore: sort the package.json fields
+        .nvmrc | 20 ++++--
+412461d 2026-06-01 Marco Silva      chore(deps): bump zod from 3.23.6 to 3.23.8
+        package.json | 54 +++++++++++----  package-lock.json | 41 +++++++++---
+ede1cb7 2026-06-02 Omar Haddad      test(http): stop the flaky ordering assertion
+        test/http.test.js | 46 ++++++++++----
+36050c9 2026-06-02 Omar Haddad      ci: stop uploading the coverage artifact twice
+        .github/workflows/ci.yml | 21 +++++--
+49974b5 2026-06-02 Ana Ruiz         test(core): drop the snapshot nobody reads
+        test/core.test.js | 37 ++++++++---
+68fc53b 2026-06-02 Omar Haddad      refactor(store): rename the internal Ctx type to RequestCtx
+        src/store/keys.js | 50 ++++++++++----  src/store/cache.js | 15 +++--
+87018e5 2026-06-02 Ines Costa       fix(webhooks): guard the null cursor in the paginator
+        src/webhooks/dispatch.js | 58 ++++++++++++-----  test/webhooks.test.js | 12 +++-
+399e952 2026-06-02 Ines Costa       refactor(auth): drop the unused v2 debug helper
+        src/auth/session.js | 1 +-  src/auth/token.js | 21 +++++--
+28e0f4b 2026-06-02 Ana Ruiz         refactor(store): move the config loader under src/config
+        src/store/keys.js | 11 +++-
+a8aa0f0 2026-06-02 Omar Haddad      test(webhooks): assert the error code, not the message
+        test/webhooks.test.js | 7 ++-  src/webhooks/dispatch.js | 19 ++++--
+162afce 2026-06-03 Ines Costa       chore: add the editorconfig back
+        .nvmrc | 20 ++++--  CODEOWNERS | 1 +-
+fdf979a 2026-06-03 Marco Silva      chore: pin the node version in .nvmrc
+        tsconfig.json | 35 +++++++---  .editorconfig | 30 ++++++---
+6fdea27 2026-06-03 Ana Ruiz         chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 42 +++++++++---  package-lock.json | 60 ++++++++++++-----
+050d1dc 2026-06-03 Ana Ruiz         test(core): cover the empty-page path in the paginator
+        test/core.test.js | 23 +++++--
+6740b25 2026-06-03 Ines Costa       chore(deps): bump eslint from 9.4.0 to 9.5.0
+        package.json | 25 +++++--  package-lock.json | 11 +++-
+49666cd 2026-06-03 Sam Okonkwo      fix(http): drop the duplicate header
+        src/http/client.js | 46 ++++++++++----  test/http.test.js | 8 ++-
+530d23a 2026-06-03 Lena Fischer     test(core): seed the fixture clock so the run is stable
+        test/core.test.js | 34 +++++++---
+5833e4b 2026-06-03 Marco Silva      chore(deps): bump esbuild from 0.21.4 to 0.23.0
+        package.json | 57 ++++++++++++-----  package-lock.json | 19 ++++--
+3f8ddcb 2026-06-04 Omar Haddad      chore: drop the stale codeowners entry
+        .gitignore | 15 +++--
+9f3b4e5 2026-06-04 Sam Okonkwo      ci: run the suite on node 22
+        .github/workflows/ci.yml | 52 +++++++++++----
+7794a08 2026-06-04 Dana Whitfield   test(db): cover the empty-page path in the paginator
+        test/db.test.js | 54 +++++++++++----
+438269d 2026-06-04 Priya Nair       perf(store): avoid the extra clone in the mapper
+        src/store/keys.js | 35 +++++++---
+99026ac 2026-06-04 Dana Whitfield   ci: fail the build on a type error
+        .github/workflows/ci.yml | 45 +++++++++----
+3bdefc9 2026-06-04 Lena Fischer     refactor(api): delete the dead feature-flag branch
+        src/api/serialize.js | 58 ++++++++++++-----
+abd2742 2026-06-04 Ines Costa       chore(deps): bump prettier from 3.3.0 to 3.3.2
+        package.json | 38 ++++++++---  package-lock.json | 47 ++++++++++----
+0ec9364 2026-06-04 Ines Costa       chore(deps): bump dotenv from 16.4.5 to 16.4.7
+        package.json | 54 +++++++++++----  package-lock.json | 52 +++++++++++----
+7a28963 2026-06-05 Lena Fischer     test(jobs): add the missing teardown to the queue suite
+        test/jobs.test.js | 6 ++-
+13b981a 2026-06-05 Tom Bergeron     chore(deps): bump eslint from 9.4.0 to 9.5.0
+        package.json | 44 +++++++++----  package-lock.json | 29 ++++++---
+6d621fa 2026-06-05 Priya Nair       ci: fail the build on a type error
+        .github/workflows/ci.yml | 31 +++++++---
+be1e375 2026-06-05 Tom Bergeron     chore(deps): bump nanoid from 5.0.7 to 5.0.8
+        package.json | 20 ++++--  package-lock.json | 9 ++-
+443d886 2026-06-05 Yuki Tanaka      chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 20 ++++--  package-lock.json | 39 ++++++++---
+a0863a3 2026-06-05 Ana Ruiz         ci: cache the pnpm store between jobs
+        .github/workflows/ci.yml | 39 ++++++++---
+09b4ddc 2026-06-05 Yuki Tanaka      chore(deps): bump typescript from 5.5.2 to 5.5.4
+        package.json | 9 ++-  package-lock.json | 23 +++++--
+80546ad 2026-06-05 Priya Nair       test(jobs): drop the snapshot nobody reads
+        test/jobs.test.js | 15 +++--
+3312952 2026-06-06 Priya Nair       fix(core): drop the duplicate header
+        src/core/errors.js | 29 ++++++---  test/core.test.js | 8 ++-
+f09ff05 2026-06-06 Priya Nair       chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 5 +-  package-lock.json | 18 ++++--
+1d03daa 2026-06-06 Yuki Tanaka      chore(deps): bump pg from 8.12.0 to 8.13.0
+        package.json | 36 ++++++++---  package-lock.json | 31 +++++++---
+5e8ddc7 2026-06-06 Marco Silva      test(http): cover the empty-page path in the paginator
+        test/http.test.js | 49 ++++++++++----
+a55fc3f 2026-06-06 Dana Whitfield   ci: split the lint job out of the build
+        .github/workflows/ci.yml | 20 ++++--
+084527f 2026-06-06 Ana Ruiz         refactor(webhooks): drop the unused v2 debug helper
+        src/webhooks/sign.js | 39 ++++++++---  src/webhooks/dispatch.js | 52 +++++++++++----
+1f5bb31 2026-06-06 Sam Okonkwo      chore(deps): bump knex from 3.1.0 to 3.1.2
+        package.json | 55 +++++++++++----  package-lock.json | 45 +++++++++----
+0591b80 2026-06-06 Priya Nair       chore(deps): bump esbuild from 0.21.4 to 0.23.0
+        package.json | 58 ++++++++++++-----  package-lock.json | 24 +++++--
+2c45b16 2026-06-06 Tom Bergeron     chore: regenerate the lockfile
+        CODEOWNERS | 28 ++++++--
+44805ad 2026-06-07 Dana Whitfield   refactor(store): delete the dead feature-flag branch
+        src/store/keys.js | 7 ++-  src/store/cache.js | 23 +++++--
+b14932d 2026-06-07 Marco Silva      ci: run the suite on node 22
+        .github/workflows/ci.yml | 29 ++++++---
+234f79e 2026-06-07 Tom Bergeron     ci: stop uploading the coverage artifact twice
+        .github/workflows/ci.yml | 59 ++++++++++++-----
+9b717dc 2026-06-07 Ana Ruiz         refactor(db): stop re-exporting the internal error types
+        src/db/pool.js | 10 ++-  src/db/migrate.js | 59 ++++++++++++-----
+ad2a94d 2026-06-07 Lena Fischer     chore(deps): bump eslint from 9.4.0 to 9.5.0
+        package.json | 24 +++++--  package-lock.json | 59 ++++++++++++-----
+9fff778 2026-06-07 Tom Bergeron     docs: document the retry envelope
+        README.md | 12 +++-
+50526f0 2026-06-07 Ines Costa       chore(deps): bump undici from 6.19.2 to 6.19.5
+        package.json | 14 +++-  package-lock.json | 37 ++++++++---
+1f66d17 2026-06-07 Ana Ruiz         chore(deps): bump knex from 3.1.0 to 3.1.2
+        package.json | 51 +++++++++++----  package-lock.json | 15 +++--
+d475fd3 2026-06-08 Marco Silva      chore(deps): bump husky from 9.0.11 to 9.1.1
+        package.json | 31 +++++++---  package-lock.json | 55 +++++++++++----
+692c7b0 2026-06-08 Yuki Tanaka      chore: drop the stale codeowners entry
+        tsconfig.json | 14 +++-  CODEOWNERS | 17 ++++--
+b77f72b 2026-06-08 Ines Costa       chore: ignore the coverage folder
+        .nvmrc | 18 ++++--
+e2d6f4d 2026-06-08 Ines Costa       test(queue): cover the empty-page path in the paginator
+        test/queue.test.js | 1 +-  src/queue/consumer.js | 41 +++++++++---
+da339be 2026-06-08 Priya Nair       ci: stop uploading the coverage artifact twice
+        .github/workflows/ci.yml | 55 +++++++++++----
+764ea75 2026-06-08 Lena Fischer     fix(billing): tighten the token parser error message
+        src/billing/invoice.js | 32 +++++++---  test/billing.test.js | 57 ++++++++++++-----
+80d7880 2026-06-08 Ana Ruiz         chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 43 +++++++++----  package-lock.json | 48 ++++++++++----
+00baca3 2026-06-08 Omar Haddad      docs: fix the typo in the quickstart
+        docs/retries.md | 33 +++++++---
+24195b3 2026-06-09 Ana Ruiz         refactor(queue): drop the unused v2 debug helper
+        src/queue/consumer.js | 24 +++++--  src/queue/producer.js | 47 ++++++++++----
+d01ed37 2026-06-09 Marco Silva      test(webhooks): seed the fixture clock so the run is stable
+        test/webhooks.test.js | 30 ++++++---
+c6920fe 2026-06-09 Priya Nair       chore(deps): bump husky from 9.0.11 to 9.1.1
+        package.json | 45 +++++++++----  package-lock.json | 57 ++++++++++++-----
+1d2bd55 2026-06-09 Marco Silva      fix(auth): return 401 for an expired token instead of 403
+        src/auth/token.js | 32 +++++++---  src/auth/session.js | 51 +++++++++++----  test/auth.test.js | 36 ++++++++---
+c937e29 2026-06-09 Omar Haddad      chore(deps): bump nanoid from 5.0.7 to 5.0.8
+        package.json | 20 ++++--  package-lock.json | 5 +-
+3c51e42 2026-06-09 Priya Nair       test(auth): add the missing teardown to the queue suite
+        test/auth.test.js | 27 ++++++--  src/auth/token.js | 27 ++++++--
+a991a69 2026-06-09 Sam Okonkwo      refactor(core): delete the dead feature-flag branch
+        src/core/errors.js | 57 ++++++++++++-----
+3670883 2026-06-09 Ines Costa       chore(deps): bump ioredis from 5.4.1 to 5.4.2
+        package.json | 44 +++++++++----  package-lock.json | 53 +++++++++++----
+1f9367b 2026-06-10 Omar Haddad      chore: tidy the tsconfig paths
+        .editorconfig | 39 ++++++++---
+7ada60e 2026-06-10 Priya Nair       ci: pin the runner image
+        .github/workflows/ci.yml | 27 ++++++--
+3ba2225 2026-06-10 Lena Fischer     refactor(core): move the config loader under src/config
+        src/core/clock.js | 2 +-
+b5cfbc3 2026-06-10 Tom Bergeron     refactor(billing): stop re-exporting the internal error types
+        src/billing/invoice.js | 47 ++++++++++----
+dea55ea 2026-06-10 Priya Nair       chore(deps): bump fastify from 4.28.0 to 4.28.1
+        package.json | 25 +++++--  package-lock.json | 23 +++++--
+a0be9a0 2026-06-10 Lena Fischer     chore(deps): bump pg from 8.12.0 to 8.13.0
+        package.json | 26 ++++++--  package-lock.json | 33 +++++++---
+b1da198 2026-06-10 Marco Silva      chore(deps): bump undici from 6.19.2 to 6.19.5
+        package.json | 19 ++++--  package-lock.json | 18 ++++--
+19cba36 2026-06-10 Tom Bergeron     chore(deps): bump pg from 8.12.0 to 8.13.0
+        package.json | 3 +-  package-lock.json | 41 +++++++++---
+3858536 2026-06-11 Lena Fischer     chore(deps): bump knex from 3.1.0 to 3.1.2
+        package.json | 32 +++++++---  package-lock.json | 8 ++-
+78ef379 2026-06-11 Tom Bergeron     chore(deps): bump typescript from 5.5.2 to 5.5.4
+        package.json | 57 ++++++++++++-----  package-lock.json | 25 +++++--
+efb10c0 2026-06-11 Sam Okonkwo      test(billing): raise the timeout on the slow integration case
+        test/billing.test.js | 13 +++-
+0ab88f0 2026-06-11 Sam Okonkwo      refactor(queue): inline the single-use response mapper
+        src/queue/consumer.js | 21 +++++--
+a0ed8c2 2026-06-11 Dana Whitfield   test(store): seed the fixture clock so the run is stable
+        test/store.test.js | 48 ++++++++++----  src/store/keys.js | 47 ++++++++++----
+9dd4bd1 2026-06-11 Lena Fischer     chore(deps): bump dotenv from 16.4.5 to 16.4.7
+        package.json | 29 ++++++---  package-lock.json | 37 ++++++++---
+c109448 2026-06-11 Yuki Tanaka      refactor(store): split the router file by resource
+        src/store/keys.js | 1 +-
+0b00cb8 2026-06-11 Dana Whitfield   chore(deps): bump vitest from 1.6.0 to 2.0.1
+        package.json | 35 +++++++---  package-lock.json | 44 +++++++++----
+722ee37 2026-06-12 Omar Haddad      chore(deps): bump husky from 9.0.11 to 9.1.1
+        package.json | 53 +++++++++++----  package-lock.json | 55 +++++++++++----
+4f155e9 2026-06-12 Sam Okonkwo      refactor(http): drop the unused v2 debug helper
+        src/http/client.js | 23 +++++--
+d114c60 2026-06-12 Ana Ruiz         test(core): add a case for a zero-length body
+        test/core.test.js | 57 ++++++++++++-----
+b248be4 2026-06-12 Ines Costa       refactor(db): use the shared clock helper instead of Date.now
+        src/db/pool.js | 35 +++++++---
+3c60469 2026-06-12 Tom Bergeron     chore: tidy the tsconfig paths
+        .editorconfig | 11 +++-  package.json | 38 ++++++++---
+9164640 2026-06-12 Ines Costa       docs: correct the default port in the readme
+        docs/quickstart.md | 57 ++++++++++++-----
+4a6fc04 2026-06-12 Marco Silva      chore: add the editorconfig back
+        package.json | 24 +++++--
+9358ee0 2026-06-12 Priya Nair       docs: note the minimum node version
+        docs/retries.md | 43 +++++++++----
+01a5a12 2026-06-13 Dana Whitfield   chore(deps): bump undici from 6.19.2 to 6.19.5
+        package.json | 41 +++++++++---  package-lock.json | 55 +++++++++++----
+baa33d5 2026-06-13 Ana Ruiz         refactor(store): drop the unused v2 debug helper
+        src/store/keys.js | 44 +++++++++----
+bb2d7b2 2026-06-13 Omar Haddad      docs: link the changelog from the readme
+        README.md | 50 ++++++++++----
+c6d624a 2026-06-13 Lena Fischer     refactor(queue): rename the internal Ctx type to RequestCtx
+        src/queue/consumer.js | 16 ++++--
+0988401 2026-06-13 Lena Fischer     test(jobs): drop the snapshot nobody reads
+        test/jobs.test.js | 1 +-  src/jobs/runner.js | 33 +++++++---
+af78c4d 2026-06-13 Yuki Tanaka      test(api): seed the fixture clock so the run is stable
+        test/api.test.js | 55 +++++++++++----
+0da1ab2 2026-06-13 Ines Costa       fix(api): keep the trace id across the retry
+        src/api/router.js | 10 ++-  test/api.test.js | 42 +++++++++---
+4694ba7 2026-06-13 Tom Bergeron     chore(deps): bump undici from 6.19.2 to 6.19.5
+        package.json | 19 ++++--  package-lock.json | 24 +++++--
+ea06a0b 2026-06-14 Omar Haddad      chore: update the issue template
+        .gitignore | 27 ++++++--
+359029a 2026-06-14 Priya Nair       chore(deps): bump vitest from 1.6.0 to 2.0.1
+        package.json | 41 +++++++++---  package-lock.json | 13 +++-
+f20b3b0 2026-06-14 Ines Costa       refactor(core): use the shared clock helper instead of Date.now
+        src/core/config.js | 24 +++++--
+19dea42 2026-06-14 Tom Bergeron     ci: stop uploading the coverage artifact twice
+        .github/workflows/ci.yml | 29 ++++++---
+eafb0dd 2026-06-14 Dana Whitfield   refactor(store): rename the internal Ctx type to RequestCtx
+        src/store/keys.js | 20 ++++--
+416810c 2026-06-14 Omar Haddad      test(api): seed the fixture clock so the run is stable
+        test/api.test.js | 22 +++++--
+bbcd7f1 2026-06-14 Sam Okonkwo      ci: cache the pnpm store between jobs
+        .github/workflows/ci.yml | 9 ++-
+b8fa5ae 2026-06-14 Tom Bergeron     chore: regenerate the lockfile
+        .gitignore | 24 +++++--  CODEOWNERS | 29 ++++++---
+9f02d92 2026-06-15 Dana Whitfield   perf(api): reuse the parsed schema between requests
+        src/api/handlers.js | 40 ++++++++---
+c81ea04 2026-06-15 Dana Whitfield   chore(deps): bump dotenv from 16.4.5 to 16.4.7
+        package.json | 28 ++++++--  package-lock.json | 8 ++-
+b712e9f 2026-06-15 Sam Okonkwo      refactor(auth): inline the single-use response mapper
+        src/auth/token.js | 29 ++++++---  src/auth/session.js | 40 ++++++++---
+cd71358 2026-06-15 Ana Ruiz         chore(deps): bump nanoid from 5.0.7 to 5.0.8
+        package.json | 43 +++++++++----  package-lock.json | 11 +++-
+a456a32 2026-06-15 Yuki Tanaka      test(core): add a case for a zero-length body
+        test/core.test.js | 45 +++++++++----
+b5ad06c 2026-06-15 Lena Fischer     test(queue): cover the empty-page path in the paginator
+        test/queue.test.js | 17 ++++--
+a60eef0 2026-06-15 Tom Bergeron     chore(deps): bump eslint from 9.4.0 to 9.5.0
+        package.json | 53 +++++++++++----  package-lock.json | 8 ++-
+a00363b 2026-06-15 Tom Bergeron     ci: stop uploading the coverage artifact twice
+        .github/workflows/ci.yml | 43 +++++++++----
+958f5bc 2026-06-16 Ana Ruiz         docs: correct the default port in the readme
+        README.md | 23 +++++--
+298c202 2026-06-16 Priya Nair       chore: update the issue template
+        CODEOWNERS | 28 ++++++--
+8ca2ad8 2026-06-16 Tom Bergeron     test(db): seed the fixture clock so the run is stable
+        test/db.test.js | 14 +++-
+6cf7fed 2026-06-16 Yuki Tanaka      test(core): add the missing teardown to the queue suite
+        test/core.test.js | 52 +++++++++++----
+8639397 2026-06-16 Ines Costa       refactor(billing): stop re-exporting the internal error types
+        src/billing/invoice.js | 34 +++++++---  src/billing/proration.js | 33 +++++++---
+ff7a337 2026-06-16 Ana Ruiz         fix(queue): tighten the token parser error message
+        src/queue/producer.js | 7 ++-  test/queue.test.js | 10 ++-
+22aa575 2026-06-16 Lena Fischer     fix(core): drop the duplicate header
+        src/core/errors.js | 39 ++++++++---  test/core.test.js | 10 ++-
+e6ee55b 2026-06-16 Marco Silva      test(db): raise the timeout on the slow integration case
+        test/db.test.js | 46 ++++++++++----
+545479e 2026-06-17 Marco Silva      test(queue): add the missing teardown to the queue suite
+        test/queue.test.js | 55 +++++++++++----
+511f647 2026-06-17 Omar Haddad      chore: tidy the tsconfig paths
+        tsconfig.json | 48 ++++++++++----
+a8789d6 2026-06-17 Ana Ruiz         docs: correct the default port in the readme
+        docs/quickstart.md | 54 +++++++++++----
+2ae3863 2026-06-17 Priya Nair       chore(deps): bump fastify from 4.28.0 to 4.28.1
+        package.json | 31 +++++++---  package-lock.json | 42 +++++++++---
+1761f73 2026-06-17 Dana Whitfield   chore(deps): bump pino from 9.2.0 to 9.3.1
+        package.json | 30 ++++++---  package-lock.json | 31 +++++++---
+d40a3a4 2026-06-17 Sam Okonkwo      fix(db): guard the null cursor in the paginator
+        src/db/pool.js | 17 ++++--  test/db.test.js | 23 +++++--
+f46f10a 2026-06-17 Omar Haddad      chore(deps): bump prettier from 3.3.0 to 3.3.2
+        package.json | 33 +++++++---  package-lock.json | 40 ++++++++---
+98f3372 2026-06-17 Ana Ruiz         chore(deps): bump knex from 3.1.0 to 3.1.2
+        package.json | 28 ++++++--  package-lock.json | 58 ++++++++++++-----
+

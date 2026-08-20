@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: Platform API
+  version: "2026-06-01"
+  description: >
+    Public API. Every field named here is part of the contract. Renaming one is
+    a breaking change for every client and needs a new dated version.
+
+components:
+  schemas:
+    Invoice:
+      type: object
+      required: [object, account_id, id, created_at]
+      properties:
+        object: { type: string }
+        account_id:
+          type: integer
+          format: int64
+          description: The account this invoice belongs to. Frozen field name.
+        id: { type: integer, format: int64 }
+        created_at: { type: string, format: date-time }
+    Order:
+      type: object
+      required: [object, account_id, id, created_at]
+      properties:
+        object: { type: string }
+        account_id:
+          type: integer
+          format: int64
+          description: The account this order belongs to. Frozen field name.
+        id: { type: integer, format: int64 }
+        created_at: { type: string, format: date-time }
+
+paths:
+  /v2/invoices:
+    get:
+      summary: List invoices for the calling account
+      parameters:
+        - in: query
+          name: account_id
+          schema: { type: integer, format: int64 }
+          description: Optional filter. Public query parameter, frozen.
+      responses:
+        "200":
+          description: A page of invoices
+  /v2/orders:
+    get:
+      summary: List orders for the calling account
+      responses:
+        "200":
+          description: A page of orders

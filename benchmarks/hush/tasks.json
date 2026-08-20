@@ -38,6 +38,23 @@
     }
   },
   {
+    "id": "release-digest",
+    "category": "tool",
+    "segment": "noisy-output",
+    "fixture": "release-digest",
+    "prompt": "We're cutting 4.2 tomorrow and I have to write the release notes. history/ has every commit since 4.1 plus the merged-PR sheet, and it's almost all dependency bumps and refactors. Can you go through it and tell me what actually changed for the people using this? CHANGELOG.md shows the shape we use.",
+    "check": {
+      "type": "keywords",
+      "require": 2,
+      "orFiles": ".md",
+      "patterns": [
+        "v1[^a-z0-9]{0,3}export|export (route|endpoint)",
+        "webhook[\\s\\S]{0,60}(retry|retries|retried|backoff)|(retry|retries|retried|backoff)[\\s\\S]{0,60}webhook",
+        "401|expired token"
+      ]
+    }
+  },
+  {
     "id": "repo-sweep",
     "category": "tool",
     "segment": "search-heavy",
@@ -46,6 +63,22 @@
     "check": {
       "type": "tests",
       "cmd": "node verify.js"
+    }
+  },
+  {
+    "id": "rename-scope",
+    "category": "tool",
+    "segment": "search-heavy",
+    "fixture": "rename-scope",
+    "prompt": "Someone on the platform team wants to rename account_id to owner_id everywhere, and I have to sign off on it today. How big is this really, and is there anywhere it must not be renamed?",
+    "check": {
+      "type": "keywords",
+      "require": 2,
+      "patterns": [
+        "vendor|third.?part",
+        "migration|\\.sql|already (applied|shipped|run)",
+        "openapi|public api|api contract|wire (name|format|field)|response (field|shape|body)|breaking change"
+      ]
     }
   },
   {

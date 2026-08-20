@@ -13,7 +13,9 @@
     "log-triage",
     "dep-bump-warnings",
     "failing-suite",
+    "release-digest",
     "repo-sweep",
+    "rename-scope",
     "feature-drift",
     "incident-forensics"
   ]

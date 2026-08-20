@@ -13,12 +13,12 @@ It drives **real headless Claude Code sessions** (`claude -p`) on the same fixed
 ## The honest disclaimer, up front
 
 > [!WARNING]
-> This costs real money. The cheap default run is roughly **$2–4 on the small model** and takes a few minutes. Extra arms or the bigger model cost more — the bill scales with tasks × arms × reps.
+> This costs real money. The default run is roughly **$12–16 on the small model** and takes a few minutes. Extra arms or the bigger model cost more — the bill scales with tasks × arms × reps. `--tasks log-triage,dep-bump-warnings` is the cheap way to see the shape first.
 
 > [!NOTE]
 > The numbers move between runs — a handful of reps against a live model, not a powered experiment. Expect single-digit-percent swings on any given task, and more on the noisy ones. Judge a task by the *per-rep spread*, not just the mean.
 
-**What you should see:** the same *shape* as our published charts — hush **a wash on the noisy build tasks** (`log-triage`, `dep-bump-warnings`, `failing-suite`), **far less mid-turn narration** throughout, and every task still passing. You will **not** reproduce our exact figures, and that's expected. A run where hush is cheaper on every single task would be the surprising result, not the target.
+**What you should see:** the same *shape* as our published charts — hush **cutting hard on the big-artifact tasks** (`log-triage`, `incident-forensics`, `release-digest`, `rename-scope`), **costing a little on the small ones** (`dep-bump-warnings`, `failing-suite`), **far less mid-turn narration** throughout, and every task still passing. You will **not** reproduce our exact figures, and that's expected. A run where hush is cheaper on every single task would be the surprising result, not the target.
 
 ## Run it
 
@@ -88,11 +88,13 @@ Each run records, per session: cost, output tokens, **context traffic** (the sum
 
 Reports group all of that **by segment**, because a plugin that saves you money on a log-triage session and costs you a little on a one-line question is two different results, not one average. Each segment gets its own median, mean, quartiles, confidence interval, win rate against baseline, and the single worst task regression, named. Correctness is a keyword rubric or a `node` exit code, hand-ground-truthed per task — a degenerate one-word answer fails.
 
-The tasks: **6** in all, across three segments — the shapes of real engineering work hush is built for:
+The tasks: **8** in all, across three segments — the shapes of real engineering work hush is built for:
 
-- **noisy build and test output** (3) — a production log to triage, a dependency bump that buried a real error under 400 warnings, and a 625-case suite hiding three real failures.
-- **search-heavy work** (1) — finishing a half-done API migration across 76 modules without touching the vendored copy.
+- **noisy build and test output** (4) — a production log to triage, 380 commits of release history hiding three changes anyone would notice, a dependency bump that buried a real error under 400 warnings, and a 625-case suite hiding three real failures.
+- **search-heavy work** (2) — finishing a half-done API migration across 76 modules without touching the vendored copy, and scoping a column rename that matches a thousand lines and must not touch three of them.
 - **long sessions that drift** (2) — a feature whose requirements change under it across five prompts, and a four-prompt incident investigation over 300KB of logs. These are the shapes where history piles up.
+
+The suite spans the size range on purpose. hush can only compress output that reaches the session, so its effect swings from a large saving on a task whose tool results run to tens of thousands of characters down to a small loss on a task with almost nothing to cut. Half the tasks sit at each end, and the per-task table shows where the line falls rather than hiding it in an average.
 
 Every repo the tasks run in is a purpose-built fixture — a small seeded project with the bug, the noisy log, or the half-done migration already in place, not an open-source checkout. That keeps runs comparable and cheap; it also means the suite measures those shapes of work, not the shape of your repo. Short no-tools questions are deliberately absent: hush costs a little more there, the front page says so, and a suite of them would measure a workload hush is not for.
 

@@ -1,0 +1,128 @@
+pr	merged	author	title	labels
+#4120	2026-05-02	Lena Fischer	chore(deps): bump pino from 9.2.0 to 9.3.1	dependencies
+#4121	2026-05-02	Yuki Tanaka	chore(deps): bump pino from 9.2.0 to 9.3.1	dependencies
+#4122	2026-05-02	Yuki Tanaka	perf(queue): batch the metric writes	code
+#4123	2026-05-03	Dana Whitfield	refactor(api): move the config loader under src/config	code
+#4124	2026-05-03	Dana Whitfield	chore(deps): bump eslint from 9.4.0 to 9.5.0	dependencies
+#4125	2026-05-03	Tom Bergeron	chore(deps): bump eslint from 9.4.0 to 9.5.0	dependencies
+#4126	2026-05-04	Priya Nair	chore(deps): bump vitest from 1.6.0 to 2.0.1	dependencies
+#4127	2026-05-04	Marco Silva	ci: split the lint job out of the build	internal
+#4128	2026-05-04	Yuki Tanaka	docs: note the minimum node version	documentation
+#4129	2026-05-05	Dana Whitfield	test(db): seed the fixture clock so the run is stable	internal
+#4130	2026-05-05	Tom Bergeron	refactor(jobs): rename the internal Ctx type to RequestCtx	code
+#4131	2026-05-06	Sam Okonkwo	chore(deps): bump vitest from 1.6.0 to 2.0.1	dependencies
+#4132	2026-05-06	Dana Whitfield	refactor(http): drop the unused v2 debug helper	code
+#4133	2026-05-06	Yuki Tanaka	chore: pin the node version in .nvmrc	internal
+#4134	2026-05-07	Omar Haddad	chore(deps): bump esbuild from 0.21.4 to 0.23.0	dependencies
+#4135	2026-05-07	Tom Bergeron	chore: pin the node version in .nvmrc	internal
+#4136	2026-05-07	Yuki Tanaka	refactor(db): collapse the two retry helpers into one	code
+#4137	2026-05-08	Priya Nair	refactor(db): pull the request id out of the logger context	code
+#4138	2026-05-08	Yuki Tanaka	refactor(jobs): use the shared clock helper instead of Date.now	code
+#4139	2026-05-09	Dana Whitfield	chore: sort the package.json fields	internal
+#4140	2026-05-09	Lena Fischer	refactor(jobs): split the router file by resource	code
+#4141	2026-05-09	Yuki Tanaka	chore(deps): bump pino from 9.2.0 to 9.3.1	dependencies
+#4142	2026-05-10	Ana Ruiz	fix(queue): trim the trailing slash once	code
+#4143	2026-05-10	Sam Okonkwo	chore: ignore the coverage folder	internal
+#4144	2026-05-10	Sam Okonkwo	chore(deps): bump typescript from 5.5.2 to 5.5.4	dependencies
+#4145	2026-05-11	Omar Haddad	test(auth): add a case for a zero-length body	internal
+#4146	2026-05-11	Sam Okonkwo	chore: regenerate the lockfile	internal
+#4147	2026-05-12	Dana Whitfield	ci: retry flaky jobs with backoff	internal
+#4148	2026-05-12	Dana Whitfield	test(db): raise the timeout on the slow integration case	internal
+#4149	2026-05-12	Yuki Tanaka	chore(deps): bump tsx from 4.15.7 to 4.16.2	dependencies
+#4150	2026-05-13	Priya Nair	test(billing): add the missing teardown to the queue suite	internal
+#4151	2026-05-13	Marco Silva	test(store): assert the error code, not the message	internal
+#4152	2026-05-13	Ana Ruiz	refactor(api): drop the unused v1 export route	code
+#4153	2026-05-14	Ana Ruiz	chore: sort the package.json fields	internal
+#4154	2026-05-14	Omar Haddad	chore(deps): bump typescript from 5.5.2 to 5.5.4	dependencies
+#4155	2026-05-14	Lena Fischer	refactor(db): stop re-exporting the internal error types	code
+#4156	2026-05-15	Priya Nair	chore(deps): bump prettier from 3.3.0 to 3.3.2	dependencies
+#4157	2026-05-15	Ana Ruiz	fix(db): stop logging the whole request body	code
+#4158	2026-05-16	Lena Fischer	chore(deps): bump dotenv from 16.4.5 to 16.4.7	dependencies
+#4159	2026-05-16	Marco Silva	chore(deps): bump esbuild from 0.21.4 to 0.23.0	dependencies
+#4160	2026-05-16	Lena Fischer	chore: add the editorconfig back	internal
+#4161	2026-05-17	Tom Bergeron	docs: correct the default port in the readme	documentation
+#4162	2026-05-17	Omar Haddad	test(queue): stop the flaky ordering assertion	internal
+#4163	2026-05-17	Priya Nair	test(billing): assert the error code, not the message	internal
+#4164	2026-05-18	Sam Okonkwo	refactor(core): collapse the two retry helpers into one	code
+#4165	2026-05-18	Ines Costa	chore(deps): bump knex from 3.1.0 to 3.1.2	dependencies
+#4166	2026-05-19	Ana Ruiz	chore(deps): bump pg from 8.12.0 to 8.13.0	dependencies
+#4167	2026-05-19	Ines Costa	chore(deps): bump prettier from 3.3.0 to 3.3.2	dependencies
+#4168	2026-05-19	Tom Bergeron	perf(billing): avoid the extra clone in the mapper	code
+#4169	2026-05-20	Marco Silva	chore(deps): bump husky from 9.0.11 to 9.1.1	dependencies
+#4170	2026-05-20	Tom Bergeron	refactor(auth): inline the single-use response mapper	code
+#4171	2026-05-20	Omar Haddad	refactor(api): rename the internal Ctx type to RequestCtx	code
+#4172	2026-05-21	Priya Nair	fix(jobs): trim the trailing slash once	code
+#4173	2026-05-21	Ines Costa	refactor(store): split the router file by resource	code
+#4174	2026-05-22	Lena Fischer	fix(jobs): handle an empty allowlist	code
+#4175	2026-05-22	Tom Bergeron	chore: sort the package.json fields	internal
+#4176	2026-05-22	Lena Fischer	fix(api): keep the trace id across the retry	code
+#4177	2026-05-23	Marco Silva	refactor(queue): delete the dead feature-flag branch	code
+#4178	2026-05-23	Omar Haddad	chore(deps): bump pg from 8.12.0 to 8.13.0	dependencies
+#4179	2026-05-23	Ana Ruiz	ci: stop uploading the coverage artifact twice	internal
+#4180	2026-05-24	Yuki Tanaka	test(webhooks): cover the empty-page path in the paginator	internal
+#4181	2026-05-24	Omar Haddad	perf(core): skip the JSON round-trip on the hot path	code
+#4182	2026-05-25	Dana Whitfield	refactor(api): drop the unused v2 debug helper	code
+#4183	2026-05-25	Yuki Tanaka	test(http): raise the timeout on the slow integration case	internal
+#4184	2026-05-25	Priya Nair	ci: run the suite on node 22	internal
+#4185	2026-05-26	Omar Haddad	fix(store): use the right units in the latency histogram	code
+#4186	2026-05-26	Yuki Tanaka	chore: ignore the coverage folder	internal
+#4187	2026-05-26	Yuki Tanaka	refactor(http): pull the request id out of the logger context	code
+#4188	2026-05-27	Tom Bergeron	refactor(db): rename the internal Ctx type to RequestCtx	code
+#4189	2026-05-27	Sam Okonkwo	chore(deps): bump ioredis from 5.4.1 to 5.4.2	dependencies
+#4190	2026-05-27	Priya Nair	test(http): assert the error code, not the message	internal
+#4191	2026-05-28	Lena Fischer	feat(webhooks): retry failed deliveries with exponential backoff	code
+#4192	2026-05-28	Dana Whitfield	chore(deps): bump pg from 8.12.0 to 8.13.0	dependencies
+#4193	2026-05-29	Tom Bergeron	refactor(billing): collapse the two retry helpers into one	code
+#4194	2026-05-29	Omar Haddad	chore(deps): bump knex from 3.1.0 to 3.1.2	dependencies
+#4195	2026-05-29	Lena Fischer	refactor(core): drop the unused v2 debug helper	code
+#4196	2026-05-30	Priya Nair	refactor(jobs): drop the unused v2 debug helper	code
+#4197	2026-05-30	Ines Costa	ci: cache the pnpm store between jobs	internal
+#4198	2026-05-30	Marco Silva	refactor(queue): pull the request id out of the logger context	code
+#4199	2026-05-31	Marco Silva	chore: sort the package.json fields	internal
+#4200	2026-05-31	Yuki Tanaka	chore(deps): bump ioredis from 5.4.1 to 5.4.2	dependencies
+#4201	2026-06-01	Priya Nair	chore(deps): bump zod from 3.23.6 to 3.23.8	dependencies
+#4202	2026-06-01	Dana Whitfield	chore(deps): bump tsx from 4.15.7 to 4.16.2	dependencies
+#4203	2026-06-01	Lena Fischer	chore: sort the package.json fields	internal
+#4204	2026-06-02	Yuki Tanaka	ci: stop uploading the coverage artifact twice	internal
+#4205	2026-06-02	Ines Costa	fix(webhooks): guard the null cursor in the paginator	code
+#4206	2026-06-02	Ines Costa	test(webhooks): assert the error code, not the message	internal
+#4207	2026-06-03	Priya Nair	chore(deps): bump pino from 9.2.0 to 9.3.1	dependencies
+#4208	2026-06-03	Yuki Tanaka	fix(http): drop the duplicate header	code
+#4209	2026-06-04	Omar Haddad	chore: drop the stale codeowners entry	internal
+#4210	2026-06-04	Ines Costa	perf(store): avoid the extra clone in the mapper	code
+#4211	2026-06-04	Lena Fischer	chore(deps): bump prettier from 3.3.0 to 3.3.2	dependencies
+#4212	2026-06-05	Lena Fischer	chore(deps): bump eslint from 9.4.0 to 9.5.0	dependencies
+#4213	2026-06-05	Sam Okonkwo	chore(deps): bump pino from 9.2.0 to 9.3.1	dependencies
+#4214	2026-06-05	Omar Haddad	test(jobs): drop the snapshot nobody reads	internal
+#4215	2026-06-06	Ines Costa	chore(deps): bump pg from 8.12.0 to 8.13.0	dependencies
+#4216	2026-06-06	Sam Okonkwo	refactor(webhooks): drop the unused v2 debug helper	code
+#4217	2026-06-06	Priya Nair	chore: regenerate the lockfile	internal
+#4218	2026-06-07	Dana Whitfield	ci: stop uploading the coverage artifact twice	internal
+#4219	2026-06-07	Marco Silva	docs: document the retry envelope	documentation
+#4220	2026-06-08	Lena Fischer	chore(deps): bump husky from 9.0.11 to 9.1.1	dependencies
+#4221	2026-06-08	Dana Whitfield	test(queue): cover the empty-page path in the paginator	internal
+#4222	2026-06-08	Sam Okonkwo	chore(deps): bump pino from 9.2.0 to 9.3.1	dependencies
+#4223	2026-06-09	Sam Okonkwo	fix(auth): return 401 for an expired token instead of 403	code
+#4224	2026-06-09	Marco Silva	chore(deps): bump nanoid from 5.0.7 to 5.0.8	dependencies
+#4225	2026-06-09	Ines Costa	chore(deps): bump ioredis from 5.4.1 to 5.4.2	dependencies
+#4226	2026-06-10	Lena Fischer	refactor(core): move the config loader under src/config	code
+#4227	2026-06-10	Sam Okonkwo	chore(deps): bump pg from 8.12.0 to 8.13.0	dependencies
+#4228	2026-06-11	Sam Okonkwo	chore(deps): bump knex from 3.1.0 to 3.1.2	dependencies
+#4229	2026-06-11	Lena Fischer	refactor(queue): inline the single-use response mapper	code
+#4230	2026-06-11	Lena Fischer	refactor(store): split the router file by resource	code
+#4231	2026-06-12	Marco Silva	refactor(http): drop the unused v2 debug helper	code
+#4232	2026-06-12	Sam Okonkwo	chore: tidy the tsconfig paths	internal
+#4233	2026-06-12	Marco Silva	docs: note the minimum node version	documentation
+#4234	2026-06-13	Sam Okonkwo	docs: link the changelog from the readme	documentation
+#4235	2026-06-13	Marco Silva	test(api): seed the fixture clock so the run is stable	internal
+#4236	2026-06-14	Marco Silva	chore: update the issue template	internal
+#4237	2026-06-14	Lena Fischer	ci: stop uploading the coverage artifact twice	internal
+#4238	2026-06-14	Ines Costa	ci: cache the pnpm store between jobs	internal
+#4239	2026-06-15	Ana Ruiz	chore(deps): bump dotenv from 16.4.5 to 16.4.7	dependencies
+#4240	2026-06-15	Tom Bergeron	test(core): add a case for a zero-length body	internal
+#4241	2026-06-15	Dana Whitfield	ci: stop uploading the coverage artifact twice	internal
+#4242	2026-06-16	Sam Okonkwo	test(db): seed the fixture clock so the run is stable	internal
+#4243	2026-06-16	Lena Fischer	fix(queue): tighten the token parser error message	code
+#4244	2026-06-17	Priya Nair	test(queue): add the missing teardown to the queue suite	internal
+#4245	2026-06-17	Omar Haddad	chore(deps): bump fastify from 4.28.0 to 4.28.1	dependencies
+#4246	2026-06-17	Tom Bergeron	chore(deps): bump prettier from 3.3.0 to 3.3.2	dependencies

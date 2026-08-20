@@ -87,6 +87,76 @@ describe('segments: every task is placed, every segment is populated', () => {
     assert.ok(fs.existsSync(path.join(dir, 'verify.js')), 'the migration has no ground-truth check');
   });
 
+  // hush compresses what reaches the session, so a task whose tool output is
+  // small cannot exercise it at all. Half the suite is sized to flood and half
+  // is not; these two guard the flooding half against shrinking back.
+  test('release-digest hides its three real changes in a log big enough to flood', () => {
+    const dir = path.join(BENCH, 'fixtures', 'release-digest');
+    const log = fs.readFileSync(path.join(dir, 'history', 'commits.log'), 'utf8');
+    assert.ok(log.length > 40000, `commits.log is only ${log.length} chars — too small to flood`);
+    for (const subject of [
+      'drop the unused v1 export route',
+      'retry failed deliveries with exponential backoff',
+      'return 401 for an expired token instead of 403',
+    ]) {
+      const hits = log.split('\n').filter((l) => l.includes(subject)).length;
+      assert.strictEqual(hits, 1, `"${subject}" appears ${hits} times, expected exactly one`);
+    }
+  });
+
+  test('rename-scope floods on one grep and protects three places from the rename', () => {
+    const dir = path.join(BENCH, 'fixtures', 'rename-scope');
+    const walk = (d) => fs.readdirSync(d, { withFileTypes: true })
+      .flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
+    const files = walk(dir);
+    let hits = 0;
+    for (const f of files) {
+      hits += fs.readFileSync(f, 'utf8').split('\n').filter((l) => l.includes('account_id')).length;
+    }
+    assert.ok(hits > 800, `only ${hits} matching lines — one grep would not flood`);
+    // The whole task is telling these three apart from the renameable rest.
+    for (const rel of ['vendor/reporting-sdk/src/client.js', 'docs/openapi.yaml']) {
+      assert.ok(fs.readFileSync(path.join(dir, rel), 'utf8').includes('account_id'), `${rel} lost its mentions`);
+    }
+    const migrations = fs.readdirSync(path.join(dir, 'migrations'));
+    assert.ok(migrations.length >= 10, `only ${migrations.length} applied migrations`);
+  });
+
+  // A keyword check that the fixture already satisfies would pass every arm,
+  // including one that answered nothing. Each has to need the report.
+  test('no keyword check passes on an empty answer', () => {
+    const { runCheck } = require('../runner/metrics.js');
+    for (const t of TASKS.filter((x) => x.check.type === 'keywords')) {
+      const r = runCheck(t.check, '', path.join(BENCH, 'fixtures', t.fixture));
+      assert.strictEqual(r.pass, false, `${t.id} passes with no answer: ${r.detail}`);
+    }
+  });
+
+  // The mirror of the test above: a rubric nobody can satisfy would fail every
+  // arm and waste the batch. Literal reports through the shipped checker.
+  test('the new rubrics separate a right answer from a wrong one', () => {
+    const { runCheck } = require('../runner/metrics.js');
+    const say = (id, text) => runCheck(TASKS.find((t) => t.id === id).check, text,
+      path.join(BENCH, 'fixtures', TASKS.find((t) => t.id === id).fixture)).pass;
+
+    assert.strictEqual(say('release-digest', [
+      'The /v1/export route is gone. That is a breaking change.',
+      'Failed webhook deliveries now retry with backoff.',
+      'An expired token now returns 401, not 403.',
+    ].join('\n')), true, 'a correct release note fails');
+    assert.strictEqual(say('release-digest',
+      'There are 380 commits since 4.1. Most are chore(deps) bumps across api, auth and webhooks.'),
+    false, 'listing the churn passes without naming a change');
+
+    assert.strictEqual(say('rename-scope', [
+      'Leave the vendored SDK alone — the next refresh overwrites it.',
+      'Do not edit the migrations that already ran.',
+    ].join('\n')), true, 'naming two protected places fails');
+    assert.strictEqual(say('rename-scope',
+      'It matches around 1,100 lines in 97 files. Big but mechanical.'),
+    false, 'a size-only answer passes');
+  });
+
   test('every long-session task really spans several prompts', () => {
     for (const t of TASKS.filter((x) => x.segment === 'long-session')) {
       assert.ok(Array.isArray(t.prompts) && t.prompts.length >= 3, `${t.id} does not span turns`);
