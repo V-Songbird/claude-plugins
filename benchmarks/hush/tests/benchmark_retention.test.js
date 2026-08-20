@@ -8,7 +8,7 @@ const { test, describe } = require('node:test');
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
-const { judgePrompt, parseVerdicts, retentionReport, keysHash } = require('../runner/retention.js');
+const { judgePrompt, parseVerdicts, retentionReport, keysHash, PROMPT_VERSION } = require('../runner/retention.js');
 
 describe('retention keys file', () => {
   const keys = JSON.parse(
@@ -91,4 +91,11 @@ describe('retentionReport', () => {
 
 test('keysHash changes when an item changes', () => {
   assert.notStrictEqual(keysHash(['a', 'b']), keysHash(['a', 'c']));
+});
+
+// The cache key carries a prompt version so a reworded prompt re-judges
+// instead of reusing the old wording's verdicts. It is empty on purpose:
+// every verdict cached under the original prompt stays valid.
+test('the prompt version is empty, so the cached verdicts stay valid', () => {
+  assert.strictEqual(PROMPT_VERSION, '');
 });

@@ -33,6 +33,13 @@ const { spawn } = require('node:child_process');
 const ROOT = path.resolve(__dirname, '..');
 const KEYS_FILE = path.join(ROOT, 'retention-keys.json');
 
+// Part of the cache key, so a reworded prompt cannot silently reuse the
+// verdicts the old wording produced. Empty means the original prompt, which
+// keeps every verdict cached to date valid — put a tag here (e.g.
+// '|retention-2') the moment the prompt below changes meaning, and the next
+// run re-judges instead of trusting stale answers.
+const PROMPT_VERSION = '';
+
 // --- prompt -----------------------------------------------------------------
 
 /** Blind judge prompt: the report and the claims, nothing about where the
@@ -164,7 +171,7 @@ async function main() {
   let spent = 0;
   for (const r of records) {
     const items = keys[r.task];
-    const cacheKey = `${r.batchId}|${r.key}|${model}|${keysHash(items)}`;
+    const cacheKey = `${r.batchId}|${r.key}|${model}|${keysHash(items)}${PROMPT_VERSION}`;
     if (cache[cacheKey]) {
       scored.push({ arm: r.arm, task: r.task, key: r.key, verdicts: cache[cacheKey] });
     } else {
@@ -223,4 +230,4 @@ if (require.main === module) main();
 
 // judgeOnce and readRecordsDir are exported for truth.js, which scores the
 // same records with the same judge plumbing and a different question.
-module.exports = { judgePrompt, parseVerdicts, retentionReport, keysHash, judgeOnce, readRecordsDir };
+module.exports = { judgePrompt, parseVerdicts, retentionReport, keysHash, judgeOnce, readRecordsDir, PROMPT_VERSION };
