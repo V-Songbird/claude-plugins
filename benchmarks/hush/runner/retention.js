@@ -221,4 +221,6 @@ async function main() {
 
 if (require.main === module) main();
 
-module.exports = { judgePrompt, parseVerdicts, retentionReport, keysHash };
+// judgeOnce and readRecordsDir are exported for truth.js, which scores the
+// same records with the same judge plumbing and a different question.
+module.exports = { judgePrompt, parseVerdicts, retentionReport, keysHash, judgeOnce, readRecordsDir };
