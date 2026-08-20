@@ -73,6 +73,33 @@ describe('segments: every task is placed, every segment is populated', () => {
     }
   });
 
+  test('the grader a prompt never names is held out of the workspace', () => {
+    // A session that can read the grader either implements its answer or stops
+    // to ask why it contradicts the prompt. Both were measured on
+    // feature-drift. Only the artifact a prompt actually asks about stays.
+    const hidden = TASKS.filter((t) => t.check.type === 'tests' && t.check.hidden).map((t) => t.id);
+    assert.deepStrictEqual(hidden.sort(), ['failing-suite', 'feature-drift', 'repo-sweep']);
+    const visible = TASKS.filter((t) => t.check.type === 'tests' && !t.check.hidden).map((t) => t.id);
+    assert.deepStrictEqual(visible, ['dep-bump-warnings'], 'build.js is what that prompt asks about');
+  });
+
+  test('every check script exists in its fixture, so the restore cannot fail', () => {
+    for (const t of TASKS.filter((x) => x.check.type === 'tests')) {
+      const script = t.check.cmd.split(' ').pop();
+      assert.ok(fs.existsSync(path.join(BENCH, 'fixtures', t.fixture, script)),
+        `${t.id}: fixtures/${t.fixture}/${script} is missing`);
+    }
+  });
+
+  test('the runner removes the hidden grader and puts it back for the check', () => {
+    const src = fs.readFileSync(path.join(BENCH, 'runner', 'run.js'), 'utf8');
+    const cut = src.indexOf('fs.rmSync(path.join(workDir, graderFile)');
+    const restore = src.indexOf("task.fixture, graderFile), path.join(workDir, graderFile)");
+    const check = src.indexOf('runCheck(task.check, last.finalText, workDir)');
+    assert.ok(cut > 0, 'run.js never removes the hidden grader');
+    assert.ok(restore > cut && restore < check, 'it is not put back before the check runs');
+  });
+
   test('the search-heavy fixture is big enough that a grep genuinely collapses', () => {
     const dir = path.join(BENCH, 'fixtures', 'repo-sweep');
     const walk = (d) => fs.readdirSync(d, { withFileTypes: true })

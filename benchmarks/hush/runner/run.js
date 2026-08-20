@@ -335,6 +335,15 @@ async function oneRun(task, arm, rep, orderIndex) {
   fs.rmSync(workDir, { recursive: true, force: true });
   fs.mkdirSync(workDir, { recursive: true });
   if (task.fixture) fs.cpSync(path.join(ROOT, 'fixtures', task.fixture), workDir, { recursive: true });
+  // A grader the prompt never names is a spoiler. Sessions read it, find it
+  // says more than the prompt did, and either implement its answer or stop to
+  // ask about the contradiction — measured on feature-drift, where it cost the
+  // arms that asked four turns of doing nothing. Hold it out of the workspace
+  // and put it back for the check, from the fixture, so a session can neither
+  // read it nor blunt it. `hidden` is opt-in: dep-bump-warnings' build.js is
+  // the thing the prompt asks about and stays visible.
+  const graderFile = task.check.hidden ? task.check.cmd.split(' ').pop() : null;
+  if (graderFile) fs.rmSync(path.join(workDir, graderFile), { force: true });
 
   const prompts = task.prompts || [task.prompt];
   const env = cleanEnv(ARMS[arm].env, arm);
@@ -359,6 +368,9 @@ async function oneRun(task, arm, rep, orderIndex) {
     const last = parsed[parsed.length - 1];
     assertUsableRun(parsed);
     const sum = (f) => parsed.reduce((n, p) => n + (p[f] || 0), 0);
+    if (graderFile) {
+      fs.cpSync(path.join(ROOT, 'fixtures', task.fixture, graderFile), path.join(workDir, graderFile));
+    }
     const check = runCheck(task.check, last.finalText, workDir);
     record = {
       ...provenance, category: task.category, model,

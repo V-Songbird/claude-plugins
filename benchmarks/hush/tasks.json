@@ -34,7 +34,8 @@
     "prompt": "The pricing suite is red and the output is a wall of text I can't read through. Can you run it, work out what's actually broken, and get it green?",
     "check": {
       "type": "tests",
-      "cmd": "node verify.js"
+      "cmd": "node verify.js",
+      "hidden": true
     }
   },
   {
@@ -62,7 +63,8 @@
     "prompt": "We're retiring db.query in favour of db.execute({ sql, params }). Most of the codebase moved over in earlier passes — can you find whatever is still on the old call and finish the migration?",
     "check": {
       "type": "tests",
-      "cmd": "node verify.js"
+      "cmd": "node verify.js",
+      "hidden": true
     }
   },
   {
@@ -95,7 +97,8 @@
     ],
     "check": {
       "type": "tests",
-      "cmd": "node verify.js"
+      "cmd": "node verify.js",
+      "hidden": true
     }
   },
   {

@@ -94,7 +94,7 @@ node --test hush/tests/*.test.js
 
 Each run records, per session: cost, output tokens, **context traffic** (the sum of input + cache tokens across every API call — where tool-output compression shows up), mid-turn narration words vs. the final answer, characters of tool output that entered context, turns, wall time, and a pass/fail from the task's ground-truth check.
 
-Reports group all of that **by segment**, because a plugin that saves you money on a log-triage session and costs you a little on a one-line question is two different results, not one average. Each segment gets its own median, mean, quartiles, confidence interval, win rate against baseline, and the single worst task regression, named. Correctness is a keyword rubric or a `node` exit code, hand-ground-truthed per task — a degenerate one-word answer fails.
+Reports group all of that **by segment**, because a plugin that saves you money on a log-triage session and costs you a little on a one-line question is two different results, not one average. Each segment gets its own median, mean, quartiles, confidence interval, win rate against baseline, and the single worst task regression, named. Correctness is a keyword rubric or a `node` exit code, hand-ground-truthed per task — a degenerate one-word answer fails. Where the grader is a script the prompt never mentions, it is held out of the workspace while the session runs and put back from the fixture for the check — a session that could read it would either implement its answer or stop to ask why it says more than the prompt did.
 
 The tasks: **8** in all, across three segments — the shapes of real engineering work hush is built for:
 
