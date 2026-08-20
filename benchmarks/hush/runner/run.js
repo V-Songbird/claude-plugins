@@ -84,8 +84,11 @@ const ARMS = {
 
 // Optional bring-your-own-rival arms. We never name or ship a rival plugin —
 // you point this at whatever plugin dir you want to measure against. The
-// flags repeat for extra rivals and pair up by position: the Nth --rival-name /
-// --rival-settings / --rival-env belongs to the Nth --rival-dir.
+// flags repeat for extra rivals and pair up by position: the Nth --rival-name,
+// --rival-dir, --rival-settings and --rival-env all describe the same arm.
+// --rival-dir may be left out for a rival that needs no plugin loaded, which
+// is how Claude Code's own built-in output styles are measured — see
+// settings-concise.json.
 function flagAll(name) {
   const out = [];
   for (let i = 0; i < argv.length; i++) if (argv[i] === `--${name}`) out.push(argv[i + 1]);
@@ -93,7 +96,10 @@ function flagAll(name) {
 }
 function addArm(name, dir, settings, env) {
   ARMS[name] = {
-    pluginDirs: [path.resolve(dir)],
+    // A rival with no directory is a real case, not a mistake: Claude Code's
+    // own built-in output styles are rivals that ship inside the CLI, so they
+    // are selected by a settings file alone with no plugin to load.
+    pluginDirs: dir ? [path.resolve(dir)] : [],
     ...(settings ? { settings: path.resolve(settings) } : {}),
     env: env || {},
   };
@@ -103,10 +109,13 @@ const rivalDirs = flagAll('rival-dir');
 const rivalNames = flagAll('rival-name');
 const rivalSettingsList = flagAll('rival-settings');
 const rivalEnvs = flagAll('rival-env');
-rivalDirs.forEach((dir, i) => {
-  const name = rivalNames[i] || (rivalDirs.length > 1 ? `rival${i + 1}` : 'rival');
-  addArm(name, dir, rivalSettingsList[i], parseRivalEnv(rivalEnvs[i] || null));
-});
+// Driven by whichever list is longest, so a dir-less rival still pairs up by
+// position with its name, settings and env.
+const rivalCount = Math.max(rivalDirs.length, rivalNames.length, rivalSettingsList.length);
+for (let i = 0; i < rivalCount; i++) {
+  const name = rivalNames[i] || (rivalCount > 1 ? `rival${i + 1}` : 'rival');
+  addArm(name, rivalDirs[i], rivalSettingsList[i], parseRivalEnv(rivalEnvs[i] || null));
+}
 
 // Ablation arms: hush against itself with one surface switched off, so a win
 // can be attributed to a surface instead of to "the plugin". Same plugin dir,

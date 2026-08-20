@@ -196,6 +196,44 @@ describe('README.md stays in step with the suite', () => {
   });
 });
 
+// ------------------------------------------------- a rival with no plugin dir
+
+// Claude Code ships built-in output styles, and one of them sets out to do
+// much of what hush's final message does. Measuring it is a rival arm with no
+// plugin to load — settings only. Checked through the shipped runner, free.
+describe('a built-in output style can be raced as an arm', () => {
+  test('settings-concise.json selects a built-in style, not a plugin one', () => {
+    const s = JSON.parse(fs.readFileSync(path.join(BENCH, 'settings-concise.json'), 'utf8'));
+    assert.strictEqual(s.outputStyle, 'Concise');
+    assert.ok(!s.outputStyle.includes(':'), 'a built-in style carries no plugin prefix');
+  });
+
+  test('--rival-settings with no --rival-dir still builds a named arm', () => {
+    const tag = `native-probe-${process.pid}`;
+    const resDir = path.join(BENCH, 'results', tag);
+    const env = { ...process.env };
+    delete env.NODE_TEST_CONTEXT;
+    delete env.NODE_CHANNEL_FD;
+    try {
+      const r = spawnSync(process.execPath, [
+        path.join(BENCH, 'runner', 'run.js'), '--tag', tag, '--dry-run',
+        '--tasks', 'log-triage',
+        '--rival-name', 'concise', '--rival-settings', 'settings-concise.json',
+      ], { cwd: BENCH, encoding: 'utf8', env });
+      assert.strictEqual(r.status, 0, r.stderr);
+      assert.match(r.stdout, /log-triage \[noisy-output\] concise/, `no concise arm in:\n${r.stdout}`);
+      // and it joins the existing arms rather than replacing them
+      assert.match(r.stdout, /log-triage \[noisy-output\] hush/);
+      assert.match(r.stdout, /log-triage \[noisy-output\] baseline/);
+    } finally { rmTree(resDir); }
+  });
+
+  test('the README documents the dir-less form it now supports', () => {
+    assert.ok(BENCH_README.includes('settings-concise.json'),
+      'README never shows how to race a built-in style');
+  });
+});
+
 // ---------------------------------------------------------- seeded ordering
 
 describe('ordering: randomized, seeded, replayable', () => {
@@ -837,7 +875,11 @@ describe('ablation arms reuse the rival plumbing', () => {
   test('both surfaces get an arm, wired through the same addArm the rivals use', () => {
     assert.match(run, /addArm\('hush-core-only', HUSH_DIR,[\s\S]*?\{ HUSH_QUIET: 'off' \}\)/);
     assert.match(run, /addArm\('hush-quiet-only', HUSH_DIR,[\s\S]*?\{ HUSH_CORE: 'off' \}\)/);
-    assert.match(run, /rivalDirs\.forEach\([\s\S]*?addArm\(name, dir/);
+    // The rival loop is driven by whichever flag list is longest, so a rival
+    // that needs no plugin directory still gets an arm — that is how a
+    // built-in output style is raced. It must still call the same addArm.
+    assert.match(run, /rivalCount = Math\.max\(rivalDirs\.length, rivalNames\.length/);
+    assert.match(run, /for \(let i = 0; i < rivalCount[\s\S]*?addArm\(name, rivalDirs\[i\]/);
   });
 
   test('the off tokens the arms pass are the ones the gate honours', () => {
