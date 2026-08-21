@@ -78,6 +78,34 @@ function suiteTable(runs, arms) {
 // at two decimal places — so a public dollar figure gets traced against this
 // list rather than against the markdown. Built from the same two functions the
 // cost tables render from, so it cannot drift away from what they print.
+// Per job, ordered by how much tool output a plain session pulls in per API
+// call. A suite mean cannot tell a reader when they will win or lose; this
+// ordering can, and it is what the front page prints. Cost is a mean here, not
+// a median, because one job runs too few times for a median to say anything.
+function jobTable(runs, arms) {
+  const mean = (a, f) => (a.length ? a.reduce((s, r) => s + f(r), 0) / a.length : NaN);
+  const rows = [...new Set(runs.map((r) => r.task))].map((task) => {
+    const of = (arm) => runs.filter((r) => r.task === task && r.arm === arm);
+    const base = of('baseline');
+    return {
+      task,
+      segment: (base[0] && base[0].segment) || '—',
+      printed: mean(base, METRICS.toolCharsPerCall),
+      costs: Object.fromEntries(arms.map((a) => [a, mean(of(a), METRICS.cost)])),
+    };
+  }).sort((a, b) => a.printed - b.printed);
+  let md = '## By job, ordered by how much it prints\n\nMean cost per session. "printed per call" is the tool '
+    + 'output a plain session pulls in per API call — the quantity that decides whether trimming that output '
+    + 'can pay for the prompt a plugin carries.\n\n';
+  md += '| Job | Segment | printed per call | ' + arms.join(' | ') + ' |\n';
+  md += '|---|---|---|' + arms.map(() => '---').join('|') + '|\n';
+  for (const r of rows) {
+    md += '| ' + r.task + ' | ' + r.segment + ' | ' + fmt(r.printed, 0) + ' | '
+      + arms.map((a) => fmt(r.costs[a], 4)).join(' | ') + ' |\n';
+  }
+  return md + '\n';
+}
+
 function costFigures(runs, arms) {
   const out = [];
   for (const { arms: byArm } of segmentReport(runs, { metric: 'cost' })) {
@@ -86,6 +114,13 @@ function costFigures(runs, arms) {
   for (const arm of arms) {
     const c = summarize(runs.filter((r) => r.arm === arm).map(METRICS.cost));
     out.push(c.mean, c.median);
+  }
+  // Per job too, so a front-page row naming one job traces to the records.
+  for (const task of new Set(runs.map((r) => r.task))) {
+    for (const arm of arms) {
+      const a = runs.filter((r) => r.task === task && r.arm === arm);
+      if (a.length) out.push(a.reduce((s, r) => s + METRICS.cost(r), 0) / a.length);
+    }
   }
   return out.filter(Number.isFinite);
 }
@@ -151,6 +186,7 @@ function buildClaims(allRuns, batches = []) {
   md += '## Suite total\n\nAll segments pooled. Segments hold different numbers of tasks, so this line is a '
     + 'headline, not evidence — the per-segment tables above are the evidence.\n\n';
   md += suiteTable(runs, arms);
+  md += jobTable(runs, arms);
 
   const charts = {
     'cost-by-segment.svg': barChartSvg('Cost per session by segment', 'USD ×10000, median',

@@ -49,7 +49,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/hush.git",
-        "sha": "da269a052acf162858e6f437f30b0a048b90cc69"
+        "sha": "6fbed47e08f5581370a95c5770844b507c5afcce"
       },
       "description": "Trims command output, logs, and Claude's play-by-play before they pile up in the session, so long, noisy work stays quiet and readable. Install and forget — nothing to configure. Short questions with nothing to run cost a little more.",
       "version": "1.6.5",
