@@ -32,7 +32,7 @@ if (!fs.existsSync(logPath)) {
   console.error(
     `no trial log at ${logPath}\n` +
     'P3 needs the project to have opted in: set {"trialLog": true} in .foreman/config.json, ' +
-    'then run ~20 closes with areaNotes enabled.'
+    'then run ~20 closes with the ledger enabled.'
   );
   process.exit(1);
 }

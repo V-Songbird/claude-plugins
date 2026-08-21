@@ -112,12 +112,12 @@ describe('the benefit arms', () => {
   });
 
   test('the lesson fits the store its own product would keep it in', () => {
-    const areaNotes = require(path.join(
+    const ledger = require(path.join(
       process.env.FOREMAN_DIR ? path.resolve(process.env.FOREMAN_DIR) : path.resolve(ROOT, '..', '..', 'foreman'),
       'scripts',
-      'area-notes.js'
+      'ledger.js'
     ));
-    assert.ok(gen.PIN_LESSON.length <= areaNotes.LESSON_MAX);
+    assert.ok(gen.PIN_LESSON.length <= ledger.LESSON_MAX);
   });
 
   test('the fixture is measurement-only, so it stays out of the default matrix', () => {
