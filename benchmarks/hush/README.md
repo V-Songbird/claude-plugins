@@ -18,7 +18,7 @@ It drives **real headless Claude Code sessions** (`claude -p`) on the same fixed
 > [!NOTE]
 > The numbers move between runs — a handful of reps against a live model, not a powered experiment. Expect single-digit-percent swings on any given task, and more on the noisy ones. Judge a task by the *per-rep spread*, not just the mean.
 
-**What you should see:** the same *shape* as our published charts — hush **cutting hard on the big-artifact tasks** (`log-triage`, `incident-forensics`, `release-digest`, `rename-scope`), **costing a little on the small ones** (`dep-bump-warnings`, `failing-suite`), **far less mid-turn narration** throughout, and every task still passing. You will **not** reproduce our exact figures, and that's expected. A run where hush is cheaper on every single task would be the surprising result, not the target.
+**What you should see:** the same *shape* as our published charts — hush **cutting hard on the tasks whose commands print a lot** (`log-triage`, `release-digest`, `incident-forensics`), **costing a little on the ones that print little** (`feature-drift`, `failing-suite`, `dep-bump-warnings`, `repo-sweep`, `rename-scope`), **far less mid-turn narration** throughout, and every task still passing. You will **not** reproduce our exact figures, and that's expected. A run where hush is cheaper on every single task would be the surprising result, not the target.
 
 ## Run it
 
@@ -34,7 +34,7 @@ node runner/run.js --tag plan --dry-run
 node runner/run.js --tag smoke --tasks failing-suite --reps 1
 ```
 
-**2. The real thing** — the whole suite (6 tasks × baseline + hush × 2 reps) on the model our headline numbers use:
+**2. The real thing** — the whole suite (8 tasks × baseline + hush × 2 reps) on the model our headline numbers use:
 
 ```bash
 node runner/run.js --tag mine

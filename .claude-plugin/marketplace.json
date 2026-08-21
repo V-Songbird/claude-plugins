@@ -49,10 +49,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/hush.git",
-        "sha": "6fbed47e08f5581370a95c5770844b507c5afcce"
+        "sha": "7b91f1eb10db573aa780d1641981e690605d21bd"
       },
       "description": "Trims command output, logs, and Claude's play-by-play before they pile up in the session, so long, noisy work stays quiet and readable. Install and forget — nothing to configure. Short questions with nothing to run cost a little more.",
-      "version": "1.6.5",
+      "version": "1.6.6",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
