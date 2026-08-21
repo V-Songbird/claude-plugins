@@ -33,6 +33,7 @@ const pctFmt = (x) => (Number.isFinite(x) ? `${x >= 0 ? '+' : ''}${x.toFixed(1)}
 const TABLES = [
   { metric: 'cost', label: 'Cost per session', unit: 'USD', digits: 4 },
   { metric: 'contextTraffic', label: 'Context traffic per session', unit: 'Σ input+cache tokens', digits: 0 },
+  { metric: 'contextPerCall', label: 'Context carried per API call', unit: 'tokens', digits: 0 },
   { metric: 'outputTokens', label: 'Output tokens per session', unit: 'tokens', digits: 0 },
   { metric: 'narrationWords', label: 'Mid-turn narration per session', unit: 'words', digits: 0 },
 ];

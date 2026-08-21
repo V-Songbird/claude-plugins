@@ -101,6 +101,15 @@ const METRICS = {
   contextTraffic: (r) => r.contextTraffic,
   narrationWords: (r) => r.narrationWords,
   toolResultChars: (r) => r.toolResultChars,
+  // Per API call, not per session. A plugin does not choose how many turns the
+  // model takes; it chooses how much each turn carries, and every turn resends
+  // the whole conversation. Per-session cost mixes the two and the turn lottery
+  // wins: measured over 48 task-batches from 7 batches, the spread inside one
+  // task+arm cell is 6.5–8.2% for cost per session against 2.9–4.0% here, while
+  // the effect this measure reports runs to ±30%. It is the quiet number, and
+  // it is the one the plugin is actually responsible for.
+  contextPerCall: (r) => (r.apiCalls > 0 ? r.contextTraffic / r.apiCalls : NaN),
+  toolCharsPerCall: (r) => (r.apiCalls > 0 ? r.toolResultChars / r.apiCalls : NaN),
   wallS: (r) => (Number.isFinite(r.wallMs) ? r.wallMs / 1000 : NaN),
 };
 

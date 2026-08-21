@@ -69,6 +69,41 @@ describe('readDebugManifest: fail-soft ingestion', () => {
   });
 });
 
+describe('per-call measures: what the plugin is actually responsible for', () => {
+  const { METRICS } = require('../runner/stats.js');
+
+  test('context per call divides traffic by the calls that carried it', () => {
+    assert.strictEqual(METRICS.contextPerCall({ contextTraffic: 400000, apiCalls: 10 }), 40000);
+    assert.strictEqual(METRICS.toolCharsPerCall({ toolResultChars: 30000, apiCalls: 10 }), 3000);
+  });
+
+  test('a run that made no API call reports nothing rather than dividing by zero', () => {
+    for (const m of ['contextPerCall', 'toolCharsPerCall']) {
+      assert.ok(Number.isNaN(METRICS[m]({ contextTraffic: 1, toolResultChars: 1, apiCalls: 0 })), m);
+      assert.ok(Number.isNaN(METRICS[m]({ contextTraffic: 1, toolResultChars: 1 })), m + ' with no field');
+    }
+  });
+
+  test('the per-call view separates a plugin effect from the turn lottery', () => {
+    // Same plugin effect — every turn 20% lighter — but one session happened to
+    // take twice as many turns. Per session those look opposite; per call they
+    // agree, which is the whole reason this measure exists.
+    const base = { contextTraffic: 400000, apiCalls: 10 };
+    const light = { contextTraffic: 640000, apiCalls: 20 };
+    assert.ok(METRICS.cost({ costUsd: 1 }) === 1);
+    assert.ok(light.contextTraffic > base.contextTraffic, 'per session it looks worse');
+    assert.strictEqual(METRICS.contextPerCall(light) / METRICS.contextPerCall(base), 0.8);
+  });
+
+  test('both report.js and publish.js print it', () => {
+    const path = require('path');
+    const dir = path.join(__dirname, '..', 'runner');
+    for (const f of ['report.js', 'publish.js']) {
+      assert.match(fs.readFileSync(path.join(dir, f), 'utf8'), /contextPerCall/, f);
+    }
+  });
+});
+
 describe('runCheck: keyword corpus', () => {
   const { runCheck } = require('../runner/metrics.js');
   const os = require('os');

@@ -74,6 +74,7 @@ md += `context traffic: ${others.map((a) => `${a} ${delta(byArm[a].traffic, byAr
 const SEGMENT_METRICS = [
   ['cost', 'Cost USD', 4],
   ['contextTraffic', 'Context traffic tok', 0],
+  ['contextPerCall', 'Context per API call tok', 0],
   ['outputTokens', 'Output tok', 0],
   ['narrationWords', 'Narration words', 0],
 ];
