@@ -52,6 +52,9 @@ const dryRun = argv.includes('--dry-run');
 // --seed, so "randomized" never means "unreproducible". Resolved below, once
 // the tag's directory is known — a --resume reads it back from there.
 const seedFlag = flag('seed', null);
+// Reasoning effort for every arm in the batch; omitted entirely when unset so
+// the CLI keeps its own default.
+const effort = flag('effort', null);
 
 // --- arms -------------------------------------------------------------------
 // The hush plugin checks out as a sibling of benchmarks/ in the marketplace
@@ -94,8 +97,12 @@ function flagAll(name) {
   for (let i = 0; i < argv.length; i++) if (argv[i] === `--${name}`) out.push(argv[i + 1]);
   return out;
 }
-function addArm(name, dir, settings, env) {
+function addArm(name, dir, settings, env, overlay) {
   ARMS[name] = {
+    // Files copied over the fixture in this arm's workspace only — how an arm
+    // that is instructions rather than a plugin (a CLAUDE.md, a project output
+    // style) is measured against one that is.
+    ...(overlay ? { overlay: path.resolve(overlay) } : {}),
     // A rival with no directory is a real case, not a mistake: Claude Code's
     // own built-in output styles are rivals that ship inside the CLI, so they
     // are selected by a settings file alone with no plugin to load.
@@ -109,12 +116,13 @@ const rivalDirs = flagAll('rival-dir');
 const rivalNames = flagAll('rival-name');
 const rivalSettingsList = flagAll('rival-settings');
 const rivalEnvs = flagAll('rival-env');
+const rivalOverlays = flagAll('rival-overlay');
 // Driven by whichever list is longest, so a dir-less rival still pairs up by
 // position with its name, settings and env.
-const rivalCount = Math.max(rivalDirs.length, rivalNames.length, rivalSettingsList.length);
+const rivalCount = Math.max(rivalDirs.length, rivalNames.length, rivalSettingsList.length, rivalOverlays.length);
 for (let i = 0; i < rivalCount; i++) {
   const name = rivalNames[i] || (rivalCount > 1 ? `rival${i + 1}` : 'rival');
-  addArm(name, rivalDirs[i], rivalSettingsList[i], parseRivalEnv(rivalEnvs[i] || null));
+  addArm(name, rivalDirs[i], rivalSettingsList[i], parseRivalEnv(rivalEnvs[i] || null), rivalOverlays[i]);
 }
 
 // Ablation arms: hush against itself with one surface switched off, so a win
@@ -243,6 +251,7 @@ function buildArgs(arm) {
     '--verbose',
     '--model', model,
     '--max-turns', String(CONFIG.maxTurns),
+    ...(effort ? ['--effort', effort] : []),
     '--setting-sources', 'project',
     '--strict-mcp-config',
     // No blanket permission bypass: scoped allowlist instead. Anything outside
@@ -335,6 +344,7 @@ async function oneRun(task, arm, rep, orderIndex) {
   fs.rmSync(workDir, { recursive: true, force: true });
   fs.mkdirSync(workDir, { recursive: true });
   if (task.fixture) fs.cpSync(path.join(ROOT, 'fixtures', task.fixture), workDir, { recursive: true });
+  if (ARMS[arm].overlay) fs.cpSync(ARMS[arm].overlay, workDir, { recursive: true });
   // A grader the prompt never names is a spoiler. Sessions read it, find it
   // says more than the prompt did, and either implement its answer or stop to
   // ask about the contradiction — measured on feature-drift, where it cost the
