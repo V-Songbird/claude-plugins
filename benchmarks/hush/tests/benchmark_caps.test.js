@@ -20,22 +20,22 @@ const CAPS = { lineCap: 12, wordCap: 15 };
 describe('readCaps: the numbers come from the style, not from this file', () => {
   test('reads both caps out of the real style file', () => {
     const caps = loadCaps();
-    assert.strictEqual(caps.lineCap, 12);
-    assert.strictEqual(caps.wordCap, 10);
+    assert.strictEqual(caps.lineCap, 6);
+    assert.strictEqual(caps.wordCap, 8);
   });
 
   test('the caps the meter scores against are the caps the style states', () => {
     const style = fs.readFileSync(
       path.resolve(__dirname, '../../../hush/output-styles/hush.md'), 'utf8');
     const caps = loadCaps();
-    assert.ok(style.includes(`**${caps.lineCap} lines**`), 'line cap must appear verbatim in the style');
-    assert.ok(style.includes(`**${caps.wordCap} words**`), 'word cap must appear verbatim in the style');
+    assert.ok(style.includes(`${caps.lineCap} lines, tops`), 'line cap must appear verbatim in the style');
+    assert.ok(style.includes(`${caps.wordCap} words per sentence, tops`), 'word cap must appear verbatim in the style');
   });
 
   test('a reworded style throws instead of scoring against a stale number', () => {
     assert.throws(() => readCaps('- 12 lines for the whole message.\n- 15 words per sentence.'),
       /could not read the line and word caps/);
-    assert.throws(() => readCaps('- **12 lines** for the whole message.'),
+    assert.throws(() => readCaps('- 6 lines, tops.'),
       /could not read the line and word caps/);
   });
 });

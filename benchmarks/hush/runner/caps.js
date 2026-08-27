@@ -41,8 +41,8 @@ const STYLE = path.resolve(__dirname, '../../../hush/output-styles/hush.md');
 // test would notice. Parsing throws instead, loudly, at the one place that
 // knows both numbers.
 function readCaps(styleText) {
-  const lineCap = styleText.match(/\*\*(\d+) lines\*\*/);
-  const wordCap = styleText.match(/\*\*(\d+) words\*\*/);
+  const lineCap = styleText.match(/(\d+) lines, tops/);
+  const wordCap = styleText.match(/(\d+) words per sentence, tops/);
   if (!lineCap || !wordCap) {
     throw new Error('caps.js: could not read the line and word caps from the style file — the wording changed, so update this parser rather than guessing');
   }
