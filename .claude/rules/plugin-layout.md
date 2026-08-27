@@ -50,10 +50,9 @@ plugins.
 ## Versions
 
 `.claude-plugin/marketplace.json` at this repo's root is the single owner of
-every plugin's version. Claude Code resolves a version from `plugin.json`
-first, the marketplace entry second, and the commit SHA last — so a `version`
-in a plugin's `plugin.json` would silently mask the marketplace entry and
-installers would never see the bump. No `plugin.json` here sets one.
+every plugin's version; a machine-local PreToolUse guard
+(`.claude/hooks/assay-benchmark-records-guard.js`) denies writing a `version`
+field into any `plugin.json`.
 
 Because plugins are separate repos, each marketplace entry carries
 `"source": {"source": "url", "url": …, "sha": …}`. The entry's `version` and
