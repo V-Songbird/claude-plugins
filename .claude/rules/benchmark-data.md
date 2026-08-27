@@ -12,8 +12,9 @@ sets, trial logs of measurements, and report output.
 - Never `git add` an archive or records directory wholesale; the
   reference-name commit gate exempts only `benchmarks/<plugin>/records/`
   paths, so archived copies will hard-block the commit anyway.
-- A README may state measured numbers; its backing records stay local, and
-  the harness in the repo is the published way to regenerate them. The hush
-  readiness gate reads records from disk, not from git.
+- When writing a measured number into a README, take it from the local
+  records under `benchmarks/<plugin>/` and commit only the prose or chart,
+  never the record behind it; the shipped harness is how readers regenerate
+  the number, and the hush readiness gate reads records from disk, not git.
 - Decided 2026-08-11 (ADR 0004, local docs/adr): supersedes the older
   committed-records evidence policy across hush, foreman, and razor.
