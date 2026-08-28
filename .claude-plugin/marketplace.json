@@ -12,10 +12,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/foreman.git",
-        "sha": "33fc017b09254e3ed0ca56370dc685d8cc2321d9"
+        "sha": "e52cae0d3e6ab7c8a5e211e17b4ed81ba8aa5de0"
       },
       "description": "Project continuity and roadmap trust: keeps a correctable roadmap in your repo, recommends the next task and says why it came first, and hands it off with the paths and symbols checked. Say what you want in plain language — one entrance routes it.",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
@@ -49,10 +49,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/hush.git",
-        "sha": "7bbbe406961a2d563969e2514b51a8d8c85f1b50"
+        "sha": "008c3cdf3019326642e619ff7835eb6cae97d1fa"
       },
       "description": "Trims command output, logs, and Claude's play-by-play before they pile up in the session, so long, noisy work stays quiet and readable. Install and forget — nothing to configure. Short questions with nothing to run cost a little more.",
-      "version": "1.10.0",
+      "version": "1.10.1",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
