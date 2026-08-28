@@ -181,7 +181,7 @@ const seed = seedFlag != null ? String(seedFlag) : resume ? resumeSeed() : Strin
 // carries the batch it came from and the claim generator refuses a mix. The id
 // is derived, not stamped with the clock, so a --resume on the same tag lands
 // back in the same batch instead of forking a new one.
-const batchKey = [tag, seed, model, reps, armNames.join('+'), tasks.map((t) => t.id).join('+')].join('|');
+const batchKey = [tag, seed, model, effort || 'default', reps, armNames.join('+'), tasks.map((t) => t.id).join('+')].join('|');
 const batchId = `${tag}-${hashSeed(batchKey).toString(16).padStart(8, '0')}`;
 const recordDir = path.join(ROOT, 'records', batchId);
 
@@ -200,6 +200,7 @@ function batchDrift() {
   const differs = [
     ['seed', plan.seed, seed],
     ['model', plan.model, model],
+    ['effort', plan.effort, effort],
     ['reps', plan.reps, reps],
     ['arms', (plan.arms || []).join(','), armNames.join(',')],
     ['tasks', (plan.tasks || []).map((t) => t.id).join(','), tasks.map((t) => t.id).join(',')],
@@ -372,7 +373,7 @@ async function oneRun(task, arm, rep, orderIndex) {
   fs.writeFileSync(path.join(outDir, 'transcripts', `${key}.jsonl`), calls.join('\n'));
 
   let record;
-  const provenance = { key, batchId, seed, orderIndex, task: task.id, segment: task.segment, arm, rep };
+  const provenance = { key, batchId, seed, orderIndex, task: task.id, segment: task.segment, arm, rep, effort };
   try {
     const parsed = calls.map((s) => parseTranscript(s));
     const last = parsed[parsed.length - 1];
@@ -426,7 +427,7 @@ async function main() {
   console.log(`arms: ${armNames.join(', ')}`);
   console.log(`batch ${batchId} · seed ${seed} (replay this order with --seed ${seed})`);
   const manifest = {
-    batchId, seed, model, reps, tag,
+    batchId, seed, model, effort, reps, tag,
     arms: armNames,
     tasks: tasks.map((t) => ({ id: t.id, segment: t.segment })),
     order: queue.map(([t, a, r]) => `${t.id}__${a}__r${r}`),
