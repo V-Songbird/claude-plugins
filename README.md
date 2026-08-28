@@ -13,6 +13,13 @@
     <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/Claude_Code-E5582B" alt="Claude Code"/></a>
 </p>
 
+<p align="center">
+    <a href="#install"><strong>Install</strong></a> &nbsp;·&nbsp;
+    <a href="#the-plugins">The plugins</a> &nbsp;·&nbsp;
+    <a href="#new-here">New here?</a> &nbsp;·&nbsp;
+    <a href="#repository-layout">Repository layout</a>
+</p>
+
 > **TL;DR** — Three small plugins for Claude Code. foreman keeps your project plan alive between sessions. hush cuts the chatter and the cost. razor stops code nobody needed. Install one or all three — they stay out of each other's way.
 
 ---

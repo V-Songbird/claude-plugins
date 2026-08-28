@@ -9,9 +9,16 @@
   worked proof (diffs, honest tables, charts) is exempt from the count — trim the words
   around the proof, never the proof.
   razor/, hush/, and foreman/ are the reference implementations — all three share one
-  section order: header → badges → TL;DR → What is this? → Why you'd want it → How it works →
+  section order: header → badges → NAV → TL;DR → What is this? → Why you'd want it → How it works →
   Install → What you can do → <one feature section> → Benchmarks → Under the hood → Settings →
   Good to know → License (optional sections dropped where they don't apply, never reordered).
+
+  NAV: a centered line of in-page links sits between the badges and the TL;DR — 4-5 entries,
+  Install first and bolded, so a reader who only wants the files never scrolls the pitch.
+  Every entry must point at a real "## " heading in the same file. GitHub builds an anchor
+  from the heading TEXT, so renaming a section breaks its link with nothing to warn you;
+  scripts/git-hooks/check-readme-nav.js resolves every anchor and runs in the pre-commit
+  hook and in CI. Rename a section, fix the nav in the same commit.
 
   TL;DR: every README opens with a blockquote directly under the badges — 2-3 sentences,
   under ~50 words: the pain, what the plugin does about it, and one defensible number if you
@@ -130,6 +137,14 @@
     <a href="https://github.com/V-Songbird/<!-- plugin name -->/stargazers"><img src="https://img.shields.io/github/stars/V-Songbird/<!-- plugin name -->?style=social" alt="GitHub stars"/></a>
     <a href="https://https://github.com/V-Songbird/<!-- plugin name -->/blob/main/LICENSE"><img src="https://img.shields.io/github/license/github/spec-kit" alt="License"/></a>
     <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/Claude_Code-E5582B" alt="License"/></a>
+</p>
+
+<p align="center">
+    <a href="#install"><strong>Install</strong></a> &nbsp;·&nbsp;
+    <a href="#what-is-this">What is this?</a> &nbsp;·&nbsp;
+    <a href="#what-you-can-do">What you can do</a> &nbsp;·&nbsp;
+    <a href="#benchmarks">Benchmarks</a> &nbsp;·&nbsp;
+    <a href="#settings">Settings</a>
 </p>
 
 > **TL;DR** — <!-- 2-3 sentences, under ~50 words: the pain, what the plugin does about it,

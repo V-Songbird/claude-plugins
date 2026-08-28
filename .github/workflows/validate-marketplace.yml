@@ -24,5 +24,11 @@ jobs:
       - name: every plugin's source.sha must match its submodule's checked-out commit
         run: node scripts/git-hooks/verify-marketplace-pins.js
 
+      # Only the pages this repo pins at a commit that already has a nav. Each
+      # plugin front page is gated by that plugin's own pre-commit hook, and
+      # joins this list when its next release moves the pin.
+      - name: every front page carries a nav whose links all resolve
+        run: node scripts/git-hooks/check-readme-nav.js README.md flint/README.md
+
       - name: the git-hook scripts' own tests must pass
         run: node --test scripts/git-hooks/*.test.js

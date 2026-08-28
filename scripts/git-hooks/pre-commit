@@ -8,4 +8,8 @@ const sync = require("./check-marketplace-sync.js").main();
 if (sync !== 0) process.exit(sync);
 // Reference-name scan: private blocklist (gitignored), fail-open when absent.
 process.argv[2] = "staged";
-process.exit(require("./check-reference-names.js").main());
+const names = require("./check-reference-names.js").main();
+if (names !== 0) process.exit(names);
+// README nav: every front page keeps a nav line, and every anchor in it still
+// resolves. See check-readme-nav.js.
+process.exit(require("./check-readme-nav.js").main(["staged"]));
