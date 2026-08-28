@@ -1,0 +1,24 @@
+[2026-08-26T23:41:02.118Z] INFO  api  request POST /v1/session/resume rid=8f21a0
+[2026-08-26T23:41:02.119Z] DEBUG api  cookie rt present, length 214
+[2026-08-26T23:41:02.121Z] WARN  net  auth.internal responded 400 in 41ms
+[2026-08-26T23:41:02.121Z] WARN  net  body {"error":"invalid_grant","error_description":"refresh token revoked"}
+[2026-08-26T23:41:02.122Z] ERROR api  unhandled rejection on rid=8f21a0
+
+TypeError: Cannot read properties of undefined (reading 'split')
+    at decode (/srv/api/src/auth/tokens.js:6:24)
+    at resumeSession (/srv/api/src/session.js:8:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Object.handler (/srv/api/src/routes/session.js:31:20)
+    at async Server.<anonymous> (/srv/api/node_modules/.pnpm/fastify@4.26.2/node_modules/fastify/lib/handleRequest.js:141:9)
+
+[2026-08-26T23:41:02.124Z] INFO  api  response 500 rid=8f21a0 in 6ms
+[2026-08-26T23:41:03.008Z] INFO  api  request POST /v1/session/resume rid=8f21b4
+[2026-08-26T23:41:03.010Z] WARN  net  auth.internal responded 400 in 38ms
+[2026-08-26T23:41:03.011Z] ERROR api  unhandled rejection on rid=8f21b4
+TypeError: Cannot read properties of undefined (reading 'split')
+    at decode (/srv/api/src/auth/tokens.js:6:24)
+    at resumeSession (/srv/api/src/session.js:8:18)
+[2026-08-26T23:41:03.012Z] INFO  api  response 500 rid=8f21b4 in 5ms
+[2026-08-26T23:41:07.550Z] WARN  api  session resume failure rate 100% over 30s window
+[2026-08-26T23:41:11.902Z] INFO  api  request GET /health rid=8f2200
+[2026-08-26T23:41:11.903Z] INFO  api  response 200 rid=8f2200 in 1ms

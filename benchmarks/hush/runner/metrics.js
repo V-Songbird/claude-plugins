@@ -79,6 +79,10 @@ function parseTranscript(jsonl) {
       (u.input_tokens || 0) + (u.cache_read_input_tokens || 0) + (u.cache_creation_input_tokens || 0);
   }
   m.assistantTexts = [...textByMsgId.values()];
+  // The style promises ONE message per turn, which is a stricter claim than
+  // "zero mid-turn words" — a run can post two messages and still score zero
+  // narration if the earlier one was empty of prose. Count the messages too.
+  m.assistantMsgs = m.assistantTexts.length;
 
   const words = (s) => (s.match(/\S+/g) || []).length;
   const allWords = m.assistantTexts.reduce((n, t) => n + words(t), 0);

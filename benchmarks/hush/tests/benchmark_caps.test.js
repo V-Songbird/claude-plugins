@@ -20,7 +20,7 @@ const CAPS = { lineCap: 12, wordCap: 15 };
 describe('readCaps: the numbers come from the style, not from this file', () => {
   test('reads both caps out of the real style file', () => {
     const caps = loadCaps();
-    assert.strictEqual(caps.lineCap, 6);
+    assert.strictEqual(caps.lineCap, 8);
     assert.strictEqual(caps.wordCap, 8);
   });
 
@@ -145,6 +145,12 @@ describe('analyzeMessage: banned marks', () => {
 
   test('a one-character group is not an aside', () => {
     assert.strictEqual(analyzeMessage('The flag (x) is set.', CAPS).parenUnits, 0);
+  });
+
+  test('a markdown link reads as its label, not as an aside or extra words', () => {
+    const a = analyzeMessage('See [src/pricing.js:39](src/pricing.js:39).', CAPS);
+    assert.strictEqual(a.parenUnits, 0, 'the link target is plumbing, not a parenthetical');
+    assert.strictEqual(a.longestWords, 2, 'See + the label — the target adds nothing');
   });
 });
 

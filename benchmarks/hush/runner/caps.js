@@ -61,6 +61,10 @@ const FENCE = /```[\s\S]*?(?:```|$)/g;
  *  place punctuation inside an identifier must not be mistaken for prose. */
 const collapseCode = (s) => s.replace(/`[^`\n]+`/g, 'X');
 
+/** A markdown link reads as its label — the target in parentheses is plumbing,
+ *  not prose, so it must not count as words or as a parenthetical aside. */
+const collapseLinks = (s) => s.replace(/\[([^\]\n]*)\]\(([^)\s]*)\)/g, '$1');
+
 const countWords = (s) => (collapseCode(s).match(/\S+/g) || []).length;
 
 /**
@@ -96,7 +100,7 @@ function unitsOf(prose) {
 function analyzeMessage(text, caps) {
   const src = String(text || '');
   const fenced = src.match(FENCE) || [];
-  const prose = src.replace(FENCE, '\n');
+  const prose = collapseLinks(src.replace(FENCE, '\n'));
 
   const lines = src.replace(FENCE, '\n').split('\n').filter((l) => l.trim()).length;
   const units = unitsOf(prose).map((text) => ({ text, words: countWords(text) }));

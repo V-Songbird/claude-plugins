@@ -24,6 +24,9 @@ const TASKS = [...new Set(runs.map((r) => r.task))];
 
 const mean = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : NaN);
 const fmt = (x, d = 0) => (Number.isFinite(x) ? x.toFixed(d) : '—');
+// A rate a batch could not produce prints as a bare dash: records written
+// before a field existed have no rate, and "—%" reads like a measured zero.
+const pctf = (x) => (Number.isFinite(x) ? `${fmt(x * 100)}%` : '—');
 
 function agg(rs) {
   return {
@@ -34,6 +37,12 @@ function agg(rs) {
     outTok: mean(rs.map((r) => r.usage?.output_tokens ?? NaN)),
     traffic: mean(rs.map((r) => r.contextTraffic ?? NaN)),
     narration: mean(rs.map((r) => r.narrationWords ?? NaN)),
+    // Two ways to ask whether the arm stayed quiet. Silent is the loose one:
+    // no prose between tool calls. One-message is the promise the style
+    // actually makes, and it reads `—` on records written before the field
+    // existed rather than pretending an old batch scored zero.
+    silent: mean(rs.map((r) => ((r.narrationWords ?? NaN) === 0 ? 1 : 0))),
+    oneMessage: mean(rs.map((r) => (r.assistantMsgs == null ? NaN : (r.assistantMsgs === 1 ? 1 : 0)))),
     finalWords: mean(rs.map((r) => r.finalWords ?? NaN)),
     toolChars: mean(rs.map((r) => r.toolResultChars ?? NaN)),
     turns: mean(rs.map((r) => r.numTurns ?? NaN)),
@@ -58,10 +67,10 @@ const others = ARMS.filter((a) => a !== 'baseline');
 let md = `# hush benchmark — run \`${tag}\`\n\n`;
 md += `${runs.length} runs · model \`${runs[0]?.model}\` · generated from \`results/${tag}/runs/\`\n\n`;
 md += `## Overall (mean per run)\n\n`;
-md += `| Arm | Ground truth pass | Cost USD | Output tok | Context traffic tok | Narration words | Final words | Turns | Wall s |\n|---|---|---|---|---|---|---|---|---|\n`;
+md += `| Arm | Ground truth pass | Rubric coverage | Cost USD | Output tok | Context traffic tok | Narration words | Silent | One message | Final words | Turns | Wall s |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n`;
 for (const a of ARMS) {
   const g = byArm[a];
-  md += `| **${a}** | ${fmt(g.passRate * 100)}% | ${fmt(g.cost, 4)} | ${fmt(g.outTok)} | ${fmt(g.traffic)} | ${fmt(g.narration)} | ${fmt(g.finalWords)} | ${fmt(g.turns, 1)} | ${fmt(g.wallS)} |\n`;
+  md += `| **${a}** | ${fmt(g.passRate * 100)}% | ${fmt(g.score * 100)}% | ${fmt(g.cost, 4)} | ${fmt(g.outTok)} | ${fmt(g.traffic)} | ${fmt(g.narration)} | ${pctf(g.silent)} | ${pctf(g.oneMessage)} | ${fmt(g.finalWords)} | ${fmt(g.turns, 1)} | ${fmt(g.wallS)} |\n`;
 }
 md += `\nDeltas vs baseline — cost: ${others.map((a) => `${a} ${delta(byArm[a].cost, byArm.baseline?.cost)}`).join(', ')}; `;
 md += `output tokens: ${others.map((a) => `${a} ${delta(byArm[a].outTok, byArm.baseline?.outTok)}`).join(', ')}; `;
@@ -141,7 +150,7 @@ for (const t of TASKS) {
 
 const overallRows = ARMS.map((a) => {
   const g = byArm[a];
-  return `<tr><td><b>${a}</b></td><td>${fmt(g.passRate * 100)}%</td><td>$${fmt(g.cost, 4)}</td><td>${fmt(g.outTok)}</td><td>${fmt(g.traffic)}</td><td>${fmt(g.narration)}</td><td>${fmt(g.finalWords)}</td><td>${fmt(g.turns, 1)}</td><td>${fmt(g.wallS)}s</td></tr>`;
+  return `<tr><td><b>${a}</b></td><td>${fmt(g.passRate * 100)}%</td><td>${fmt(g.score * 100)}%</td><td>$${fmt(g.cost, 4)}</td><td>${fmt(g.outTok)}</td><td>${fmt(g.traffic)}</td><td>${fmt(g.narration)}</td><td>${pctf(g.silent)}</td><td>${pctf(g.oneMessage)}</td><td>${fmt(g.finalWords)}</td><td>${fmt(g.turns, 1)}</td><td>${fmt(g.wallS)}s</td></tr>`;
 }).join('');
 
 const html = `<title>hush benchmark — ${esc(tag)}</title>
@@ -158,7 +167,7 @@ pre{white-space:pre-wrap;background:#f6f6f6;padding:8px;border-radius:4px;font-s
 <h1>hush benchmark — run &ldquo;${esc(tag)}&rdquo;</h1>
 <p>${runs.length} headless Claude Code sessions · model <code>${esc(runs[0]?.model || '?')}</code> · token counts from the API's own usage blocks.</p>
 <h2>Overall (mean per run)</h2>
-<table><tr><th>Arm</th><th>Pass</th><th>Cost</th><th>Output tok</th><th>Context traffic</th><th>Narration words</th><th>Final words</th><th>Turns</th><th>Wall</th></tr>${overallRows}</table>
+<table><tr><th>Arm</th><th>Pass</th><th>Rubric</th><th>Cost</th><th>Output tok</th><th>Context traffic</th><th>Narration words</th><th>Silent</th><th>One message</th><th>Final words</th><th>Turns</th><th>Wall</th></tr>${overallRows}</table>
 ${barChart('Output tokens per task', 'tokens, mean', chartOf('outTok'))}
 ${barChart('Context traffic per task', 'Σ input+cache tokens across API calls, mean', chartOf('traffic'))}
 ${barChart('Cost per task', 'USD ×10000, mean', Object.fromEntries(TASKS.map((t) => [t, Object.fromEntries(ARMS.map((a) => [a, (byTaskArm[t][a].cost || 0) * 10000]))])))}

@@ -121,5 +121,21 @@
         "perRequest|per-request|02:1[0-9]"
       ]
     }
+  },
+  {
+    "id": "crash-origin",
+    "category": "tool",
+    "segment": "search-heavy",
+    "fixture": "crash-origin",
+    "prompt": "Prod is throwing 500s on session resume. I pasted the crash into logs/crash.txt. The stack trace points at the wrong place — I need to know which file and line actually causes it, so I can open it. Don't fix anything yet, just tell me where to look and why.",
+    "check": {
+      "type": "keywords",
+      "require": 2,
+      "patterns": [
+        "refresh\\.js",
+        ":1[45]\\b|line 1[45]",
+        "undefined|swallow|invalid_grant|not (in )?recoverable|unhandled (error )?code"
+      ]
+    }
   }
 ]

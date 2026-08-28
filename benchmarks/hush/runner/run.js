@@ -393,6 +393,7 @@ async function oneRun(task, arm, rep, orderIndex) {
       contextTraffic: sum('contextTraffic'), apiCalls: sum('apiCalls'),
       toolCalls: sum('toolCalls'), toolResultChars: sum('toolResultChars'),
       narrationWords: sum('narrationWords'), finalWords: last.finalWords,
+      assistantMsgs: sum('assistantMsgs'),
       finalText: last.finalText,
       stderr: stderrAll.slice(0, 2000),
       // Fail-soft: null unless --hush-debug was passed and hush actually
