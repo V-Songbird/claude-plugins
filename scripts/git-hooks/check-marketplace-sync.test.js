@@ -125,3 +125,26 @@ describe("evaluate", () => {
     assert.match(problems[0], /hush/);
   });
 });
+
+describe("evaluate with pluginNames", () => {
+  test("ignores a submodule that is not a marketplace plugin", () => {
+    const problems = evaluate({
+      submoduleChanges: [{ path: "flint", newSha: "a".repeat(40) }],
+      marketplaceStaged: false,
+      marketplace: null,
+      pluginNames: ["foreman", "hush", "razor"],
+    });
+    assert.deepEqual(problems, []);
+  });
+
+  test("still flags a plugin submodule when pluginNames is supplied", () => {
+    const problems = evaluate({
+      submoduleChanges: [{ path: "hush", newSha: "a".repeat(40) }],
+      marketplaceStaged: false,
+      marketplace: null,
+      pluginNames: ["foreman", "hush", "razor"],
+    });
+    assert.equal(problems.length, 1);
+    assert.match(problems[0], /hush/);
+  });
+});

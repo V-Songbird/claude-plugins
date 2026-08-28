@@ -33,10 +33,14 @@ function findPluginEntry(marketplace, pluginName) {
 }
 
 // Pure decision logic, no git calls -- fully unit-testable.
-function evaluate({ submoduleChanges, marketplaceStaged, marketplace }) {
+function evaluate({ submoduleChanges, marketplaceStaged, marketplace, pluginNames }) {
   const problems = [];
   for (const change of submoduleChanges) {
     const pluginName = path.basename(change.path);
+    // Not every submodule is a marketplace plugin -- flint is mounted here the
+    // same way but ships no plugin.json and has no marketplace entry, so it has
+    // no version or source.sha for this gate to keep in step.
+    if (pluginNames && !pluginNames.includes(pluginName)) continue;
     const shortSha = change.newSha.slice(0, 12);
 
     if (!marketplaceStaged) {
@@ -71,6 +75,18 @@ function stagedFileNames(root) {
     .filter(Boolean);
 }
 
+// The plugin names as last committed. A submodule pointer bump for a plugin
+// added in this very commit arrives as an ADD, not an M, so parseStagedSubmoduleChanges
+// never sees it -- HEAD is therefore a complete list of the plugins this gate governs.
+function committedPluginNames(root) {
+  try {
+    const raw = execSync(`git show HEAD:${MARKETPLACE_PATH}`, { cwd: root, encoding: "utf-8" });
+    return (JSON.parse(raw).plugins || []).map((entry) => entry.name);
+  } catch {
+    return null;
+  }
+}
+
 function readStagedMarketplaceJson(root) {
   const raw = execSync(`git show :${MARKETPLACE_PATH}`, { cwd: root, encoding: "utf-8" });
   return JSON.parse(raw);
@@ -93,7 +109,7 @@ function checkConsistency(root) {
     }
   }
 
-  return evaluate({ submoduleChanges, marketplaceStaged, marketplace });
+  return evaluate({ submoduleChanges, marketplaceStaged, marketplace, pluginNames: committedPluginNames(root) });
 }
 
 function main() {
@@ -119,6 +135,7 @@ module.exports = {
   parseStagedSubmoduleChanges,
   findPluginEntry,
   evaluate,
+  committedPluginNames,
   checkConsistency,
   repoRoot,
   MARKETPLACE_PATH,

@@ -7,3 +7,6 @@
 [submodule "razor"]
 	path = razor
 	url = https://github.com/V-Songbird/razor.git
+[submodule "flint"]
+	path = flint
+	url = https://github.com/V-Songbird/flint.git

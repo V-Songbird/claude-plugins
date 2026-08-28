@@ -78,12 +78,15 @@ hush and razor are natural partners: hush governs how Claude *talks*, razor gove
 
 ```
 foundry/
+├── flint/
 ├── foreman/
 ├── hush/
 └── razor/
 ```
 
 Every plugin lives in its own repo, mounted here as a git submodule (see [`.gitmodules`](.gitmodules)). Each ships its metadata in `.claude-plugin/plugin.json` and carries its own `README.md`, `CHANGELOG.md`, `LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and `SECURITY.md`. The root copies of the community files govern contributions to this marketplace repo itself. The marketplace index is [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json). It is the single owner of every plugin's version number — the plugin.json files carry no version field.
+
+[`flint/`](https://github.com/V-Songbird/flint) is mounted the same way but is not a plugin and is not in the marketplace. It is plain text — hush's writing voice and razor's cut-before-adding rules as files you paste into a session with nothing installed. It has no `plugin.json`, no version, and no marketplace entry.
 
 ---
 
