@@ -29,6 +29,9 @@ const os = require('node:os');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { spawn } = require('node:child_process');
+// Keeps every cell's temp cwd out of the real ~/.claude registry and
+// transcript store; must load before anything copies process.env.
+require('../../bench-config-dir.js');
 
 const ROOT = path.resolve(__dirname, '..');
 const KEYS_FILE = path.join(ROOT, 'retention-keys.json');

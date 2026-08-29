@@ -7,7 +7,7 @@ Treat every claim in this prompt as a hypothesis to verify against the codebase 
 
 <background>
 <relevant_files>
-src/stats.js — mean (5), median (10), p50 (23), p90 (30), p99 (37)
+src/stats.js — median (10), mean (5), p50 (23), p90 (30), p99 (37)
 Unresolved in the entry's own description (not found in any touched file): helpers, touch — an invented API or an un-caught rename, resolve before trusting it.
 </relevant_files>
 </background>

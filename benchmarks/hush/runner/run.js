@@ -19,6 +19,9 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { spawn } = require('node:child_process');
+// Keeps every cell's temp cwd out of the real ~/.claude registry and
+// transcript store; must load before anything copies process.env.
+require('../../bench-config-dir.js');
 const { parseTranscript, runCheck, readDebugManifest, assertUsableRun } = require('./metrics.js');
 const { makeRng, shuffled, hashSeed } = require('./stats.js');
 const { writeRecord } = require('./records.js');

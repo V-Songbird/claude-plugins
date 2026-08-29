@@ -39,6 +39,9 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { spawn, spawnSync } = require('node:child_process');
+// Keeps every cell's temp cwd out of the real ~/.claude registry and
+// transcript store; must load before anything copies process.env.
+require('../../bench-config-dir.js');
 
 const ROOT = path.resolve(__dirname, '..');
 const FOREMAN_DIR = process.env.FOREMAN_DIR
