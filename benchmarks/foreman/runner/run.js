@@ -82,6 +82,12 @@ const ARMS = {
   'lessons-fresh': { prompt: 'lessons-fresh', pluginDirs: [] },
   'lessons-graded': { prompt: 'lessons-graded', pluginDirs: [] },
   'lessons-unlabeled': { prompt: 'lessons-unlabeled', pluginDirs: [] },
+  // The fact-matched foreman arm for the DEFAULT grid — see defaultarm/gen.js.
+  // It comes out of the product's own craft-handoff.js and passes the product's
+  // own gate, which the hand-frozen `foreman` arm does not. Prefer it over
+  // `foreman` for any cross-arm comparison; `foreman` is kept only so older
+  // tagged runs stay re-reportable.
+  'foreman-std': { prompt: 'foreman-std', pluginDirs: [] },
   // [§4.2] Does the standard profile need an output shape? Both prompts come
   // out of the product's own craft-handoff.js — see outputshape/gen.js — and
   // differ by the canonical <output_format> block and nothing else.

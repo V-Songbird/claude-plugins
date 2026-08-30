@@ -49,6 +49,10 @@ const TEMPLATE_PATH = process.env.FOREMAN_DIR
   ? path.join(path.resolve(process.env.FOREMAN_DIR), 'prompt-template.md')
   : path.resolve(ROOT, '..', '..', 'foreman', 'prompt-template.md');
 
+// The product's own gate, run from a neutral cwd so a host project's
+// .foreman/config.json cannot colour a fixture's verdict.
+const CHECK_PROMPT = path.join(path.dirname(TEMPLATE_PATH), 'scripts', 'check-prompt.js');
+
 function normWs(s) {
   return String(s).replace(/\s+/g, ' ').trim();
 }
@@ -159,6 +163,25 @@ for (const task of TASKS) {
       problems.push('foreman.md truth_grounding does not match the current prompt-template.md block (template drift — regenerate the frozen prompt)');
     }
   }
+  // 6b: the fact-matched arm has to pass the PRODUCT'S OWN gate. Block-6 above
+  // checks that named blocks are present, which is not the same thing and is
+  // exactly how the hand-frozen `foreman.md` passed selfcheck for months while
+  // check-prompt.js rejected it with six errors — an unbounded fix loop and a
+  // missing closure-evidence rule among them. A prompt foreman would refuse to
+  // hand over is not a measurement of foreman.
+  const stdPath = path.join(fixtureDir, 'prompts', 'foreman-std.md');
+  if (!task.measurementOnly && fs.existsSync(stdPath)) {
+    const gate = spawnSync('node', [CHECK_PROMPT, stdPath, '--destination', 'clipboard'], {
+      encoding: 'utf8', cwd: os.tmpdir(), timeout: 30000,
+    });
+    let verdict = null;
+    try { verdict = JSON.parse(gate.stdout.trim().split('\n').pop()); } catch { /* reported below */ }
+    if (!verdict) problems.push('foreman-std.md: check-prompt.js returned no verdict');
+    else if (!verdict.ok) {
+      for (const e of verdict.errors || []) problems.push(`foreman-std.md fails the product gate: ${e.error}`);
+    }
+  }
+
   for (const needle of task.promptMustContain || []) {
     for (const arm of ARMS) {
       const p = path.join(fixtureDir, 'prompts', `${arm}.md`);
