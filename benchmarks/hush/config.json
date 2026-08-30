@@ -16,6 +16,7 @@
     "release-digest",
     "repo-sweep",
     "rename-scope",
+    "plan-apply",
     "feature-drift",
     "incident-forensics"
   ]
