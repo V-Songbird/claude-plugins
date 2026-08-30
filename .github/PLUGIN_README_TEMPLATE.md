@@ -218,47 +218,35 @@ Inside Claude Code, run:
      (`decision-log.md` alongside the README, same pattern as a schema doc). Reference
      material, config tables, and file formats live in that doc, NEVER inlined here. -->
 
-## Benchmarks
+## The numbers
 
-<!-- (optional — razor/hush only, or any plugin with REAL head-to-head data; drop it entirely
-     rather than inventing numbers.) A MARKETING SHOWCASE in the same friendly voice as the top of
-     the README, NOT a lab report. Lead with the HERO: one headline number (an aggregate you can
-     defend — e.g. mean cost across the suite), stated up top and shown as the first chart, framed
-     against the alternative ("~25%, roughly 5x what 'just be brief' manages"). Then, in order:
-       1. Hero chart + the headline sentence.
-       2. A "why" chart (what the reader was missing — e.g. reads dwarf the reply), 1-2 sentences.
-       3. One or two TASK highlights that show the strongest capability, a chart each.
-       4. THE HONEST TABLE: every task, every arm, wins AND ties/losses, cheapest per row in bold,
-          an Average row bolded for your plugin. Disclosing the losses is the trust lever — a deck
-          that only shows wins reads as cherry-picked. Add ONE `> [!NOTE]` naming where it wins vs
-          where it's neutral/loses.
-       5. A plain "how we tested" line (real multi-turn sessions, costs from the API, numbers move
-          a few percent between runs).
-     Charts: committed SVGs a non-technical reader gets at a glance — pill bars on soft tracks, big
-     value labels, one accent colour for your plugin, a top-right stat badge, a one-line takeaway
-     footer. Make them THEME-AWARE with an internal <style> + `@media (prefers-color-scheme:dark)`
-     so they read in GitHub light and dark (see hush/assets/bench-hero.svg as the reference). Keep
-     text left-anchored and inside the viewBox; there's no live renderer here, so estimate widths.
-     Only claim numbers you can defend; never headline an underpowered (n<~6) result. GitHub renders
-     repo SVGs via <img src="assets/..."> (the logo proves it). -->
+<!-- (optional — drop it entirely rather than inventing numbers.) SHORT. The front page carries
+     the headline and the honest loss, and NOTHING else; the full tables live in
+     `docs/BENCHMARKS.md`. In order:
+       1. One or two sentences on what a test session actually is, in plain words.
+       2. Two or three small tables, each under its own bold question — "Does it still work?",
+          "How much noise?". Two rows each: `no plugin`, then your plugin in bold.
+       3. A `> [!IMPORTANT]` box titled "Where <plugin> doesn't win", naming the real losses and
+          linking to the full page. Disclosing the loss is the trust lever.
+       4. One italic line: numbers move between runs, run it yourself, link `benchmarks/`.
+     Never put a per-run number, a batch tag, a sample size, an arm name, or a p-value here. -->
 
-## Under the hood
+## Going deeper
 
-<!-- ONE short closing sentence, plain language — a pointer to the code / a schema doc (NOT a
-     restatement of "How it works" above), plus the "pairs with" cross-link if there's a sibling
-     plugin: "<one-line pointer, e.g. 'Every check above fires as Claude works'> — read the
-     plugin's files if you want the exact mechanics. Pairs naturally with
-     [<sibling>](https://github.com/V-Songbird/<sibling>): …". If the whole section would just
-     repeat "What is this?" or "How it works", drop it. -->
+<!-- REQUIRED once the plugin has more than one page. This is the pressure valve that keeps the
+     front page readable: everything technical lives behind it. A borderless two-column table,
+     link on the left, one plain-words line on the right. The standard set:
 
-## Settings
-
-<!-- (optional — only if there are user-relevant knobs.) Lead with "Most people never touch these".
-     A compact table — aim for ~5 rows, 7 at most; everyday wording, never every env var.
-| Variable | What it does |
+| | |
 | --- | --- |
-| `<PLUGIN>_<VAR>` | <plain effect> |
--->
+| [How <plugin> works](docs/HOW-IT-WORKS.md) | What runs and when |
+| [Settings](docs/SETTINGS.md) | Every switch and number, and what each one does |
+| [The numbers](docs/BENCHMARKS.md) | Full results, including where it loses |
+| [Run the benchmarks](benchmarks/) | The harness, so you can check any of it yourself |
+
+     Add a row per extra page; drop a row the plugin has no page for. `docs/` is gitignored by
+     default and each published page is allow-listed by name in the plugin's `.gitignore`, so
+     local research notes can share the folder without ever shipping. -->
 
 ## Good to know
 

@@ -1,0 +1,7 @@
+[
+  { "id": "r-104", "suite": "pricing",  "status": "pass", "ms": 1840, "owner": "platform" },
+  { "id": "r-105", "suite": "billing",  "status": "fail", "ms": 9120, "owner": "payments" },
+  { "id": "r-106", "suite": "accounts", "status": "pass", "ms": 2310, "owner": "platform" },
+  { "id": "r-107", "suite": "catalog",  "status": "skip", "ms": 0,    "owner": "search" },
+  { "id": "r-108", "suite": "billing",  "status": "pass", "ms": 4400, "owner": "payments" }
+]

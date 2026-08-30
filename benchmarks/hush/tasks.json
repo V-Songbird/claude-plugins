@@ -137,5 +137,21 @@
         "undefined|swallow|invalid_grant|not (in )?recoverable|unhandled (error )?code"
       ]
     }
+  },
+  {
+    "id": "plan-apply",
+    "category": "tool",
+    "segment": "search-heavy",
+    "fixture": "plan-apply",
+    "prompt": "We want a --json flag on the report command — same data, printed as JSON instead of the text table. Don't touch anything yet. How would you work on this?",
+    "check": {
+      "type": "keywords",
+      "require": 3,
+      "patterns": [
+        "cli\\.js",
+        "buildRows|report\\.js",
+        "--json|asJson"
+      ]
+    }
   }
 ]

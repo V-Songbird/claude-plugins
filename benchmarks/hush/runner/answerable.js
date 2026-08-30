@@ -2,6 +2,19 @@
 'use strict';
 // Answerable: could a reader act on this message without asking a follow-up?
 //
+// CHANGED 2026-08-29, and numbers from before that date are not comparable:
+// the judge used to mark "there is nothing to do next" as no answer at all.
+// Only a reply willing to say a job is finished ever trips that, so it scored
+// honesty as a miss and rewarded inventing a next step. The prompt now names
+// it as an answer. Both arms are judged by the same prompt, as always.
+//
+// CHANGED AGAIN the same day, same rule about comparability: the second
+// question reads "Which file, command or thing", and the judge was reading it
+// as "which file". On a read-only diagnosis the thing to look at is a host or a
+// service, not a path, so a correct reply scored as a miss. The prompt now says
+// what its own word "thing" covers. It grants no new leniency: a reply that
+// points at nothing is still a miss.
+//
 // Every other meter here scores the text. This one scores what a reader can get
 // OUT of the text. A fresh session — no plugins, no output style, no sight of
 // the work — is handed the original request and the one reply, and asked three
@@ -63,6 +76,14 @@ function judgePrompt(taskPrompt, finalText) {
     'Answer the three questions using ONLY the reply. Do not guess, do not use',
     'anything you know about the tools or files involved, and do not explain your',
     `reasoning. If the reply does not contain an answer, write exactly ${ABSENT}.`,
+    '',
+    '"There is nothing to do" IS an answer to the third question. A reply that',
+    'says the work is finished and needs no follow-up has answered it — write',
+    `that, not ${ABSENT}. Only a reply that leaves the question open is a miss.`,
+    '',
+    'The second question says "file, command or thing", and it means all three.',
+    'A host, service, endpoint, URL, log or command to run answers it just as a',
+    `file path does. Write ${ABSENT} only when the reply points at nothing.`,
     '',
     'Write exactly three lines and nothing else:',
     ...QUESTIONS.map((q, i) => `A${i + 1}: <answer to: ${q}>`),
@@ -251,6 +272,30 @@ async function main() {
     fs.writeFileSync(save, rows.map((r) => JSON.stringify(r)).join('\n') + '\n');
     console.log(`\nsaved ${rows.length} judged rows to ${save}`);
   }
+
+  // The README quotes these percentages, so they need a home on disk beside the
+  // batch they came from. publish.js owns claims.md and never sees a judge run,
+  // so this writes its own file next to it rather than editing that one.
+  if (dir) {
+    const out = path.join(dir, 'published', 'answerable.md');
+    fs.mkdirSync(path.dirname(out), { recursive: true });
+    const body = Object.keys(report.arms).map((a) => {
+      const x = report.arms[a];
+      return `| ${a} | ${x.judged} | ${n1(x.qPct[0])}% | ${n1(x.qPct[1])}% | `
+        + `${n1(x.qPct[2])}% | ${n1(x.answerablePct)}% | ${n1(x.recoveredPct)}% |`;
+    });
+    fs.writeFileSync(out, [
+      `# answerable — batch ${path.basename(dir)}`,
+      '',
+      `${rows.length} judged replies, three fixed questions each, judged on ${model}.`,
+      '',
+      '| Arm | runs | q1 what happened | q2 what to open | q3 what next | all three | task facts recovered |',
+      '|---|---|---|---|---|---|---|',
+      ...body,
+      '',
+    ].join('\n'));
+    console.log(`wrote ${out}`);
+  }
   const failed = rows.filter((r) => r.error).length;
   if (failed) console.log(`\n${failed} judge call(s) failed and were left out of the means.`);
 }
@@ -259,4 +304,7 @@ if (require.main === module) main();
 
 module.exports = {
   QUESTIONS, ABSENT, judgePrompt, parseAnswers, isAbsent, scoreAnswers, answerableReport,
+  // retold.js runs the same second-stage judge over a retelling instead of the
+  // reply, so it needs the same spawn and the same success guards.
+  runJudge,
 };

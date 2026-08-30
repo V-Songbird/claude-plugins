@@ -78,7 +78,14 @@ function parseTranscript(jsonl) {
     m.contextTraffic +=
       (u.input_tokens || 0) + (u.cache_read_input_tokens || 0) + (u.cache_creation_input_tokens || 0);
   }
-  m.assistantTexts = [...textByMsgId.values()];
+  // The CLI writes its own failures into the assistant stream, so a dropped
+  // connection reads as the model narrating. Found 2026-08-29: one run in
+  // rm300 scored a silence leak on `API Error: Connection lost mid-response.`
+  // Harness text is not narration, and counting it penalises whichever arm was
+  // unlucky. Anchored at the start of the message so a reply that merely quotes
+  // an error still counts.
+  const HARNESS_ERROR = /^(API Error|Execution error|Request timed out)\b/;
+  m.assistantTexts = [...textByMsgId.values()].filter((t) => !HARNESS_ERROR.test(t.trim()));
   // The style promises ONE message per turn, which is a stricter claim than
   // "zero mid-turn words" — a run can post two messages and still score zero
   // narration if the earlier one was empty of prose. Count the messages too.

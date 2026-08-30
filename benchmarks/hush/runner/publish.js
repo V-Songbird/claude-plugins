@@ -36,6 +36,8 @@ const TABLES = [
   { metric: 'contextPerCall', label: 'Context carried per API call', unit: 'tokens', digits: 0 },
   { metric: 'outputTokens', label: 'Output tokens per session', unit: 'tokens', digits: 0 },
   { metric: 'narrationWords', label: 'Mid-turn narration per session', unit: 'words', digits: 0 },
+  { metric: 'interruptions', label: 'Times it broke in before the answer', unit: 'messages', digits: 1 },
+  { metric: 'brokeInTwice', label: 'Sessions that broke in more than once', unit: 'share of runs', digits: 2 },
 ];
 
 function metricTable(runs, { metric, label, unit, digits }, arms) {

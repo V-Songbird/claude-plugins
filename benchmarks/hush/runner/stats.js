@@ -110,6 +110,22 @@ const METRICS = {
   // it is the one the plugin is actually responsible for.
   contextPerCall: (r) => (r.apiCalls > 0 ? r.contextTraffic / r.apiCalls : NaN),
   toolCharsPerCall: (r) => (r.apiCalls > 0 ? r.toolResultChars / r.apiCalls : NaN),
+  // How many times a session broke in before its answer. Silence counts words
+  // and so scores a one-line plan the same as a running commentary; this counts
+  // the interruptions themselves. `narrationTexts` is the exact list where a
+  // record carries it, and older records fall back to the message count minus
+  // each call's own final message.
+  interruptions: (r) => (Array.isArray(r.narrationTexts)
+    ? r.narrationTexts.length
+    : Math.max(0, (r.assistantMsgs || 0) - (r.turnsRun || 1))),
+  // The honest silence bar, added 2026-08-29. Every model opens a turn with a
+  // line about what it is about to do, and three campaigns have now failed to
+  // remove that line for good — the strongest version, a style clause banning
+  // the exact opening word, halves it and no more. So the claim worth making is
+  // not "never speaks" but "speaks once, then not again until the answer".
+  // Scored 1 when a session broke in more than once, so lower stays better and
+  // the mean reads as the share of sessions that ran past one opener.
+  brokeInTwice: (r) => (METRICS.interruptions(r) > 1 ? 1 : 0),
   wallS: (r) => (Number.isFinite(r.wallMs) ? r.wallMs / 1000 : NaN),
 };
 

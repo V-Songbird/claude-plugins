@@ -398,6 +398,10 @@ async function oneRun(task, arm, rep, orderIndex) {
       toolCalls: sum('toolCalls'), toolResultChars: sum('toolResultChars'),
       narrationWords: sum('narrationWords'), finalWords: last.finalWords,
       assistantMsgs: sum('assistantMsgs'),
+      // Every assistant message except each call's own final one. The word
+      // count alone says a session leaked; this says what it leaked, which is
+      // the only way to tell an opening line from real play-by-play.
+      narrationTexts: parsed.flatMap((p) => p.assistantTexts.slice(0, -1)).filter((t) => /\S/.test(t)),
       finalText: last.finalText,
       stderr: stderrAll.slice(0, 2000),
       // Fail-soft: null unless --hush-debug was passed and hush actually
