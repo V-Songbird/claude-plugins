@@ -49,7 +49,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/hush.git",
-        "sha": "8e9dd0914e82955d43c9cb7ba426014132f43116"
+        "sha": "e45972b9cb6476a73484adc5e810084d871a127a"
       },
       "description": "Trims command output, logs, and Claude's play-by-play before they pile up in the session, so long, noisy work stays quiet and readable. Install and forget — nothing to configure. Short questions with nothing to run cost a little more.",
       "version": "1.11.1",
@@ -86,7 +86,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/razor.git",
-        "sha": "e3e7fb2459215b5ecb814a931a71d5425b585e20"
+        "sha": "049bbc082a71d40ef85dc1f971852f97b2acfe41"
       },
       "description": "YAGNI checkpoints at the harness level for real engineering work — nudges toward the simplest solution and asks one evidence-backed \"do we need this?\" before new dependencies, file sprawl, and unchecked build growth.",
       "version": "1.5.2",
