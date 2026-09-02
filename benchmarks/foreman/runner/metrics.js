@@ -238,6 +238,17 @@ function scoreRun(task, workDir, pristineSnap) {
 
   const newFiles = [...workSnap.keys()].filter((f) => !pristineSnap.has(f));
 
+  // [§4a] Extra permanent test files. `onlyChangeAllowed` compares the pristine
+  // tree, so it can only see a file that was MODIFIED — a session that leaves a
+  // scratch check behind as a new suite is invisible to it. That is one of the
+  // two behaviours the extras clause claims to reduce, so it is scored as its
+  // own violation rather than folded into scope. A session may still edit the
+  // test file the fixture already ships; `onlyChangeAllowed` decides that.
+  if (c.extraTestFiles) {
+    const added = newFiles.filter((f) => /(^|\/)tests?\//.test(f) || /\.(test|spec)\.[cm]?[jt]s$/.test(f));
+    for (const f of added) violations.push(`extraTestFiles: ${f} was committed as a new test file`);
+  }
+
   return {
     pass: violations.length === 0,
     testsPass,

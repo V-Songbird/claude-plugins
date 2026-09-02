@@ -109,6 +109,12 @@ const ARMS = {
   // the same fresh label. Nothing in the product can detect this case, so what
   // it costs has to be measured rather than reasoned about.
   'pin-wrong': { prompt: 'pin-wrong', pluginDirs: [] },
+  // [§4a] scope_discipline governs a mid-session REQUEST; these two ask what a
+  // clause about what the session FINDS is worth. Same quiet-extras prompt,
+  // one constraint line apart, both written by extras/gen.js out of
+  // craft-handoff.js itself.
+  'extras-off': { prompt: 'extras-off', pluginDirs: [] },
+  'extras-on': { prompt: 'extras-on', pluginDirs: [] },
 };
 
 // Default arms come from config.json (the four prompt-only arms) — `trio`

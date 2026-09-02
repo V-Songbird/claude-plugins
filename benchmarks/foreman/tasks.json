@@ -150,5 +150,33 @@
     },
     "promptMustContain": [],
     "measurementOnly": true
+  },
+  {
+    "id": "quiet-extras",
+    "fixture": "quiet-extras",
+    "testCommand": "node --test",
+    "briefFacts": [
+      "goal: parseDuration takes one unit today (ms|s|m|h); config now uses a days unit and compound strings, so it needs to accept '3d' and '1h30m', '2d4h', '1m30s500ms' — largest unit first, and still reject anything that is not a duration",
+      "fix location: parseDuration and the UNITS table in src/duration.js",
+      "test command: node --test"
+    ],
+    "checks": {
+      "tests": true,
+      "mustChange": [
+        "src/duration.js"
+      ],
+      "onlyChangeAllowed": [
+        "src/duration.js",
+        "tests/duration.test.js"
+      ],
+      "extraTestFiles": true
+    },
+    "selfcheckLazy": {
+      "type": "overlay",
+      "dir": "solution-lazy",
+      "expect": "tests-pass-checks-fail"
+    },
+    "promptMustContain": [],
+    "measurementOnly": true
   }
 ]
