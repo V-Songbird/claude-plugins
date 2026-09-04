@@ -4,10 +4,18 @@
 // CI backstop for check-marketplace-sync.js's pre-commit gate: that hook
 // only sees a *diff* at commit time, so it can be skipped (--no-verify, a
 // GitHub web edit, a contributor without core.hooksPath set). This script
-// checks absolute truth instead -- given the repo checked out WITH
-// submodules, does every plugin's source.sha in marketplace.json actually
-// match the commit its submodule is checked out at? Run in CI on every
-// push/PR (see .github/workflows/validate-marketplace.yml).
+// checks absolute truth instead. Two truths, because a submodule has two
+// commits and they are not always the same one:
+//
+//   * the commit the submodule is CHECKED OUT at, and
+//   * the commit the parent repo has RECORDED as its pointer.
+//
+// In CI those agree, since the checkout comes from the pointer. On a working
+// machine they part company the moment marketplace.json is committed without
+// the plugin directory staged alongside it, and only the recorded pointer is
+// what anyone else ends up cloning. Checking the checkout alone reported a
+// clean bill of health across exactly that split. Run in CI on every push/PR
+// (see .github/workflows/validate-marketplace.yml).
 
 const fs = require("fs");
 const path = require("path");
@@ -32,6 +40,19 @@ function submoduleHead(root, pluginName) {
   }
 }
 
+// The commit the parent repo's last commit recorded for a submodule. Null when
+// HEAD carries no gitlink there -- a plugin being added in this very commit,
+// or a root with no history at all -- which is not a mismatch to report.
+function recordedPointer(root, pluginName) {
+  try {
+    const out = execSync(`git ls-tree HEAD -- ${JSON.stringify(pluginName)}`, { cwd: root, encoding: "utf-8" });
+    const m = out.match(/^160000 commit ([0-9a-f]{40})\t/);
+    return m ? m[1] : null;
+  } catch {
+    return null;
+  }
+}
+
 function verify(root, marketplace) {
   const problems = [];
   for (const entry of marketplace.plugins || []) {
@@ -49,6 +70,15 @@ function verify(root, marketplace) {
           `at ${actualHead.slice(0, 12)}. Update "version" and "source.sha" together and re-stage marketplace.json.`
       );
     }
+
+    const recorded = recordedPointer(root, entry.name);
+    if (recorded !== null && recorded !== source.sha) {
+      problems.push(
+        `"${entry.name}": marketplace.json pins ${source.sha.slice(0, 12)}, but the last commit records the ` +
+          `submodule pointer at ${recorded.slice(0, 12)}. That pointer is what a fresh clone gets, so stage the ` +
+          `"${entry.name}" directory and commit it.`
+      );
+    }
   }
   return problems;
 }
@@ -59,7 +89,7 @@ function main() {
   const problems = verify(root, marketplace);
 
   if (problems.length === 0) {
-    process.stdout.write("marketplace.json source.sha matches every submodule's checked-out commit.\n");
+    process.stdout.write("marketplace.json source.sha matches every submodule's checked-out commit and recorded pointer.\n");
     return 0;
   }
 
@@ -73,4 +103,4 @@ if (require.main === module) {
   process.exit(main());
 }
 
-module.exports = { main, verify, submoduleHead, readMarketplace };
+module.exports = { main, verify, submoduleHead, recordedPointer, readMarketplace };
