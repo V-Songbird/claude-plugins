@@ -49,10 +49,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/hush.git",
-        "sha": "e45972b9cb6476a73484adc5e810084d871a127a"
+        "sha": "1b4d0b28a54d4d36c151990e2f1fc9f742175c71"
       },
       "description": "Trims command output, logs, and Claude's play-by-play before they pile up in the session, so long, noisy work stays quiet and readable. Install and forget — nothing to configure. Short questions with nothing to run cost a little more.",
-      "version": "1.11.1",
+      "version": "1.11.2",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
@@ -86,10 +86,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/razor.git",
-        "sha": "049bbc082a71d40ef85dc1f971852f97b2acfe41"
+        "sha": "d179e09b0ccd3d407a31a2390f48cf9eb99e5c03"
       },
       "description": "YAGNI checkpoints at the harness level for real engineering work — nudges toward the simplest solution and asks one evidence-backed \"do we need this?\" before new dependencies, file sprawl, and unchecked build growth.",
-      "version": "1.5.2",
+      "version": "1.5.3",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
