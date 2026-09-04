@@ -10,6 +10,10 @@ if (sync !== 0) process.exit(sync);
 process.argv[2] = "staged";
 const names = require("./check-reference-names.js").main();
 if (names !== 0) process.exit(names);
+// Shared copies: a helper duplicated across plugins must not drift in one of
+// them. Reads the submodule checkouts, skips whichever is absent.
+const copies = require("./check-shared-copies.js").main();
+if (copies !== 0) process.exit(copies);
 // README nav: every front page keeps a nav line, and every anchor in it still
 // resolves. See check-readme-nav.js.
 process.exit(require("./check-readme-nav.js").main(["staged"]));
