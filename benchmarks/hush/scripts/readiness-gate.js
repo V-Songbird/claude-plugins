@@ -294,8 +294,19 @@ function claimsComeFromRecords(ctx) {
   const gaps = [];
   const allCosts = { costs: [] };
   for (const [batchId, batchRuns] of [...byBatch.entries()].sort()) {
-    // Throws when the batch manifest planned runs whose records are gone.
-    const claims = buildClaims(batchRuns, batches);
+    // buildClaims throws when the batch manifest planned runs whose records
+    // are gone. Letting that escape aborted the loop at the first bad batch
+    // and discarded every gap already collected, so the gate revealed one
+    // problem per 13s run. Record it and keep going. The throw's own text
+    // rides along, which is what still tells an incomplete batch apart from
+    // one that was never published.
+    let claims;
+    try {
+      claims = buildClaims(batchRuns, batches);
+    } catch (err) {
+      gaps.push(`batch ${batchId} does not regenerate: ${err.message}`);
+      continue;
+    }
     allCosts.costs.push(...(claims.costs || []));
     evidence.push(`runner/publish.js — regenerated ${claims.segments.length} segment tables from batch ${claims.batchId}`);
 

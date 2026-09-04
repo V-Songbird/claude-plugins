@@ -222,6 +222,7 @@ function fixtureRoot(tag, opts = {}) {
   const recordsDir = path.join(root, gate.RECORDS_DIR);
   const runs = opts.runs === undefined ? synthRuns() : opts.runs;
   for (const r of runs) writeRecord(recordsDir, r.key, r);
+  if (opts.batch) writeRecord(recordsDir, 'batch', opts.batch);
 
   if (runs.length && opts.published !== 'none') {
     const claims = buildClaims(readRecords(recordsDir).runs);
@@ -278,6 +279,22 @@ describe('falsifiability: a complete evidence set passes, and each break costs i
     const report = runFixture(fixtureRoot('onesegment', { runs: synthRuns().filter((r) => r.segment === 'coding') }));
     assert.deepStrictEqual(flipped(complete(), report), [8]);
     assert.match(point(report, 8).missing, /no records for segment\(s\) noisy-output/);
+  });
+
+  // The gate used to let buildClaims throw out of the batch loop, so the
+  // gaps already collected died with it and the run reported only "the check
+  // itself failed". One problem surfaced per 13s run; clearing three of them
+  // took three publish-and-rerun cycles on 2026-08-28.
+  test('point 8 reports every gap in one pass when a batch cannot regenerate', () => {
+    const runs = synthRuns();
+    const report = runFixture(fixtureRoot('incomplete', {
+      runs,
+      batch: { batchId: 'fixture-0001', order: [...runs.map((r) => r.key), 'noisy-build__hush__r3'] },
+    }));
+    const { missing } = point(report, 8);
+    assert.doesNotMatch(missing, /the check itself failed/);
+    assert.match(missing, /batch fixture-0001 does not regenerate: .*is incomplete/);
+    assert.ok(missing.includes('1 README figure(s) no record produces: $0.42'), missing);
   });
 
   test('point 8 flips when the README prints a figure no record produces', () => {
