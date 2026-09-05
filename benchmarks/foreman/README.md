@@ -334,3 +334,13 @@ Each run records, per session: cost, output tokens, context traffic (input + cac
 ### A note on fairness
 
 Each session runs in a fresh throwaway workspace in the system temp directory, outside any git repo, with a scoped tool allowlist, no MCP servers, and `--setting-sources project` — so a difference between arms is the prompt (or, for `trio`, the prompt plus the named plugins), nothing else. Scope checks are hash comparisons in the scorer, not model judgment. The foreman prompt's extra length is part of the product, so its overhead is included in the measurement, not subtracted.
+
+## The README replay
+
+The animated exchange at the top of Foreman's README is drawn from recorded transcripts, never typed:
+
+```bash
+node runner/demo.js --exchange records/<dir>/exchange.json
+```
+
+`exchange.json` names the project, the model, and one entry per turn: the text the user sent and the `claude -p --output-format stream-json` transcript of Foreman's answer (a `--resume` of the same session for the follow-up). The drawer plays each reply at its share of the recorded wall clock, cuts any reply after the first at a paragraph boundary with a word count, and shows the `task_context` and `relevant_files` blocks of the handoff prompt the session returned. Transcripts stay under `records/` and never ship; `foreman/assets/demo.svg` does.
