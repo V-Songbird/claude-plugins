@@ -153,7 +153,8 @@
   },
   {
     "id": "unpinned-dup",
-    "fixture": "unpinned-dup",
+    "fixture": "pinned-dup",
+    "solutionDir": "lazy",
     "testCommand": "node --test",
     "briefFacts": [
       "symptom: median() returns the wrong value for even-length input",
@@ -190,7 +191,7 @@
     },
     "selfcheckLazy": {
       "type": "overlay",
-      "dir": "lazy",
+      "dir": "solution",
       "expect": "tests-pass-checks-fail"
     },
     "promptMustContain": [],

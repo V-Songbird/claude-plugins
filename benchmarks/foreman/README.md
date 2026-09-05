@@ -287,10 +287,12 @@ node runner/run.js --tasks pinned-dup --arms chain-off,chain-on --reps 6
 
 `pin-wrong` hands the session a test that refutes the false claim. The
 dangerous shape is a false lesson nothing can refute. `unpinned-dup` is the
-same app with the opposite truth: the task asks for the collapse, the in-code
-TODO invites it, and no ticket pins anything — and `unpin-wrong` serves
-`pin-on`'s exact block anyway. If the session obeys it, the collapse it was
-sent to make never happens, and the task's inverted sentinels score that.
+`pinned-dup` fixture run with the opposite truth: the task asks for the
+collapse, the in-code TODO invites it, and no ticket pins anything — so the
+fixture's `lazy` overlay is this task's solution and its `solution` is the
+lazy path — and `unpin-wrong` serves `pin-on`'s exact block anyway. If the
+session obeys it, the collapse it was sent to make never happens, and the
+task's inverted sentinels score that.
 
 ```bash
 node runner/run.js --tasks unpinned-dup --arms unpin-off,unpin-wrong --reps 6

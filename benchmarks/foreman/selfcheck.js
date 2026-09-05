@@ -90,7 +90,10 @@ for (const task of TASKS) {
   const problems = [];
   const fixtureDir = path.join(ROOT, 'fixtures', task.fixture);
   const appDir = path.join(fixtureDir, 'app');
-  const solutionDir = path.join(fixtureDir, 'solution');
+  // A task may name a different overlay as its solution, so two tasks with
+  // opposite truths can share one fixture: `unpinned-dup` runs on pinned-dup's
+  // app and calls its `lazy` overlay the solution.
+  const solutionDir = path.join(fixtureDir, task.solutionDir || 'solution');
   const pristineSnap = snapshotDir(appDir);
 
   // 1: pristine fails

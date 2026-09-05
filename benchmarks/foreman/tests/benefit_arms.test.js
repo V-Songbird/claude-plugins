@@ -221,23 +221,18 @@ describe('the chain arms', () => {
 // that refuted the false claim; these hand it nothing. Same app, opposite
 // truth, pin-on's exact block.
 describe('the uncheckable-lesson arms', () => {
-  const UNPINNED = path.join(ROOT, 'fixtures', 'unpinned-dup');
   const UTASK = TASKS.find((t) => t.id === 'unpinned-dup');
   const read = (p) => fs.readFileSync(p, 'utf8');
 
-  test('the fixture app is byte-identical to pinned-dup — only the truth differs', () => {
-    const rel = (dir, f) => path.relative(dir, f).split(path.sep).join('/');
-    const a = new Map(filesUnder(path.join(FIXTURE, 'app')).map((f) => [rel(path.join(FIXTURE, 'app'), f), read(f)]));
-    const b = new Map(filesUnder(path.join(UNPINNED, 'app')).map((f) => [rel(path.join(UNPINNED, 'app'), f), read(f)]));
-    assert.deepEqual([...a.keys()].sort(), [...b.keys()].sort());
-    for (const [f, text] of a) assert.equal(b.get(f), text, `${f} differs between the two fixtures`);
-    assert.equal(read(path.join(UNPINNED, 'prompts', 'foreman.md')), BASE, 'the base prompt must be the same prompt');
+  test('the task runs on the pinned-dup fixture itself — same app, same prompt, opposite truth', () => {
+    assert.equal(UTASK.fixture, 'pinned-dup');
+    assert.equal(UTASK.solutionDir, 'lazy', "pinned-dup's lazy overlay is this task's solution");
+    assert.equal(UTASK.selfcheckLazy.dir, 'solution', "and pinned-dup's solution is this task's lazy path");
   });
 
   test("the served block is pin-on's block, verbatim, and the control carries none", () => {
     assert.equal(gen.ARMS['unpin-wrong'], gen.ARMS['pin-on']);
     assert.equal(gen.ARMS['unpin-off'], null);
-    assert.equal(gen.fixtureOf('unpin-wrong'), UNPINNED);
     assert.equal(gen.build('unpin-off'), BASE);
   });
 
@@ -247,16 +242,16 @@ describe('the uncheckable-lesson arms', () => {
   });
 
   test('nothing in the fixture can refute the claim — no ticket, no test on the helpers\' shape', () => {
-    for (const f of filesUnder(path.join(UNPINNED, 'app'))) {
-      assert.ok(!read(f).includes(PIN), `${path.relative(UNPINNED, f)} states the pin`);
+    for (const f of filesUnder(path.join(FIXTURE, 'app'))) {
+      assert.ok(!read(f).includes(PIN), `${path.relative(FIXTURE, f)} states the pin`);
     }
-    const suite = read(path.join(UNPINNED, 'app', 'tests', 'stats.test.js'));
+    const suite = read(path.join(FIXTURE, 'app', 'tests', 'stats.test.js'));
     assert.ok(!suite.includes('percentile('), 'the suite must not demand the collapse either — that would make the claim checkable');
   });
 
   test('the solution collapses the copies and the lazy path keeps them', () => {
-    const solution = read(path.join(UNPINNED, 'solution', 'src', 'stats.js'));
-    const lazy = read(path.join(UNPINNED, 'lazy', 'src', 'stats.js'));
+    const solution = read(path.join(FIXTURE, UTASK.solutionDir, 'src', 'stats.js'));
+    const lazy = read(path.join(FIXTURE, UTASK.selfcheckLazy.dir, 'src', 'stats.js'));
     for (const s of UTASK.checks.sentinels) {
       assert.equal(s.absent, true, 'every sentinel is inverted: the line must be gone');
       assert.ok(!solution.includes(s.contains), `the solution still carries ${s.contains}`);

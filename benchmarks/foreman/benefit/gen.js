@@ -52,9 +52,10 @@
 // whether the symbol chain — the block craft-handoff.js builds from a file's
 // commit history — carries the same pin as well as a lesson does. `unpin-off`
 // / `unpin-wrong` ask the question the wrong-lesson arm could not: what a
-// false lesson does when NOTHING in the task can refute it. They live on
-// `unpinned-dup`, the same app with the opposite truth (the collapse is the
-// job), and serve pin-on's exact block anyway.
+// false lesson does when NOTHING in the task can refute it. They run as the
+// `unpinned-dup` task — pinned-dup's own fixture with the opposite truth (the
+// collapse is the job, so its `lazy` overlay is the solution) — and serve
+// pin-on's exact block anyway.
 //
 //   node benefit/gen.js            # write every arm prompt
 //   node benefit/gen.js --check    # exit 1 if any is missing or stale
@@ -68,10 +69,6 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 const FIXTURE = path.join(ROOT, 'fixtures', 'pinned-dup');
 const PROMPTS = path.join(FIXTURE, 'prompts');
-// The mirror fixture: the same app, the opposite truth. Its prompts/foreman.md
-// is a byte-identical copy of pinned-dup's, so the base prompt is one thing
-// and only the arm block and the scoring differ.
-const UNPINNED = path.join(ROOT, 'fixtures', 'unpinned-dup');
 
 const FOREMAN_DIR = process.env.FOREMAN_DIR
   ? path.resolve(process.env.FOREMAN_DIR)
@@ -127,25 +124,16 @@ const ARMS = {
   // truth, same pin — a different channel.
   'chain-off': null,
   'chain-on': chainBlock(),
-  // The uncheckable false lesson. pin-on's EXACT block, served on the
-  // unpinned-dup fixture, whose truth is the opposite: the task asks for the
-  // collapse, the TODO invites it, and no PERF-1123 exists. The wrong-lesson
-  // arm above handed the session a test that refuted its claim; this one hands
-  // it nothing. Only the instruction contradicts the lesson, and the question
-  // is which of the two the session obeys.
+  // The uncheckable false lesson. pin-on's EXACT block, run as the
+  // `unpinned-dup` task — the same fixture with the opposite truth: the task
+  // asks for the collapse, the TODO invites it, no PERF-1123 exists, and the
+  // task calls pinned-dup's `lazy` overlay the solution. The wrong-lesson arm
+  // above handed the session a test that refuted its claim; this one hands it
+  // nothing. Only the instruction contradicts the lesson, and the question is
+  // which of the two the session obeys.
   'unpin-off': null,
   'unpin-wrong': block(PIN_LESSON, PIN_LABEL),
 };
-
-// Which fixture an arm's prompts live in. Everything is pinned-dup except the
-// uncheckable pair.
-function fixtureOf(armName) {
-  return armName.startsWith('unpin-') ? UNPINNED : FIXTURE;
-}
-
-function promptsDir(armName) {
-  return path.join(fixtureOf(armName), 'prompts');
-}
 
 // The block lands where craft-handoff.js puts it: inside <background>, after
 // <relevant_files>, before <context>. The chain lands there too — in the
@@ -154,7 +142,7 @@ const ANCHOR = '</relevant_files>\n';
 
 function build(armName) {
   if (!(armName in ARMS)) throw new Error(`unknown arm ${armName}`);
-  const base = fs.readFileSync(path.join(promptsDir(armName), 'foreman.md'), 'utf8');
+  const base = fs.readFileSync(path.join(PROMPTS, 'foreman.md'), 'utf8');
   const lessons = ARMS[armName];
   if (!lessons) return base;
   const at = base.indexOf(ANCHOR);
@@ -166,7 +154,7 @@ function build(armName) {
 }
 
 function armPath(armName) {
-  return path.join(promptsDir(armName), `${armName}.md`);
+  return path.join(PROMPTS, `${armName}.md`);
 }
 
 function main() {
@@ -197,7 +185,6 @@ module.exports = {
   ARMS,
   build,
   armPath,
-  fixtureOf,
   PIN_LESSON,
   PIN_LABEL,
   WRONG_LESSON,
