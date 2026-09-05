@@ -12,10 +12,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/foreman.git",
-        "sha": "74ef952c857ea84c6d1352b8f5b06a03e4c8fe1d"
+        "sha": "8d1fb466ef791e894a43e54b08308981403a5946"
       },
       "description": "Project continuity and roadmap trust: keeps a correctable roadmap in your repo, recommends the next task and says why it came first, and hands it off with the paths and symbols checked. Say what you want in plain language — one entrance routes it.",
-      "version": "2.5.3",
+      "version": "2.5.4",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
@@ -86,10 +86,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/razor.git",
-        "sha": "1583faa3284bd67c5e4fc84406affcfdd1c44d75"
+        "sha": "bff297c89afecf5e663c4db952507b4065fdc0d1"
       },
       "description": "YAGNI checkpoints at the harness level for real engineering work — nudges toward the simplest solution and asks one evidence-backed \"do we need this?\" before new dependencies, file sprawl, and unchecked build growth.",
-      "version": "1.5.5",
+      "version": "1.5.6",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",

@@ -46,6 +46,8 @@ test('both turns land on the page in order, the second reply cut with a count', 
   assert.ok(svg.includes('…and on. 65 words in all.'));
   assert.ok(!svg.includes('C:\\x'));
   assert.ok(svg.includes('You are a dev.'));
+  assert.ok(body.includes('you, in a fresh session:'));
+  assert.ok(!body.includes('The prompt it wrote'));
   assert.ok(times[0] < times[1] && times[1] <= 8);
 });
 

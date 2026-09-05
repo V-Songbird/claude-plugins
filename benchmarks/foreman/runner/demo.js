@@ -112,7 +112,7 @@ function block(y, lines, t, who) {
     if (kind === 'gap') { yy += LH / 2; continue; }
     const mono = kind === 'code' ? ' font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"' : '';
     const weight = kind === 'head' || kind === 'bold' ? ' font-weight="700"' : '';
-    const style = who === 'you' ? ' font-style="italic"' : '';
+    const style = who === 'you' && kind !== 'code' ? ' font-style="italic"' : '';
     const cls = who === 'you' ? 'you' : kind === 'code' ? 'ink2' : kind === 'mut' ? 'mut' : 'ink';
     parts.push(`<text class="${cls}" x="${PAD + 84}" y="${yy}" font-size="${kind === 'code' ? 13 : FS}"${mono}${weight}${style}>${esc(text)}</text>`);
     yy += LH;
@@ -154,17 +154,19 @@ function demoSvg(exchange, turns) {
     if (cut) lines.push({ text: '', kind: 'gap' }, { text: `…and on. ${words(t.reply)} words in all.`, kind: 'mut' });
     const reply = block(y, lines, replyAt, 'foreman');
     parts.push(reply.svg); y = reply.bottom + 14;
+    clock += GAP_S * 1000;
     if (t.prompt) {
-      const lead = [{ text: 'The prompt it wrote opens like this. The files and line numbers were checked a moment earlier:', kind: 'text' }, { text: '', kind: 'gap' }, ...promptLines(t.prompt)];
-      const p = block(y, lead, replyAt, 'foreman');
+      // The handoff is the user's next move, not more of Foreman's speech: it
+      // gets pasted into a fresh session, so it lands as a "you" turn.
+      const paste = [{ text: 'you, in a fresh session:', kind: 'text' }, { text: '', kind: 'gap' }, ...promptLines(t.prompt)];
+      const p = block(y, paste, clock * scale, 'you');
       parts.push(p.svg); y = p.bottom + 8;
     }
-    clock += GAP_S * 1000;
   });
   const H = y + 48;
   const label = `One real exchange with Foreman on ${exchange.project}. `
     + turns.map((t, i) => `You: ${t.you} Foreman answers after ${(t.ms / 1000).toFixed(0)} seconds: ${plain(t.reply).slice(0, 220)}${plain(t.reply).length > 220 ? '…' : ''}`).join(' ')
-    + ` The prompt Foreman wrote names the files it checked, with line numbers. ${exchange.model}, replayed on the recorded wall clock.`;
+    + ` Then you paste the prompt Foreman wrote into a fresh session; it opens by naming the files it checked, with line numbers. ${exchange.model}, replayed on the recorded wall clock.`;
   const style = '<style>.card{fill:#fcfcfb;stroke:rgba(11,11,11,.07)}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.mut{fill:#898781}'
     + '.bp{fill:#dcd9d0}.ac{fill:#16a34a}.pillt{fill:#52514e}.you{fill:#52514e}'
     + '@media(prefers-color-scheme:dark){.card{fill:#161b22;stroke:#30363d}.ink{fill:#e6edf3}.ink2{fill:#b0b8c0}.mut{fill:#9198a1}'
