@@ -51,6 +51,14 @@ test('both turns land on the page in order, the second reply cut with a count', 
   assert.ok(times[0] < times[1] && times[1] <= 8);
 });
 
+test('a declared note rides in the alt text and the footer, and nowhere else', () => {
+  const noted = { ...exchange, note: 'one harness line left out of the first reply' };
+  const { svg } = demoSvg(noted, [{ you: 'hi', reply: 'hello', ms: 1000, prompt: null }]);
+  assert.strictEqual(svg.split('one harness line left out of the first reply').length, 3);
+  const plainSvg = demoSvg(exchange, [{ you: 'hi', reply: 'hello', ms: 1000, prompt: null }]).svg;
+  assert.ok(!plainSvg.includes('left out'));
+});
+
 test('every element has each attribute once', () => {
   const { svg } = demoSvg(exchange, [{ you: 'hi', reply: 'hello', ms: 1000, prompt: '<task_context>\nx\n</task_context>' }]);
   for (const tag of svg.match(/<[a-z]+ [^>]*>/g)) {

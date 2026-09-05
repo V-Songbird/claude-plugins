@@ -166,7 +166,8 @@ function demoSvg(exchange, turns) {
   const H = y + 48;
   const label = `One real exchange with Foreman on ${exchange.project}. `
     + turns.map((t, i) => `You: ${t.you} Foreman answers after ${(t.ms / 1000).toFixed(0)} seconds: ${plain(t.reply).slice(0, 220)}${plain(t.reply).length > 220 ? '…' : ''}`).join(' ')
-    + ` Then you paste the prompt Foreman wrote into a fresh session; it opens by naming the files it checked, with line numbers. ${exchange.model}, replayed on the recorded wall clock.`;
+    + ` Then you paste the prompt Foreman wrote into a fresh session; it opens by naming the files it checked, with line numbers. ${exchange.model}, replayed on the recorded wall clock.`
+    + (exchange.note ? ` ${exchange.note}` : '');
   const style = '<style>.card{fill:#fcfcfb;stroke:rgba(11,11,11,.07)}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.mut{fill:#898781}'
     + '.bp{fill:#dcd9d0}.ac{fill:#16a34a}.pillt{fill:#52514e}.you{fill:#52514e}'
     + '@media(prefers-color-scheme:dark){.card{fill:#161b22;stroke:#30363d}.ink{fill:#e6edf3}.ink2{fill:#b0b8c0}.mut{fill:#9198a1}'
@@ -174,7 +175,7 @@ function demoSvg(exchange, turns) {
   const head = `<text class="ink" x="${PAD + 8}" y="40" font-size="21" font-weight="800">One morning with Foreman</text>`
     + `<text class="mut" x="${PAD + 8}" y="64" font-size="14.5">${esc(exchange.project)}</text>`
     + `<text class="mut" x="${PAD + 8}" y="84" font-size="14.5">the roadmap is a plain file in the repo; nothing here was typed for the picture</text>`;
-  const foot = `<text class="mut" x="${PAD + 8}" y="${H - 22}" font-size="13.5">one real exchange, ${esc(exchange.model)} · replayed on the recorded clock</text>`;
+  const foot = `<text class="mut" x="${PAD + 8}" y="${H - 22}" font-size="13.5">one real exchange, ${esc(exchange.model)} · replayed on the recorded clock${exchange.note ? ` · ${esc(exchange.note)}` : ''}</text>`;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" role="img" aria-label="${esc(label)}">`
     + style
     + '<filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0b0b0b" flood-opacity=".10"/></filter>'
@@ -190,7 +191,19 @@ function main() {
   const exchangePath = path.resolve(flag('exchange', path.join(root, 'records', 'demo-2026-09-04', 'exchange.json')));
   const out = path.resolve(flag('out', path.join(root, '..', '..', 'foreman', 'assets', 'demo.svg')));
   const exchange = JSON.parse(fs.readFileSync(exchangePath, 'utf8'));
-  const turns = exchange.turns.map((t) => ({ you: t.you, ...parseTranscript(fs.readFileSync(path.join(path.dirname(exchangePath), t.transcript), 'utf8')) }));
+  const turns = exchange.turns.map((t) => {
+    const parsed = parseTranscript(fs.readFileSync(path.join(path.dirname(exchangePath), t.transcript), 'utf8'));
+    // A turn may declare `omit`: exact paragraphs of the reply that are harness
+    // artifacts, not Foreman's speech — a headless recording has no question
+    // tool, and the model says so before it shows the menu as text. The
+    // omission is declared beside the transcript, exact-match only, and the
+    // picture's own alt text and footer say a line was left out (exchange.note).
+    const omit = Array.isArray(t.omit) ? t.omit.map((p) => p.trim()) : [];
+    const reply = omit.length
+      ? parsed.reply.split(/\n\s*\n/).filter((p) => !omit.includes(p.trim())).join('\n\n')
+      : parsed.reply;
+    return { you: t.you, ...parsed, reply };
+  });
   const { svg, label } = demoSvg(exchange, turns);
   fs.writeFileSync(out, svg);
   console.log(`wrote ${out} from ${turns.length} turns (${turns.map((t) => `${(t.ms / 1000).toFixed(1)} s`).join(', ')})`);
