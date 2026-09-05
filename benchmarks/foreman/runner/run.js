@@ -120,6 +120,11 @@ const ARMS = {
   // Nothing in the fixture can refute the claim; only the instruction does.
   'unpin-off': { prompt: 'unpin-off', pluginDirs: [] },
   'unpin-wrong': { prompt: 'unpin-wrong', pluginDirs: [] },
+  // The same pin as a Constraints line inside <task_rules> — the fact
+  // delivered where the task is cut, not where it is worked. Written by
+  // benefit/gen.js; `cut-on` runs on pinned-dup, `cut-wrong` on unpinned-dup.
+  'cut-on': { prompt: 'cut-on', pluginDirs: [] },
+  'cut-wrong': { prompt: 'cut-wrong', pluginDirs: [] },
   // [§4a] scope_discipline governs a mid-session REQUEST; these two ask what a
   // clause about what the session FINDS is worth. Same quiet-extras prompt,
   // one constraint line apart, both written by extras/gen.js out of

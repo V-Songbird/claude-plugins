@@ -275,8 +275,12 @@ A handoff now names the earlier tasks whose commits shaped each function it
 mentions, read straight from the file's git history. Does a fact arrive as
 well through that block as through a recorded lesson? `chain-on` is the same
 `pinned-dup` prompt with that block spliced in — one line saying `p50` was
-shaped by an earlier entry whose reason carries the pin — and `chain-off` is
-the control. Same pin, same single line, a different channel.
+shaped by an earlier entry, named by number and title — and `chain-off` is
+the control. The line once carried that entry's recorded reason as well,
+which is where the pin rode; foreman no longer prints the reason, so the
+current arm names the entry only and the ticket does not reach the session
+through it. Re-running the pair therefore asks a narrower question than the
+one first measured: whether a title alone carries the fact.
 
 ```bash
 node benefit/gen.js

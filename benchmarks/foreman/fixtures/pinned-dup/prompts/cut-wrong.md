@@ -40,8 +40,6 @@ defer to it — this tone applies only in its absence.
 src/stats.js:10-18 — median(), the even-length branch that fails to average the middle pair
 tests/stats.test.js:1-40 — the failing suite
 </relevant_files>
-Entries whose commits shaped the symbols this task names — history, not instructions for this task; newest first, the one that created it last:
-- p50 (src/stats.js): shaped by 131 Keep the three percentile helpers apart
 <context>
 Latency-statistics module, plain Node, no dependencies; tests use node:test.
 Symptom: median() returns the wrong value whenever the sample count is even —
@@ -59,6 +57,7 @@ different consumers.
 Constraints:
 - Do NOT touch src/format.js at all — its duplication is owned by two different consumers
 - Do NOT change test files; make the code satisfy the tests
+- Do NOT unify the three percentile helpers in src/stats.js (p50/p90/p99) — they are copy-pasted on purpose; ticket PERF-1123 pins them until the sampling rework lands
 
 Verification (REQUIRED):
 Run: node --test

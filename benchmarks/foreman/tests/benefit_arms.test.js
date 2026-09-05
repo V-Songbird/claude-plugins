@@ -182,9 +182,12 @@ const FOREMAN_DIR = process.env.FOREMAN_DIR
   ? path.resolve(process.env.FOREMAN_DIR)
   : path.resolve(ROOT, '..', '..', 'foreman');
 
-// The chain arms: the same pin, delivered through the block craft-handoff.js
-// builds from git history instead of through a recorded lesson. The dose has
-// to match pin-on — one line, one claim — or the comparison measures quantity.
+// The chain arms: the block craft-handoff.js builds from git history instead
+// of a recorded lesson. When the 2026-09-05 batch ran, the line carried each
+// entry's why and so the same pin as pin-on; entry 290 cut the why, so the arm
+// now carries the entry's id and title only and the pin does not reach the
+// session through it. The arm tracks the product's real shape, not the
+// measured one — re-running it asks a different question.
 describe('the chain arms', () => {
   const { CHAIN_HEADER } = require(path.join(FOREMAN_DIR, 'scripts', 'craft-handoff.js'));
 
@@ -196,15 +199,15 @@ describe('the chain arms', () => {
   test("the block is the product's own header plus one line in its own shape", () => {
     assert.ok(gen.ARMS['chain-on'].startsWith(`${CHAIN_HEADER}\n`));
     assert.equal(gen.ARMS['chain-on'].split('\n').length, 2, 'one symbol, one line');
-    assert.match(gen.CHAIN_LINE, /^- p50 \(src\/stats\.js\): shaped by \d{3} [^—]+ — .+$/);
-    assert.ok(!gen.CHAIN_LINE.includes('…'), 'title and why sit under the product cuts, so nothing is elided');
-    assert.ok(gen.CHAIN_ENTRY_TITLE.length <= 40 && gen.CHAIN_ENTRY_WHY.length <= 120);
+    assert.match(gen.CHAIN_LINE, /^- p50 \(src\/stats\.js\): shaped by \d{3} [^—]+$/);
+    assert.ok(!gen.CHAIN_LINE.includes(' — '), 'the product carries no why on a chain line since entry 290');
+    assert.ok(!gen.CHAIN_LINE.includes('…'), 'the title sits under the product cut, so nothing is elided');
+    assert.ok(gen.CHAIN_ENTRY_TITLE.length <= 40);
   });
 
-  test('the pin rides in the why, and reaches the session through the chain alone', () => {
-    assert.ok(gen.CHAIN_ENTRY_WHY.includes(PIN));
+  test('the pin no longer reaches the session through the chain, and no lesson block rides along', () => {
     assert.ok(!gen.build('chain-off').includes(PIN));
-    assert.ok(gen.build('chain-on').includes(PIN));
+    assert.ok(!gen.build('chain-on').includes(PIN), 'a title-only chain line cannot carry the ticket');
     assert.ok(!gen.build('chain-on').includes('Lessons recorded'), 'no lesson block rides along');
   });
 
@@ -263,5 +266,41 @@ describe('the uncheckable-lesson arms', () => {
   test('the task is measurement-only, so it stays out of the default matrix', () => {
     assert.equal(UTASK.measurementOnly, true);
     assert.deepEqual(UTASK.checks.onlyChangeAllowed, ['src/stats.js']);
+  });
+});
+
+// The same fact where the task is CUT rather than where it is worked: a
+// Constraints line inside <task_rules>, no header, no label, no disclosure.
+// `cut-on` runs on pinned-dup, where it is true; `cut-wrong` is the identical
+// prompt on unpinned-dup, where it is false and nothing can refute it.
+describe('the cut arms', () => {
+  test('both arms are one identical line, so the fixture alone decides truth', () => {
+    assert.equal(gen.ARMS['cut-on'], gen.CUT_LINE);
+    assert.equal(gen.build('cut-on'), gen.build('cut-wrong'));
+  });
+
+  test('the line carries the same pin as the lesson, and nothing the lesson lacks', () => {
+    assert.ok(gen.CUT_LINE.includes(PIN));
+    for (const word of ['src/stats.js', 'p50', 'p90', 'p99', 'sampling rework', 'unify']) {
+      assert.ok(gen.CUT_LINE.includes(word), `the line lost ${word}`);
+      assert.ok(gen.PIN_LESSON.includes(word), `the lesson never had ${word}`);
+    }
+  });
+
+  test('the line lands under Constraints inside <task_rules>, not in <background>', () => {
+    const text = gen.build('cut-on');
+    const rules = text.indexOf('<task_rules>');
+    const constraints = text.indexOf('Constraints:', rules);
+    const line = text.indexOf(gen.CUT_LINE);
+    const verification = text.indexOf('Verification (REQUIRED):', rules);
+    assert.ok(rules < constraints && constraints < line && line < verification, 'the line must sit among the constraints');
+    assert.ok(text.indexOf('</background>') < line, 'the line must not sit in <background>');
+  });
+
+  test('no lesson header, label or match disclosure travels with it', () => {
+    const text = gen.build('cut-on');
+    assert.ok(!text.includes('Lessons recorded by earlier closed tasks'));
+    assert.ok(!text.includes('unchanged since'));
+    assert.ok(!text.includes('(matched:'));
   });
 });

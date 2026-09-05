@@ -98,23 +98,28 @@ function block(lesson, labelText) {
 }
 
 // The symbol chain, the way craft-handoff.js formats it: one line per symbol,
-// each shaping entry as `<id> <title> — <why>`. Here the pin rides in the why
-// of the entry that wrote the helpers — exactly where a real project keeps it,
-// in the roadmap entry behind the commit, reachable through its trailer. One
-// line and one claim, so the information dose matches pin-on and the only
-// thing that differs from it is the channel's own shape: no "verify against
-// the code" header, no staleness label, a history framing instead of a claim.
-// Title and why sit under the product's own cuts (40 and 120), so this is the
-// line craft-handoff.js would print, not a paraphrase of it.
+// each shaping entry as `<id> <title>`. The 2026-09-05 batch (0/6 → 6/6 on
+// both models) ran when the product still carried each entry's why on this
+// line, and the pin rode in it; entry 290 cut the why, so the line now names
+// the entry that wrote the helpers by id and title alone. The title still
+// states the plan the entry carried out, but PERF-1123 no longer reaches the
+// session through this arm — it asks a narrower question than the measured
+// one (does a title alone carry the fact?), and that question is unmeasured.
+// The title sits under the product's own cut (40), so this is the line
+// craft-handoff.js would print, not a paraphrase of it.
 const CHAIN_ENTRY_ID = '131';
 const CHAIN_ENTRY_TITLE = 'Keep the three percentile helpers apart';
-const CHAIN_ENTRY_WHY =
-  'PERF-1123 pins p50/p90/p99 as separate copies until the sampling rework lands, so do not unify them';
-const CHAIN_LINE = `- p50 (src/stats.js): shaped by ${CHAIN_ENTRY_ID} ${CHAIN_ENTRY_TITLE} — ${CHAIN_ENTRY_WHY}`;
+const CHAIN_LINE = `- p50 (src/stats.js): shaped by ${CHAIN_ENTRY_ID} ${CHAIN_ENTRY_TITLE}`;
 
 function chainBlock() {
   return `${CHAIN_HEADER}\n${CHAIN_LINE}`;
 }
+
+// The pin as a constraint: the same ticket, files, symbols and reason as
+// PIN_LESSON, worded the way judgment.constraints lines read in a shipped
+// handoff. One line and one claim, so the dose matches pin-on.
+const CUT_LINE =
+  '- Do NOT unify the three percentile helpers in src/stats.js (p50/p90/p99) — they are copy-pasted on purpose; ticket PERF-1123 pins them until the sampling rework lands';
 
 const ARMS = {
   'pin-off': null,
@@ -133,23 +138,41 @@ const ARMS = {
   // which of the two the session obeys.
   'unpin-off': null,
   'unpin-wrong': block(PIN_LESSON, PIN_LABEL),
+  // The same fact, delivered where the CUT is made instead of where the work
+  // is done. `pin-on` hands the worker a recalled claim under a header that
+  // says to verify it against the code; these two hand it the identical fact
+  // as a Constraints line inside <task_rules> — the form a crafting session
+  // would have written had the lesson reached it before it cut the task, and
+  // the form truth_grounding calls "a decision already taken". No label, no
+  // header, no match disclosure. `cut-on` runs on pinned-dup, where the fact
+  // is true; `cut-wrong` is the same prompt on unpinned-dup, where it is
+  // false and nothing in the fixture can refute it. The question is whether
+  // the channel's shape changes what a true fact costs and what a false one
+  // does — `unpin-wrong` showed Opus refuting a note by looking; a constraint
+  // grants no such licence.
+  'cut-on': CUT_LINE,
+  'cut-wrong': CUT_LINE,
 };
 
-// The block lands where craft-handoff.js puts it: inside <background>, after
-// <relevant_files>, before <context>. The chain lands there too — in the
-// product it follows the lessons block, and this prompt carries none.
+// Where each arm's block lands. The lesson and chain blocks go inside
+// <background>, after <relevant_files>, before <context> — where
+// craft-handoff.js puts them. The cut line goes under Constraints: inside
+// <task_rules>, after the last constraint the frozen prompt already carries.
 const ANCHOR = '</relevant_files>\n';
+const CUT_ANCHOR = '- Do NOT change test files; make the code satisfy the tests\n';
+const PLACE = { 'cut-on': CUT_ANCHOR, 'cut-wrong': CUT_ANCHOR };
 
 function build(armName) {
   if (!(armName in ARMS)) throw new Error(`unknown arm ${armName}`);
   const base = fs.readFileSync(path.join(PROMPTS, 'foreman.md'), 'utf8');
   const lessons = ARMS[armName];
   if (!lessons) return base;
-  const at = base.indexOf(ANCHOR);
+  const anchor = PLACE[armName] || ANCHOR;
+  const at = base.indexOf(anchor);
   if (at === -1) {
-    throw new Error(`foreman.md no longer contains ${JSON.stringify(ANCHOR)} — the arms cannot be spliced`);
+    throw new Error(`foreman.md no longer contains ${JSON.stringify(anchor)} — the arms cannot be spliced`);
   }
-  const cut = at + ANCHOR.length;
+  const cut = at + anchor.length;
   return `${base.slice(0, cut)}${lessons}\n${base.slice(cut)}`;
 }
 
@@ -190,7 +213,7 @@ module.exports = {
   WRONG_LESSON,
   WRONG_LABEL,
   CHAIN_LINE,
+  CUT_LINE,
   CHAIN_ENTRY_ID,
   CHAIN_ENTRY_TITLE,
-  CHAIN_ENTRY_WHY,
 };
