@@ -12,10 +12,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/V-Songbird/foreman.git",
-        "sha": "0457af83bba1c6beb0db16b62ae3bb7a11ebe739"
+        "sha": "4eb352c2fc3664f80f8d989a81ca37a9dd7d3a5b"
       },
       "description": "Project continuity and roadmap trust: keeps a correctable roadmap in your repo, recommends the next task and says why it came first, and hands it off with the paths and symbols checked. Say what you want in plain language — one entrance routes it.",
-      "version": "2.5.6",
+      "version": "2.6.0",
       "license": "MIT",
       "author": {
         "name": "Victor Villegas",
