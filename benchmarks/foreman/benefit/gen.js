@@ -48,8 +48,16 @@
 // product string must fail the arm test rather than silently benchmark prose
 // the product no longer ships.
 //
-//   node benefit/gen.js            # write both arm prompts
-//   node benefit/gen.js --check    # exit 1 if they are missing or stale
+// Two more pairs ride on the same machinery. `chain-off` / `chain-on` ask
+// whether the symbol chain — the block craft-handoff.js builds from a file's
+// commit history — carries the same pin as well as a lesson does. `unpin-off`
+// / `unpin-wrong` ask the question the wrong-lesson arm could not: what a
+// false lesson does when NOTHING in the task can refute it. They live on
+// `unpinned-dup`, the same app with the opposite truth (the collapse is the
+// job), and serve pin-on's exact block anyway.
+//
+//   node benefit/gen.js            # write every arm prompt
+//   node benefit/gen.js --check    # exit 1 if any is missing or stale
 //
 // Run data stays on the operator's machine per ADR 0004. This file writes
 // prompts only.
@@ -60,12 +68,16 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 const FIXTURE = path.join(ROOT, 'fixtures', 'pinned-dup');
 const PROMPTS = path.join(FIXTURE, 'prompts');
+// The mirror fixture: the same app, the opposite truth. Its prompts/foreman.md
+// is a byte-identical copy of pinned-dup's, so the base prompt is one thing
+// and only the arm block and the scoring differ.
+const UNPINNED = path.join(ROOT, 'fixtures', 'unpinned-dup');
 
 const FOREMAN_DIR = process.env.FOREMAN_DIR
   ? path.resolve(process.env.FOREMAN_DIR)
   : path.resolve(ROOT, '..', '..', 'foreman');
 
-const { NOTES_HEADER, NOTES_CLOSER } = require(path.join(FOREMAN_DIR, 'scripts', 'craft-handoff.js'));
+const { NOTES_HEADER, NOTES_CLOSER, CHAIN_HEADER } = require(path.join(FOREMAN_DIR, 'scripts', 'craft-handoff.js'));
 
 // The lesson is TRUE of the repo now, and it is the only place the pin exists.
 // Worded the way a real close would have worded it, and within the store's own
@@ -88,18 +100,61 @@ function block(lesson, labelText) {
   return `${NOTES_HEADER}\n- ${lesson} ${labelText} ${PIN_MATCH}\n${NOTES_CLOSER}`;
 }
 
+// The symbol chain, the way craft-handoff.js formats it: one line per symbol,
+// each shaping entry as `<id> <title> — <why>`. Here the pin rides in the why
+// of the entry that wrote the helpers — exactly where a real project keeps it,
+// in the roadmap entry behind the commit, reachable through its trailer. One
+// line and one claim, so the information dose matches pin-on and the only
+// thing that differs from it is the channel's own shape: no "verify against
+// the code" header, no staleness label, a history framing instead of a claim.
+// Title and why sit under the product's own cuts (40 and 120), so this is the
+// line craft-handoff.js would print, not a paraphrase of it.
+const CHAIN_ENTRY_ID = '131';
+const CHAIN_ENTRY_TITLE = 'Keep the three percentile helpers apart';
+const CHAIN_ENTRY_WHY =
+  'PERF-1123 pins p50/p90/p99 as separate copies until the sampling rework lands, so do not unify them';
+const CHAIN_LINE = `- p50 (src/stats.js): shaped by ${CHAIN_ENTRY_ID} ${CHAIN_ENTRY_TITLE} — ${CHAIN_ENTRY_WHY}`;
+
+function chainBlock() {
+  return `${CHAIN_HEADER}\n${CHAIN_LINE}`;
+}
+
 const ARMS = {
   'pin-off': null,
   'pin-on': block(PIN_LESSON, PIN_LABEL),
   'pin-wrong': block(WRONG_LESSON, WRONG_LABEL),
+  // Does the chain carry a fact the way a lesson does? Same fixture, same
+  // truth, same pin — a different channel.
+  'chain-off': null,
+  'chain-on': chainBlock(),
+  // The uncheckable false lesson. pin-on's EXACT block, served on the
+  // unpinned-dup fixture, whose truth is the opposite: the task asks for the
+  // collapse, the TODO invites it, and no PERF-1123 exists. The wrong-lesson
+  // arm above handed the session a test that refuted its claim; this one hands
+  // it nothing. Only the instruction contradicts the lesson, and the question
+  // is which of the two the session obeys.
+  'unpin-off': null,
+  'unpin-wrong': block(PIN_LESSON, PIN_LABEL),
 };
 
+// Which fixture an arm's prompts live in. Everything is pinned-dup except the
+// uncheckable pair.
+function fixtureOf(armName) {
+  return armName.startsWith('unpin-') ? UNPINNED : FIXTURE;
+}
+
+function promptsDir(armName) {
+  return path.join(fixtureOf(armName), 'prompts');
+}
+
 // The block lands where craft-handoff.js puts it: inside <background>, after
-// <relevant_files>, before <context>.
+// <relevant_files>, before <context>. The chain lands there too — in the
+// product it follows the lessons block, and this prompt carries none.
 const ANCHOR = '</relevant_files>\n';
 
 function build(armName) {
-  const base = fs.readFileSync(path.join(PROMPTS, 'foreman.md'), 'utf8');
+  if (!(armName in ARMS)) throw new Error(`unknown arm ${armName}`);
+  const base = fs.readFileSync(path.join(promptsDir(armName), 'foreman.md'), 'utf8');
   const lessons = ARMS[armName];
   if (!lessons) return base;
   const at = base.indexOf(ANCHOR);
@@ -111,7 +166,7 @@ function build(armName) {
 }
 
 function armPath(armName) {
-  return path.join(PROMPTS, `${armName}.md`);
+  return path.join(promptsDir(armName), `${armName}.md`);
 }
 
 function main() {
@@ -138,4 +193,17 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { ARMS, build, armPath, PIN_LESSON, PIN_LABEL, WRONG_LESSON, WRONG_LABEL };
+module.exports = {
+  ARMS,
+  build,
+  armPath,
+  fixtureOf,
+  PIN_LESSON,
+  PIN_LABEL,
+  WRONG_LESSON,
+  WRONG_LABEL,
+  CHAIN_LINE,
+  CHAIN_ENTRY_ID,
+  CHAIN_ENTRY_TITLE,
+  CHAIN_ENTRY_WHY,
+};

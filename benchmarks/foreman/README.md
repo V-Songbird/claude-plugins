@@ -269,6 +269,33 @@ measurement, not an argument. Two things get scored: whether the shipped suite
 still passes (did the false pin talk the session out of the fix) and what the
 arm spent (what adjudicating a false claim costs when it does not).
 
+### The chain arms
+
+A handoff now names the earlier tasks whose commits shaped each function it
+mentions, read straight from the file's git history. Does a fact arrive as
+well through that block as through a recorded lesson? `chain-on` is the same
+`pinned-dup` prompt with that block spliced in — one line saying `p50` was
+shaped by an earlier entry whose reason carries the pin — and `chain-off` is
+the control. Same pin, same single line, a different channel.
+
+```bash
+node benefit/gen.js
+node runner/run.js --tasks pinned-dup --arms chain-off,chain-on --reps 6
+```
+
+### The uncheckable lesson
+
+`pin-wrong` hands the session a test that refutes the false claim. The
+dangerous shape is a false lesson nothing can refute. `unpinned-dup` is the
+same app with the opposite truth: the task asks for the collapse, the in-code
+TODO invites it, and no ticket pins anything — and `unpin-wrong` serves
+`pin-on`'s exact block anyway. If the session obeys it, the collapse it was
+sent to make never happens, and the task's inverted sentinels score that.
+
+```bash
+node runner/run.js --tasks unpinned-dup --arms unpin-off,unpin-wrong --reps 6
+```
+
 ## Roadmap health and attention cost
 
 A different question again: does a roadmap stay accurate over months, and what

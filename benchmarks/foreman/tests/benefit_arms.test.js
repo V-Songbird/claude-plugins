@@ -177,3 +177,96 @@ describe('the wrong-lesson arm', () => {
     }
   });
 });
+
+const FOREMAN_DIR = process.env.FOREMAN_DIR
+  ? path.resolve(process.env.FOREMAN_DIR)
+  : path.resolve(ROOT, '..', '..', 'foreman');
+
+// The chain arms: the same pin, delivered through the block craft-handoff.js
+// builds from git history instead of through a recorded lesson. The dose has
+// to match pin-on — one line, one claim — or the comparison measures quantity.
+describe('the chain arms', () => {
+  const { CHAIN_HEADER } = require(path.join(FOREMAN_DIR, 'scripts', 'craft-handoff.js'));
+
+  test('the control is the frozen prompt and the treatment is it plus the chain block only', () => {
+    assert.equal(gen.build('chain-off'), BASE);
+    assert.equal(gen.build('chain-on').replace(gen.ARMS['chain-on'] + '\n', ''), BASE);
+  });
+
+  test("the block is the product's own header plus one line in its own shape", () => {
+    assert.ok(gen.ARMS['chain-on'].startsWith(`${CHAIN_HEADER}\n`));
+    assert.equal(gen.ARMS['chain-on'].split('\n').length, 2, 'one symbol, one line');
+    assert.match(gen.CHAIN_LINE, /^- p50 \(src\/stats\.js\): shaped by \d{3} [^—]+ — .+$/);
+    assert.ok(!gen.CHAIN_LINE.includes('…'), 'title and why sit under the product cuts, so nothing is elided');
+    assert.ok(gen.CHAIN_ENTRY_TITLE.length <= 40 && gen.CHAIN_ENTRY_WHY.length <= 120);
+  });
+
+  test('the pin rides in the why, and reaches the session through the chain alone', () => {
+    assert.ok(gen.CHAIN_ENTRY_WHY.includes(PIN));
+    assert.ok(!gen.build('chain-off').includes(PIN));
+    assert.ok(gen.build('chain-on').includes(PIN));
+    assert.ok(!gen.build('chain-on').includes('Lessons recorded'), 'no lesson block rides along');
+  });
+
+  test('the block sits where craft-handoff puts it: after the files, before the context', () => {
+    const text = gen.build('chain-on');
+    const files = text.indexOf('</relevant_files>');
+    const chain = text.indexOf(CHAIN_HEADER);
+    const context = text.indexOf('<context>');
+    assert.ok(files < chain && chain < context);
+  });
+});
+
+// The uncheckable-lesson arms. The wrong-lesson arm handed the session a test
+// that refuted the false claim; these hand it nothing. Same app, opposite
+// truth, pin-on's exact block.
+describe('the uncheckable-lesson arms', () => {
+  const UNPINNED = path.join(ROOT, 'fixtures', 'unpinned-dup');
+  const UTASK = TASKS.find((t) => t.id === 'unpinned-dup');
+  const read = (p) => fs.readFileSync(p, 'utf8');
+
+  test('the fixture app is byte-identical to pinned-dup — only the truth differs', () => {
+    const rel = (dir, f) => path.relative(dir, f).split(path.sep).join('/');
+    const a = new Map(filesUnder(path.join(FIXTURE, 'app')).map((f) => [rel(path.join(FIXTURE, 'app'), f), read(f)]));
+    const b = new Map(filesUnder(path.join(UNPINNED, 'app')).map((f) => [rel(path.join(UNPINNED, 'app'), f), read(f)]));
+    assert.deepEqual([...a.keys()].sort(), [...b.keys()].sort());
+    for (const [f, text] of a) assert.equal(b.get(f), text, `${f} differs between the two fixtures`);
+    assert.equal(read(path.join(UNPINNED, 'prompts', 'foreman.md')), BASE, 'the base prompt must be the same prompt');
+  });
+
+  test("the served block is pin-on's block, verbatim, and the control carries none", () => {
+    assert.equal(gen.ARMS['unpin-wrong'], gen.ARMS['pin-on']);
+    assert.equal(gen.ARMS['unpin-off'], null);
+    assert.equal(gen.fixtureOf('unpin-wrong'), UNPINNED);
+    assert.equal(gen.build('unpin-off'), BASE);
+  });
+
+  test('the task asks for the very collapse the lesson forbids', () => {
+    assert.match(BASE, /collapse any obvious copy-paste duplication/);
+    assert.match(gen.PIN_LESSON, /do not unify them/);
+  });
+
+  test('nothing in the fixture can refute the claim — no ticket, no test on the helpers\' shape', () => {
+    for (const f of filesUnder(path.join(UNPINNED, 'app'))) {
+      assert.ok(!read(f).includes(PIN), `${path.relative(UNPINNED, f)} states the pin`);
+    }
+    const suite = read(path.join(UNPINNED, 'app', 'tests', 'stats.test.js'));
+    assert.ok(!suite.includes('percentile('), 'the suite must not demand the collapse either — that would make the claim checkable');
+  });
+
+  test('the solution collapses the copies and the lazy path keeps them', () => {
+    const solution = read(path.join(UNPINNED, 'solution', 'src', 'stats.js'));
+    const lazy = read(path.join(UNPINNED, 'lazy', 'src', 'stats.js'));
+    for (const s of UTASK.checks.sentinels) {
+      assert.equal(s.absent, true, 'every sentinel is inverted: the line must be gone');
+      assert.ok(!solution.includes(s.contains), `the solution still carries ${s.contains}`);
+      assert.ok(lazy.includes(s.contains), `the lazy path already removed ${s.contains}`);
+    }
+    assert.match(solution, /\(sorted\[mid - 1\] \+ sorted\[mid\]\) \/ 2/, 'the solution also fixes median()');
+  });
+
+  test('the task is measurement-only, so it stays out of the default matrix', () => {
+    assert.equal(UTASK.measurementOnly, true);
+    assert.deepEqual(UTASK.checks.onlyChangeAllowed, ['src/stats.js']);
+  });
+});

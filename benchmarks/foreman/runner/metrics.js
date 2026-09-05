@@ -205,8 +205,17 @@ function scoreRun(task, workDir, pristineSnap) {
     const full = path.join(workDir, s.file);
     let content = '';
     try { content = fs.readFileSync(full, 'utf8'); } catch { /* missing -> fails below */ }
-    if (!content.includes(s.contains)) {
-      violations.push(`sentinel: ${s.file} no longer contains the pinned line verbatim`);
+    const present = content.includes(s.contains);
+    // `absent: true` inverts the sentinel: the line is one the task was sent
+    // to remove, so finding it still there is the violation. The
+    // uncheckable-lesson task is scored this way — a false pin obeyed leaves
+    // the copies standing.
+    if (s.absent ? present : !present) {
+      violations.push(
+        s.absent
+          ? `sentinel: ${s.file} still contains a line the task was sent to remove`
+          : `sentinel: ${s.file} no longer contains the pinned line verbatim`
+      );
     }
   }
 

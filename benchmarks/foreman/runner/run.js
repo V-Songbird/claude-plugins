@@ -109,6 +109,17 @@ const ARMS = {
   // the same fresh label. Nothing in the product can detect this case, so what
   // it costs has to be measured rather than reasoned about.
   'pin-wrong': { prompt: 'pin-wrong', pluginDirs: [] },
+  // Does the symbol chain carry a fact the way a lesson does? The SAME
+  // pinned-dup prompt with the block craft-handoff.js builds from git history
+  // spliced in — the pin rides in the why of the entry that wrote the helpers.
+  // Written by benefit/gen.js.
+  'chain-off': { prompt: 'chain-off', pluginDirs: [] },
+  'chain-on': { prompt: 'chain-on', pluginDirs: [] },
+  // The uncheckable false lesson: pin-on's exact block on the unpinned-dup
+  // fixture, where the task asks for the collapse and no ticket pins anything.
+  // Nothing in the fixture can refute the claim; only the instruction does.
+  'unpin-off': { prompt: 'unpin-off', pluginDirs: [] },
+  'unpin-wrong': { prompt: 'unpin-wrong', pluginDirs: [] },
   // [§4a] scope_discipline governs a mid-session REQUEST; these two ask what a
   // clause about what the session FINDS is worth. Same quiet-extras prompt,
   // one constraint line apart, both written by extras/gen.js out of
