@@ -135,6 +135,14 @@ node runner/publish.js --records records/mine-1a2b3c4d
 
 That writes `claims.md` and standalone SVG charts, per segment, from the records alone — every published number is generated, never hand-typed. Records carry the batch they came from, and publishing refuses a mix of batches: a warm prompt cache roughly halves cost, so numbers from two batches are not comparable and arms have to be raced together, inside one batch.
 
+The side-by-side replay on hush's README comes from the same records:
+
+```bash
+node runner/demo.js --records records/mine-1a2b3c4d --task failing-suite
+```
+
+It plays every message the no-plugin session sent beside the one message hush sent, on the recorded wall clock, and writes `hush/assets/demo.svg`. With no `--baseline` or `--hush` run named, it takes the run with the median-length final message from each arm — a typical session, not a flattering one — and prints which two it drew.
+
 ### A note on fairness
 
 hush's output style is part of the product, so its prompt overhead is included in the measurement, not subtracted. Each arm runs in a fresh throwaway workspace outside any git repo, with only that one plugin loaded (`--setting-sources project`, no MCP servers, a scoped tool allowlist) — so a difference between arms is the plugin, nothing else.
